@@ -1,5 +1,5 @@
 /*****************************************************************************\
-| CortUI v1.3 - Release Notes                                                 |
+| CortUI v1.4 - Release Notes                                                 |
 \*****************************************************************************/
 
 
@@ -11,7 +11,7 @@ modification
 
 Changes in CortUI (compared to default UI):
 -------------------------------------------
-- Chat has ten lines instead of five.
+- Chat has up to ten lines (configurable) instead of five.
 - Base status display in hangar-mode has been moved from the top to the bottom
   right, to not overlap with the chat.
 - Parts of the hangar graphics have been removed to not overlap with the chat.
@@ -19,11 +19,15 @@ Changes in CortUI (compared to default UI):
   chat and isn't helpful anyway.
 - Autopilot and vector-lock status in flight-mode have been moved and the
   graphics have been made smaller to not overlap with the chat.
+- F3 command-pane has been shrunk so that it won't overlap the inventory
+  screen.
 - Map-mode shows all necessary ship status info in upper left area of the
   screen. (Autopilot and vector-lock status, name of current target, distance
   to current target, ship type, shield status, hull status, energy status,
   ammo status, fuel status, current thrust, current speed, current signature,
   kill bonus.)
+- The Z-order of the panes was changed, so that the inventory is always on top
+  of the command-pane.
 - Ripcord time is now displayed in map-mode as well, not only in flight-mode.
 
 
@@ -42,21 +46,22 @@ Installation:
 
 Additional remarks:
 -------------------
-- Designed for the normal UI and Slipstream GUI. When you want to use it with
-  Slipstream, you should use the special package for this. Otherwise, the
+- Designed for the normal UI and Slipstream GUI. If you want to use it with
+  Slipstream, you need a special package of CortUI. Otherwise, the
   command bar in the map mode will have the standard design.
 - Designed for 800x600 and 1024x768.
-- Works with normal HUD and software HUD. (Although I don't recommend using
-  this UI with software HUD at 800x600, because I had to move down the status
+- Works with normal HUD and software HUD. (Although we don't recommend using
+  this UI with software HUD at 800x600, because we had to move down the status
   bar to make room for the ten chat lines, so its pretty much in the center
   at 800x600 now.)
 - The four red lines of command wing info don't overlap with the chat lines,
   but they do overlap with the hud and the info in map-mode. :( Suggestions
-  to solve this problem are appreciated, I don't see any proper solution
-  currently. I can move them, modify their font, etc. But I just don't know
-  where to.
-- The chat lines overlap with the normal display in the loadout-screen. I
-  can't think of a proper solution either.
+  to solve this problem are appreciated.
+- The chat lines overlap with the normal display in the loadout-screen.
+- To configure the number of chat lines, open dialog.mdl, scroll down a few
+  lines until you find a line that looks like
+    NumChatLines = 7;
+  You can change that number to something between 4 and 10.
 
 
 Package contents:
@@ -76,13 +81,27 @@ Package contents:
   chat.
 - cortui_hangarbmp.mdl: Contains the background image of the hangar. Some
   pixels at the top of this graphic were made black to not overlay the chat.
+- cortui_btnchangewing3bmp.mdl: The wings-button of the new command-pane.
+- cortui_commandbkgndbmp.mdl: The background of the new command-pane.
+- cortui_recipientsbmp.mdl: The upper button row image for the new
+  command-pane.
+- cortui_verbsbmp.mdl: The lower button row image for the new command-pane.
 - backup\dialog.mdl: the original dialog.mdl from the installer 1.26
 - backup\hangar.mdl: the original hangar.mdl from the installer 1.26
-- backup\dialog.mdl.Ksero: Ksero's modification of the dialog.mdl
+- backup\dialog.mdl.Ksero: Ksero's original modification of the dialog.mdl.
 
 
 Version history:
 ----------------
+1.4:
+  * added full Slipstream GUI support (special package!)
+  * renamed some of the modified graphics so that they obey the common naming
+    style
+
+1.3:
+  * shrunk command-pane to improve support for low-resolution modes
+  * added a parameter to (more) easily change the number of chat lines.
+
 1.2:
   * added support for software HUD
 
@@ -102,21 +121,24 @@ To Do:
 ------
 - The base status display image should be modified so that it fits better to
   the background of its new position. This can be done with any pixel graphic
-  editor (Paint, PSP, Photoshop) and a bit of talent. I'm missing the latter,
-  so please contact me if you want to do that. You'll be mentioned in the
-  release notes as a matter of fact.
-- Test for compatibility with Slipstream GUI.
+  editor (Paint, PSP, Photoshop) and a bit of talent. Please contact us if you
+  want to do that. You'll be mentioned in the release notes as a matter of
+  fact.
 
 
 Contact:
 --------
-e-mail: Henrik@Heimbuerger.de
-ICQ: 14011335
-PM at forums: Cortex
+Ksero:
+  PM at freeallegiance.org-boards: Ksero
+
+Cortex:
+  e-mail: Henrik@Heimbuerger.de
+  ICQ: 14011335
+  PM at freeallegiance.org-boards: Cortex
 
 Constructive criticism and feature requests are appreciated. This modification
 is free for use. :D The files may be modified without further notification of
-the author. Would be nice if you mention me in the release notes of
+the authors. Would be nice if you mention us in the release notes of
 modifications that are based on this one. :)
 
 

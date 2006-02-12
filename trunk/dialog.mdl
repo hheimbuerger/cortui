@@ -1,5 +1,12 @@
 // /**************************************************************************\
-// | Version history:                                                         |
+// | File version history:                                                    |
+// |                                                                          |
+// | 1.4 / Cortex:                                                            |
+// | * changed the new filenames from version 1.3 to the common naming style  |
+// |                                                                          |
+// | 1.3 / Ksero:                                                             |
+// | * shrunk the command-pane to improve support for low-resolution modes    |
+// | * added parameter: NumChatLines                                          |
 // |                                                                          |
 // | 1.2 / Cortex:                                                            |
 // | + Chat has now ten lines instead of five.                                |
@@ -25,12 +32,13 @@
 // |                                                                          |
 // \**************************************************************************/
 
-
 use "console";
 use "font";
 use "teleportpane";
 use "teampane";
 
+// Parameter: Number of chat lines. Keep between 4 and 10.
+NumChatLines = 7;
 
 White = Color(1, 1, 1);
 TextColor = Color(0, 0, 0.0625);
@@ -43,17 +51,20 @@ myStationColor = GetSideColor(MyStation, OnEveryFrame);
 
 hudBlendMode = BlendModeAdd;
 
+// Ksero 2005-04-17
+// * New images and corresponding *Columns-values
+
 //Zero for the 1st col so we can have something that corresponds to nothing selected
 
-RecipientsColumns    = [68, 135, 203, 270]; 
-RecipientsBB = ButtonBarPane(ImportImage("recipientsbmp", true), ButtonNormal, RecipientsColumns, true);
+RecipientsColumns    = [53, 106, 159, 212]; 
+RecipientsBB = ButtonBarPane(ImportImage("cortui_recipientsbmp", true), ButtonNormal, RecipientsColumns, true);
 
-VerbsColumns    = [43, 80, 123, 162, 198, 238, 268, 320, 365];
-VerbsBB      = ButtonBarPane(ImportImage("verbsbmp", true), ButtonNormal, VerbsColumns, false);
+VerbsColumns    = [32, 62, 92, 122, 152, 182, 212, 242, 270];
+VerbsBB      = ButtonBarPane(ImportImage("cortui_verbsbmp", true), ButtonNormal, VerbsColumns, false);
 
 
 WingCombo    = 
-   ImageComboPane(ImportImage("btnchangewing3bmp", true), smallFont);
+   ImageComboPane(ImportImage("cortui_btnchangewing3bmp", true), smallFont);
  
 
 //
@@ -79,8 +90,11 @@ hoverString =
         ]
     );
 
-hoverImage = StringImage(JustifyCenter, 170, promptFont, yellowText, hoverString);
-hoverPane  = AnimatedImagePaneRect(hoverImage, Rect(0, -13, 170, 0));
+// Ksero 2005-04-17
+// * adjusted some sizes and offsets to accomodate the new commandpane
+
+hoverImage = StringImage(JustifyCenter, 126, promptFont, yellowText, hoverString);
+hoverPane  = AnimatedImagePaneRect(hoverImage, Rect(0, -13, 126, 0));
 
 commandRadarDetectPane = 
     SwitchPane(
@@ -92,12 +106,12 @@ commandRadarDetectPane =
 
 CommandPane = 
     ImagePane(
-        ImportImage("commandbkgndbmp", false),
+        ImportImage("cortui_commandbkgndbmp", false),
         [
-            (RecipientsBB, Point(14, 8)),
-            (WingCombo, Point(285, 8)),
-            (HoverPaneColumns(hoverSite, 1, VerbsBB, VerbsColumns), Point(0, 38)),
-            (hoverPane, Point(96, 73))
+            (RecipientsBB, Point(4, 8)),
+            (WingCombo, Point(216, 8)),
+            (HoverPaneColumns(hoverSite, 1, VerbsBB, VerbsColumns), Point(2, 38)),
+            (hoverPane, Point(72, 73))
         ]
     );
 
@@ -224,16 +238,19 @@ StationPane =
 // Ksero 15:28 2005-03-04
 // was ChatListPane(Point(370, 68));
 // the second parameter to Point is the height of the chat area.
-// Should be 32 + 9 * ( number of chat lines)
+// Should be 8 + 12 * ( number of chat lines)
 //
 // Cortex 2005-03-20
 // * increased ChatListPane-size
 // * changed background graphic to my modified one
 // * changed point(0,0) to point(0,20) (whatever that means)
 //
+// Ksero 2005-04-17
+// * restructured to use NumChatLines
+//
 //////////////////////////////////////////////////////
 
-chatListPane = ChatListPane(Point(370, 124));
+chatListPane = ChatListPane(Point(370, Add(8,Multiply(12,NumChatLines)) ) );
 
 CommPane =
     ImagePane(
@@ -2062,7 +2079,15 @@ LookingAtImage =
 //   the chat
 // - removed the base status display from the loadout screen
 //
+// Ksero 2005-04-17
+// * restructured to use common parameter NumChatLines
+// * adjusted positions for new, shorter command pane
+//
 //////////////////////////////////////////////////////////////
+
+SoftCenterHudDisplayYOffset = Subtract(-88,Multiply(12,NumChatLines)); // height(softcenterhud) = 29
+CriticalTipImageYOffset = Subtract(-44,Multiply(12,NumChatLines));     // height(criticaltipimage) = 56
+VoteTextImageYOffset = Subtract(-85,Multiply(12,NumChatLines));
 
 dialogs =
     [
@@ -2116,10 +2141,10 @@ dialogs =
         (ChatCompositionImage,                              SideBottom,     Point( -170,  -78), Point(-150,  148), .5, 65663,              false),
         
 		(ShipNameImage,                               SideBottomRight, Point( -250, -150), Point( -250,  54), .5, 8192, true ),        
-        (InventoryImage(),                            SideBottomRight, Point( -250, -150), Point( -250,  40), .5, 8192, false),
-        (InventoryTabImage,                           SideBottomRight, Point( -260, -150), Point( -260,  44), .5, 8192, true ), 
+        (InventoryImage(),                            SideBottomRight, Point( -245, -150), Point( -245,  40), .5, 8192, false),
+        (InventoryTabImage,                           SideBottomRight, Point( -255, -150), Point( -255,  44), .5, 8192, true ), 
         
-        (PaneImage(CommandPane,         false, true),       SideBottom,     Point(  -60, -190), Point( -60,   49), .5, 16384,              false),
+        (PaneImage(CommandPane,         false, true),       SideBottom,     Point( -135, -190), Point(-135,   49), .5, 16384,              false),
         (PaneImage(commandRadarDetectPane, false, true),    SideTopRight,   Point( -100,  190), Point(-100, -100), .5, 16384,              true ),
         (PaneImage(TeamPanePane,        false, true),       SideTopLeft,    Point( -620, -500), Point(   0, -500), .5,  6144,              false),
         (PaneImage(TeleportPane,        false, true),       SideTopLeft,    Point( -620, -280), Point(  16, -280), .5,   256,              false),
@@ -2138,17 +2163,17 @@ dialogs =
         //
         (cortCommandModeInfo,                         SideTopLeft,     Point(   40,   -7), Point( 40,   -37), .5,    2, true),
         (TipTextImage,                                SideBottom,      Point( -300, -200), Point(-300,   14), .5,65535, true),
-        (CriticalTipImage,                            SideTop,         Point( -310, -164), Point(-310, -164), .5,   15, true),
+        (CriticalTipImage,                            SideTop,         Point( -310, CriticalTipImageYOffset), Point(-310, CriticalTipImageYOffset), .5,   15, true),
         (LoadoutCriticalTipImage,                     SideTop,         Point( -310, -184), Point(-310, -184), .5,   64, true),
         (BoardTextImage,                              SideBottom,      Point( -300, -200), Point(-300,   28), .5,  119, true),
-        (VoteTextImage,							      SideTop,         Point( -310, -135), Point(-310, -135), .5,65535, true),
+        (VoteTextImage,	                              SideTop,         Point( -310, VoteTextImageYOffset), Point(-310, VoteTextImageYOffset), .5,65535, true),
 
         (PaneImage(EjectPodPane,        false, true), SideCenter,      Point( -86,  -87),  Point( -86,  -87), .5,   48, true ),
         (PaneImage(DeathBannerPane,     false, true), SideCenter,      Point( -105,  15),  Point(-105,   15), .5,65535, true ),
         (RipcordCountdownImage,                       SideCenter,      Point( -75,    15), Point( -75,   15), .5,   50, true ),
 		(VisibleImage(PaneImage(CommPane, false, true),     ShowChatHistoryHUD), SideTop, Point(-130, -124), Point(-130, -124), .5, 119, true),
         (VisibleImage(CenterHudDisplay,     ShowCenterHUD), SideCenter, Point( -320, 1000), Point( -320, -240), .5, 48, true ),
-        (VisibleImage(softCenterHudDisplay, ShowCenterHUD), SideTop,    Point( -320, 1000), Point( -232, -208), .5, 48, true ),
+        (VisibleImage(softCenterHudDisplay, ShowCenterHUD), SideTop,    Point( -320, 1000), Point( -232, SoftCenterHudDisplayYOffset), .5, 48, true ),
         (VisibleImage(TargetDisplay,        ShowTargetHUD), SideBottom, Point( -320, -183), Point( -320,   12), .5, 48, true ),
         
         (StationPane,                                   SideBottom,    Point(  -148,   85), Point( -148,  85), 0, 1, true ),
