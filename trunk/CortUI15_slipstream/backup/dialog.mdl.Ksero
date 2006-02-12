@@ -1,61 +1,8 @@
-// /**************************************************************************\
-// | File version history:                                                    |
-// |                                                                          |
-// | 1.6 / Cortex:															  |
-// | * Bugfix: the cloak indicator is now shown at the map again              |
-// |                                                                          |
-// | 1.5 / Cortex:                                                            |
-// | * splitted normal chat and loadout screen chat                           |
-// | + added scrollbar to chat display										  |
-// | + added version information display                                      |
-// | * reordered and repositioned all windows                                 |
-// | * changed various console mode flags                                     |
-// | * various internal refactorings                                          |
-// | * various minor changes                                                  |
-// | (read section documentation for more information)                        |
-// |                                                                          |
-// | 1.4 / Cortex:                                                            |
-// | * changed the new filenames from version 1.3 to the common naming style  |
-// |                                                                          |
-// | 1.3 / Ksero:                                                             |
-// | * shrunk the command-pane to improve support for low-resolution modes    |
-// | * added parameter: NumChatLines                                          |
-// |                                                                          |
-// | 1.2 / Cortex:                                                            |
-// | + Chat has now ten lines instead of five.                                |
-// | * Base-status-display in hangar-mode has been moved from the top to the  |
-// |   bottom right, to not overlap with the chat.                            |
-// | * Autopilot and vector-lock status in flight-mode have been moved and    |
-// |   the graphics have been made smaller to not overlap with the chat.      |
-// | + Map-mode shows all necessary ship status info in upper left area of    |
-// |   the screen. (Autopilot and vector-lock status, name of current target, |
-// |   distance to current target, ship type, shield status, hull status,     |
-// |   energy status, ammo status, fuel status, current thrust, current       |
-// |   speed, current signature, kill bonus.)                                 |
-// | + Ripcord time is now displayed in map-mode as well, not only in         |
-// |   flight-mode.                                                           |
-// |                                                                          |
-// | 1.1 / Ksero:                                                             |
-// | + added some chat lines                                                  |
-// | + added some documentation                                               |
-// | + added autopilot status indicator to map-mode                           |
-// |                                                                          |
-// | 1.0 / original Allegiance developers:                                    |
-// | + basic functionality                                                    |
-// |                                                                          |
-// \**************************************************************************/
-
 use "console";
 use "font";
 use "teleportpane";
 use "teampane";
 
-// Version information
-cortUIVersionString = "CortUI v1.51";
-// Parameter: Number of chat lines. Keep between 4 and 10.
-NumChatLines = 7;
-// Parameter: Number of chat lines. Six is optimum.
-NumChatLinesLoadout = 6;
 
 White = Color(1, 1, 1);
 TextColor = Color(0, 0, 0.0625);
@@ -68,20 +15,17 @@ myStationColor = GetSideColor(MyStation, OnEveryFrame);
 
 hudBlendMode = BlendModeAdd;
 
-// Ksero 2005-04-17
-// * New images and corresponding *Columns-values
-
 //Zero for the 1st col so we can have something that corresponds to nothing selected
 
-RecipientsColumns    = [53, 106, 159, 212]; 
-RecipientsBB = ButtonBarPane(ImportImage("cortui_recipientsbmp", true), ButtonNormal, RecipientsColumns, true);
+RecipientsColumns    = [68, 135, 203, 270]; 
+RecipientsBB = ButtonBarPane(ImportImage("recipientsbmp", true), ButtonNormal, RecipientsColumns, true);
 
-VerbsColumns    = [32, 62, 92, 122, 152, 182, 212, 242, 270];
-VerbsBB      = ButtonBarPane(ImportImage("cortui_verbsbmp", true), ButtonNormal, VerbsColumns, false);
+VerbsColumns    = [43, 80, 123, 162, 198, 238, 268, 320, 365];
+VerbsBB      = ButtonBarPane(ImportImage("verbsbmp", true), ButtonNormal, VerbsColumns, false);
 
 
 WingCombo    = 
-   ImageComboPane(ImportImage("cortui_btnchangewing3bmp", true), smallFont);
+   ImageComboPane(ImportImage("btnchangewing3bmp", true), smallFont);
  
 
 //
@@ -107,11 +51,8 @@ hoverString =
         ]
     );
 
-// Ksero 2005-04-17
-// * adjusted some sizes and offsets to accomodate the new commandpane
-
-hoverImage = StringImage(JustifyCenter, 126, promptFont, yellowText, hoverString);
-hoverPane  = AnimatedImagePaneRect(hoverImage, Rect(0, -13, 126, 0));
+hoverImage = StringImage(JustifyCenter, 170, promptFont, yellowText, hoverString);
+hoverPane  = AnimatedImagePaneRect(hoverImage, Rect(0, -13, 170, 0));
 
 commandRadarDetectPane = 
     SwitchPane(
@@ -123,12 +64,12 @@ commandRadarDetectPane =
 
 CommandPane = 
     ImagePane(
-        ImportImage("cortui_commandbkgndbmp", false),
+        ImportImage("commandbkgndbmp", false),
         [
-            (RecipientsBB, Point(4, 8)),
-            (WingCombo, Point(216, 8)),
-            (HoverPaneColumns(hoverSite, 1, VerbsBB, VerbsColumns), Point(2, 38)),
-            (hoverPane, Point(72, 73))
+            (RecipientsBB, Point(14, 8)),
+            (WingCombo, Point(285, 8)),
+            (HoverPaneColumns(hoverSite, 1, VerbsBB, VerbsColumns), Point(0, 38)),
+            (hoverPane, Point(96, 73))
         ]
     );
 
@@ -252,47 +193,22 @@ StationPane =
 //
 //          Chat History Pane
 //
+//////////////////////////////////////////////////////
+
 // Ksero 15:28 2005-03-04
 // was ChatListPane(Point(370, 68));
 // the second parameter to Point is the height of the chat area.
-// Should be 8 + 12 * ( number of chat lines)
-//
-// Cortex 2005-03-20
-// * increased ChatListPane-size
-// * changed background graphic to my modified one
-// * changed point(0,0) to point(0,20) (whatever that means)
-//
-// Ksero 2005-04-17
-// * restructured to use NumChatLines
-//
-// Cortex 2005#05#05:
-// + added changable ChatList for the loadout screen
-// * resized ChatListPanes so that scrollbar can be seen
-//
-//////////////////////////////////////////////////////
+// Should be 32 + 9 * ( number of chat lines)
 
-chatListPane = ChatListPane(Point(355, Add(8,Multiply(12,NumChatLines)) ) );
-
-cortChatListPaneLoadout = ChatListPane(Point(340, Add(8,Multiply(12,NumChatLinesLoadout)) ) );			//370
+chatListPane = ChatListPane(Point(370, 104));
 
 CommPane =
     ImagePane(
-        ImportImage("cortui_concommdisplaybmp", false),
+        ImportImage("concommdisplaybmp", false),
         [
             (
                 chatListPane,
-                Point(0,20)
-            )
-        ]
-    );
-
-cortCommPaneLoadout =
-    ImagePane(
-        ImportImage("cortui_concommdisplaybmp", false),
-        [
-            (
-                cortChatListPaneLoadout,
-                Point(0,20)
+                Point(0,0)
             )
         ]
     );
@@ -560,45 +476,6 @@ backButtonPane =
         false, 
         negativeButtonClickSoundId
     );
-
-
-
-
-//////////////////////////////////////////////////////////////////////////////
-//
-// NEW AUTOPILOT- AND VECTORLOCK-INDICATORS
-//
-// Cortex 2005-04-17:
-// + added imports for the new icons
-// (created a new block because they are used in the normal
-//  HUD and the map-mode)
-//
-//////////////////////////////////////////////////////////////////////////////
-
-cortVectorLockNormal = ImportImage("cortui_convectorlockbmp", true);
-
-cortVectorLockOn = 
-    SwitchImage(
-        GetVectorLock(Me, OnEveryFrame),
-        emptyImage,
-        [
-            (1, cortVectorLockNormal)
-        ]
-    );
-
-cortAutopilotNormal = ImportImage("cortui_conautopilotbmp", true);
-
-cortAutopilotOnImage =
-    SwitchImage(
-        AutopilotOn,
-        emptyImage, 
-        [
-            (1, cortAutopilotNormal)
-        ]
-    );
-
-
-
 
 //////////////////////////////////////////////////////////////////////////////
 //
@@ -1071,15 +948,12 @@ SignatureImage =
         );
     
 
-// Cortex 2005-04-17
-// * changed autopilot- and vector-lock-icons to the smaller ones
-// * changed their position
 
 CenterHudOn = 
         GroupImage(
         [   
-            TranslateImage(cortVectorLockOn, Point(442, 337)),							// (230, 287)
-            TranslateImage(cortAutopilotOnImage, Point(177, 342)),						// (277, 377)
+            TranslateImage(VectorLockOn, Point(230, 287)),
+            TranslateImage(AutopilotOnImage, Point(277, 377)),
             TranslateImage(CloakOn, Point(120, 80)),
             TranslateImage(ArmorImage, Point(215, 180)),
             TranslateImage(ShieldImage, Point(300, 180)),
@@ -1685,351 +1559,24 @@ TargetDisplay =
     );
 
 commandTargetDisplay = SoftwareTargetDisplay;
-
-
-
+    
 //////////////////////////////////////////////////////////////////////////////
 //
-// ADDITIONAL WEAPON RANGE INDICATOR
-//
-// Cortex 14:44 CEST 2005-04-20:
-// + added weapon range indicator
+// Autopilot-indicator in in-flight command mode (by Ksero 14:22 2005-03-04)
 //
 //////////////////////////////////////////////////////////////////////////////
 
-/*
-cortMaxDisplayedTargetDistanceGreen  = 500;
-cortMaxDisplayedTargetDistanceYellow = 1000;
-cortMaxDisplayedTargetDistanceRed    = 5000;
-
-// (x - Green) / (Yellow - Green)
-cortTargetDistanceProcentualYellow = Divide(Subtract(GetRange(Target, OnEveryFrame), cortMaxDisplayedTargetDistanceGreen), Subtract(cortMaxDisplayedTargetDistanceYellow, cortMaxDisplayedTargetDistanceGreen));
-
-// (x - Yellow) / (Red - Yellow)
-cortTargetDistanceProcentualRed = Divide(Subtract(GetRange(Target, OnEveryFrame), cortMaxDisplayedTargetDistanceYellow), Subtract(cortMaxDisplayedTargetDistanceRed, cortMaxDisplayedTargetDistanceYellow));
-
-cortWeaponRangeIndicator =
-	VisibleImage(
-		VisibleImage(
-			GroupImage(
-	    		[
-				ImportImage("cortui_weaponrangeindicatorgauge_greenbmp", true),
-				TranslateImage(GaugeImage(JustifyLeft, ImportImage("cortui_weaponrangeindicatorgauge_yellowbmp", true), cortTargetDistanceProcentualYellow), Point(18, 0)),
-				TranslateImage(GaugeImage(JustifyLeft, ImportImage("cortui_weaponrangeindicatorgauge_redbmp", true), cortTargetDistanceProcentualRed), Point(36, 0))
-				]
-			),
-			IsNotNull(Target, OnEveryFrame)
-		),
-		IsNotNull(Max(GetRange(Target, OnEveryFrame), 0), OnEveryFrame)
-	);
-*/
-
-
-
-//////////////////////////////////////////////////////////////////////////////
-//
-// CORTUI VERSION INFORMATION
-//
-// Cortex 2005#05#05:
-// + added CortUI version information at the lower right corner of the maps
-//
-//////////////////////////////////////////////////////////////////////////////
-
-cortVersionInformation =
-    StringImage(
-        JustifyRight,
-        200,
-        medVerdana,
-        Color(0.586, 0.578, 0.680),
-        cortUIVersionString
-	);
-
-
-
-//////////////////////////////////////////////////////////////////////////////
-//
-// ADDITIONAL DISPLAYS FOR MAP-MODE
-//
-// Ksero 14:22 2005-03-04:
-// + added Autopilot-indicator in in-flight command mode
-//
-// Cortex 2005-04-17:
-// + added various additional displays
-//
-// Cortex 2005#05#05:
-// + appended "(turret)" to the ship type when you're turreting
-//
-//////////////////////////////////////////////////////////////////////////////
-
-cortText = Color(0.586, 0.578, 0.680);
-
-cortTargetName =
-        StringImage(
-            JustifyLeft, 
-            130,
-            medVerdana,
-            cortText,
-            GetName(Target, OnEveryFrame)
-        );
-
-cortTargetRangeString = 
-    SwitchString(
-        GetRange(Target, OnEveryFrame),
-        ConcatinatedString(NumberString(GetRange(Target, OnEveryFrame)), "m"),
-        [
-            (-1, GetSectorName(Target, OnEveryFrame))
-        ]
-    );
-
-cortTargetRange =
-    StringImage(
-        JustifyLeft,
-        150,
-        medVerdana,
-        cortText,
-        cortTargetRangeString
-    );      
-
-cortShipLabel =
-    StringImage(
-        JustifyLeft, 
-        130,
-        medVerdana,
-        cortText,
-        "Ship:"
-    );
-
-cortShipValuePilot = 
-    StringImage(
-        JustifyLeft,
-        300,
-        medVerdana,
-        cortText,
-        GetModelTypeDesc(Me, OnEveryFrame)
-	);
-
-cortShipValueTurret =
-    StringImage(
-        JustifyLeft,
-        300,
-        medVerdana,
-        cortText,
-        ConcatinatedString(GetModelTypeDesc(Me, OnEveryFrame), " (turret)")
-	);
-
-cortShipValue = 
-    SwitchImage(
-        BoardState,
-        emptyImage,
-        [
-        	(0, cortShipValuePilot),
-            (2, cortShipValueTurret)
-        ]
-    );
-
-cortShieldsLabel =
-    StringImage(
-        JustifyLeft, 
-        130,
-        medVerdana,
-        cortText,
-        "Shields:"
-    );
-
-cortShieldsGauge = 
-    GaugeImage(JustifyLeft, ImportImage("softgaugebmp", true), GetPercentShields(Me, OnEveryFrame));
-
-cortHullLabel =
-    StringImage(
-        JustifyLeft, 
-        130,
-        medVerdana,
-        cortText,
-        "Hull:"
-    );
-
-cortHullGauge = 
-    GaugeImage(JustifyLeft, ImportImage("softgaugebmp", true), GetPercentHitPoints(Me, OnEveryFrame));
-
-cortEnergyLabel =
-    StringImage(
-        JustifyLeft, 
-        130,
-        medVerdana,
-        cortText,
-        "Energy:"
-    );
-
-cortEnergyGauge = 
-    GaugeImage(JustifyLeft, ImportImage("softgaugebmp", true), GetPercentEnergy(Me, OnEveryFrame));
-
-cortAmmoLabel =
-    StringImage(
-        JustifyLeft, 
-        130,
-        medVerdana,
-        cortText,
-        "Ammo:"
-    );
-
-cortAmmoGauge = 
-    GaugeImage(JustifyLeft, ImportImage("softgaugebmp", true), GetAmmo(Me, OnEveryFrame));
-
-cortFuelLabel =
-    StringImage(
-        JustifyLeft, 
-        130,
-        medVerdana,
-        cortText,
-        "Fuel:"
-    );
-
-cortFuelGauge = 
-    GaugeImage(JustifyLeft, ImportImage("softgaugebmp", true), GetFuel(Me, OnEveryFrame));
-
-cortThrustLabel =
-    StringImage(
-        JustifyLeft, 
-        130,
-        medVerdana,
-        cortText,
-        "Thrust:"
-    );
-
-cortThrustGauge =
-    GaugeImage(JustifyLeft, ImportImage("softgaugebmp", true), playerThrottle);
-
-cortSpeedLabel =
-    StringImage(
-        JustifyLeft, 
-        130,
-        medVerdana,
-        cortText,
-        "Speed:"
-    );
-
-cortSpeedValue = 
-    StringImage(
-        JustifyRight,
-        75,
-        medVerdana,
-        cortText,
-        NumberString(GetSpeed(Me, OnEveryFrame))
-	);
-
-cortSpeedPostfix = 
-    StringImage(
-        JustifyLeft,
-        30,
-        medVerdana,
-        cortText,
-        "mps"
-    );
-
-cortSigLabel =
-    StringImage(
-        JustifyLeft, 
-        130,
-        medVerdana,
-        cortText,
-        "Sig:"
-    );
-
-cortSigValue = 
-    StringImage(
-        JustifyRight,
-        75,
-        medVerdana,
-        cortText,
-        NumberString(Signature)
-    );
-
-cortSigPostfix = 
-    StringImage(
-        JustifyLeft,
-        30,
-        medVerdana,
-        cortText,
-        "%"
-    );
-
-cortKillbonusLabel =
-    StringImage(
-        JustifyLeft, 
-        130,
-        medVerdana,
-        cortText,
-        "KB:"
-    );
-
-cortKillbonusValue = 
-    StringImage(
-        JustifyRight,
-        75,
-        medVerdana,
-        cortText,
-        NumberString(Experience)
-    );
-
-cortKillbonusPostfix = 
-    StringImage(
-        JustifyLeft,
-        30,
-        medVerdana,
-        cortText,
-        "%"
-    );
-
-cortCommandModeInfo = 
-	GroupImage([
-		SwitchImage(
-			AutopilotOn,
+autoPilotCmdTargetDisplay = SwitchImage(
+			AutopilotOn, // visible if autopilot is activated
 			emptyImage,
 			[
-				(1, TranslateImage(cortAutopilotOnImage, Point(0, -7)))
-			]
-		),
-		SwitchImage(
-			GetVectorLock(Me, OnEveryFrame),
-			emptyImage,
-			[
-				(1, TranslateImage(cortVectorLockOn, Point(0, -7)))
-			]
-		),
-    	VisibleImage(
-			GroupImage(
-        		[
-				TranslateImage(cortTargetName, Point(49, 18)),
-				TranslateImage(cortTargetRange, Point(49, 7))
-				]
-			),
-			IsNotNull(Target, OnEveryFrame)
-		),
-		TranslateImage(cortShipLabel,        Point(0,  -10)),
-		TranslateImage(cortShipValue,        Point(49, -10)),
-		TranslateImage(cortShieldsLabel,     Point(0,  -22)),
-		TranslateImage(cortShieldsGauge,     Point(50, -30)),
-		TranslateImage(cortHullLabel,        Point(0,  -34)),
-		TranslateImage(cortHullGauge,        Point(50, -42)),
-		TranslateImage(cortEnergyLabel,      Point(0,  -46)),
-		TranslateImage(cortEnergyGauge,      Point(50, -54)),
-		TranslateImage(cortAmmoLabel,        Point(0,  -58)),
-		TranslateImage(cortAmmoGauge,        Point(50, -66)),
-		TranslateImage(cortFuelLabel,        Point(0,  -70)),
-		TranslateImage(cortFuelGauge,        Point(50, -78)),
-		TranslateImage(cortThrustLabel,      Point(0,  -82)),
-		TranslateImage(cortThrustGauge,      Point(50, -90)),
-		TranslateImage(cortSpeedLabel,       Point(0,  -94)),
-		TranslateImage(cortSpeedValue,       Point(5,  -94)),
-		TranslateImage(cortSpeedPostfix,     Point(82, -94)),
-		TranslateImage(cortSigLabel,         Point(0,  -106)),
-		TranslateImage(cortSigValue,         Point(5,  -106)),
-		TranslateImage(cortSigPostfix,       Point(82, -106)),
-		TranslateImage(cortKillbonusLabel,   Point(0,  -118)),
-		TranslateImage(cortKillbonusValue,   Point(5,  -118)),
-		TranslateImage(cortKillbonusPostfix, Point(82, -118))
-	]);
-
+				(1, GroupImage([    
+					TranslateImage(softAutopilotOnImage, Point(0, 0)),
+					TranslateImage(softTargetName,  Point(110, 18)),
+					TranslateImage(softTargetRange, Point(110, 7)) ])
+				)
+			]);
+			
 
 /////////////////////////////////////////////////////////////
 //
@@ -2069,6 +1616,10 @@ ShipNameImage = StringImage(
 //  LIVES COUNTER & COUNTDOWN & KILL COUNTER
 //
 //////////////////////////////////////////////////////////////
+
+
+
+
 
 LivesOnImage = 
     GroupImage(
@@ -2179,279 +1730,80 @@ LookingAtImage =
     
 //////////////////////////////////////////////////////////////
 //
-// Actual dialogs
-//
-// Ksero 2005-03:
-// + added documentation
-//
-// Cortex 2005-04-17:
-// * new map-mode UI is used
-// * moved base status display
-// * moved CommPane (chat display)
-// + ripcord time is now shown in map-mode as well
-// * moved the software HUD information display to not overlap
-//   the chat
-// - removed the base status display from the loadout screen
-//
-// Ksero 2005-04-17
-// * restructured to use common parameter NumChatLines
-// * adjusted positions for new, shorter command pane
-//
-// Cortex 2005#05#05:
-// * all panes are now created ahead of the dialogs definition
-//   to improve readability and maintainability
-// * merged the composite images of inventory and investments, they
-//   are now passed to the dialog definition as one pane
-// + improved documentation of console mode flags
-// + added (inactive) code to display console mode flags in the game
-// * reordered and repositioned all windows
-// * changed console mode flags for various windows (for instance
-//   to show various displays during launch animation)
-// * splitted inventory and minimap to display them differently
-//   depending on console mode flags (e.g. to move minimap to the
-//   border at the map, but not in the cockpit)
-// * splitted normal chat display and loadout chat display to show
-//   less lines at the loadout screen than in the cockpit/hangar/map
-// - removed accepted and queued order (I think they're useless)
-// - removed 'back' button at the map (can be done with F3 and is
-//   now obscured by the minimap anyway)
-// + added CortUI version information
-// * improved indentation to improve readability and maintainability
+//  Actual dialogs
 //
 //////////////////////////////////////////////////////////////
 
-SoftCenterHudDisplayYOffset = Subtract(-88,Multiply(12,NumChatLines)); // height(softcenterhud) = 29
-CriticalTipImageYOffset = Subtract(-44,Multiply(12,NumChatLines));     // height(criticaltipimage) = 56
-VoteTextImageYOffset = Subtract(-85,Multiply(12,NumChatLines));
-
-CommandPaneImage			= 			   PaneImage(CommandPane, false, true);
-CommandRadarDetectPaneImage	= 			   PaneImage(commandRadarDetectPane, false, true);
-TeamPaneImage				= 			   PaneImage(TeamPanePane, false, true);
-TeleportPaneImage			= 			   PaneImage(TeleportPane, false, true);
-MoneyPaneImage				= 			   PaneImage(moneyPane, false, true);
-InvestmentsInfoPaneImage	= 			   PaneImage(InvestmentsInfoPane, false, true);
-InvestmentsPaneImage		= 			   PaneImage(InvestmentsPane, false, true);
-CommPaneImage				= VisibleImage(PaneImage(CommPane, false, true), ShowChatHistoryHUD);
-cortCommPaneLoadoutImage	= VisibleImage(PaneImage(cortCommPaneLoadout, false, true), ShowChatHistoryHUD);
-EjectPodPaneImage			= 			   PaneImage(EjectPodPane, false, true);
-DeathBannerPaneImage		= 			   PaneImage(DeathBannerPane, false, true);
-CenterHudDisplayImage		= VisibleImage(CenterHudDisplay, ShowCenterHUD);
-SoftCenterHudDisplayImage	= VisibleImage(softCenterHudDisplay, ShowCenterHUD);
-TargetDisplayImage			= VisibleImage(TargetDisplay, ShowTargetHUD);
-MergedInventoryPaneImage    = GroupImage([
-									TranslateImage(ShipNameImage,		Point( -5,  14)),
-							        TranslateImage(InventoryImage(),	Point(  0,  0)),
-							        TranslateImage(InventoryTabImage,	Point( -10, 4))
-							  ]);
-MergedInvestmentsPaneImage  = GroupImage([
-									TranslateImage(MoneyPaneImage,				Point(  33, 0)),
-									TranslateImage(InvestmentsInfoPaneImage,	Point(  17, 122)), 
-									TranslateImage(InvestmentsPaneImage,		Point(   0, 0))
-							  ]);
-
 dialogs =
     [
-		// entry format:
         // (image, side, off point, on point, transition time, consoles modes, undetectable)
-		// coordinate origin is at lower left of screen. Positive axii going right and upward.
-		// In the end, when the image is visible, the lower left of the image is located at (sidePoint + OnPoint)
-		// image: the image to display ;)
-		// side: one of the Side* constants. This is an offset to the off and on-points, 
-		// they are defined relative to this point. Possible values:
-		// NOTE: as mentioned, origin is at lower left of screen
-		// 		SideLeftOffset = (xmin,  yhalf)
-		// 		SideTopLeftOffset = (xmin,  ymax )
-		// 		SideTopOffset = (xhalf, ymax )
-		// 		SideTopRightOffset = (xmax,  ymax )
-		// 		SideRightOffset = (xmax,  yhalf)
-		// 		SideBottomRightOffset = (xmax,  ymin )
-		// 		SideBottomOffset = (xhalf, ymin )
-		// 		SideBottomLeftOffset = (xmin,  ymin )
-		// 		SideCenterOffset = (xhalf, yhalf)
-		// off point: where the pane should move when it's becoming not visible (e.g. when moving to a console mode)
-		// 			  where this image should not be shown
-		// on point:  where the pane should be placed when visible
-		// transition time: how long it should take for the pane to move between on and off points
-		// console mode: a bit field that decides in what contexts to show the specified image:
-		// 		ofInHangar          = 0x000001,1
-		//			the hangar image can be seen in the background
-		// 		ofInFlightCommand   = 0x000002,2
-		//			map-mode (default F3) during flight
-		// 		ofInStationCommand  = 0x000004,4
-		//			map-mode (default F3) in base
-		// 		ofInFlight          = 0x000008,8
-		//			in flight (launch animation, cockpit, chase view, map, ...)
-		// 		ofInCockpit         = 0x000010,16
-		//			flight-mode, cockpit
-		// 		ofInChase           = 0x000020,32
-		//			flight-mode, chase view
-		// 		ofInLoadout         = 0x000040,64
-		//			loadout-screen
-		// 		ofTeleportPane      = 0x000100,256
-		//			teleport window is opened (default F8)
-		// 		ofInvestment        = 0x000200,512
-		//			investment window is opened (default F5)
-		// 		ofGameState         = 0x000400,1024
-		//			game state window is opened (default G)
-		// 		ofTeam              = 0x000800,2048
-		//			narrow team window is opened (default F6, then click on small arrow)
-		// 		ofExpandedTeam      = 0x001000,4096
-		//			expanded team window is opened (default F6)
-		// 		ofInventory         = 0x002000,8192
-		//			inventory window is opened (default F4)
-		// 		ofCommandPane       = 0x004000,16384
-		//			the command bar is displayed (map)
-		// 		ofSectorPane        = 0x008000,32768
-		//			the minimap is displayed
-		// 		ofGloatCam          = 0x010000,65536
-		//			the camera is overridden (launch sequence, training missions)
-		// undetectable - If a pane is undetectable, then no click events are generated for the pane.
+        
+        // Overlay flags (console modes)
+        // Affect where you can see the different screens
+		// ofInHangar          = 0x000001,	1
+        	// ofInFlightCommand   = 0x000002,	2
+		// ofInStationCommand  = 0x000004,	4	
+		// ofInFlight          = 0x000008,	8	
+		// ofInCockpit         = 0x000010,	16
+		// ofInChase           = 0x000020,	32
+		// ofInLoadout         = 0x000040,	64
+		// ofTeleportPane      = 0x000100,	128
+		// ofInvestment        = 0x000200,	256
+		// ofGameState         = 0x000400,	512
+		// ofTeam              = 0x000800,	1024
+		// ofExpandedTeam      = 0x001000,	2048
+		// ofInventory         = 0x002000,	4096
+		// ofCommandPane       = 0x004000,	8192
+		// ofSectorPane        = 0x008000,	16384
+		// ofGloatCam          = 0x010000	32768
+        
+        //
+        // This stuff is interactive so it should be on top
         //
         // (image, side, off point, on point, transition time, consoles modes, undetectable
+        
+        (gameStateImage,                                    SideLeft,       Point( -500,   33), Point(  10,   33), .5,  1024,              false),
+        (ChatCompositionImage,                              SideBottom,     Point( -170,  -78), Point(-150,  148), .5, 65663,              false),
+        
+	(ShipNameImage,                               SideBottomRight, Point( -250, -150), Point( -250,  54), .5, 8192, true ),        
+        (InventoryImage(),                            SideBottomRight, Point( -250, -150), Point( -250,  40), .5, 8192, false),
+        (InventoryTabImage,                           SideBottomRight, Point( -260, -150), Point( -260,  44), .5, 8192, true ), 
+        
+        (PaneImage(CommandPane,         false, true),       SideBottom,     Point(  -60, -190), Point( -60,   49), .5, 16384,              false),
+        (PaneImage(commandRadarDetectPane, false, true),    SideTopRight,   Point( -100,  190), Point(-100, -100), .5, 16384,              true ),
+        (PaneImage(TeamPanePane,        false, true),       SideTopLeft,    Point( -620, -500), Point(   0, -500), .5,  6144,              false),
+        (PaneImage(TeleportPane,        false, true),       SideTopLeft,    Point( -620, -280), Point(  16, -280), .5,   256,              false),
+        (PaneImage(moneyPane,           false, true),       SideCenter,     Point( -159, 2000), Point(-159, -240), .5,   512,              true ),
+        (PaneImage(InvestmentsInfoPane, false, true),       SideCenter,     Point( -175, 2122), Point(-175, -118), .5,   512,              false),
+        (PaneImage(InvestmentsPane,     false, true),       SideCenter,     Point( -192, 2000), Point(-192, -240), .5,   512,              false),
+        (LocationImage,                                     SideTopRight,   Point( -200,  185), Point(-200,  -35), .5,    48,              true ),
+        (LookingAtImage,                                    SideTopRight,   Point( -200,  185), Point(-200,  -35), .5, 16384,              true ),
+        (AcceptedOrderImage,                                SideTopLeft,    Point(   50,   -7), Point(  50,  -37), .5,    48,              true ),
+        (QueuedOrderImage,                                  SideTopLeft,    Point(   50,  -27), Point(  50,  -57), .5,    48,              true ),
+        (SectorImage,                                       SideBottomLeft, Point(   49, -187), Point(  49,   36), .5, SectorOverviewFlag, false),
+        (PaneImage(BlackPane(backButtonPane), false, true), SideBottomLeft, Point( -200,   17), Point(  20,   17), .5,     6,              false),
 
-		// to see in every situation which 'console mode' flags are set, uncomment the following lines:
-		/*
-		(StringImage(JustifyLeft, 150, medVerdana, Color(0.586, 0.578, 0.680), "ofInHangar (1)"),			SideCenter, Point(0,0), Point(0,-12),  .5, 0x000001, true),
-		(StringImage(JustifyLeft, 150, medVerdana, Color(0.586, 0.578, 0.680), "ofInFlightCommand (2)"),	SideCenter, Point(0,0), Point(0,-24),  .5, 0x000002, true),
-		(StringImage(JustifyLeft, 150, medVerdana, Color(0.586, 0.578, 0.680), "ofInStationCommand (4)"),	SideCenter, Point(0,0), Point(0,-36),  .5, 0x000004, true),
-		(StringImage(JustifyLeft, 150, medVerdana, Color(0.586, 0.578, 0.680), "ofInFlight (8)"),			SideCenter, Point(0,0), Point(0,-48),  .5, 0x000008, true),
-		(StringImage(JustifyLeft, 150, medVerdana, Color(0.586, 0.578, 0.680), "ofInCockpit (16)"),			SideCenter, Point(0,0), Point(0,-60),  .5, 0x000010, true),
-		(StringImage(JustifyLeft, 150, medVerdana, Color(0.586, 0.578, 0.680), "ofInChase (32)"),			SideCenter, Point(0,0), Point(0,-72),  .5, 0x000020, true),
-		(StringImage(JustifyLeft, 150, medVerdana, Color(0.586, 0.578, 0.680), "ofInLoadout (64)"),			SideCenter, Point(0,0), Point(0,-84),  .5, 0x000040, true),
-		(StringImage(JustifyLeft, 150, medVerdana, Color(0.586, 0.578, 0.680), "UNKNOWN (128)"),			SideCenter, Point(0,0), Point(0,-96),  .5, 0x000080, true),
-		(StringImage(JustifyLeft, 150, medVerdana, Color(0.586, 0.578, 0.680), "ofTeleportPane (256)"),		SideCenter, Point(0,0), Point(0,-108), .5, 0x000100, true),
-		(StringImage(JustifyLeft, 150, medVerdana, Color(0.586, 0.578, 0.680), "ofInvestment (512)"),		SideCenter, Point(0,0), Point(0,-120), .5, 0x000200, true),
-		(StringImage(JustifyLeft, 150, medVerdana, Color(0.586, 0.578, 0.680), "ofGameState (1024)"),		SideCenter, Point(0,0), Point(0,-132), .5, 0x000400, true),
-		(StringImage(JustifyLeft, 150, medVerdana, Color(0.586, 0.578, 0.680), "ofTeam (2048)"),			SideCenter, Point(0,0), Point(0,-144), .5, 0x000800, true),
-		(StringImage(JustifyLeft, 150, medVerdana, Color(0.586, 0.578, 0.680), "ofExpandedTeam (4096)"),	SideCenter, Point(0,0), Point(0,-156), .5, 0x001000, true),
-		(StringImage(JustifyLeft, 150, medVerdana, Color(0.586, 0.578, 0.680), "ofInventory (8192)"),		SideCenter, Point(0,0), Point(0,-168), .5, 0x002000, true),
-		(StringImage(JustifyLeft, 150, medVerdana, Color(0.586, 0.578, 0.680), "ofCommandPane (16384)"),	SideCenter, Point(0,0), Point(0,-180), .5, 0x004000, true),
-		(StringImage(JustifyLeft, 150, medVerdana, Color(0.586, 0.578, 0.680), "ofSectorPane (32768)"),		SideCenter, Point(0,0), Point(0,-192), .5, 0x008000, true),
-		(StringImage(JustifyLeft, 150, medVerdana, Color(0.586, 0.578, 0.680), "ofGloatCam (65536)"),		SideCenter, Point(0,0), Point(0,-204), .5, 0x010000, true),
-		*/
+        //
+        // This stuff is non interactive so it should be below the interactive stuff
+        //
+        (autoPilotCmdTargetDisplay,                   SideTopLeft,     Point(   40,   -7), Point( 40,   -37), .5,    2, true),
+        (TipTextImage,                                SideBottom,      Point( -300, -200), Point(-300,   14), .5,65535, true),
+        (CriticalTipImage,                            SideTop,         Point( -310, -160), Point(-310, -160), .5,   15, true),
+        (LoadoutCriticalTipImage,                     SideTop,         Point( -310, -184), Point(-310, -184), .5,   64, true),
+        (BoardTextImage,                              SideBottom,      Point( -300, -200), Point(-300,   28), .5,  119, true),
+        (VoteTextImage,							      SideTop,         Point( -310, -135), Point(-310, -135), .5,65535, true),
 
-		// **********************************
-		// * Level 1 (topmost)
-		// **********************************
-
-		// CriticalTipImage: the four red lines in the middle of the screen
-        (CriticalTipImage,				SideTop,			Point( -310, CriticalTipImageYOffset), Point(-310, CriticalTipImageYOffset), .5,   15, true),
-
-		// LoadoutCriticalTipImage: the four red lines in the middle of the screen, when you're in the loadout-screen
-        (LoadoutCriticalTipImage,		SideCenter,			Point( -310, 0   ), Point(-310,    0), .5,   64, true),
-
-		// TipTextImage: the line with joiners/leavers/money, etc at the bottom of the screen
-        (TipTextImage,					SideBottom,			Point( -300, -200), Point(-300,   14), .5,65535, true),
-
-		// VoteTextImage: the line that is displayed when a vote is called
-        (VoteTextImage,					SideTop,			Point( -310, VoteTextImageYOffset), Point(-310, VoteTextImageYOffset), .5,65535, true),
-
-		// ChatCompositionImage: the chat window (where you enter your messages)
-        (ChatCompositionImage,			SideBottom,			Point( -170,  -78), Point(-150,  148), .5, 65663, false),
-
-		// **********************************
-		// * Level 2
-		// **********************************
-
-		// gameStateImage: the gamestate, your kills, etc.
-        (gameStateImage,				SideLeft,			Point( -500,   33), Point(  10,   33), .5, 1024, false),
-
-		// TeamPaneImage: the information window about the teams (F6)
-        (TeamPaneImage,					SideLeft,			Point( -620, -150),	Point( 110, -150), .5, 6144, false),		//0, -500
-
-		// MergedInvestmentsPaneImage: the investments pane (F5)
-        (MergedInvestmentsPaneImage,	SideCenter,			Point( -192, 2000), Point(-192, -265), .5, 512, false),
-
-		// TeleportPane: the teleport selection window (F8)
-        (TeleportPaneImage,				SideLeft,			Point( -620, -100),	Point(  16, -100), .5, 256, false),		//16, -280
-
-		// **********************************
-		// * Level 3
-		// **********************************
-
-		//SectorImage: the minimap (flight mode)
-        (SectorImage,					SideBottomLeft,		Point(   49, -187), Point(  49,   36), .5, 65584, false),		//== 65536 + 32 + 16
-		//SectorImage: the minimap (in base)
-        (SectorImage,					SideBottomLeft,		Point(   0, -187),	Point(  0,   8), .5, 263, false),		//== 256 + 4 + 2 + 1
-
-		// **********************************
-		// * Level 4
-		// **********************************
-
-		//MergedInventoryImage: the inventory pane (normal mode)
-		(MergedInventoryPaneImage,		SideBottomRight,	Point( -245, -150), Point( -245,  40), .5, Add(8192, 0x010000), true),
-		//MergedInventoryImage: the inventory pane (map during flight)
-		(MergedInventoryPaneImage,		SideBottomRight,	Point( -245, 0), Point( -214,  20), .5, 2, true),
-
-		// **********************************
-		// * Level 5 (below everything else)
-		// **********************************
-
-		// cortWeaponRangeIndicator: new feature
-//        (cortWeaponRangeIndicator,		SideCenter,			Point(    0,    0), Point( -53,  100), 0,    384,              true),
-//        (cortTest1,						SideCenter,			Point(    0,    0), Point(   0,  -20), .5,    48,              true),
-
-		// CommPane: the chat display
-		(CommPaneImage,					SideTop,			Point(-180, -126), Point(-180, -126), 0, 63, true),			//-130
-		(cortCommPaneLoadoutImage,		SideTop,			Point(-180, -126), Point(-180, -126), 0, 64, true),
-
-		// (soft)CenterHudDisplay: the HUD (either normal or software)
-        (CenterHudDisplayImage,			SideCenter,			Point( -320, 1000), Point( -320, -240), .5, 48, true ),
-        (SoftCenterHudDisplayImage,		SideTop,			Point( -320, 1000), Point( -232, SoftCenterHudDisplayYOffset), .5, 48, true ),
-
-		// TargetDisplay: the targeting system
-        (TargetDisplayImage,			SideBottom,			Point( -320, -183), Point( -320,   12), .5, 48, true ),
-
-		// CommandRadarDetectPaneImage: probably the info whether you are 'eyed'
-        (CommandRadarDetectPaneImage,	SideTopRight,		Point(  -90,  190), Point(-90, -100), .5, 65542, true ),
-
-		// cortCommandModeInfo: the additional ship status information at the upper left corner of the map
-        (cortCommandModeInfo,			SideTopLeft,		Point(   40,   -7), Point( 40,   -37), .5,    2, true),
-
-		// CommandPane: the command bar at the F3-map
-        (CommandPaneImage,				SideBottom,			Point( -135, -190), Point(-135,   20), .5, 6, false),
-
-		// LocationImage: "current location" in cockpit mode
-        (LocationImage,					SideTopRight,		Point( -180,  185), Point( -180, -35), .5, 65584, true ),
-		// LookingAtImage: "currently viewing" in map mode
-        (LookingAtImage,				SideTopRight,		Point( -180,  185), Point( -180, -35), .5, 6, true ),
-
-		// RipcordCountdownImage: the ripcord countdown
-        (RipcordCountdownImage,			SideCenter,			Point( -75,    15), Point( -75,   15), .5,   58, true ),
-
-		// BoardTextImage: the info whether I'm in a turret
-        (BoardTextImage,				SideBottom,			Point( -300, -200), Point( -300, 28), .5,  119, true),
-
-		// StationPane: station status indicator
-        (StationPane,					SideBottom,			Point(  -148,  85),	Point( -148,  85), 0, 1, true ),
-
-		// EjectPodPane: the eject pod display
-        (EjectPodPaneImage,				SideCenter,			Point(   -86, -87),	Point( -86,  -87), .5,   48, true ),
-
-		// DeathBannerPane: when you're dead???
-        (DeathBannerPaneImage,			SideCenter,			Point(  -105,  15),	Point( -105,   15), .5,65535, true ),
-
-		// LivesImage: your lives
-        (LivesImage,					SideTopLeft,		Point(    45, -97),	Point(   40,  -97), .5, 48, true ),
-
-		// KillsImage: your kills
-        (KillsImage,					SideTopLeft,		Point(    45,-177), Point(   40, -177), .5, 48, true ),
-
-		// CountdownImage: ?????????????
-        (CountdownImage,				SideTopLeft,		Point(    45,-137), Point(   40, -137), .5, 48, true ),
-
-		// cortVersionInformation: the current version display of CortUI in the map-mode
-		(cortVersionInformation,		SideBottomRight,	Point( -200, 12),	 Point( -200,   12), 0, 6, true)
-
-//		  //AcceptedOrderImage/QueuedOrderImage: the last two commands you received
-//        (AcceptedOrderImage,                                SideTopLeft,    Point(   50,   -7), Point(  50,  -37), .5,    48,              true ),
-//        (QueuedOrderImage,                                  SideTopLeft,    Point(   50,  -27), Point(  50,  -57), .5,    48,              true ),
-
-//		  //backButtonPane: the back button, that allows to switch from map to hangar when in base		
-//        (PaneImage(BlackPane(backButtonPane), false, true), SideBottomLeft, Point( -200,   17), Point(  20,   17), .5,     6,              false),
+        (PaneImage(EjectPodPane,        false, true), SideCenter,      Point( -86,  -87),  Point( -86,  -87), .5,   48, true ),
+        (PaneImage(DeathBannerPane,     false, true), SideCenter,      Point( -105,  15),  Point(-105,   15), .5,65535, true ),
+        (RipcordCountdownImage,                       SideCenter,      Point( -75,    15), Point( -75,   15), .5,   48, true ),
+            
+	(VisibleImage(PaneImage(CommPane, false, true),     ShowChatHistoryHUD), SideTop, Point(-130,  120), Point(-130, -120), .5, 119, true),
+        (VisibleImage(CenterHudDisplay,     ShowCenterHUD), SideCenter, Point( -320, 1000), Point( -320, -240), .5, 48, true ),
+        (VisibleImage(softCenterHudDisplay, ShowCenterHUD), SideTop,    Point( -320, 1000), Point( -232, -108), .5, 48, true ),
+        (VisibleImage(TargetDisplay,        ShowTargetHUD), SideBottom, Point( -320, -183), Point( -320,   12), .5, 48, true ),
+        
+        (StationPane,                                   SideTop,       Point(  -273,   70), Point( -273,  -22), .5, 65, true ),
+        (LivesImage,                                    SideTopLeft,   Point(   45,   -97), Point(   40,  -97), .5, 48, true ),
+        (CountdownImage,                                SideTopLeft,   Point(   45,  -137), Point(   40, -137), .5, 48, true ),
+        (KillsImage,                                    SideTopLeft,   Point(   45,  -177), Point(   40, -177), .5, 48, true )
     ];
-
-
-
-
-
