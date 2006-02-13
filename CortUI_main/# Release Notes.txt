@@ -1,5 +1,5 @@
 /*****************************************************************************\
-| CortUI v1.60 - Release Notes                                                |
+| CortUI v1.61 - Release Notes                                                |
 \*****************************************************************************/
 
 
@@ -21,9 +21,10 @@ Changes in CortUI (compared to default UI):
   graphics have been made smaller to not overlap with the chat.
 - Map-mode shows all necessary ship status info in upper left area of the
   screen. (Autopilot and vector-lock status, name of current target, distance
-  to current target, ship type (and whether you are in the turret of this ship,
-  shield status, hull status, energy status, ammo status, fuel status,
-  O2 level, current thrust, current speed, current signature, kill bonus.)
+  to current target, speed of the current target, ship type (and whether you
+  are in the turret of this ship, shield status, hull status, energy status,
+  ammo status, fuel status, O2 level, current thrust, current speed, current
+  signature, kill bonus.)
 - Inventory and minimap have been moved to the side for map-mode, thereby
   making more room for the actual map.
 - F3 command-pane has been shrunk so that it won't overlap the inventory
@@ -132,6 +133,9 @@ Package contents:
 
 Version history:
 ----------------
+1.61:
+  + added speed gauge for current target
+
 1.60 final:
   * installer greatly improved
   * updated Slipstream GUI to v0.2
