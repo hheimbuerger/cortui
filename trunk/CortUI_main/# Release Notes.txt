@@ -1,5 +1,5 @@
 /*****************************************************************************\
-| CortUI v1.61 - Release Notes                                                |
+| CortUI v1.65 - Release Notes                                                |
 \*****************************************************************************/
 
 
@@ -13,18 +13,19 @@ Changes in CortUI (compared to default UI):
 -------------------------------------------
 - CortUI comes with an installer that lets you install or uninstall CortUI
   and/or Slipstream GUI and allows you to customize certain settings.
+- Ten lines of chat are shown in the lobby. [optionally, configurable]
 - Chat has up to ten lines instead of five. [configurable]
+- It also has a scrollbar. [optionally]
 - Chat at the loadout screen has an independent number of chat lines from the
   at other screens. [configurable]
-- Ten lines of chat are shown in the lobby. [optionally, configurable]
 - Autopilot and vector-lock status in flight-mode have been moved and the
   graphics have been made smaller to not overlap with the chat.
 - Map-mode shows all necessary ship status info in upper left area of the
-  screen. (Autopilot and vector-lock status, name of current target, distance
-  to current target, speed of the current target, ship type (and whether you
-  are in the turret of this ship, shield status, hull status, energy status,
-  ammo status, fuel status, O2 level, current thrust, current speed, current
-  signature, kill bonus.)
+  screen. (Autopilot and vector-lock status, name of current target, KB of the
+  current target, distance to current target, speed of the current target,
+  your ship type (and whether you are in the turret of this ship, shield
+  status, hull status, energy status, ammo status, fuel status, O2 level,
+  current thrust, current speed, current signature, kill bonus.)
 - Inventory and minimap have been moved to the side for map-mode, thereby
   making more room for the actual map.
 - F3 command-pane has been shrunk so that it won't overlap the inventory
@@ -35,7 +36,9 @@ Changes in CortUI (compared to default UI):
 - The positioning of the windows in hangar and map when in base have been
   moved, so that ten lines of chat are displayed at all times.
 - Base status display in hangar-mode has been modified, to not overlap with the
-  chat.
+  chat. It is also shown at the map when in base now.
+- The 'last orders list' is displayed in the cockpit, in the hangar and on the
+  map when in base. [optionally]
 - Parts of the hangar graphics have been removed to not overlap with the
   chat. [optionally]
 - The Z-order of the windows has been rearranged (e.g. critical info over
@@ -54,6 +57,13 @@ Installation:
 -------------
 1. Shut down Allegiance.
 2. Run the installer. :)
+3. Launch Allegiance.
+
+
+Uninstallation:
+-------------
+1. Shut down Allegiance.
+2. Run the uninstaller (from Control Panel -> Add or Remove Programs). :)
 3. Launch Allegiance.
 
 
@@ -95,7 +105,8 @@ Known problems:
   you still see some UI elements that shouldn't be there. :(
 - Sometimes, you see the autopilot indicator without having a target. This
   is mainly an Allegiance bug, not a CortUI bug.
-- The minimap can no longer be hidden (it can't be toggled at all).
+- The minimap can no longer be hidden (it can't be toggled at all). (Don't
+  press F7. If you accidently do, press it again.)
 
 
 Package contents:
@@ -133,6 +144,15 @@ Package contents:
 
 Version history:
 ----------------
+1.65:
+  * scrollbar for main chat display can now optionally be turned off
+  - removed speed display for non-moving targets
+  + added experience display for players
+  * moved map info to the left to make room for long callsigns with exp
+    display
+  + base status is now shown on map in base as well
+  + orders are now shown in the hangar and on map in base
+
 1.61:
   + added speed gauge for current target
 

@@ -1,5 +1,5 @@
 // Version information
-cortUIVersionString = "CortUI v1.61";
+cortUIVersionString = "CortUI v1.65";
 
 // Parameter: Number of chat lines in the lobby. Keep between 1 and 10.
 NumChatLinesLobby = ?;
@@ -18,3 +18,6 @@ ShowMinimapAtLoadoutScreen = ?;
 
 // Parameter: 1 if the last accepted and last queued order should be shown, 0 if not
 ShowLastOrders = ?;
+
+// Parameter: 1 if the in-game chat display shall have a scrollbar, 0 if not
+ShowScrollbarOnCockpitChat = ?;
