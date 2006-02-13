@@ -1,6 +1,15 @@
 // /**************************************************************************\
 // | File version history:                                                    |
 // |                                                                          |
+// | 1.9 / Cortex:                                                            |
+// | * scrollbar for main chat display can now optionally be turned off       |
+// | - removed speed display for non-moving targets                           |
+// | + added experience display for players                                   |
+// | * moved map info to the left to make room for long callsigns with exp    |
+// |   display                                                                |
+// | + base status is now shown on map in base as well                        |
+// | + orders are now shown in the hangar and on map in base                  |
+// |                                                                          |
 // | 1.8 / Cortex:															  |
 // | + added speed gauge for current target									  |
 // |                                                                          |
@@ -559,7 +568,7 @@ VoteTextImage =
         620, 
         medBoldVerdana, 
         Color(1, 1, 1), 
-        CurrentVote				//"THIS IS THE CURRENT VOTE!!! VOTE NOW!!! DAMMIT, PRESS CTRL-Y OR CTRL-N FINALLY!!! DECIDE!!!"
+        CurrentVote
     );
 
 backButtonPane = 
@@ -1762,7 +1771,7 @@ cortVersionInformation =
 // Ksero 14:22 2005-03-04:
 // + added Autopilot-indicator in in-flight command mode
 //
-// Cortex 2005-04-17:
+// Cortex 2005#04#17:
 // + added various additional displays
 //
 // Cortex 2005#05#05:
@@ -1771,18 +1780,40 @@ cortVersionInformation =
 // Cortex 2005#07#08:
 // + added speed gauge for current target
 //
+// Cortex 2005#08#16:
+// - removed speed for non-moving targets
+// + added experience display for players 
+//
 //////////////////////////////////////////////////////////////////////////////
 
 cortText = Color(0.586, 0.578, 0.680);
 
+cortTargetExperienceOff =
+    StringImage(
+        JustifyLeft, 
+        155,
+        medVerdana,
+        cortText,
+        GetName(Target, OnEveryFrame)
+    );
+
+cortTargetExperienceOn =
+    StringImage(
+        JustifyLeft, 
+        155,
+        medVerdana,
+        cortText,
+        ConcatinatedString(ConcatinatedString(ConcatinatedString(GetName(Target, OnEveryFrame), " ("), NumberString(TargetExperience)), "%)")
+    );
+
 cortTargetName =
-        StringImage(
-            JustifyLeft, 
-            130,
-            medVerdana,
-            cortText,
-            GetName(Target, OnEveryFrame)
-        );
+    SwitchImage(
+        GetModelType(Target, OnEveryFrame),
+        cortTargetExperienceOff,
+        [
+            (0, cortTargetExperienceOn)
+        ]
+    );
 
 cortTargetRangeString = 
     SwitchString(
@@ -1803,13 +1834,20 @@ cortTargetRange =
     );      
 
 cortTargetSpeed =
-    StringImage(
-        JustifyLeft,
-        150,
-        medVerdana,
-        cortText,
-        ConcatinatedString(NumberString(GetSpeed(Target, OnEveryFrame)), " mps")
-    );      
+    SwitchImage(
+        GetModelType(Target, OnEveryFrame),
+        emptyImage,
+        [
+            (0, StringImage(
+			        JustifyLeft,
+			        150,
+			        medVerdana,
+			        cortText,
+			        ConcatinatedString(NumberString(GetSpeed(Target, OnEveryFrame)), " mps")
+   				 )
+			)
+        ]
+    );
 
 cortShipLabel =
     StringImage(
@@ -2288,6 +2326,12 @@ LookingAtImage =
 // + added CortUI version information
 // * improved indentation to improve readability and maintainability
 //
+// Cortex 2005#08#16:
+// * scrollbar for main chat display can now optionally be turned off
+// * moved map info to the left to make room for long callsigns with exp display
+// + base status is now shown on map in base as well
+// + orders are now shown in the hangar and on map in base
+//
 //////////////////////////////////////////////////////////////
 
 // General remarks:
@@ -2328,7 +2372,14 @@ TeleportPaneImage			= 			   PaneImage(TeleportPane, false, true);
 MoneyPaneImage				= 			   PaneImage(moneyPane, false, true);
 InvestmentsInfoPaneImage	= 			   PaneImage(InvestmentsInfoPane, false, true);
 InvestmentsPaneImage		= 			   PaneImage(InvestmentsPane, false, true);
-CommPaneImage				= VisibleImage(PaneImage(CommPane, false, true), ShowChatHistoryHUD);
+CommPaneImageBasic			= PaneImage(CommPane, false, true);
+CommPaneImageWithoutScrollbar = PaneImage(BlackPane(ImagePane(ClipImage(CommPaneImageBasic, Rect(0, 0, 355, Add(28, Multiply(12, NumChatLinesGlobal)))), [])), false, true);
+CommPaneImageWithScrollbar  = CommPaneImageBasic;
+CommPaneImage				= SwitchImage(
+									ShowScrollbarOnCockpitChat,
+									CommPaneImageWithoutScrollbar,
+									[(1, CommPaneImageWithScrollbar)]
+							  );
 cortCommPaneLoadoutImage	= VisibleImage(PaneImage(cortCommPaneLoadout, false, true), ShowChatHistoryHUD);
 EjectPodPaneImage			= 			   PaneImage(EjectPodPane, false, true);
 DeathBannerPaneImage		= 			   PaneImage(DeathBannerPane, false, true);
@@ -2520,7 +2571,7 @@ dialogs =
         (CommandRadarDetectPaneImage,	SideTopRight,		Point(  -90,  190), Point(-90, -100), .5, 65542, true ),
 
 		// cortCommandModeInfo: the additional ship status information at the upper left corner of the map
-        (cortCommandModeInfo,			SideTopLeft,		Point(   40,  185), Point( 40,   -37), .5,    2, true),
+        (cortCommandModeInfo,			SideTopLeft,		Point(   20,  185), Point( 20,   -37), .5,    2, true),
 
 		// CommandPane: the command bar at the F3-map
         (CommandPaneImage,				SideBottom,			Point( -135, -190), Point(-135,   20), .5, 6, false),
@@ -2537,7 +2588,7 @@ dialogs =
         (BoardTextImage,				SideBottom,			Point( -300, -200), Point( -300, 28), .5,  119, true),
 
 		// StationPane: station status indicator
-        (StationPane,					SideTopLeft,		Point(  -148,  85),	Point( 3,  -33), 0, 65, true ),
+        (StationPane,					SideTopLeft,		Point(  -148,  85),	Point( 3,  -33), 0, 69, true ),
 
 		// EjectPodPane: the eject pod display
         (EjectPodPaneImage,				SideCenter,			Point(   -86, -87),	Point( -86,  -87), .5,   48, true ),
@@ -2555,7 +2606,7 @@ dialogs =
         (CountdownImage,				SideTopLeft,		Point(    45,-137), Point(   40, -137), .5, 48, true ),
 
 		// LastOrderImage: the last two commands you received
-        (LastOrderImage,				SideTopLeft,    	Point(    50,  -7), Point(   50,  -37), .5, 48, true ),
+        (LastOrderImage,				SideTopLeft,    	Point(    50,  -7), Point(   50,  -37), .5, 53, true ),
 
 		// cortVersionInformation: the current version display of CortUI in the map-mode
 		(cortVersionInformation,		SideBottomRight,	Point( -200, 12),	 Point( -200,   12), 0, 6, true)

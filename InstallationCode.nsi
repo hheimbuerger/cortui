@@ -45,6 +45,7 @@ Section "${SECTIONTITLE_CORTUI}" SECIDX_CORTUI
   !insertmacro MUI_INSTALLOPTIONS_READ $settingsAlwaysShowLoadoutWindow "ConfigurationScreen.ini" "${FIELD_SHOWLOADOUT}" "State"
   !insertmacro MUI_INSTALLOPTIONS_READ $settingsShowMinimapAtLoadoutScreen "ConfigurationScreen.ini" "${FIELD_SHOWMINIMAP}" "State"
   !insertmacro MUI_INSTALLOPTIONS_READ $settingsShowLastOrders "ConfigurationScreen.ini" "${FIELD_SHOWORDERS}" "State"
+  !insertmacro MUI_INSTALLOPTIONS_READ $settingsShowScrollbar "ConfigurationScreen.ini" "${FIELD_SHOWSCROLLBAR}" "State"
 
 	!ifdef DEBUG
 		MessageBox MB_ICONINFORMATION|MB_OK "isLobbyScreenSelected: $isLobbyScreenSelected"
@@ -54,6 +55,7 @@ Section "${SECTIONTITLE_CORTUI}" SECIDX_CORTUI
 		MessageBox MB_ICONINFORMATION|MB_OK "settingsAlwaysShowLoadoutWindow: $settingsAlwaysShowLoadoutWindow"
 		MessageBox MB_ICONINFORMATION|MB_OK "settingsShowMinimapAtLoadoutScreen: $settingsShowMinimapAtLoadoutScreen"
 		MessageBox MB_ICONINFORMATION|MB_OK "settingsShowLastOrders: $settingsShowLastOrders"
+		MessageBox MB_ICONINFORMATION|MB_OK "settingsShowScrollbar: $settingsShowScrollbar"
 	!endif
 
   StrCpy $settingsNumChatLinesLobby "6"
