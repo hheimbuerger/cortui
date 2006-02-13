@@ -94,6 +94,10 @@ Function setSettings
 #MessageBox MB_ICONEXCLAMATION|MB_OK "settingsShowScrollbar"
 	      FileWrite $4 "ShowScrollbarOnCockpitChat = $settingsShowScrollbar;$\r$\n"
 	      Goto loop
+	   StrCmp $5 "SoftwareHUDMode = ?;$\r$\n" 0 +3
+#MessageBox MB_ICONEXCLAMATION|MB_OK "settingsSoftwareHUDMode"
+	      FileWrite $4 "SoftwareHUDMode = $settingsSoftwareHUDMode;$\r$\n"
+	      Goto loop
 	   FileWrite $4 $5
 	   Goto loop
 	

@@ -46,6 +46,15 @@ Section "${SECTIONTITLE_CORTUI}" SECIDX_CORTUI
   !insertmacro MUI_INSTALLOPTIONS_READ $settingsShowMinimapAtLoadoutScreen "ConfigurationScreen.ini" "${FIELD_SHOWMINIMAP}" "State"
   !insertmacro MUI_INSTALLOPTIONS_READ $settingsShowLastOrders "ConfigurationScreen.ini" "${FIELD_SHOWORDERS}" "State"
   !insertmacro MUI_INSTALLOPTIONS_READ $settingsShowScrollbar "ConfigurationScreen.ini" "${FIELD_SHOWSCROLLBAR}" "State"
+  !insertmacro MUI_INSTALLOPTIONS_READ $settingsSoftwareHUDModeText "ConfigurationScreen.ini" "${FIELD_SOFTWAREHUDMODE}" "State"
+
+  StrCpy $settingsSoftwareHUDMode "0"
+  StrCmp $settingsSoftwareHUDModeText "Default Software HUD" 0 +2
+    StrCpy $settingsSoftwareHUDMode "0"
+  StrCmp $settingsSoftwareHUDModeText "Default Software HUD with targeting view" 0 +2
+    StrCpy $settingsSoftwareHUDMode "1"
+  StrCmp $settingsSoftwareHUDModeText "Modified Software HUD ('Raveen-style')" 0 +2
+    StrCpy $settingsSoftwareHUDMode "2"
 
 	!ifdef DEBUG
 		MessageBox MB_ICONINFORMATION|MB_OK "isLobbyScreenSelected: $isLobbyScreenSelected"
@@ -56,6 +65,7 @@ Section "${SECTIONTITLE_CORTUI}" SECIDX_CORTUI
 		MessageBox MB_ICONINFORMATION|MB_OK "settingsShowMinimapAtLoadoutScreen: $settingsShowMinimapAtLoadoutScreen"
 		MessageBox MB_ICONINFORMATION|MB_OK "settingsShowLastOrders: $settingsShowLastOrders"
 		MessageBox MB_ICONINFORMATION|MB_OK "settingsShowScrollbar: $settingsShowScrollbar"
+		MessageBox MB_ICONINFORMATION|MB_OK "settingsSoftwareHUDMode: $settingsSoftwareHUDMode"
 	!endif
 
   StrCpy $settingsNumChatLinesLobby "6"
@@ -113,7 +123,7 @@ Function .onInit
 #  InitPluginsDir
 #  File ConfigurationScreen.ini
 #  File ConfigurationScreen.ini
-  !insertmacro MUI_INSTALLOPTIONS_EXTRACT "Welcome.ini"
+#  !insertmacro MUI_INSTALLOPTIONS_EXTRACT "Welcome.ini"
   !insertmacro MUI_INSTALLOPTIONS_EXTRACT "ConfigurationScreen.ini"
 
   SectionSetSize ${SECIDX_CORTUI} 2520

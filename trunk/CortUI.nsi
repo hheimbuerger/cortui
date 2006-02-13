@@ -23,13 +23,13 @@
 ;--------------------------------
 
 
-!define NAME						"CortUI 1.65"
-!define INSTALLER_BUILD				"0011"
-!define FILENAME					"CortUI-1.65.exe"
+!define NAME						"CortUI 1.70 RC3"
+!define INSTALLER_BUILD				"0015"
+!define FILENAME					"CortUI-1.70-RC3.exe"
 !define REGKEY_ALLEGARTWORK			"SOFTWARE\Microsoft\Microsoft Games\Allegiance\1.0\"
 !define REGNAME_ALLEGARTWORK		"ArtPath"
 
-!define SECTIONTITLE_CORTUI					"!CortUI v1.65"
+!define SECTIONTITLE_CORTUI					"!CortUI v1.70"
 !define SECTIONDESC_CORTUI					"A modification of the look and feel of Allegiance."
 !define SECTIONTITLE_SLIPSTREAMGUI			"Slipstream GUI v0.2"
 !define SECTIONDESC_SLIPSTREAMGUI			"Newtype's famous new Allegiance skin."
@@ -50,6 +50,7 @@
 !define FIELD_SHOWMINIMAP			"Field 8"
 !define FIELD_SHOWORDERS			"Field 9"
 !define FIELD_SHOWSCROLLBAR			"Field 10"
+!define FIELD_SOFTWAREHUDMODE   	"Field 12"
 
 #Var test
 Var IsSlipstreamSelected
@@ -64,6 +65,8 @@ Var settingsAlwaysShowLoadoutWindow
 Var settingsShowMinimapAtLoadoutScreen
 Var settingsShowLastOrders
 Var settingsShowScrollbar
+Var settingsSoftwareHUDModeText
+Var settingsSoftwareHUDMode
 Var isSlipstreamInstalled
 Var isCortUIInstalled
 Var shallInstallCortUI

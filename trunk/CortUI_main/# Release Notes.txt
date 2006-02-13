@@ -1,5 +1,5 @@
 /*****************************************************************************\
-| CortUI v1.65 - Release Notes                                                |
+| CortUI v1.70 - Release Notes                                                |
 \*****************************************************************************/
 
 
@@ -11,7 +11,7 @@ modification
 
 Changes in CortUI (compared to default UI):
 -------------------------------------------
-- CortUI comes with an installer that lets you install or uninstall CortUI
+- CortUI comes with an installer that allows you to install or uninstall CortUI
   and/or Slipstream GUI and allows you to customize certain settings.
 - Ten lines of chat are shown in the lobby. [optionally, configurable]
 - Chat has up to ten lines instead of five. [configurable]
@@ -26,6 +26,10 @@ Changes in CortUI (compared to default UI):
   your ship type (and whether you are in the turret of this ship, shield
   status, hull status, energy status, ammo status, fuel status, O2 level,
   current thrust, current speed, current signature, kill bonus.)
+- When in base, map-mode shows your ship type and your KB.
+- Two additional software HUD modes are available: the default software HUD,
+  the default software HUD with a displayed targeting view and a completely
+  revamped software HUD (known as 'Raveen-style').  
 - Inventory and minimap have been moved to the side for map-mode, thereby
   making more room for the actual map.
 - F3 command-pane has been shrunk so that it won't overlap the inventory
@@ -82,8 +86,8 @@ Additional remarks:
 - Designed for 800x600 (optimum) and 1024x768 (possible but not very pretty,
   although the normal UI isn't very pretty with 1024x768 either, imho).
   640x480 is *not* supported! Higher resolutions haven't been tested but are
-  reported to work fine.
-- Works with normal HUD and software HUD.
+  reported to work fine. The modified software HUD ('Raveen-style') supports
+  only 1024x768 and above!
 - To change the settings you made during installation, you have two options:
   Either edit cortui_settings.mdl yourself or just run the installation again.
   This will not harm the uninstallation process at all.
@@ -128,6 +132,7 @@ Package contents:
   seems to be the graphic (completely black) that is used as the background of
   the chat display. I had to increase its size to display all ten lines of
   chat.
+- cortui_constationdisplaybmp.mdl: Contains the modified station status bar.
 - cortui_convectorlockbmp.mdl: Contains the autopilot-icon. The icon was
   resized to take less space on the screen in in-flight- and map-mode.
 - cortui_hangarbmp.mdl: Contains the background image of the hangar. Some
@@ -135,15 +140,28 @@ Package contents:
 - cortui_lobbylistbkgbmp.mdl: The new table grid image for the lobby.
 - cortui_recipientsbmp.mdl: The upper button row image for the new
   command-pane.
+- cortui_targetovalcolorbmp.mdl, cortui_targetovalword1bmp.mdl,
+  cortui_targetovalword2bmp.mdl: The elements of the modified background image
+  for the targeting view for the software HUD.
 - cortui_teamscreenbmp.mdl: The new background image for the lobby.
 - cortui_verbsbmp.mdl: The lower button row image for the new command-pane.
 - [various Slipstream GUI files]
-- [various original files from Freeallegiance.org-installer 1.31 to allow
+- [various original files from Freeallegiance.org-installer 1.50 to allow
   uninstallation of CortUI and Slipstream GUI]
 
 
 Version history:
 ----------------
+1.70:
+  * fixed a bug that triggered an assertion (not noticeable in release-builds
+    of the Allegiance client)
+  * the map-mode readout displays very long names correctly now
+  + introduced two new software HUD modes: the default HUD with targeting view
+    and a completely modified software HUD ('Raveen-style')
+  * the minimap has been moved a bit to be symmetrical with the loadout window
+  * the main chat is now correctly positioned if set to less than 10 lines
+  + current ship and current KB are now displayed on the map when in base
+
 1.65:
   * scrollbar for main chat display can now optionally be turned off
   - removed speed display for non-moving targets
@@ -248,3 +266,9 @@ Acknowledgements:
 This modification would not have been possible without Ksero's modification,
 his excellent documentation of the .mdl-files, and his support!
 Thanks to jgbaxter for his help on fixing an installer bug under Win98.
+
+
+
+
+
+-- Cort, 2005#12#27

@@ -69,7 +69,7 @@ Function un.onInit
 #  InitPluginsDir
 #  File ConfigurationScreen.ini
 #  File ConfigurationScreen.ini
-  !insertmacro MUI_INSTALLOPTIONS_EXTRACT "UninstallerWelcome.ini"
+#  !insertmacro MUI_INSTALLOPTIONS_EXTRACT "UninstallerWelcome.ini"
 #  !insertmacro MUI_INSTALLOPTIONS_EXTRACT "UninstallerOptions.ini"
 
 	ReadRegStr $isCortUIInstalled HKLM "Software\CortUI" "isCortUIInstalled"

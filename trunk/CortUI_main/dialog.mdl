@@ -1,6 +1,19 @@
 // /**************************************************************************\
 // | File version history:                                                    |
 // |                                                                          |
+// | 1.10 / Cortex:                                                           |
+// | * fixed a bug that triggered an assertion (not noticeable in             |
+// |   release-builds of the Allegiance client)                               |
+// | * the map-mode displays very long names correctly now (text width        |
+// |   155->200, moved 20 to the right)                                       |
+// | + introduced the two new software HUD modes                              |
+// | * the minimap has been moved a bit to be symmetrical with the loadout    |
+// |   window                                                                 |
+// | * the targeting view has been moved three pixels up for the new software |
+// |   HUD mode                                                               |
+// | * the main chat is now correctly positioned if set to less than 10 lines |
+// | + current ship and current KB are now displayed on the map when in base  |
+// |                                                                          |
 // | 1.9 / Cortex:                                                            |
 // | * scrollbar for main chat display can now optionally be turned off       |
 // | - removed speed display for non-moving targets                           |
@@ -94,7 +107,7 @@ hudBlendMode = BlendModeAdd;
 RecipientsColumns    = [53, 106, 159, 212]; 
 RecipientsBB = ButtonBarPane(ImportImage("cortui_recipientsbmp", true), ButtonNormal, RecipientsColumns, true);
 
-VerbsColumns    = [32, 62, 92, 122, 152, 182, 212, 242, 270];
+VerbsColumns    = [32, 62, 92, 122, 152, 182, 212, 242, 268];
 VerbsBB      = ButtonBarPane(ImportImage("cortui_verbsbmp", true), ButtonNormal, VerbsColumns, false);
 
 
@@ -1504,6 +1517,20 @@ TargetOvalWord2 =
             hudBlendMode
         );
 
+cortTargetOvalColor = ImportImage3D("cortui_targetovalcolorbmp", targetHudColor, true);
+        
+cortTargetOvalWord1 = 
+  BlendImage(
+            ImportImage3D("cortui_targetovalword1bmp", white, true),
+            hudBlendMode
+        );
+
+cortTargetOvalWord2 = 
+        BlendImage(
+            ImportImage3D("cortui_targetovalword2bmp", white, true),
+            hudBlendMode
+        );
+
 TargetExperienceOnImage = 
     GroupImage([
             StringImage(
@@ -1555,12 +1582,6 @@ DefaultTargetDisplay =
             TranslateImage(TargetArmor, Point(168, 73)),
             TranslateImage(TargetShield, Point(410, 73)),
             TranslateImage(TargetInRange, Point(200, 90))
-            
-                
-        
-        //TranslateImage(TargetDesc, Point(140, 48)),
-        //TranslateImage(TargetHud, Point(194, -70)),
-        
             ]
     
     ), IsNotNull(Target, OnEveryFrame));
@@ -1665,26 +1686,127 @@ softTargetInRange =
         ]
     );
 
-SoftwareTargetDisplay = 
-    
-        VisibleImage(TranslateImage(
-        GroupImage(
-            [
-            TranslateImage(softTargetExperience, Point(-19, 29)),
-            TranslateImage(softTargetTeamColor, Point(6, 6)),
-            TranslateImage(softTargetShield, Point(54, 26)),
-            TranslateImage(softTargetHull, Point(54, 8)),
-            TranslateImage(softTargetName, Point(115, 38)),
-            TranslateImage(softTargetDesc, Point(115, 22)),
-            TranslateImage(softTargetLocationImage, Point(246, 24)),
-            TranslateImage(softTargetRange, Point(279, 38)),
-            TranslateImage(softTargetSpeed, Point(279, 22)),
-            TranslateImage(softTargetInRange, Point(-24, 25)),
-            ImportImage("softtargetbgbmp", true)
+DefaultSoftwareTargetDisplay = 
+    VisibleImage(
+        TranslateImage(
+            GroupImage(
+                [
+                TranslateImage(softTargetExperience, Point(-19, 29)),
+                TranslateImage(softTargetTeamColor, Point(6, 6)),
+                TranslateImage(softTargetShield, Point(54, 26)),
+                TranslateImage(softTargetHull, Point(54, 8)),
+                TranslateImage(softTargetName, Point(115, 38)),
+                TranslateImage(softTargetDesc, Point(115, 22)),
+                TranslateImage(softTargetLocationImage, Point(246, 24)),
+                TranslateImage(softTargetRange, Point(279, 38)),
+                TranslateImage(softTargetSpeed, Point(279, 22)),
+                TranslateImage(softTargetInRange, Point(-24, 25)),
+                ImportImage("softtargetbgbmp", true)
+                ]
+            ),
+            Point(125, 30)
+        ),
+        IsNotNull(Target, OnEveryFrame)
+    );
 
-            ]
-        ), Point(125, 30)),
-        IsNotNull(Target, OnEveryFrame));
+
+
+/////////////////////////////////////////////////////////////
+//
+//  ADDITIONAL CORTUI SOFTWARE HUD MODES
+//
+////////////////////////////////////////////////////////////
+
+SoftwareTargetDisplayWithTargetingView = 
+    VisibleImage(
+        TranslateImage(
+            GroupImage(
+                [
+                TranslateImage(softTargetExperience, Point(-19, 29)),
+                TranslateImage(softTargetTeamColor, Point(6, 6)),
+                TranslateImage(softTargetShield, Point(54, 26)),
+                TranslateImage(softTargetHull, Point(54, 8)),
+                TranslateImage(softTargetName, Point(115, 38)),
+                TranslateImage(softTargetDesc, Point(115, 22)),
+                TranslateImage(softTargetLocationImage, Point(246, 24)),
+                TranslateImage(softTargetRange, Point(279, 38)),
+                TranslateImage(softTargetSpeed, Point(279, 22)),
+                TranslateImage(softTargetInRange, Point(-24, 25)),
+                TranslateImage(
+                    GeoImage(
+                        targetGeo,
+                        Rect(0, 0, 96, 96),
+                        targetCamera,
+                        true
+                    ), 
+                    Point(146, 44)
+                ),
+                TranslateImage(cortTargetOvalWord1, Point(67, 34)),
+                TranslateImage(cortTargetOvalWord2, Point(194, 34)),
+                TranslateImage(TargetOval, Point(66, -46)),
+                TranslateImage(cortTargetOvalColor, Point(130, 27)),
+                ImportImage("softtargetbgbmp", true)
+                ]
+            ),
+            Point(125, 30)
+        ),
+        IsNotNull(Target, OnEveryFrame)
+    );
+
+ModifiedSoftwareTargetDisplay = 
+    VisibleImage(
+        TranslateImage(
+            GroupImage(
+                [
+                TranslateImage(softTargetExperience, Point(-10, 82)),
+                TranslateImage(softTargetTeamColor, Point(15, 59)),
+                TranslateImage(softTargetShield, Point(6, 34)),
+                TranslateImage(softTargetHull, Point(6, 14)),
+                TranslateImage(softTargetName, Point(255, 88)),
+                TranslateImage(softTargetDesc, Point(255, 68)),
+                TranslateImage(softTargetRange, Point(287, 48)),
+                TranslateImage(softTargetSpeed, Point(287, 28)),
+                TranslateImage(
+                    GeoImage(
+                        targetGeo,
+                        Rect(0, 0, 96, 96),
+                        targetCamera,
+                        true
+                    ), 
+                    Point(107, 4)
+                ),
+                TranslateImage(cortTargetOvalWord1, Point(28, -6)),
+                TranslateImage(cortTargetOvalWord2, Point(155, -6)),
+                TranslateImage(TargetOval, Point(27, -86)),
+                TranslateImage(cortTargetOvalColor, Point(91, -13)),
+                ImportImage("cortui_softtargetbgbmp", true)
+                ]
+            ),
+            Point(125, 30)
+        ),
+        IsNotNull(Target, OnEveryFrame)
+    );
+
+
+
+/////////////////////////////////////////////////////////////
+//
+//  SOFTWARE HUD STYLE SWITCH IMAGE
+//
+////////////////////////////////////////////////////////////
+
+SoftwareTargetDisplay = 
+    SwitchImage(
+        SoftwareHUDMode,
+        DefaultSoftwareTargetDisplay,
+        [
+            (0, DefaultSoftwareTargetDisplay),
+            (1, SoftwareTargetDisplayWithTargetingView),
+            (2, ModifiedSoftwareTargetDisplay)
+        ]
+    );
+
+
 
 /////////////////////////////////////////////////////////////
 //
@@ -1791,7 +1913,7 @@ cortText = Color(0.586, 0.578, 0.680);
 cortTargetExperienceOff =
     StringImage(
         JustifyLeft, 
-        155,
+        200,
         medVerdana,
         cortText,
         GetName(Target, OnEveryFrame)
@@ -1800,7 +1922,7 @@ cortTargetExperienceOff =
 cortTargetExperienceOn =
     StringImage(
         JustifyLeft, 
-        155,
+        200,
         medVerdana,
         cortText,
         ConcatinatedString(ConcatinatedString(ConcatinatedString(GetName(Target, OnEveryFrame), " ("), NumberString(TargetExperience)), "%)")
@@ -2066,6 +2188,15 @@ cortKillbonusPostfix =
         "%"
     );
 
+cortKillbonusValueAndPostfixLeftAligned = 
+    StringImage(
+        JustifyLeft,
+        75,
+        medVerdana,
+        cortText,
+        ConcatinatedString(NumberString(Experience), " %")
+    );
+
 cortShipDisplays = 
 	GroupImage([
 		TranslateImage(cortEnergyLabel,      Point(0,  0)),
@@ -2136,6 +2267,14 @@ cortCommandModeInfo =
 		TranslateImage(cortKillbonusLabel,   Point(0,  -118)),
 		TranslateImage(cortKillbonusValue,   Point(5,  -118)),
 		TranslateImage(cortKillbonusPostfix, Point(82, -118))
+	]);
+
+cortCommandModeInfoBase = 
+	GroupImage([
+		TranslateImage(cortShipLabel,                             Point(0,  -50)),
+		TranslateImage(cortShipValue,                             Point(49, -50)),
+		TranslateImage(cortKillbonusLabel,                        Point(0,  -62)),
+		TranslateImage(cortKillbonusValueAndPostfixLeftAligned,   Point(49, -62))
 	]);
 
 
@@ -2331,6 +2470,14 @@ LookingAtImage =
 // * moved map info to the left to make room for long callsigns with exp display
 // + base status is now shown on map in base as well
 // + orders are now shown in the hangar and on map in base
+//
+// Cortex 2005#12#27:
+// * the map-mode displays very long names correctly now (text width
+//   155->200, moved 20 to the right)
+// * the minimap has been moved a bit to be symmetrical with the loadout
+//   window
+// * the targeting view has been moved three pixels up for the new software
+//   HUD mode
 //
 //////////////////////////////////////////////////////////////
 
@@ -2530,7 +2677,7 @@ dialogs =
 		// **********************************
 
 		//SectorImage: the minimap (flight mode)
-        (SectorImage,					SideBottomLeft,		Point(   49, -187), Point(  49,   36), .5, 65584, false),		//== 65536 + 32 + 16
+        (SectorImage,					SideBottomLeft,		Point(   0, -187), Point(  36,   28), .5, 65584, false),		//== 65536 + 32 + 16
 		//SectorImage: the minimap (in base)
         (SectorImage,					SideBottomLeft,		Point(   0, -187),	Point(  0,   8), .5, Add(263, Multiply(ShowMinimapAtLoadoutScreen, 64)) , false),		//== 256 + 4 + 2 + 1
 
@@ -2557,8 +2704,8 @@ dialogs =
 //        (StringImage(JustifyRight, 75, medVerdana, cortText, NumberString(VoteTextImageYOffset)), SideCenter, Point(    0,    0), Point(   0,  -100), .5,    48, true),
 
 		// CommPane: the chat display
-		(CommPaneImage,					SideTop,			Point(-180, -126), Point(-180, -126), 0, 63, true),			//-130
-		(cortCommPaneLoadoutImage,		SideTop,			Point(-180, -126), Point(-180, -126), 0, 64, true),
+		(CommPaneImage,					SideTop,			Point(-160, -126), Point(-160, -126), 0, 63, true),			//-130
+		(cortCommPaneLoadoutImage,		SideTop,			Point(-160, -126), Point(-160, -126), 0, 64, true),
 
 		// (soft)CenterHudDisplay: the HUD (either normal or software)
         (CenterHudDisplayImage,			SideCenter,			Point( -320, 1000), Point( -320, -240), .5, 48, true ),
@@ -2572,6 +2719,7 @@ dialogs =
 
 		// cortCommandModeInfo: the additional ship status information at the upper left corner of the map
         (cortCommandModeInfo,			SideTopLeft,		Point(   20,  185), Point( 20,   -37), .5,    2, true),
+        (cortCommandModeInfoBase,		SideTopLeft,		Point(   20,  185), Point( 20,   -37), .5,    4, true),
 
 		// CommandPane: the command bar at the F3-map
         (CommandPaneImage,				SideBottom,			Point( -135, -190), Point(-135,   20), .5, 6, false),
