@@ -45,12 +45,14 @@ Changes in CortUI (compared to default UI):
   map when in base. [optionally]
 - Parts of the hangar graphics have been removed to not overlap with the
   chat. [optionally]
-- The Z-order of the windows has been rearranged (e.g. critical info over
+- The drawing order of the windows has been rearranged (e.g. critical info over
   investments, investments over inventory).
 - Help button in hangar-mode has been removed because it overlapped with the
   chat and isn't helpful anyway.
 - The back-button at the map has been removed (use F3 instead).
 - The back-button in the hangar has been removed (use ESC-q instead).
+- The 'default loadout' button at the loadout screen has been moved to the
+  lower right to lower the chance of clicking it by accident.
 - The version number of the modification is shown in the lower right corner of
   the map.
 - The 'dialogs='-part of dialog.mdl has been extensively commented and
@@ -122,6 +124,8 @@ Package contents:
 - hangar.mdl (replaces existing file): Contains all changes of hangar GUI.
 - teamscreen.mdl (replaces existing file): Contains all changes to the lobby
   GUI.
+- loadoutpane.mdl (replaces existing file): Contains all changes to the
+  loadout view.
 - cortui_settings.mdl: Contains all settings that can be modified during
   installation.
 - cortui_animinvestbmp.mdl: Contains the animation that highlights the
@@ -131,10 +135,8 @@ Package contents:
 - cortui_commandbkgndbmp.mdl: The background of the new command-pane.
 - cortui_conautopilotbmp.mdl: Contains the autopilot-icon. The icon was resized
   to take less space on the screen in in-flight- and map-mode.
-- cortui_concommdisplaybmp.mdl: I'm not completely sure about this one. It
-  seems to be the graphic (completely black) that is used as the background of
-  the chat display. I had to increase its size to display all ten lines of
-  chat.
+- cortui_concommdisplaybmp.mdl: The background of the chat display (completely
+  black). Its size has been increased to display up to ten lines of chat.
 - cortui_constationdisplaybmp.mdl: Contains the modified station status bar.
 - cortui_convectorlockbmp.mdl: Contains the autopilot-icon. The icon was
   resized to take less space on the screen in in-flight- and map-mode.
