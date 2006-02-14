@@ -12,6 +12,7 @@
 // | * the targeting view has been moved three pixels up for the new software |
 // |   HUD mode                                                               |
 // | * the main chat is now correctly positioned if set to less than 10 lines |
+// |   without scrollbar                                                      |
 // | + current ship and current KB are now displayed on the map when in base  |
 // |                                                                          |
 // | 1.9 / Cortex:                                                            |
@@ -310,10 +311,7 @@ CommPane =
     ImagePane(
         ImportImage("cortui_concommdisplaybmp", false),
         [
-            (
-                chatListPane,
-                Point(0,20)
-            )
+            (chatListPane, Point(0,0))
         ]
     );
 
@@ -321,10 +319,7 @@ cortCommPaneLoadout =
     ImagePane(
         ImportImage("cortui_concommdisplaybmp", false),
         [
-            (
-                cortChatListPaneLoadout,
-                Point(0,20)
-            )
+            (cortChatListPaneLoadout, Point(0,0))
         ]
     );
 
@@ -2512,27 +2507,28 @@ VoteTextImage_Adjusted = SwitchImage(
 								 (1, TranslateImage(VoteTextImage, Point(   0, VoteTextImageYOffset_SoftwareHud)))]
 						 );
 
-CommandPaneImage			= 			   PaneImage(CommandPane, false, true);
-CommandRadarDetectPaneImage	= 			   PaneImage(commandRadarDetectPane, false, true);
-TeamPaneImage				= 			   PaneImage(TeamPanePane, false, true);
-TeleportPaneImage			= 			   PaneImage(TeleportPane, false, true);
-MoneyPaneImage				= 			   PaneImage(moneyPane, false, true);
-InvestmentsInfoPaneImage	= 			   PaneImage(InvestmentsInfoPane, false, true);
-InvestmentsPaneImage		= 			   PaneImage(InvestmentsPane, false, true);
-CommPaneImageBasic			= PaneImage(CommPane, false, true);
-CommPaneImageWithoutScrollbar = PaneImage(BlackPane(ImagePane(ClipImage(CommPaneImageBasic, Rect(0, 0, 355, Add(28, Multiply(12, NumChatLinesGlobal)))), [])), false, true);
-CommPaneImageWithScrollbar  = CommPaneImageBasic;
-CommPaneImage				= SwitchImage(
-									ShowScrollbarOnCockpitChat,
-									CommPaneImageWithoutScrollbar,
-									[(1, CommPaneImageWithScrollbar)]
-							  );
-cortCommPaneLoadoutImage	= VisibleImage(PaneImage(cortCommPaneLoadout, false, true), ShowChatHistoryHUD);
-EjectPodPaneImage			= 			   PaneImage(EjectPodPane, false, true);
-DeathBannerPaneImage		= 			   PaneImage(DeathBannerPane, false, true);
-CenterHudDisplayImage		= VisibleImage(CenterHudDisplay, ShowCenterHUD);
-SoftCenterHudDisplayImage	= VisibleImage(softCenterHudDisplay, ShowCenterHUD);
-TargetDisplayImage			= VisibleImage(TargetDisplay, ShowTargetHUD);
+CommandPaneImage			      = PaneImage(CommandPane, false, true);
+CommandRadarDetectPaneImage       = PaneImage(commandRadarDetectPane, false, true);
+TeamPaneImage				      = PaneImage(TeamPanePane, false, true);
+TeleportPaneImage			      = PaneImage(TeleportPane, false, true);
+MoneyPaneImage				      = PaneImage(moneyPane, false, true);
+InvestmentsInfoPaneImage	      = PaneImage(InvestmentsInfoPane, false, true);
+InvestmentsPaneImage		      = PaneImage(InvestmentsPane, false, true);
+cortCommPaneImageBasic		      = PaneImage(CommPane, false, true);
+CuttingRect                       = Rect(0, 0, 355, 125);
+cortCommPaneImageWithoutScrollbar = PaneImage(BlackPane(ImagePane(ClipImage(cortCommPaneImageBasic, CuttingRect), [])), false, true);
+cortCommPaneImageWithScrollbar    = cortCommPaneImageBasic;
+cortCommPaneImage			      = SwitchImage(
+								       ShowScrollbarOnCockpitChat,
+								       cortCommPaneImageWithoutScrollbar,
+								       [(1, cortCommPaneImageWithScrollbar)]
+							        );
+cortCommPaneLoadoutImage	      = PaneImage(cortCommPaneLoadout, false, true);
+EjectPodPaneImage			      = PaneImage(EjectPodPane, false, true);
+DeathBannerPaneImage		      = PaneImage(DeathBannerPane, false, true);
+CenterHudDisplayImage		      = VisibleImage(CenterHudDisplay, ShowCenterHUD);
+SoftCenterHudDisplayImage	      = VisibleImage(softCenterHudDisplay, ShowCenterHUD);
+TargetDisplayImage			      = VisibleImage(TargetDisplay, ShowTargetHUD);
 MergedInventoryPaneImage    = GroupImage([
 									TranslateImage(ShipNameImage,		Point( -5,  14)),
 							        TranslateImage(InventoryImage(),	Point(  0,  0)),
@@ -2704,7 +2700,7 @@ dialogs =
 //        (StringImage(JustifyRight, 75, medVerdana, cortText, NumberString(VoteTextImageYOffset)), SideCenter, Point(    0,    0), Point(   0,  -100), .5,    48, true),
 
 		// CommPane: the chat display
-		(CommPaneImage,					SideTop,			Point(-160, -126), Point(-160, -126), 0, 63, true),			//-130
+		(cortCommPaneImage,				SideTop,			Point(-160, -126), Point(-160, -126), 0, 63, true),
 		(cortCommPaneLoadoutImage,		SideTop,			Point(-160, -126), Point(-160, -126), 0, 64, true),
 
 		// (soft)CenterHudDisplay: the HUD (either normal or software)
