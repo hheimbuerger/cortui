@@ -91,6 +91,9 @@ Additional remarks:
 - To change the settings you made during installation, you have two options:
   Either edit cortui_settings.mdl yourself or just run the installation again.
   This will not harm the uninstallation process at all.
+- If you don't like the position of the 'default loadout' button on the loadout
+  screen: open loadoutpane.mdl, search for a line that defines
+  'defaultBtnPosition' and change the second value from 318 back to 158
 
 
 Known problems:
@@ -159,8 +162,11 @@ Version history:
   + introduced two new software HUD modes: the default HUD with targeting view
     and a completely modified software HUD ('Raveen-style')
   * the minimap has been moved a bit to be symmetrical with the loadout window
-  * the main chat is now correctly positioned if set to less than 10 lines
+  * the main chat is now correctly positioned if set to less than 10 lines and
+    deactivated scrollbar
   + current ship and current KB are now displayed on the map when in base
+  * the 'default loadout' button on the loadout screen has been moved to the
+    lower right to lower the chance of clicking it by accident
 
 1.65:
   * scrollbar for main chat display can now optionally be turned off
@@ -266,9 +272,13 @@ Acknowledgements:
 This modification would not have been possible without Ksero's modification,
 his excellent documentation of the .mdl-files, and his support!
 Thanks to jgbaxter for his help on fixing an installer bug under Win98.
+Many thanks to apathos for his numerous bug reports that helped to finally
+track down the chat alignment bug.
+Thanks to Ksero and Tigereye for reporting a triggered assertion that led to
+fixing the command bar column bug.
 
 
 
 
 
--- Cort, 2005#12#27
+-- Cort, 2006#02#14

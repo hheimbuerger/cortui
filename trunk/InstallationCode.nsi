@@ -35,6 +35,7 @@ Section "${SECTIONTITLE_CORTUI}" SECIDX_CORTUI
   File "CortUI_main\# Release Notes.txt"
   Pop $OUTDIR
   File CortUI_main\dialog.mdl
+  File CortUI_main\loadoutpane.mdl
   File CortUI_main\cortui_settings.mdl
   StrCpy $IsCortuiSelected "true"
 
