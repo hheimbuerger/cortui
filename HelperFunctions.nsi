@@ -32,6 +32,7 @@ Function backupCoreFiles
   CopyFiles /silent "$INSTDIR\dialog.mdl" $8
   CopyFiles /silent "$INSTDIR\hangar.mdl" $8
   CopyFiles /silent "$INSTDIR\teamscreen.mdl" $8
+  CopyFiles /silent "$INSTDIR\loadoutpane.mdl" $8
   IfFileExists "$INSTDIR\cortui_settings.mdl" 0 +2
     CopyFiles /silent "$INSTDIR\cortui_settings.mdl" $8
 FunctionEnd
@@ -53,6 +54,7 @@ Function un.backupCoreFiles
   CopyFiles /silent "$INSTDIR\dialog.mdl" $8
   CopyFiles /silent "$INSTDIR\hangar.mdl" $8
   CopyFiles /silent "$INSTDIR\teamscreen.mdl" $8
+  CopyFiles /silent "$INSTDIR\loadoutpane.mdl" $8
   IfFileExists "$INSTDIR\cortui_settings.mdl" 0 +2
     CopyFiles /silent "$INSTDIR\cortui_settings.mdl" $8
 FunctionEnd
