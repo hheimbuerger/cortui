@@ -56,6 +56,8 @@ Section "${SECTIONTITLE_CORTUI}" SECIDX_CORTUI
     StrCpy $settingsSoftwareHUDMode "1"
   StrCmp $settingsSoftwareHUDModeText "Modified Software HUD ('Raveen-style')" 0 +2
     StrCpy $settingsSoftwareHUDMode "2"
+  StrCmp $settingsSoftwareHUDModeText "Modified Software HUD ('Parci-style')" 0 +2
+    StrCpy $settingsSoftwareHUDMode "3"
 
 	!ifdef DEBUG
 		MessageBox MB_ICONINFORMATION|MB_OK "isLobbyScreenSelected: $isLobbyScreenSelected"

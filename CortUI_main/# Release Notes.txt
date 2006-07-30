@@ -161,8 +161,9 @@ Version history:
   * fixed a bug that triggered an assertion (not noticeable in release-builds
     of the Allegiance client)
   * the map-mode readout displays very long names correctly now
-  + introduced two new software HUD modes: the default HUD with targeting view
-    and a completely modified software HUD ('Raveen-style')
+  + introduced three new software HUD modes: the default HUD with targeting view
+    and two completely modified software HUDs, one by Raveen and one by
+    Parcival
   * the minimap has been moved a bit to be symmetrical with the loadout window
   * the main chat is now correctly positioned if set to less than 10 lines and
     deactivated scrollbar
@@ -259,7 +260,7 @@ Ksero:
   PM at freeallegiance.org-boards: Ksero
 
 Cortex:
-  e-mail: Henrik@Heimbuerger.de
+  e-mail: henrik@heimbuerger.de
   ICQ: 14011335
   PM at freeallegiance.org-boards: Cortex
 
@@ -281,6 +282,4 @@ fixing the command bar column bug.
 
 
 
-
-
--- Cort, 2006#02#14
+-- Cort, 2006#07#30
