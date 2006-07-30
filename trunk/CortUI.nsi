@@ -23,13 +23,13 @@
 ;--------------------------------
 
 
-!define NAME						"CortUI 1.70 RC4"
-!define INSTALLER_BUILD				"0016"
-!define FILENAME					"CortUI-1.70-RC4.exe"
+!define NAME						"CortUI 1.70 RC5"
+!define INSTALLER_BUILD				"0017"
+!define FILENAME					"CortUI-1.70-RC5.exe"
 !define REGKEY_ALLEGARTWORK			"SOFTWARE\Microsoft\Microsoft Games\Allegiance\1.0\"
 !define REGNAME_ALLEGARTWORK		"ArtPath"
 
-!define SECTIONTITLE_CORTUI					"!CortUI v1.70"
+!define SECTIONTITLE_CORTUI					"!CortUI v1.70 RC5"
 !define SECTIONDESC_CORTUI					"A modification of the look and feel of Allegiance."
 !define SECTIONTITLE_SLIPSTREAMGUI			"Slipstream GUI v0.2"
 !define SECTIONDESC_SLIPSTREAMGUI			"Newtype's famous new Allegiance skin."
