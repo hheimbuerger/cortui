@@ -1,6 +1,9 @@
 // /**************************************************************************\
 // | File version history:                                                    |
 // |                                                                          |
+// | 1.11 / Cortex:                                                           |
+// | + added the software HUD 'Parci-style'                                   |
+// |                                                                          |
 // | 1.10 / Cortex:                                                           |
 // | * fixed a bug that triggered an assertion (not noticeable in             |
 // |   release-builds of the Allegiance client)                               |
@@ -1351,6 +1354,173 @@ CenterHudSoftware =
 
 //////////////////////////////////////////////////////////////////
 ///
+///  Parcival's Software HUD
+///
+//////////////////////////////////////////////////////////////////
+
+parciAutopilotOnImage =
+    SwitchImage(
+        AutopilotOn,
+        emptyImage, 
+        [
+            (1, ImportImage("cortui_parci_autopilotbmp", true))
+        ]
+    );
+
+parciRadarDetectImage = 
+    SwitchImage(
+        Detected,
+        emptyImage,
+        [
+            (1, ImportImage("cortui_parci_eyebmp", true))
+        ]
+    );
+
+parciCloakOn = 
+    SwitchImage(
+        IsCloaked(Me, OnEveryFrame),
+        emptyImage,
+        [
+            (1, ImportImage("cortui_parci_cloakbmp", true))
+        ]
+    );
+
+parciVectorLockOn = 
+    SwitchImage(
+        GetVectorLock(Me, OnEveryFrame),
+        emptyImage,
+        [
+            (1, ImportImage("cortui_parci_vectorlockbmp", true))
+        ]
+    );
+
+parciThrustGauge =
+    GaugeImage(JustifyBottom, ImportImage("cortui_parci_thrustbmp", true), playerThrottle);
+
+parciThrustGaugeHit =
+    GaugeImage(JustifyBottom, ImportImage("cortui_parci_thrusthitbmp", true), playerThrottle);
+
+parciThrust = 
+    SwitchImage(
+        0, //Flash,
+        parciThrustGauge,
+        [
+            (0, parciThrustGauge),
+            (1, parciThrustGaugeHit)
+        ]
+    );
+
+parciFuelGauge = 
+    GaugeImage(JustifyBottom, ImportImage("cortui_parci_fuelbmp", true), GetFuel(Me, OnEveryFrame));
+    
+parciFuelGaugeHit = 
+    GaugeImage(JustifyBottom, ImportImage("cortui_parci_fuelhitbmp", true), GetFuel(Me, OnEveryFrame));
+    
+parciFuel = 
+    SwitchImage(
+        0, //Flash,
+        parciFuelGauge,
+        [
+            (0, parciFuelGauge),
+            (1, parciFuelGaugeHit)
+        ]
+    );
+
+parciAmmoGauge =
+    GaugeImage(JustifyBottom, ImportImage("cortui_parci_ammobmp", true), GetAmmo(Me, OnEveryFrame));
+
+parciAmmoGaugeHit =
+    GaugeImage(JustifyBottom, ImportImage("cortui_parci_ammohitbmp", true), GetAmmo(Me, OnEveryFrame));
+
+parciAmmo = 
+    SwitchImage(
+        0, //Flash,
+        parciAmmoGauge,
+        [
+            (0, parciAmmoGauge),
+            (1, parciAmmoGaugeHit)
+        ]
+    );
+
+parciEnergyGauge = 
+    GaugeImage(JustifyBottom, ImportImage("cortui_parci_energybmp", true), GetPercentEnergy(Me, OnEveryFrame));    
+
+parciEnergyGaugeHit = 
+    GaugeImage(JustifyBottom, ImportImage("cortui_parci_energyhitbmp", true), GetPercentEnergy(Me, OnEveryFrame));    
+
+parciEnergy = 
+    SwitchImage(
+        0, //Flash,
+        parciEnergyGauge,
+        [
+            (0, parciEnergyGauge),
+            (1, parciEnergyGaugeHit)
+        ]
+    );
+
+parciHullGauge =
+    GaugeImage(JustifyBottom, ImportImage("cortui_parci_hullbmp", true), GetPercentHitPoints(Me, OnEveryFrame));    
+
+parciHullGaugeHit =
+    GaugeImage(JustifyBottom, ImportImage("cortui_parci_hullhitbmp", true), GetPercentHitPoints(Me, OnEveryFrame));
+
+parciHull = 
+    SwitchImage(
+        Flash,
+        parciHullGauge,
+        [
+            (0, parciHullGauge),
+            (1, parciHullGaugeHit)
+        ]
+    );
+
+parciShieldGauge =
+    GaugeImage(JustifyBottom, ImportImage("cortui_parci_shieldbmp", true), GetPercentShields(Me, OnEveryFrame));
+
+parciShieldGaugeHit =
+    GaugeImage(JustifyBottom, ImportImage("cortui_parci_shieldhitbmp", true), GetPercentShields(Me, OnEveryFrame));
+
+parciShield = 
+    SwitchImage(
+        Flash,
+        parciShieldGauge,
+        [
+            (0, parciShieldGauge),
+            (1, parciShieldGaugeHit)
+        ]
+    );
+
+ModifiedCenterHudParciStyle = 
+		GroupImage([    
+		    TranslateImage(parciAutopilotOnImage, Point(91, 77)),
+		    TranslateImage(parciRadarDetectImage, Point(156, 105)),
+		    TranslateImage(parciCloakOn, Point(149, 39)),
+		    TranslateImage(parciVectorLockOn, Point(158, 0)),
+
+		    TranslateImage(softExperience, Point(32, 105)),
+		    TranslateImage(softTeamColor, Point(56, 82)),
+
+		    TranslateImage(parciThrust, Point(1, 1)),
+		    TranslateImage(parciFuel, Point(31, 1)),
+		    TranslateImage(parciAmmo, Point(54, 1)),
+		    TranslateImage(parciEnergy, Point(74, 1)),
+
+			TranslateImage(parciShield, Point(95, 1)),
+		    TranslateImage(parciHull, Point(113, 1)),
+
+			TranslateImage(softSpeed, Point(0, 97)),
+		    TranslateImage(softSignatureImage, Point(0, 109)),
+
+		    TranslateImage(softArtifact, Point(194, 0)),
+		    TranslateImage(softCaptureFlag, Point(194, 0)),
+
+			ImportImage("cortui_parci_softhudbgbmp", true)
+		]);
+
+
+
+//////////////////////////////////////////////////////////////////
+///
 ///  HUD STYLE SWITCH IMAGE
 ///
 //////////////////////////////////////////////////////////////////
@@ -1364,14 +1534,43 @@ CenterHudDisplay =
         ]
     );
 
+cortCenterHudSoftwareSwitch = 
+    SwitchImage(
+        SoftwareHUDMode,
+        CenterHudSoftware,
+        [
+            (3, emptyImage)         // Parci's mod is directly linked from the dialogs-variable
+        ]
+    );
+
 softCenterHudDisplay =
     SwitchImage(
         StyleHUD,
         emptyImage,
         [   
-            (1, CenterHudSoftware)
+            (1, cortCenterHudSoftwareSwitch)
         ]
     );
+
+softCenterHudDisplayParciStyle2 =
+    SwitchImage(
+        SoftwareHUDMode,
+        emptyImage,
+        [
+            (3, ModifiedCenterHudParciStyle)
+        ]
+    );
+
+softCenterHudDisplayParciStyle =
+    SwitchImage(
+        StyleHUD,
+        emptyImage,
+        [   
+            (1, softCenterHudDisplayParciStyle2)
+        ]
+    );
+
+
 
 //////////////////////////////////////////////////////////////////////////////
 //
@@ -1748,7 +1947,7 @@ SoftwareTargetDisplayWithTargetingView =
         IsNotNull(Target, OnEveryFrame)
     );
 
-ModifiedSoftwareTargetDisplay = 
+ModifiedSoftwareTargetDisplayRaveenStyle = 
     VisibleImage(
         TranslateImage(
             GroupImage(
@@ -1797,7 +1996,8 @@ SoftwareTargetDisplay =
         [
             (0, DefaultSoftwareTargetDisplay),
             (1, SoftwareTargetDisplayWithTargetingView),
-            (2, ModifiedSoftwareTargetDisplay)
+            (2, ModifiedSoftwareTargetDisplayRaveenStyle),
+            (3, ModifiedSoftwareTargetDisplayRaveenStyle)           // Parci is using Raveen-style targetting
         ]
     );
 
@@ -1813,7 +2013,7 @@ TargetDisplay =
     SwitchImage(
         StyleHUD,
         DefaultTargetDisplay,
-        [   
+        [
             (0, DefaultTargetDisplay),
             (1, SoftwareTargetDisplay)
         ]
@@ -2528,6 +2728,7 @@ EjectPodPaneImage			      = PaneImage(EjectPodPane, false, true);
 DeathBannerPaneImage		      = PaneImage(DeathBannerPane, false, true);
 CenterHudDisplayImage		      = VisibleImage(CenterHudDisplay, ShowCenterHUD);
 SoftCenterHudDisplayImage	      = VisibleImage(softCenterHudDisplay, ShowCenterHUD);
+SoftCenterHudDisplayImageParciStyle = VisibleImage(softCenterHudDisplayParciStyle, ShowCenterHUD);
 TargetDisplayImage			      = VisibleImage(TargetDisplay, ShowTargetHUD);
 MergedInventoryPaneImage    = GroupImage([
 									TranslateImage(ShipNameImage,		Point( -5,  14)),
@@ -2704,8 +2905,9 @@ dialogs =
 		(cortCommPaneLoadoutImage,		SideTop,			Point(-160, -126), Point(-160, -126), 0, 64, true),
 
 		// (soft)CenterHudDisplay: the HUD (either normal or software)
-        (CenterHudDisplayImage,			SideCenter,			Point( -320, 1000), Point( -320, -240), .5, 48, true ),
-        (SoftCenterHudDisplayImage,		SideTop,			Point( -320, 1000), Point( -232, SoftCenterHudDisplayYOffset), .5, 48, true ),
+        (CenterHudDisplayImage,			      SideCenter,	  Point( -320, 1000), Point( -320, -240), .5, 48, true ),
+        (SoftCenterHudDisplayImage,		      SideTop,		  Point( -320, 1000), Point( -232, SoftCenterHudDisplayYOffset), .5, 48, true ),
+        (SoftCenterHudDisplayImageParciStyle, SideBottomLeft, Point(   0, -187),  Point(  36,   180), .5, 48, true),
 
 		// TargetDisplay: the targeting system
         (TargetDisplayImage,			SideBottom,			Point( -320, -183), Point( -320,   12), .5, 48, true ),
