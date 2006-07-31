@@ -1372,7 +1372,7 @@ parciRadarDetectImage =
         Detected,
         emptyImage,
         [
-            (1, ImportImage("cortui_parci_eyebmp", true))
+            (0, ImportImage("cortui_parci_eyebmp", true))
         ]
     );
 
