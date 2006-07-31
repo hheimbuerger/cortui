@@ -24,7 +24,7 @@
 
 
 !define NAME						"CortUI 1.70 RC5"
-!define INSTALLER_BUILD				"0017"
+!define INSTALLER_BUILD				"0018"
 !define FILENAME					"CortUI-1.70-RC5.exe"
 !define REGKEY_ALLEGARTWORK			"SOFTWARE\Microsoft\Microsoft Games\Allegiance\1.0\"
 !define REGNAME_ALLEGARTWORK		"ArtPath"
