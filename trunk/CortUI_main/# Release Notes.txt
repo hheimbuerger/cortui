@@ -6,7 +6,7 @@
 This is a modification of the user interface of Allegiance
 (http://www.freeallegiance.org/). It is based on and inspired by Ksero's
 modification
-(http://www.freeallegiance.org/modules.php?name=Forums&file=viewtopic&t=11664).
+(http://www.freeallegiance.org/oldforums/modules.php?name=Forums&file=viewtopic&t=11664).
 
 
 Changes in CortUI (compared to default UI):
@@ -27,9 +27,11 @@ Changes in CortUI (compared to default UI):
   status, hull status, energy status, ammo status, fuel status, O2 level,
   current thrust, current speed, current signature, kill bonus.)
 - When in base, map-mode shows your ship type and your KB.
-- Two additional software HUD modes are available: the default software HUD,
-  the default software HUD with a displayed targeting view and a completely
-  revamped software HUD (known as 'Raveen-style').  
+- Three additional software HUD modes are available besides the default software
+  HUD:
+  - the default software HUD with a displayed targeting view
+  - a completely revamped software HUD, known as 'Raveen-style'
+  - and an even more radical modification, known as 'Parci-style'
 - Inventory and minimap have been moved to the side for map-mode, thereby
   making more room for the actual map.
 - F3 command-pane has been shrunk so that it won't overlap the inventory
@@ -85,11 +87,9 @@ Additional remarks:
   case, just select Slipstream again during the second installation!). This
   also applies if you have already installed Slipstream: select Slipstream
   again during installation.
-- Designed for 800x600 (optimum) and 1024x768 (possible but not very pretty,
-  although the normal UI isn't very pretty with 1024x768 either, imho).
-  640x480 is *not* supported! Higher resolutions haven't been tested but are
-  reported to work fine. The modified software HUD ('Raveen-style') supports
-  only 1024x768 and above!
+- Designed for 800x600 and 1024x768. 640x480 is *not* supported! Higher
+  resolutions haven't been tested but are reported to work fine. The modified
+  software HUDs ('Raveen-style' and 'Parci-style') require 1024x768 or above!
 - To change the settings you made during installation, you have two options:
   Either edit cortui_settings.mdl yourself or just run the installation again.
   This will not harm the uninstallation process at all.
@@ -145,11 +145,13 @@ Package contents:
 - cortui_lobbylistbkgbmp.mdl: The new table grid image for the lobby.
 - cortui_recipientsbmp.mdl: The upper button row image for the new
   command-pane.
-- cortui_targetovalcolorbmp.mdl, cortui_targetovalword1bmp.mdl,
-  cortui_targetovalword2bmp.mdl: The elements of the modified background image
-  for the targeting view for the software HUD.
+- cortui_softtargetbgbmp.mdl, cortui_targetovalcolorbmp.mdl,
+  cortui_targetovalword1bmp.mdl, cortui_targetovalword2bmp.mdl: The elements
+  of the Raveen-style software HUD.
 - cortui_teamscreenbmp.mdl: The new background image for the lobby.
 - cortui_verbsbmp.mdl: The lower button row image for the new command-pane.
+- cortui_parci_*.mdl: The modified files needed for the Parci-style software
+  HUD.
 - [various Slipstream GUI files]
 - [various original files from Freeallegiance.org-installer 1.50 to allow
   uninstallation of CortUI and Slipstream GUI]
@@ -282,4 +284,4 @@ fixing the command bar column bug.
 
 
 
--- Cort, 2006#07#30
+-- Cort, 2006#08#10
