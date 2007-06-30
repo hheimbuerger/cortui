@@ -91,13 +91,17 @@ use "teampane";
 use "cortui_settings";
 
 
-
 White = Color(1, 1, 1);
+fp2DarkGrey = Color(.4, .4, .4);
 TextColor = Color(0, 0, 0.0625);
 
 mySideColor = GetSideColor(Me, OnEveryFrame);
 yellowText = Color(0.878, 0.573, 0);
-                
+
+fp2FontKillBonus = Win32Font("Verdana", 18, true, 0);
+fp2FontTargetName = Win32Font("Verdana", 18, true, 0);
+fp2FontTargetDesc = Win32Font("Verdana", 15, false, 0);
+fp2FontNormal = Win32Font("Verdana", 16, true, 0);
 
 myStationColor = GetSideColor(MyStation, OnEveryFrame);
 
@@ -1104,7 +1108,7 @@ SignatureImage =
 // * changed autopilot- and vector-lock-icons to the smaller ones
 // * changed their position
 
-CenterHudOn = 
+DefaultCenterHudOn = 
         GroupImage(
         [   
             TranslateImage(cortVectorLockOn, Point(442, 337)),							// (230, 287)
@@ -1126,6 +1130,891 @@ CenterHudOn =
 
         ]
     );
+
+//////////////////////////////////////////////////////////////////////////////
+//
+// lessHUD Center
+//
+//////////////////////////////////////////////////////////////////////////////
+
+fpVectorLockNormal = ImportImage("cortui_fp1_con_vector_lockbmp", true);
+
+fpVectorLockOn = 
+    SwitchImage(
+        GetVectorLock(Me, OnEveryFrame),
+		emptyImage,
+        [
+            (1, fpVectorLockNormal)
+        ]
+    );
+
+fpAutopilotNormal = ImportImage("cortui_fp1_con_auto_pilotbmp", true);
+
+fpAutopilotOnImage =
+    SwitchImage(
+        AutopilotOn,
+		emptyImage, 
+        [
+            (1, fpAutopilotNormal)
+        ]
+    );
+
+fpThrustGaugeBack = 
+    BlendImage(
+        GaugeImageRect(
+            JustifyRight,
+            ImportImage("cortui_fp1_thrust_gaugebmp", true),
+            Rect(0, 0, 83, 36),
+            true,
+            1
+        ),
+        hudBlendMode
+    );
+
+
+fpThrustGauge =
+	BlendImage(
+		GaugeImageRect(
+			JustifyRight,
+			ImportImage("cortui_fp1_thrust_gauge2bmp", true),
+			Rect(0, 0, 83, 36),
+			true,
+			playerThrottle
+		),
+		hudBlendMode
+	);
+
+fpThrustImage = 
+	GroupImage(
+	    [
+	        TranslateImage(fpThrustGaugeBack, Point(0, 0)),
+	        TranslateImage(fpThrustGauge, Point(0, 0))
+	    ]
+	);
+
+fpFuelGaugeBack = 
+   BlendImage(
+        GaugeImageRect(
+            JustifyLeft,
+            ImportImage("cortui_fp1_fuel_gaugebmp", true),
+            Rect(0, 0, 83, 36),
+            true,
+            1
+        ),
+        hudBlendMode
+    );              
+
+fpFuelGauge = 
+   BlendImage(
+		GaugeImageRect(
+			JustifyLeft,
+			ImportImage("cortui_fp1_fuel_gauge2bmp", true),
+			Rect(0, 0, 83, 36),
+			true,
+			GetFuel(Me, OnEveryFrame)
+		),
+		hudBlendMode
+	);
+
+fpFuelImage = 
+	GroupImage(
+	    [
+	        TranslateImage(fpFuelGaugeBack, Point(0, 0)),
+	        TranslateImage(fpFuelGauge, Point(0, 0))
+	    ]
+	);
+
+fpAmmoGaugeBack =
+    BlendImage(
+        GaugeImageRect(
+            JustifyRight,
+            ImportImage("cortui_fp1_ammo_gaugebmp", true),
+            Rect(0, 0, 83, 36),
+            true,
+            1
+        ),
+        hudBlendMode
+    );
+
+fpAmmoGauge =
+	BlendImage(
+		GaugeImageRect(
+			JustifyRight,
+			ImportImage("cortui_fp1_ammo_gauge2bmp", true),
+			Rect(0, 0, 83, 36),
+			true,
+			GetAmmo(Me, OnEveryFrame)
+			
+		),
+		hudBlendMode
+	);
+
+fpAmmoImage = 
+	GroupImage(
+	    [
+	        TranslateImage(fpAmmoGaugeBack, Point(0, 0)),
+	        TranslateImage(fpAmmoGauge, Point(0, 0))
+	    ]
+	);
+
+fpEnergyGaugeBack = 
+     BlendImage(
+        GaugeImageRect(
+            JustifyLeft,
+            ImportImage("cortui_fp1_energy_gaugebmp", true),
+            Rect(0, 0, 83, 36),
+            true,
+            1
+        ),
+        hudBlendMode
+    );
+
+fpEnergyGauge = 
+	BlendImage(
+		GaugeImageRect(
+			JustifyLeft,
+			ImportImage("cortui_fp1_energy_gauge2bmp", true),
+			Rect(0, 0, 83, 36),
+			true,
+			GetPercentEnergy(Me, OnEveryFrame)
+		),
+		hudBlendMode
+	);
+
+fpEnergyImage = 
+	GroupImage(
+	    [
+	        TranslateImage(fpEnergyGaugeBack, Point(0, 0)),
+	        TranslateImage(fpEnergyGauge, Point(0, 0))
+	    ]
+	);      
+
+fpHullGreen =
+        BlendImage(     
+            GaugeImageRect(         
+                JustifyBottom,
+                ImportImage("cortui_fp1_hull_gaugebmp", true),
+				Rect(0, 0, 36, 174),
+                true,
+                GetPercentHitPoints(Me, OnEveryFrame)
+            ),
+            hudBlendMode
+        );
+     
+
+fpHullRed =
+    BlendImage( 
+        GaugeImageRect(         
+            JustifyBottom,
+            ImportImage("cortui_fp1_hull_gauge_redbmp", true),
+            Rect(0, 0, 36, 174),
+            true,
+            GetPercentHitPoints(Me, OnEveryFrame)
+        ),
+        hudBlendMode
+    );
+
+fpHullGauge = 
+    SwitchImage(
+        Flash,
+        fpHullGreen,
+        [
+            (0, fpHullGreen),
+            (1, fpHullRed)
+        ]
+    );
+
+fpHullGaugeBack = 
+    BlendImage(
+        ImportImage3D("cortui_fp1_hull_gauge2bmp", white, true),
+        hudBlendMode
+    );
+
+fpArmorImage = 
+	GroupImage(
+	    [
+	        TranslateImage(fpHullGaugeBack, Point(0, 0)),
+	        TranslateImage(fpHullGauge, Point(0, 0))
+	    ]
+	);
+
+fpShieldGreen =   
+        BlendImage(
+            GaugeImageRect(
+                JustifyBottom,
+                ImportImage("cortui_fp1_shield_gaugebmp", true),
+                Rect(0, 0, 36, 174),
+                true,
+                GetPercentShields(Me, OnEveryFrame)
+            ),
+            hudBlendMode
+    );
+
+fpShieldRed =
+    BlendImage( 
+        GaugeImageRect(
+            JustifyBottom,
+            ImportImage("cortui_fp1_shield_gauge_redbmp", true),
+			Rect(0, 0, 36, 174),
+            true,
+            GetPercentShields(Me, OnEveryFrame)
+        ),
+        hudBlendMode
+    );
+
+
+fpShieldGauge =
+    SwitchImage(
+        Flash,
+        fpShieldGreen,
+        [
+            (0, fpShieldGreen),
+            (1, fpShieldRed)
+        ]
+    );
+
+fpShieldGaugeBack = 
+    BlendImage(
+        ImportImage3D("cortui_fp1_shield_gauge2bmp", white, true),
+        hudBlendMode
+    );
+
+    
+fpShieldImage = 
+	GroupImage(
+	    [
+	        TranslateImage(fpShieldGaugeBack, Point(0, 0)),
+	        TranslateImage(fpShieldGauge, Point(0, 0))
+	    ]
+	);
+
+fpRadOn = 
+    ImagePane(ImportImage("cortui_fp1_rad_onbmp", false), []);
+// fpRadOff = 
+    // ImagePane(ImportImage("cortui_fp1_rad_onbmp", false), []);
+
+fpRadarDetectPane = 
+    SwitchPane(
+                Detected,
+                [
+                    (fpRadOn, 0)
+                    // (fpRadOff, 1)
+                ]
+               );
+
+fpExperienceImage = 
+    GroupImage([
+        TranslateImage(StringImage(
+                    JustifyCenter,
+                    80,
+                    medBoldVerdana,
+                    hudColor,
+                    NumberString(Experience)), Point(0, 5)),
+                    emptyImage
+        ]);
+
+fpArtifactImage   = 
+        BlendImage(ImportImage3D("captureflaglbmp", white, true), hudBlendMode);
+
+fpArtifact =
+    SwitchImage(
+        GotArtifact,
+        emptyImage,
+        [
+            (1, fpArtifactImage)
+        ]
+    );
+
+fpCaptureFlagImage =
+        BlendImage(
+                ImportImage3D("captureflagrbmp", white, true), hudBlendMode);
+
+fpCaptureFlag = 
+    SwitchImage(
+        GotFlag,
+        emptyImage,
+        [
+            (1, fpCaptureFlagImage)
+        ]
+    );
+
+fpCloakNormal = ImportImage("cortui_fp1_con_cloakbmp", true);
+
+fpCloakOn = 
+    SwitchImage(
+        IsCloaked(Me, OnEveryFrame),
+        emptyImage,
+        [
+            (1, fpCloakNormal)
+        ]
+    );
+
+fpCenterHudOn = GroupImage([
+	TranslateImage(fpVectorLockOn, Point(415, 335)),
+	TranslateImage(fpAutopilotOnImage, Point(202, 335)),
+	TranslateImage(fpCloakOn, Point(202, 122)),
+	TranslateImage(fpArmorImage, Point(169, 153)),
+	TranslateImage(fpShieldImage, Point(435, 153)),
+	TranslateImage(fpThrustImage, Point(233, 355)),
+	TranslateImage(fpFuelImage, Point(324, 355)),
+	TranslateImage(fpAmmoImage, Point(233, 89)),
+	TranslateImage(fpEnergyImage, Point(324, 89)),
+	TranslateImage(SpeedImage, Point(281, 152)),
+	TranslateImage(fpExperienceImage, Point(281, 105)),
+	TranslateImage(PaneImage(fpRadarDetectPane, false, true), Point(415, 122)),
+	TranslateImage(fpCaptureFlag, Point(429, 349)),
+	TranslateImage(fpArtifact, Point(147, 349)),
+	TranslateImage(SignatureImage, Point(281, 133))
+]);
+
+
+//////////////////////////////////////////////////////////////////////////////
+//
+// JelloShot Center
+//
+//////////////////////////////////////////////////////////////////////////////
+
+fp2ShieldGauge = BlendImage(
+	GaugeImageRect(
+		JustifyBottom,
+		ImportImage("cortui_fp2_shield_guagebmp", true),
+		Rect(5, 2, 252, 225),
+		true,
+		GetPercentShields(Me, OnEveryFrame)
+	),
+	hudBlendMode
+);
+
+fp2ShieldGaugeBack = BlendImage(
+	GaugeImageRect(
+		JustifyTop,
+		ImportImage("cortui_fp2_shield_guage_backbmp", true),
+		Rect(5, 2, 252, 225),
+		true,
+		Subtract(1, GetPercentShields(Me, OnEveryFrame))
+	),
+	hudBlendMode
+);
+
+fp2ShieldImage = GroupImage([
+        TranslateImage(fp2ShieldGaugeBack, Point(5, 2)),
+        TranslateImage(fp2ShieldGauge, Point(5, 2))
+]);
+
+fp2HullGauge = BlendImage(     
+	GaugeImageRect(         
+		JustifyBottom,
+		ImportImage("cortui_fp2_hull_gaugebmp", true),
+		Rect(5, 29, 252, 252),
+		true,
+		GetPercentHitPoints(Me, OnEveryFrame)
+	),
+	hudBlendMode
+);
+     
+
+fp2HullGaugeBack = BlendImage( 
+	GaugeImageRect(         
+		JustifyTop,
+		ImportImage("cortui_fp2_hull_gauge_backbmp", true),
+		Rect(5, 29, 252, 252),
+		true,
+		Subtract(1, GetPercentHitPoints(Me, OnEveryFrame))
+	),
+	hudBlendMode
+);
+
+fp2HullImage = GroupImage([
+        TranslateImage(fp2HullGaugeBack, Point(5, 29)),
+        TranslateImage(fp2HullGauge, Point(5, 29))
+]);
+
+fp2ThrustGaugeBack = BlendImage(
+	GaugeImageRect(
+		JustifyLeft,
+		ImportImage("cortui_fp2_thrust_gauge_backbmp", true),
+		Rect(10, 48, 254, 246),
+		true,
+		Subtract(1, playerThrottle)
+	),
+	hudBlendMode
+);
+
+fp2ThrustGauge = BlendImage(
+	GaugeImageRect(
+		JustifyRight,
+		ImportImage("cortui_fp2_thrust_gaugebmp", true),
+		Rect(10, 48, 254, 246),
+		true,
+		playerThrottle
+	),
+	hudBlendMode
+);
+
+fp2ThrustImage = 
+GroupImage(
+    [
+        TranslateImage(fp2ThrustGaugeBack, Point(10, 48)),
+        TranslateImage(fp2ThrustGauge, Point(10, 48))
+    ]
+);
+
+fp2FuelGaugeBack = BlendImage(
+	GaugeImageRect(
+		JustifyRight,
+		ImportImage("cortui_fp2_fuel_gauge_backbmp", true),
+		Rect(2, 48, 246, 246),
+		true,
+		Subtract(1, GetFuel(Me, OnEveryFrame))
+	),
+	hudBlendMode
+);              
+
+fp2FuelGauge = BlendImage(
+	GaugeImageRect(
+		JustifyLeft,
+		ImportImage("cortui_fp2_fuel_gaugebmp", true),
+		Rect(2, 48, 246, 246),
+		true,
+		GetFuel(Me, OnEveryFrame)
+	),
+	hudBlendMode
+);
+
+fp2FuelImage = GroupImage([
+	TranslateImage(fp2FuelGaugeBack, Point(2, 48)),
+	TranslateImage(fp2FuelGauge, Point(2, 48))
+]);
+
+fp2AmmoGaugeBack = BlendImage(
+	GaugeImageRect(
+		JustifyLeft,
+		ImportImage("cortui_fp2_ammo_gauge_backbmp", true),
+		Rect(10, 10, 254, 208),
+		true,
+		Subtract(1, GetAmmo(Me, OnEveryFrame))
+	),
+	hudBlendMode
+);
+
+fp2AmmoGauge = BlendImage(
+	GaugeImageRect(
+		JustifyRight,
+		ImportImage("cortui_fp2_ammo_gaugebmp", true),
+		Rect(10, 10, 254, 208),
+		true,
+		GetAmmo(Me, OnEveryFrame)
+		
+	),
+	hudBlendMode
+);
+
+fp2AmmoImage = GroupImage([
+        TranslateImage(fp2AmmoGaugeBack, Point(10, 10)),
+        TranslateImage(fp2AmmoGauge, Point(10, 10))
+]);
+
+fp2EnergyGaugeBack = BlendImage(
+	GaugeImageRect(
+		JustifyRight,
+		ImportImage("cortui_fp2_energy_gauge_backbmp", true),
+		Rect(2, 10, 246, 208),
+		true,
+		Subtract(1, GetPercentEnergy(Me, OnEveryFrame))
+	),
+	hudBlendMode
+);
+
+fp2EnergyGauge = BlendImage(
+	GaugeImageRect(
+		JustifyLeft,
+		ImportImage("cortui_fp2_energy_gaugebmp", true),
+		Rect(2, 10, 246, 208),
+		true,
+		GetPercentEnergy(Me, OnEveryFrame)
+	),
+	hudBlendMode
+);
+
+fp2EnergyImage = GroupImage([
+	TranslateImage(fp2EnergyGaugeBack, Point(2, 10)),
+	TranslateImage(fp2EnergyGauge, Point(2, 10))
+]);      
+
+fp2AutopilotOn = BlendImage(
+	ImportImage3D("cortui_fp2_autopilot_onbmp", white, true),
+	hudBlendMode
+);
+
+fp2Autopilot = SwitchImage(
+	AutopilotOn,
+	emptyImage, 
+	[
+		(1, fp2AutopilotOn)
+	]
+);
+
+fp2CloakOn = BlendImage(
+	ImportImage3D("cortui_fp2_cloak_onbmp", white, true),
+	hudBlendMode
+);
+
+fp2Cloak = SwitchImage(
+	IsCloaked(Me, OnEveryFrame),
+	emptyImage,
+	[
+		(1, fp2CloakOn)
+	]
+);
+
+fp2VectorLockOn = BlendImage(
+	ImportImage3D("cortui_fp2_vector_lock_onbmp", white, true),
+	hudBlendMode
+);
+
+fp2VectorLock = SwitchImage(
+	GetVectorLock(Me, OnEveryFrame),
+	emptyImage,
+	[
+		(1, fp2VectorLockOn)
+	]
+);
+
+fp2EyeOn = BlendImage(
+	ImportImage3D("cortui_fp2_eye_onbmp", white, true),
+	hudBlendMode
+);
+
+fp2Eye = SwitchImage(
+	Detected,
+	fp2EyeOn,
+	[
+		(1, emptyImage)
+	]
+);
+
+fp2DamageOn1 = BlendImage(
+	ImportImage3D("cortui_fp2_damage1bmp", white, true),
+	hudBlendMode
+);
+fp2DamageOn2 = BlendImage(
+	ImportImage3D("cortui_fp2_damage2bmp", white, true),
+	hudBlendMode
+);
+fp2DamageOn3 = BlendImage(
+	ImportImage3D("cortui_fp2_damage3bmp", white, true),
+	hudBlendMode
+);
+fp2DamageOn4 = BlendImage(
+	ImportImage3D("cortui_fp2_damage4bmp", white, true),
+	hudBlendMode
+);
+
+fp2DamageOn = GroupImage([
+        TranslateImage(fp2DamageOn1, Point(10, 292)),
+        TranslateImage(fp2DamageOn2, Point(566, 292)),
+        TranslateImage(fp2DamageOn3, Point(10, 124)),
+        TranslateImage(fp2DamageOn4, Point(566, 124))
+]);
+
+fp2Damage = SwitchImage(
+	Flash,
+	emptyImage,
+	[
+		(1, fp2DamageOn)
+	]
+);
+
+fp2Speed = StringImage(
+	JustifyRight,
+	80,
+	fp2FontNormal,
+	hudColor,
+	NumberString(GetSpeed(Me, OnEveryFrame))
+);
+
+fp2Experience = StringImage(
+	JustifyRight,
+	80,
+	fp2FontKillBonus,
+	hudColor,
+	NumberString(Experience)
+);
+
+fp2NeutralExperience = StringImage(
+	JustifyCenter,
+	80,
+	fp2FontKillBonus,
+	fp2DarkGrey,
+	":KB:"
+);
+
+fp2MiscText = ImportImage("cortui_fp2_misc_textbmp", true);
+
+fp2NeutralSignature = StringImage(
+	JustifyCenter,
+	20,
+	fp2FontNormal,
+	fp2DarkGrey,
+	"%"
+);
+
+fp2NeutralSpeed = StringImage(
+	JustifyCenter,
+	80,
+	fp2FontNormal,
+	fp2DarkGrey,
+	":mps:"
+);
+
+fp2Signature = StringImage(
+	JustifyRight,
+	80,
+	fp2FontNormal,
+	hudColor,
+	NumberString(Signature)
+);
+
+//////////////////////////////////////////////////////////////////////////////
+//
+// JelloShot Target
+//
+//////////////////////////////////////////////////////////////////////////////
+
+fp2TargetShieldGauge = BlendImage(
+	GaugeImageRect(
+		JustifyBottom,
+		ImportImage("cortui_fp2_target_shield_guagebmp", true),
+		Rect(4, 2, 251, 225),
+		true,
+		GetPercentShields(Target, OnEveryFrame)
+	),
+	hudBlendMode
+);
+
+fp2TargetShieldGaugeBack = BlendImage(
+	GaugeImageRect(
+		JustifyTop,
+		ImportImage("cortui_fp2_target_shield_guage_backbmp", true),
+		Rect(4, 2, 251, 225),
+		true,
+		Subtract(1, GetPercentShields(Target, OnEveryFrame))
+	),
+	hudBlendMode
+);
+
+fp2TargetShieldImage = GroupImage([
+        TranslateImage(fp2TargetShieldGaugeBack, Point(4, 2)),
+        TranslateImage(fp2TargetShieldGauge, Point(4, 2))
+]);
+
+fp2TargetHullGauge = BlendImage(
+	GaugeImageRect(
+		JustifyBottom,
+		ImportImage("cortui_fp2_target_hull_guagebmp", true),
+		Rect(4, 29, 251, 252),
+		true,
+		GetPercentHitPoints(Target, OnEveryFrame)
+	),
+	hudBlendMode
+);
+
+fp2TargetHullGaugeBack = BlendImage(
+	GaugeImageRect(
+		JustifyTop,
+		ImportImage("cortui_fp2_target_hull_guage_backbmp", true),
+		Rect(4, 29, 251, 252),
+		true,
+		Subtract(1, GetPercentHitPoints(Target, OnEveryFrame))
+	),
+	hudBlendMode
+);
+
+fp2TargetHullImage = GroupImage([
+        TranslateImage(fp2TargetHullGaugeBack, Point(4, 29)),
+        TranslateImage(fp2TargetHullGauge, Point(4, 29))
+]);
+
+fp2TargetOvalColor = BlendImage(
+	ImportImage3D("cortui_fp2_target_oval_colorbmp", targetHudColor, true),
+	hudBlendMode
+);
+
+fp2TargetExperience = StringImage(
+	JustifyLeft,
+	80,
+	fp2FontKillBonus,
+	targetHudColor,
+	NumberString(TargetExperience)
+);
+
+fp2TargetName = StringImage(
+	JustifyLeft, 
+	320,
+	fp2FontTargetName,
+	targetHudColor,
+	GetName(Target, OnEveryFrame)
+);
+
+fp2TargetDesc = StringImage(
+	JustifyLeft, 
+	320,
+	fp2FontTargetDesc,
+	targetHudColor,
+	GetModelTypeDesc(Target, OnEveryFrame)
+);
+
+fp2TargetRange3 = StringImage(
+	JustifyRight,
+	150,
+	fp2FontNormal,
+	targetHudColor,
+	NumberString(GetRange(Target, OnEveryFrame))
+); 
+fp2TargetRange4 = StringImage(
+	JustifyRight,
+	20,
+	fp2FontNormal,
+	fp2DarkGrey,
+	"m"
+);
+fp2TargetRange5 = StringImage(
+	JustifyLeft,
+	150,
+	fp2FontNormal,
+	targetHudColor,
+	GetSectorName(Target, OnEveryFrame)
+); 
+fp2TargetRange6 = StringImage(
+	JustifyRight,
+	20,
+	fp2FontNormal,
+	fp2DarkGrey,
+	"..."
+); 
+fp2TargetRange1 = GroupImage([
+	TranslateImage(fp2TargetRange3, Point(214, 42)),
+	TranslateImage(fp2TargetRange4, Point(359, 42))
+]);
+fp2TargetRange2 = GroupImage([
+	TranslateImage(fp2TargetRange5, Point(422, -44)),
+	TranslateImage(fp2TargetRange6, Point(359, 42))
+]);
+
+fp2TargetRange = SwitchImage(
+	GetRange(Target, OnEveryFrame),
+	fp2TargetRange1,
+	[
+	(-1, fp2TargetRange2)
+	]
+);
+
+fp2TargetSpeed = StringImage(
+	JustifyLeft,
+	150,
+	fp2FontNormal,
+	targetHudColor,
+	NumberString(GetSpeed(Target, OnEveryFrame))
+);  
+
+fp2TargetInRange1 = BlendImage(
+	ImportImage3D("cortui_fp2_target_in_range1bmp", white, true),
+	hudBlendMode
+);
+fp2TargetInRange2 = BlendImage(
+	ImportImage3D("cortui_fp2_target_in_range2bmp", white, true),
+	hudBlendMode
+);
+fp2TargetInRange3 = BlendImage(
+	ImportImage3D("cortui_fp2_target_in_range3bmp", white, true),
+	hudBlendMode
+);
+fp2TargetInRange4 = BlendImage(
+	ImportImage3D("cortui_fp2_target_in_range4bmp", white, true),
+	hudBlendMode
+);
+
+fp2TargetInRangeImage = GroupImage([
+	TranslateImage(fp2TargetInRange1, Point(10, 336)),
+	TranslateImage(fp2TargetInRange2, Point(566, 336)),
+	TranslateImage(fp2TargetInRange3, Point(10, 80)),
+	TranslateImage(fp2TargetInRange4, Point(566, 80))
+]);
+
+fp2TargetInRange = SwitchImage(
+	TargetInRangeFlag,
+	emptyImage,
+	[
+		(1, fp2TargetInRangeImage)
+	]
+);
+
+fp2DefaultTargetDisplay = VisibleImage(
+	GroupImage([
+		TranslateImage(fp2TargetShieldImage, Point(320, 240)),
+		TranslateImage(fp2TargetHullImage, Point(320, -16)),
+		TranslateImage(
+			GeoImage(
+				targetGeo,
+				Rect(0, 0, 96, 96),
+				// Rect(0, 0, 144, 144),
+				targetCamera,
+				true
+			), 
+			Point(272, -122)
+			// Point(248, -146)
+		),
+		TranslateImage(fp2TargetOvalColor, Point(192, -144)),
+		TranslateImage(fp2TargetExperience, Point(337, 484)),
+		TranslateImage(fp2TargetName, Point(422, -12)),
+		TranslateImage(fp2TargetDesc, Point(422, -30)),
+		TranslateImage(fp2TargetSpeed, Point(342, 15)),
+		fp2TargetRange,
+		fp2TargetInRange
+	])
+	,	IsNotNull(Target, OnEveryFrame)
+);
+
+fp2CenterHudOn = GroupImage([
+	TranslateImage(fp2ShieldImage, Point(64, 240)),
+	TranslateImage(fp2HullImage, Point(64, -16)),
+	TranslateImage(fp2ThrustImage, Point(64, 252)),
+	TranslateImage(fp2FuelImage, Point(320, 252)),
+	TranslateImage(fp2AmmoImage, Point(64, -28)),
+	TranslateImage(fp2EnergyImage, Point(320, -28)),
+	TranslateImage(fp2Autopilot, Point(11, 236)),
+	TranslateImage(fp2Cloak, Point(11, 180)),
+	TranslateImage(fp2VectorLock, Point(565, 236)),
+	TranslateImage(fp2Eye, Point(565, 180)),
+	fp2Damage,
+	TranslateImage(fp2Speed, Point(218, 15)),
+	TranslateImage(fp2Experience, Point(222, 484)),
+	TranslateImage(fp2NeutralExperience, Point(280, 484)),
+	TranslateImage(fp2MiscText, Point(256, -42)),
+	TranslateImage(fp2NeutralSpeed, Point(280, 15)),
+	TranslateImage(fpArtifact, Point(44, 431)),
+	TranslateImage(fpCaptureFlag, Point(532, 431)),
+	TranslateImage(fp2NeutralSignature, Point(288, 42)),
+	TranslateImage(fp2Signature, Point(208, 42)),
+	fp2DefaultTargetDisplay
+]);
+
+
+/////////////////////////////////////////////////////////////
+//
+//  HARDWARE CENTER HUD STYLE SWITCH IMAGE
+//
+////////////////////////////////////////////////////////////
+
+CenterHudOn = SwitchImage(
+	HardwareHUDMode,
+	emptyImage,
+	[
+		(0, DefaultCenterHudOn), // Default Hardware HUD
+		(1, fpCenterHudOn), // lessHUD
+		(2, fp2CenterHudOn) // JelloShot
+	]
+);
 
 
 //////////////////////////////////////////////////////////////////
@@ -1750,7 +2639,7 @@ TargetExperienceImage =
         ]
     );
 
-DefaultTargetDisplay = 
+DefaultHardwareTargetDisplay = 
     VisibleImage(GroupImage(
         [
             
@@ -1779,6 +2668,154 @@ DefaultTargetDisplay =
             ]
     
     ), IsNotNull(Target, OnEveryFrame));
+
+
+//////////////////////////////////////////////////////////////////////////////
+//
+// lessHUD Target
+//
+//////////////////////////////////////////////////////////////////////////////
+
+fpTargetOvalColor =
+        BlendImage(
+            ImportImage3D("cortui_fp1_target_oval_colorbmp", targetHudColor, true),
+            hudBlendMode
+    );
+
+fpTargetRangeString = 
+    SwitchString(
+        GetRange(Target, OnEveryFrame),
+        ConcatinatedString(NumberString(GetRange(Target, OnEveryFrame)), " m"),
+        [
+            (-1, ConcatinatedString("LOCATION:", GetSectorName(Target, OnEveryFrame)))
+        ]
+    );
+
+fpTargetRange =
+    StringImage(
+        JustifyLeft,
+        150,
+        medVerdana,
+        targetHudColor,
+        fpTargetRangeString
+    ); 
+
+fpTargetInRangeImage = 
+        ImportImage("cortui_fp1_turret_rangebmp", true);
+
+fpTargetInRange =     
+    SwitchImage(
+        TargetInRangeFlag,
+        emptyImage,
+        [
+            (1, fpTargetInRangeImage)
+        ]
+    );
+
+fpTargetSpeed =
+    StringImage(
+        JustifyRight,
+        150,
+        medVerdana,
+        targetHudColor,
+        ConcatinatedString(NumberString(GetSpeed(Target, OnEveryFrame)), " mps")
+    );  
+
+fpTargetExperienceOnImage = 
+    GroupImage([
+		StringImage(
+			JustifyCenter,
+			80,
+			medBoldVerdana,
+			targetHudColor,
+			NumberString(TargetExperience)),
+			emptyImage
+		]);
+
+fpTargetExperienceImage =
+    SwitchImage(
+        GetModelType(Target, OnEveryFrame),
+        emptyImage,
+        [
+            (0, fpTargetExperienceOnImage)
+        ]
+    );
+
+fpTargetHullGaugeBack = 
+    BlendImage(
+        ImportImage3D("cortui_fp1_target_hull_gauge2bmp", white, true),
+        hudBlendMode
+    );
+
+fpTargetHullGauge =
+    BlendImage(
+            GaugeImageRect(
+                JustifyBottom,
+                ImportImage("cortui_fp1_target_hull_gaugebmp", true),
+                Rect(0, 0, 53, 94),
+                true,
+                GetPercentHitPoints(Target, OnEveryFrame)
+        ),
+        hudBlendMode
+);
+
+fpTargetHullImage = 
+GroupImage(
+    [
+        TranslateImage(fpTargetHullGaugeBack, Point(0, 0)),
+        TranslateImage(fpTargetHullGauge, Point(0, 0))
+    ]
+);
+
+fpTargetShieldGaugeBack = 
+    BlendImage(
+        ImportImage3D("cortui_fp1_target_shield_gauge2bmp", white, true),
+        hudBlendMode
+    );
+
+fpTargetShieldGauge =
+    BlendImage(
+            GaugeImageRect(
+                JustifyBottom,
+                ImportImage("cortui_fp1_target_shield_gaugebmp", true),
+                Rect(0, 0, 53, 94),
+                true,
+                GetPercentShields(Target, OnEveryFrame)
+        ),
+        hudBlendMode
+);
+
+fpTargetShieldImage = 
+GroupImage(
+    [
+        TranslateImage(fpTargetShieldGaugeBack, Point(0, 0)),
+        TranslateImage(fpTargetShieldGauge, Point(0, 0))
+    ]
+);
+
+fpTargetDisplay = VisibleImage(
+	GroupImage([
+		TranslateImage(fpTargetShieldImage, Point(353, 17)),
+		TranslateImage(fpTargetHullImage, Point(234, 17)),
+		TranslateImage(
+			GeoImage(
+				targetGeo,
+				Rect(0, 0, 96, 96),
+				targetCamera,
+				true
+			), 
+			Point(270, 9)
+		),
+		TranslateImage(fpTargetExperienceImage, Point(280, 110)),
+		TranslateImage(fpTargetOvalColor, Point(240, 31)),
+		TranslateImage(TargetName, Point(240, 125)),
+		TranslateImage(fpTargetRange, Point(400, 33)),
+		TranslateImage(fpTargetSpeed, Point(92, 33)),
+		TranslateImage(fpTargetInRange, Point(240, 31))
+		]
+    ),
+	IsNotNull(Target, OnEveryFrame)
+);
 
 
 /////////////////////////////////////////////////////////////
@@ -2001,6 +3038,22 @@ SoftwareTargetDisplay =
         ]
     );
 
+
+/////////////////////////////////////////////////////////////
+//
+//  HARDWARE TARGET HUD STYLE SWITCH IMAGE
+//
+////////////////////////////////////////////////////////////
+
+DefaultTargetDisplay = SwitchImage(
+	HardwareHUDMode,
+	emptyImage,
+	[
+		(0, DefaultHardwareTargetDisplay), // Default Hardware HUD
+		(1, fpTargetDisplay), // lessHUD
+		(2, emptyImage) // JelloShot, doesn't use lower pane
+	]
+);
 
 
 /////////////////////////////////////////////////////////////

@@ -1,5 +1,5 @@
 /*****************************************************************************\
-| CortUI v1.70 - Release Notes                                                |
+| CortUI v1.71 RC1 - Release Notes                                            |
 \*****************************************************************************/
 
 
@@ -32,6 +32,11 @@ Changes in CortUI (compared to default UI):
   - the default software HUD with a displayed targeting view
   - a completely revamped software HUD, known as 'Raveen-style'
   - and an even more radical modification, known as 'Parci-style'
+- Two additional hardware HUD modes are available besides the default hardware HUD:
+  - the default hardware HUD with a displayed targeting view
+  - a remodeled HUD that is slimmer and less obscuring.  lessHUD by FlingPu
+  - a complete replacement HUD for higher resolutions featuring a centralized
+      target view.  JelloShot by FlingPu
 - Inventory and minimap have been moved to the side for map-mode, thereby
   making more room for the actual map.
 - F3 command-pane has been shrunk so that it won't overlap the inventory
@@ -90,6 +95,10 @@ Additional remarks:
 - Designed for 800x600 and 1024x768. 640x480 is *not* supported! Higher
   resolutions haven't been tested but are reported to work fine. The modified
   software HUDs ('Raveen-style' and 'Parci-style') require 1024x768 or above!
+- lessHUD was designed for 800x600 or higher.
+- JelloShot was designed for 1280x1024.  The minimum resolution is 1024x768.
+  Lower resolutions will result in the HUD being covered by chat, inventory,
+  and map panes.
 - To change the settings you made during installation, you have two options:
   Either edit cortui_settings.mdl yourself or just run the installation again.
   This will not harm the uninstallation process at all.
@@ -155,10 +164,16 @@ Package contents:
 - [various Slipstream GUI files]
 - [various original files from Freeallegiance.org-installer 1.50 to allow
   uninstallation of CortUI and Slipstream GUI]
+- CortUI_fp*.mdl: lessHUD & JelloShot
 
 
 Version history:
 ----------------
+1.71 RC1:
+  * includes 1.70 SE changes
+  + added lessHUD by FlingPu
+  + added JelloShot by FlingPu
+
 1.70:
   * fixed a bug that triggered an assertion (not noticeable in release-builds
     of the Allegiance client)

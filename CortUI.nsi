@@ -23,13 +23,13 @@
 ;--------------------------------
 
 
-!define NAME						"CortUI 1.70"
-!define INSTALLER_BUILD				"0020"
-!define FILENAME					"CortUI-1.70-final.exe"
+!define NAME						"CortUI 1.71 RC1"
+!define INSTALLER_BUILD				"0021"
+!define FILENAME					"CortUI-1.71-RC1.exe"
 !define REGKEY_ALLEGARTWORK			"SOFTWARE\Microsoft\Microsoft Games\Allegiance\1.0\"
 !define REGNAME_ALLEGARTWORK		"ArtPath"
 
-!define SECTIONTITLE_CORTUI					"!CortUI v1.70"
+!define SECTIONTITLE_CORTUI					"!CortUI v1.71 RC1"
 !define SECTIONDESC_CORTUI					"A modification of the look and feel of Allegiance."
 !define SECTIONTITLE_SLIPSTREAMGUI			"Slipstream GUI v0.2"
 !define SECTIONDESC_SLIPSTREAMGUI			"Newtype's famous new Allegiance skin."
@@ -44,13 +44,14 @@
 
 !define FIELD_INSTALLLOBBY			"Field 1"
 !define FIELD_INSTALLHANGAR			"Field 2"
-!define FIELD_CHATLINESGLOBAL		"Field 4"
-!define FIELD_CHATLINESLOADOUT		"Field 6"
-!define FIELD_SHOWLOADOUT			"Field 7"
-!define FIELD_SHOWMINIMAP			"Field 8"
-!define FIELD_SHOWORDERS			"Field 9"
-!define FIELD_SHOWSCROLLBAR			"Field 10"
-!define FIELD_SOFTWAREHUDMODE   	"Field 12"
+!define FIELD_CHATLINESGLOBAL		"Field 5"
+!define FIELD_CHATLINESLOADOUT		"Field 7"
+!define FIELD_SHOWLOADOUT			"Field 8"
+!define FIELD_SHOWMINIMAP			"Field 9"
+!define FIELD_SHOWORDERS			"Field 10"
+!define FIELD_SHOWSCROLLBAR			"Field 11"
+!define FIELD_SOFTWAREHUDMODE   	"Field 13"
+!define FIELD_HARDWAREHUDMODE   	"Field 15"
 
 #Var test
 Var IsSlipstreamSelected
@@ -67,6 +68,8 @@ Var settingsShowLastOrders
 Var settingsShowScrollbar
 Var settingsSoftwareHUDModeText
 Var settingsSoftwareHUDMode
+Var settingsHardwareHUDModeText
+Var settingsHardwareHUDMode
 Var isSlipstreamInstalled
 Var isCortUIInstalled
 Var shallInstallCortUI

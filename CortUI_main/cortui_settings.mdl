@@ -1,5 +1,5 @@
 // Version information
-cortUIVersionString = "CortUI v1.70";
+cortUIVersionString = "CortUI v1.71 RC1";
 
 // Parameter: Number of chat lines in the lobby. Keep between 1 and 10.
 NumChatLinesLobby = ?;
@@ -25,3 +25,7 @@ ShowScrollbarOnCockpitChat = ?;
 // Parameter: 0 if the default software HUD is used, 1 for the software HUD with targeting view,
 // 2 for the modified software HUD 'Raveen-style', 3 for the modified software HUD 'Parci-style'
 SoftwareHUDMode = ?;
+
+// Parameter: 0 if the default hardware HUD is used,
+// 1 for lessHUD by FlingPu, 2 for JelloShot by FlingPu 
+HardwareHUDMode = ?;
