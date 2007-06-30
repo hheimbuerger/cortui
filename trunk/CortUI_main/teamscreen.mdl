@@ -90,7 +90,8 @@ waterMarkPane =
 
 teamColorBrightness     = 0.62;
 teamColorIntensity      = 0.50;
-teamColumns             = [9, 143, 166, 220, 220]; // = [team name, num players, join button, gradient start, width]
+teamColumns             = [9, 120, 166, 220, 220]; // = [team name, num players, join button, gradient start, width]
+//teamColumns             = [9, 143, 166, 220, 220]; // = [team name, num players, join button, gradient start, width]
 teamListPane            = ListPane(Point(220, 308));
 
 //

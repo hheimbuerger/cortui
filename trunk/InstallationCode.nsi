@@ -48,6 +48,7 @@ Section "${SECTIONTITLE_CORTUI}" SECIDX_CORTUI
   !insertmacro MUI_INSTALLOPTIONS_READ $settingsShowLastOrders "ConfigurationScreen.ini" "${FIELD_SHOWORDERS}" "State"
   !insertmacro MUI_INSTALLOPTIONS_READ $settingsShowScrollbar "ConfigurationScreen.ini" "${FIELD_SHOWSCROLLBAR}" "State"
   !insertmacro MUI_INSTALLOPTIONS_READ $settingsSoftwareHUDModeText "ConfigurationScreen.ini" "${FIELD_SOFTWAREHUDMODE}" "State"
+  !insertmacro MUI_INSTALLOPTIONS_READ $settingsHardwareHUDModeText "ConfigurationScreen.ini" "${FIELD_HARDWAREHUDMODE}" "State"
 
   StrCpy $settingsSoftwareHUDMode "0"
   StrCmp $settingsSoftwareHUDModeText "Default Software HUD" 0 +2
@@ -59,6 +60,14 @@ Section "${SECTIONTITLE_CORTUI}" SECIDX_CORTUI
   StrCmp $settingsSoftwareHUDModeText "Modified Software HUD ('Parci-style')" 0 +2
     StrCpy $settingsSoftwareHUDMode "3"
 
+  StrCpy $settingsHardwareHUDMode "0"
+  StrCmp $settingsHardwareHUDModeText "Default Hardware HUD" 0 +2
+    StrCpy $settingsHardwareHUDMode "0"
+  StrCmp $settingsHardwareHUDModeText "lessHUD - by FlingPu" 0 +2
+    StrCpy $settingsHardwareHUDMode "1"
+  StrCmp $settingsHardwareHUDModeText "JelloShot - by FlingPu" 0 +2
+    StrCpy $settingsHardwareHUDMode "2"
+
 	!ifdef DEBUG
 		MessageBox MB_ICONINFORMATION|MB_OK "isLobbyScreenSelected: $isLobbyScreenSelected"
 		MessageBox MB_ICONINFORMATION|MB_OK "isHangarScreenSelected: $isHangarScreenSelected"
@@ -69,6 +78,7 @@ Section "${SECTIONTITLE_CORTUI}" SECIDX_CORTUI
 		MessageBox MB_ICONINFORMATION|MB_OK "settingsShowLastOrders: $settingsShowLastOrders"
 		MessageBox MB_ICONINFORMATION|MB_OK "settingsShowScrollbar: $settingsShowScrollbar"
 		MessageBox MB_ICONINFORMATION|MB_OK "settingsSoftwareHUDMode: $settingsSoftwareHUDMode"
+		MessageBox MB_ICONINFORMATION|MB_OK "settingsHardwareHUDMode: $settingsHardwareHUDModeText"
 	!endif
 
   StrCpy $settingsNumChatLinesLobby "6"

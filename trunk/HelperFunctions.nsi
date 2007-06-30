@@ -100,6 +100,10 @@ Function setSettings
 #MessageBox MB_ICONEXCLAMATION|MB_OK "settingsSoftwareHUDMode"
 	      FileWrite $4 "SoftwareHUDMode = $settingsSoftwareHUDMode;$\r$\n"
 	      Goto loop
+	   StrCmp $5 "HardwareHUDMode = ?;$\r$\n" 0 +3
+#MessageBox MB_ICONEXCLAMATION|MB_OK "settingsHardwareHUDMode"
+	      FileWrite $4 "HardwareHUDMode = $settingsHardwareHUDMode;$\r$\n"
+	      Goto loop
 	   FileWrite $4 $5
 	   Goto loop
 	
