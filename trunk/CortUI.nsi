@@ -23,20 +23,20 @@
 ;--------------------------------
 
 
-!define NAME						"CortUI 1.71 RC1"
-!define INSTALLER_BUILD				"0021"
-!define FILENAME					"CortUI-1.71-RC1.exe"
+!define NAME						"CortUI 1.75"
+!define INSTALLER_BUILD				"0023"
+!define FILENAME					"CortUI-1.75.exe"
 !define REGKEY_ALLEGARTWORK			"SOFTWARE\Microsoft\Microsoft Games\Allegiance\1.0\"
 !define REGNAME_ALLEGARTWORK		"ArtPath"
 
-!define SECTIONTITLE_CORTUI					"!CortUI v1.71 RC1"
+!define SECTIONTITLE_CORTUI					"!CortUI v1.75"
 !define SECTIONDESC_CORTUI					"A modification of the look and feel of Allegiance."
 !define SECTIONTITLE_SLIPSTREAMGUI			"Slipstream GUI v0.2"
 !define SECTIONDESC_SLIPSTREAMGUI			"Newtype's famous new Allegiance skin."
 !define SECTIONTITLE_UN_CORTUI				"un.Uninstall CortUI"
-!define SECTIONDESC_UN_CORTUI				"Uninstall CortUI by restoring the original files of the replaced ones (as of freeallegiance.org-installer 1.31)"
+!define SECTIONDESC_UN_CORTUI				"Uninstall CortUI by restoring the original files of the replaced ones (as of freeallegiance.org-installer 1.8.5)"
 !define SECTIONTITLE_UN_SLIPSTREAMGUI		"un.Uninstall Slipstream GUI"
-!define SECTIONDESC_UN_SLIPSTREAMGUI		"Uninstall Slipstream GUI by restoring the original files of the replaced ones (as of freeallegiance.org-installer 1.31)"
+!define SECTIONDESC_UN_SLIPSTREAMGUI		"Uninstall Slipstream GUI by restoring the original files of the replaced ones (as of freeallegiance.org-installer 1.8.5)"
 !define SECTIONTITLE_UN_REMOVEBACKUPS		"un.Remove backups"
 !define SECTIONDESC_UN_REMOVEBACKUPS		"Remove all backups"
 !define SECTIONTITLE_UN_REMOVEUNINSTALLER	"un.Remove uninstaller"
