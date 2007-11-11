@@ -23,7 +23,7 @@ Changes in CortUI (compared to default UI):
 - Map-mode shows all necessary ship status info in upper left area of the
   screen. (Autopilot and vector-lock status, name of current target, KB of the
   current target, distance to current target, speed of the current target,
-  your ship type (and whether you are in the turret of this ship, shield
+  your ship type (and whether you are in the turret of this ship), shield
   status, hull status, energy status, ammo status, fuel status, O2 level,
   current thrust, current speed, current signature, kill bonus.)
 - When in base, map-mode shows your ship type and your KB.
