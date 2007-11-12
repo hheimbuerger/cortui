@@ -4,6 +4,8 @@
 // | 1.13 / Cortex:                                                           |
 // | + incorporated the changes made by YP for R4 (two more status lines at   |
 // |   the bottom)                                                            |
+// | * moved command bar on the map up a little to make more room for the     |
+// |   three lines                                                            |
 // |                                                                          |
 // | 1.12 / FlingPu:                                                          |
 // | + added the normal HUD styles lessHUD and JelloShot                      |
@@ -4006,7 +4008,7 @@ dialogs =
         (cortCommandModeInfoBase,		SideTopLeft,		Point(   20,  185), Point( 20,   -37), .5,    4, true),
 
 		// CommandPane: the command bar at the F3-map
-        (CommandPaneImage,				SideBottom,			Point( -135, -190), Point(-135,   20), .5, 6, false),
+        (CommandPaneImage,				SideBottom,			Point( -135, -190), Point(-135,   40), .5, 6, false),
 
 		// LocationImage: "current location" in cockpit mode
         (LocationImage,					SideTopRight,		Point( -180,  185), Point( -180, -35), .5, 65584, true ),
