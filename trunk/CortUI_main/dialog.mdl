@@ -1,6 +1,13 @@
 // /**************************************************************************\
 // | File version history:                                                    |
 // |                                                                          |
+// | 1.13 / Cortex:                                                           |
+// | + incorporated the changes made by YP for R4 (two more status lines at   |
+// |   the bottom)                                                            |
+// |                                                                          |
+// | 1.12 / FlingPu:                                                          |
+// | + added the normal HUD styles lessHUD and JelloShot                      |
+// |                                                                          |
 // | 1.11 / Cortex:                                                           |
 // | + added the software HUD 'Parci-style'                                   |
 // |                                                                          |
@@ -497,10 +504,34 @@ TipTextImage =
     StringImage(
         JustifyCenter,
         600, 
-        medVerdana, 
+        medBoldVerdana, 
         mySideColor, 
         TipText
     );
+
+//
+// yp - Your_Persona Bug10 (3 lines for status text) patch Aug-2-2006
+// start
+TipTextImage1 =
+    StringImage(
+        JustifyCenter,
+        600, 
+        medVerdana, 
+        Color(.7, .5, .5), 
+        TipText1
+    );
+    
+TipTextImage2 =
+    StringImage(
+        JustifyCenter,
+        600, 
+        smVerdana, 
+        Color(.7, .4, .4), 
+        TipText2
+    );
+//
+// yp - Your_Persona Bug10 (3 lines for status text) patch
+// end
 
 CriticalTip0Image =
     StringImage(
@@ -3897,11 +3928,13 @@ dialogs =
 		// LoadoutCriticalTipImage: the four red lines in the middle of the screen, when you're in the loadout-screen
         (LoadoutCriticalTipImage,		SideCenter,			Point( -310, 0   ), Point(-310,    0), .5,   64, true),
 
-		// TipTextImage: the line with joiners/leavers/money, etc at the bottom of the screen
-        (TipTextImage,					SideBottom,			Point( -300, -200), Point(-300,   14), .5,65535, true),
+		// TipTextImage: the line with joiners/leavers/money, etc at the bottom of the screen (two additional lines added by YP's patch from 2006-08-02)
+        (TipTextImage2,                 SideBottom,         Point( -300, -180), Point(-300,   34), .5, 65535, true),
+        (TipTextImage1,                 SideBottom,         Point( -300, -190), Point(-300,   25), .5, 65535, true),
+        (TipTextImage,					SideBottom,			Point( -300, -200), Point(-300,   14), .5, 65535, true),
 
 		// VoteTextImage: the line that is displayed when a vote is called
-        (VoteTextImage_Adjusted,		SideTop,			Point( -310, 0), Point(-310, 0), .5,65535, true),
+        (VoteTextImage_Adjusted,		SideTop,			Point( -310, 0),    Point(-310, 0),    .5, 65535, true),
 
 		// ChatCompositionImage: the chat window (where you enter your messages)
         (ChatCompositionImage,			SideBottom,			Point( -170,  -78), Point(-150,  148), .5, 65663, false),
