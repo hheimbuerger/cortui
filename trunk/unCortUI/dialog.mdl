@@ -376,11 +376,34 @@ TipTextImage =
     StringImage(
         JustifyCenter,
         600, 
-        medVerdana, 
+        medBoldVerdana, 
         mySideColor, 
         TipText
     );
-
+    
+    //
+    // yp - Your_Persona Bug10 (3 lines for status text) patch Aug-2-2006
+    // start
+TipTextImage1 =
+    StringImage(
+        JustifyCenter,
+        600, 
+        medVerdana, 
+        Color(.7, .5, .5), 
+        TipText1
+    );
+    
+TipTextImage2 =
+    StringImage(
+        JustifyCenter,
+        600, 
+        smVerdana, 
+        Color(.7, .4, .4), 
+        TipText2
+    );
+	//
+    // yp - Your_Persona Bug10 (3 lines for status text) patch
+    // end
 CriticalTip0Image =
     StringImage(
         JustifyCenter,
@@ -1742,7 +1765,18 @@ dialogs =
         //
         // This stuff is non interactive so it should be below the interactive stuff
         //
-
+        
+        //
+        // yp - Your_Persona Bug10 (3 lines for status text) patch Aug-2-2006
+        // start
+        
+        (TipTextImage2,                               SideBottom,      Point( -300, -180), Point(-300,   34), .5,65535, true),
+        (TipTextImage1,                               SideBottom,      Point( -300, -190), Point(-300,   25), .5,65535, true),
+        
+        //
+        // yp - Your_Persona Bug10 (3 lines for status text) patch Aug-2-2006
+        // end
+        
         (TipTextImage,                                SideBottom,      Point( -300, -200), Point(-300,   14), .5,65535, true),
         (CriticalTipImage,                            SideTop,         Point( -310, -119), Point(-310, -119), .5,   15, true),
         (LoadoutCriticalTipImage,                     SideTop,         Point( -310, -184), Point(-310, -184), .5,   64, true),

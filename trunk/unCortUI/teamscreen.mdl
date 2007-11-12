@@ -64,6 +64,14 @@ teamColorIntensity      = 0.50;
 teamColumns             = [9, 143, 166, 220, 220]; // = [team name, num players, join button, gradient start, width]
 teamListPane            = ListPane(Point(220, 308));
 
+// R4 
+activeTeamButtonPane1 = ButtonPane(ImportImage("btncheckbmp", true), ButtonNormalCheckBox, true);
+activeTeamButtonPane2 = ButtonPane(ImportImage("btncheckbmp", true), ButtonNormalCheckBox, true);
+activeTeamButtonPane3 = ButtonPane(ImportImage("btncheckbmp", true), ButtonNormalCheckBox, true);
+activeTeamButtonPane4 = ButtonPane(ImportImage("btncheckbmp", true), ButtonNormalCheckBox, true);
+activeTeamButtonPane5 = ButtonPane(ImportImage("btncheckbmp", true), ButtonNormalCheckBox, true);
+activeTeamButtonPane6 = ButtonPane(ImportImage("btncheckbmp", true), ButtonNormalCheckBox, true);
+
 //
 // Normal buttons
 //
@@ -75,12 +83,12 @@ rejectButtonPane    = ButtonPane(ImportImage("btnrejectnewbmp", true), ButtonNor
 joinButtonPane      = ButtonPane(ImportImage("btnjoin2bmp",      true), ButtonNormal, false);
 randomizeButtonPane = ButtonPane(ImportImage("btnrandomizeteamsbmp", true), ButtonNormal, false);
 
-detailsButtonPane   = ButtonPane(ImportImage("btnsettingsbmp",   true), ButtonNormal, false);
-settingsButtonPane  = ButtonPane(ImportImage("btnsettingsbmp",  true), ButtonNormal, false);
-makeLeaderButtonPane= ButtonPane(ImportImage("btnmakeleaderbmp",true), ButtonNormal, false);
+detailsButtonPane   = ButtonPane(ImportImageFromFile("btnsettings.png",   true), ButtonNormal, false); // R4 changed
+settingsButtonPane  = ButtonPane(ImportImageFromFile("btnsettings.png",  true), ButtonNormal, false); // R4 changed
+makeLeaderButtonPane= ButtonPane(ImportImage("btnmakeleaderbmp",true), ButtonNormal, false); // R4 changed
 startButtonPane     = ButtonPane(ImportImage("btnstartbmp",     true), ButtonNormal, false);
 
-teamSettingsButtonPane = ButtonPane(ImportImage("btnteamsettingsbmp",   true), ButtonNormal, false);
+teamSettingsButtonPane = ButtonPane(ImportImageFromFile("btnteamsettings.png",   true), ButtonNormal, false); // R4 changed
 
 //
 // Check boxes
@@ -188,15 +196,19 @@ hoverString =
             ( 31, "Select to prevent new players from joining the game."),
             ( 32, "Return to the statistics for the last game."),
             ( 33, "Select to disallow changes to the teams."),
-			( 34, "Select to indicate that your team is ready for the game to launch.")	,
-            ( 35, "Assign everyone except the team leaders to random teams and then lock the sides.")
+	    ( 34, "Select to indicate that your team is ready for the game to launch.")	,
+            ( 35, "Assign everyone except the team leaders to random teams and then lock the sides."),
+            ( 36, "Deactivate or activate this team.")
         ]
     );
 
 hoverImage = StringImage(JustifyLeft, 200, medVerdana, white, hoverString);
 hoverPane  = AnimatedImagePaneRect(hoverImage, Rect(0, -25, 200, 0));
 
-
+// R4
+mapPreviewPane      = MapPreviewPane(ImportImage("sectormapbkgndbmp",false),true,false);
+textServername      = StringPane(strServerName, TextColor, Point(290, 20), JustifyRight, promptFont);
+textCorename        = StringPane(strCoreName, TextColor, Point(290, 20), JustifyRight, promptFont);
 //
 // The background and control positions
 //
@@ -212,6 +224,8 @@ screen =
             (textScoresCount,      Point(500,  30)),
             (textTimerType,        Point(698,  56)),
             (textTimer,            Point(695,  70)),
+            (textServername,       Point(500,   3)), // R4
+            (textCorename,         Point(500,  15)), // R4
  
             (HoverPane(hoverSite,   1,  teamListPane),              Point( 45,  85)),
 
@@ -245,14 +259,24 @@ screen =
             
             //(HoverPane(hoverSite,  17,  detailsButtonPane),       Point( 80, 470)),
             //(HoverPane(hoverSite,  17,  settingsButtonPane),      Point( 80, 470)),
-            (detailsButtonPane,                                     Point( 80, 420)),
-            (settingsButtonPane,                                    Point( 80, 420)),
-            (teamSettingsButtonPane,                                Point( 80, 470)),
-
+            (detailsButtonPane,                                     Point( 5, 420)),
+            (settingsButtonPane,                                    Point( 5, 420)), // moved
+            (teamSettingsButtonPane,                                Point( 5, 470)), // moved to left
+            (mapPreviewPane,                                        Point( 144, 419)), // new in R4
+            
             (HoverPane(hoverSite,  21,  startButtonPane),           Point(693, 434)),
 
             (HoverPane(hoverSite,  23,  textStatus),                Point(0, 530)),
             (HoverPane(hoverSite,  23,  textStatus2),               Point(0, 542)),
+            
+            // new in R4
+            (HoverPane(hoverSite,  36,  activeTeamButtonPane1), Point(15, 97 )),
+            (HoverPane(hoverSite,  36,  activeTeamButtonPane2), Point(15, 141)),
+            (HoverPane(hoverSite,  36,  activeTeamButtonPane3), Point(15, 185)),
+            (HoverPane(hoverSite,  36,  activeTeamButtonPane4), Point(15, 229)),
+            (HoverPane(hoverSite,  36,  activeTeamButtonPane5), Point(15, 273)),
+            (HoverPane(hoverSite,  36,  activeTeamButtonPane6), Point(15, 317)),
+            
             (hoverPane, Point(600, 575))
         ]
     );
