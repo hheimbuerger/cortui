@@ -48,7 +48,7 @@ Section "${SECTIONTITLE_CORTUI}" SECIDX_CORTUI
   !insertmacro MUI_INSTALLOPTIONS_READ $settingsShowLastOrders "ConfigurationScreen.ini" "${FIELD_SHOWORDERS}" "State"
   !insertmacro MUI_INSTALLOPTIONS_READ $settingsShowScrollbar "ConfigurationScreen.ini" "${FIELD_SHOWSCROLLBAR}" "State"
   !insertmacro MUI_INSTALLOPTIONS_READ $settingsSoftwareHUDModeText "ConfigurationScreen.ini" "${FIELD_SOFTWAREHUDMODE}" "State"
-  !insertmacro MUI_INSTALLOPTIONS_READ $settingsHardwareHUDModeText "ConfigurationScreen.ini" "${FIELD_HARDWAREHUDMODE}" "State"
+  !insertmacro MUI_INSTALLOPTIONS_READ $settingsNormalHUDModeText "ConfigurationScreen.ini" "${FIELD_NORMALHUDMODE}" "State"
 
   StrCpy $settingsSoftwareHUDMode "0"
   StrCmp $settingsSoftwareHUDModeText "Default Software HUD" 0 +2
@@ -60,13 +60,13 @@ Section "${SECTIONTITLE_CORTUI}" SECIDX_CORTUI
   StrCmp $settingsSoftwareHUDModeText "Modified Software HUD ('Parci-style')" 0 +2
     StrCpy $settingsSoftwareHUDMode "3"
 
-  StrCpy $settingsHardwareHUDMode "0"
-  StrCmp $settingsHardwareHUDModeText "Default Hardware HUD" 0 +2
-    StrCpy $settingsHardwareHUDMode "0"
-  StrCmp $settingsHardwareHUDModeText "lessHUD - by FlingPu" 0 +2
-    StrCpy $settingsHardwareHUDMode "1"
-  StrCmp $settingsHardwareHUDModeText "JelloShot - by FlingPu" 0 +2
-    StrCpy $settingsHardwareHUDMode "2"
+  StrCpy $settingsNormalHUDMode "0"
+  StrCmp $settingsNormalHUDModeText "Default Normal HUD" 0 +2
+    StrCpy $settingsNormalHUDMode "0"
+  StrCmp $settingsNormalHUDModeText "lessHUD - by FlingPu" 0 +2
+    StrCpy $settingsNormalHUDMode "1"
+  StrCmp $settingsNormalHUDModeText "JelloShot - by FlingPu" 0 +2
+    StrCpy $settingsNormalHUDMode "2"
 
 	!ifdef DEBUG
 		MessageBox MB_ICONINFORMATION|MB_OK "isLobbyScreenSelected: $isLobbyScreenSelected"
@@ -78,7 +78,7 @@ Section "${SECTIONTITLE_CORTUI}" SECIDX_CORTUI
 		MessageBox MB_ICONINFORMATION|MB_OK "settingsShowLastOrders: $settingsShowLastOrders"
 		MessageBox MB_ICONINFORMATION|MB_OK "settingsShowScrollbar: $settingsShowScrollbar"
 		MessageBox MB_ICONINFORMATION|MB_OK "settingsSoftwareHUDMode: $settingsSoftwareHUDMode"
-		MessageBox MB_ICONINFORMATION|MB_OK "settingsHardwareHUDMode: $settingsHardwareHUDModeText"
+		MessageBox MB_ICONINFORMATION|MB_OK "settingsNormalHUDMode: $settingsNormalHUDModeText"
 	!endif
 
   StrCpy $settingsNumChatLinesLobby "6"

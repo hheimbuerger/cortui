@@ -23,9 +23,9 @@
 ;--------------------------------
 
 
-!define NAME						"CortUI 1.75"
+!define NAME						"CortUI 1.75-beta1"
 !define INSTALLER_BUILD				"0023"
-!define FILENAME					"CortUI-1.75.exe"
+!define FILENAME					"CortUI-1.75-beta1.exe"
 !define REGKEY_ALLEGARTWORK			"SOFTWARE\Microsoft\Microsoft Games\Allegiance\1.0\"
 !define REGNAME_ALLEGARTWORK		"ArtPath"
 
@@ -50,8 +50,8 @@
 !define FIELD_SHOWMINIMAP			"Field 9"
 !define FIELD_SHOWORDERS			"Field 10"
 !define FIELD_SHOWSCROLLBAR			"Field 11"
-!define FIELD_SOFTWAREHUDMODE   	"Field 13"
-!define FIELD_HARDWAREHUDMODE   	"Field 15"
+!define FIELD_NORMALHUDMODE   	    "Field 13"
+!define FIELD_SOFTWAREHUDMODE   	"Field 15"
 
 #Var test
 Var IsSlipstreamSelected
@@ -68,8 +68,8 @@ Var settingsShowLastOrders
 Var settingsShowScrollbar
 Var settingsSoftwareHUDModeText
 Var settingsSoftwareHUDMode
-Var settingsHardwareHUDModeText
-Var settingsHardwareHUDMode
+Var settingsNormalHUDModeText
+Var settingsNormalHUDMode
 Var isSlipstreamInstalled
 Var isCortUIInstalled
 Var shallInstallCortUI

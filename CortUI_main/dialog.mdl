@@ -2002,15 +2002,15 @@ fp2CenterHudOn = GroupImage([
 
 /////////////////////////////////////////////////////////////
 //
-//  HARDWARE CENTER HUD STYLE SWITCH IMAGE
+//  NORMAL CENTER HUD STYLE SWITCH IMAGE
 //
 ////////////////////////////////////////////////////////////
 
 CenterHudOn = SwitchImage(
-	HardwareHUDMode,
+	NormalHUDMode,
 	emptyImage,
 	[
-		(0, DefaultCenterHudOn), // Default Hardware HUD
+		(0, DefaultCenterHudOn), // Default Normal HUD
 		(1, fpCenterHudOn), // lessHUD
 		(2, fp2CenterHudOn) // JelloShot
 	]
@@ -2639,7 +2639,7 @@ TargetExperienceImage =
         ]
     );
 
-DefaultHardwareTargetDisplay = 
+DefaultNormalTargetDisplay = 
     VisibleImage(GroupImage(
         [
             
@@ -3041,15 +3041,15 @@ SoftwareTargetDisplay =
 
 /////////////////////////////////////////////////////////////
 //
-//  HARDWARE TARGET HUD STYLE SWITCH IMAGE
+//  NORMAL TARGET HUD STYLE SWITCH IMAGE
 //
 ////////////////////////////////////////////////////////////
 
 DefaultTargetDisplay = SwitchImage(
-	HardwareHUDMode,
+	NormalHUDMode,
 	emptyImage,
 	[
-		(0, DefaultHardwareTargetDisplay), // Default Hardware HUD
+		(0, DefaultNormalTargetDisplay), // Default Normal HUD
 		(1, fpTargetDisplay), // lessHUD
 		(2, emptyImage) // JelloShot, doesn't use lower pane
 	]
