@@ -26,6 +26,6 @@ ShowScrollbarOnCockpitChat = ?;
 // 2 for the modified software HUD 'Raveen-style', 3 for the modified software HUD 'Parci-style'
 SoftwareHUDMode = ?;
 
-// Parameter: 0 if the default hardware HUD is used,
+// Parameter: 0 if the default normal HUD is used,
 // 1 for lessHUD by FlingPu, 2 for JelloShot by FlingPu 
-HardwareHUDMode = ?;
+NormalHUDMode = ?;
