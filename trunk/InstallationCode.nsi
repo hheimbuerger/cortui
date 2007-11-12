@@ -47,8 +47,16 @@ Section "${SECTIONTITLE_CORTUI}" SECIDX_CORTUI
   !insertmacro MUI_INSTALLOPTIONS_READ $settingsShowMinimapAtLoadoutScreen "ConfigurationScreen.ini" "${FIELD_SHOWMINIMAP}" "State"
   !insertmacro MUI_INSTALLOPTIONS_READ $settingsShowLastOrders "ConfigurationScreen.ini" "${FIELD_SHOWORDERS}" "State"
   !insertmacro MUI_INSTALLOPTIONS_READ $settingsShowScrollbar "ConfigurationScreen.ini" "${FIELD_SHOWSCROLLBAR}" "State"
-  !insertmacro MUI_INSTALLOPTIONS_READ $settingsSoftwareHUDModeText "ConfigurationScreen.ini" "${FIELD_SOFTWAREHUDMODE}" "State"
   !insertmacro MUI_INSTALLOPTIONS_READ $settingsNormalHUDModeText "ConfigurationScreen.ini" "${FIELD_NORMALHUDMODE}" "State"
+  !insertmacro MUI_INSTALLOPTIONS_READ $settingsSoftwareHUDModeText "ConfigurationScreen.ini" "${FIELD_SOFTWAREHUDMODE}" "State"
+
+  StrCpy $settingsNormalHUDMode "0"
+  StrCmp $settingsNormalHUDModeText "Classic CortUI" 0 +2
+    StrCpy $settingsNormalHUDMode "0"
+  StrCmp $settingsNormalHUDModeText "lessHUD - by FlingPu" 0 +2
+    StrCpy $settingsNormalHUDMode "1"
+  StrCmp $settingsNormalHUDModeText "JelloShot - by FlingPu" 0 +2
+    StrCpy $settingsNormalHUDMode "2"
 
   StrCpy $settingsSoftwareHUDMode "0"
   StrCmp $settingsSoftwareHUDModeText "Default Software HUD" 0 +2
@@ -59,14 +67,6 @@ Section "${SECTIONTITLE_CORTUI}" SECIDX_CORTUI
     StrCpy $settingsSoftwareHUDMode "2"
   StrCmp $settingsSoftwareHUDModeText "Modified Software HUD ('Parci-style')" 0 +2
     StrCpy $settingsSoftwareHUDMode "3"
-
-  StrCpy $settingsNormalHUDMode "0"
-  StrCmp $settingsNormalHUDModeText "Default Normal HUD" 0 +2
-    StrCpy $settingsNormalHUDMode "0"
-  StrCmp $settingsNormalHUDModeText "lessHUD - by FlingPu" 0 +2
-    StrCpy $settingsNormalHUDMode "1"
-  StrCmp $settingsNormalHUDModeText "JelloShot - by FlingPu" 0 +2
-    StrCpy $settingsNormalHUDMode "2"
 
 	!ifdef DEBUG
 		MessageBox MB_ICONINFORMATION|MB_OK "isLobbyScreenSelected: $isLobbyScreenSelected"
