@@ -1,6 +1,9 @@
 // /**************************************************************************\
 // | Version history:                                                         |
 // |                                                                          |
+// | 1.3 / Cortex:                                                            |
+// | * moved hover text up a little to make room for the extra status lines   |
+// |                                                                          |
 // | 1.2 / Cortex:                                                            |
 // | - removed back-button in the hangar (use ESC-q instead)                  |
 // |                                                                          |
@@ -116,7 +119,7 @@ screen =
             (teleportButtonPane,     Point( 214, 248)),
             (teamButtonPane,         Point(  43, 102)),
 //			(exitButtonPane,		 Point(  80,  515)),
-            (hoverInfoPane,          Point( 100, 561)),
+            (hoverInfoPane,          Point( 100, 536)),
 			(InTurretPane,			 Point( 320, 450))
         ]
     );
