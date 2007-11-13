@@ -1,6 +1,9 @@
 // /**************************************************************************\
 // | File version history:                                                    |
 // |                                                                          |
+// | 1.14 / Cortex:                                                           |
+// | * moved the "Turret of ..." text up a little                             |
+// |                                                                          |
 // | 1.13 / Cortex:                                                           |
 // | + incorporated the changes made by YP for R4 (two more status lines at   |
 // |   the bottom)                                                            |
@@ -4019,7 +4022,7 @@ dialogs =
         (RipcordCountdownImage,			SideCenter,			Point( -75,    15), Point( -75,   15), .5,   58, true ),
 
 		// BoardTextImage: the info whether I'm in a turret
-        (BoardTextImage,				SideBottom,			Point( -300, -200), Point( -300, 28), .5,  119, true),
+        (BoardTextImage,				SideBottom,			Point( -300, -200), Point( -300, 73), .5,  119, true),
 
 		// StationPane: station status indicator
         (StationPane,					SideTopLeft,		Point(  -148,  85),	Point( 3,  -33), 0, 69, true ),
