@@ -1,6 +1,16 @@
 // /**************************************************************************\
 // | File version history:                                                    |
 // |                                                                          |
+// | 1.15 / Cortex:                                                           |
+// | * fixed upper case in "Current Location" and "Currently Viewing"         |
+// | + added "Current location" to the hangar screen                          |
+// | - removed old "Turret of" display                                        |
+// | + added two new "Turret of" displays for the loadout (over the rotating  |
+// |   model) and at the upper right for all other screens (including hangar  |
+// |   and map, which previously didn't have that information)                |
+// | * improved layout of the dialogs= section a little (there's still a lot  |
+// |   to do!)                                                                |
+// |                                                                          |
 // | 1.14 / Cortex:                                                           |
 // | * moved the "Turret of ..." text up a little                             |
 // |                                                                          |
@@ -356,6 +366,17 @@ SectorNameImage =
         ),
         hudBlendMode);
 
+SectorNameInHangarImage = 
+    BlendImage(
+        StringImage(
+            JustifyCenter,
+            160,
+            medVerdana,
+            Color(1, 0, 0),
+            GetSectorName(MyStation, OnEveryFrame)
+        ),
+        hudBlendMode);
+
 LocationImage =
     GroupImage([
         BlendImage(
@@ -364,12 +385,73 @@ LocationImage =
                 160,
                 promptFont,
                 yellowText,
-                "Current Location:"
+                "Current location:"
             ),
             hudBlendMode),
         TranslateImage(SectorNameImage, Point(0, -14))
     ]);
-    
+
+LocationInHangarImage =
+    GroupImage([
+        BlendImage(
+            StringImage(
+                JustifyCenter,
+                160,
+                promptFont,
+                yellowText,
+                "Current location:"
+            ),
+            hudBlendMode),
+        TranslateImage(SectorNameInHangarImage, Point(0, -14))
+    ]);
+
+PilotNameImage = 
+    BlendImage(
+        StringImage(
+            JustifyCenter,
+            160,
+            medVerdana,
+            Color(1, 0, 0),
+            GetName(Me, OnEveryFrame)
+        ),
+        hudBlendMode);
+
+BigTurretTextImage =
+    GroupImage([
+        BlendImage(
+            StringImage(
+                JustifyCenter,
+                160,
+                promptFont,
+                yellowText,
+                "Turret of:"
+            ),
+            hudBlendMode),
+        TranslateImage(PilotNameImage, Point(0, -14))
+    ]);
+
+TurretOfImage =
+    SwitchImage(
+        BoardState,
+        emptyImage,
+        [
+            (2, BigTurretTextImage)
+        ]
+    );
+
+InTurretPaneImage =
+    PaneImage(
+        SwitchPane(
+            BoardState,
+            [
+                (ImagePane(ImportImage ("hangarinturretbmp", false), []), 2)
+            ]
+        ),
+        false,
+        true
+    );
+        
+
 AcceptedOrderImage = 
     GroupImage([
         TranslateImage(
@@ -590,7 +672,7 @@ ObserverTextImage =
         JustifyCenter,
         600, 
         medVerdana, 
-        mySideColor, 
+        mySideColor,
         ConcatinatedString("Observer of ", GetName(Me, OnEveryFrame))
     );
 
@@ -1105,8 +1187,6 @@ VectorLockOn =
             (1, VectorLockNormal)
         ]
     );
-
-
 
 AutopilotNormal = ImportImage("conautopilotbmp", true);
 
@@ -3686,13 +3766,13 @@ RipcordCountdownImage =
             )
         ]
     );
- 
-//////////////////////////////////////////////////////////////
-//
-//  Sector View information
-//
-//////////////////////////////////////////////////////////////
 
+//////////////////////////////////////////////////////////////
+//
+//  Current sector
+//
+//////////////////////////////////////////////////////////////
+    
 LookingAtImage =
     GroupImage([
         BlendImage(
@@ -3701,13 +3781,13 @@ LookingAtImage =
                 160,
                 promptFont,
                 yellowText,
-                "Currently Viewing:"
+                "Currently viewing:"
             ),
             hudBlendMode),
         TranslateImage(SectorNameImage, Point(0, -14)),
         TranslateImage(CloakOn, Point(30, -110))
     ]);
-    
+
 //////////////////////////////////////////////////////////////
 //
 // Actual dialogs
@@ -3844,146 +3924,146 @@ LastOrderImage				= SwitchImage(
 
 dialogs =
     [
-		// entry format:
+        // entry format:
         // (image, side, off point, on point, transition time, consoles modes, undetectable)
-		// coordinate origin is at lower left of screen. Positive axii going right and upward.
-		// In the end, when the image is visible, the lower left of the image is located at (sidePoint + OnPoint)
-		// image: the image to display ;)
-		// side: one of the Side* constants. This is an offset to the off and on-points, 
-		// they are defined relative to this point. Possible values:
-		// NOTE: as mentioned, origin is at lower left of screen
-		// 		SideLeftOffset = (xmin,  yhalf)
-		// 		SideTopLeftOffset = (xmin,  ymax )
-		// 		SideTopOffset = (xhalf, ymax )
-		// 		SideTopRightOffset = (xmax,  ymax )
-		// 		SideRightOffset = (xmax,  yhalf)
-		// 		SideBottomRightOffset = (xmax,  ymin )
-		// 		SideBottomOffset = (xhalf, ymin )
-		// 		SideBottomLeftOffset = (xmin,  ymin )
-		// 		SideCenterOffset = (xhalf, yhalf)
-		// off point: where the pane should move when it's becoming not visible (e.g. when moving to a console mode)
-		// 			  where this image should not be shown
-		// on point:  where the pane should be placed when visible
-		// transition time: how long it should take for the pane to move between on and off points
-		// console mode: a bit field that decides in what contexts to show the specified image:
-		// 		ofInHangar          = 0x000001,1
-		//			the hangar image can be seen in the background
-		// 		ofInFlightCommand   = 0x000002,2
-		//			map-mode (default F3) during flight
-		// 		ofInStationCommand  = 0x000004,4
-		//			map-mode (default F3) in base
-		// 		ofInFlight          = 0x000008,8
-		//			in flight (launch animation, cockpit, chase view, map, ...)
-		// 		ofInCockpit         = 0x000010,16
-		//			flight-mode, cockpit
-		// 		ofInChase           = 0x000020,32
-		//			flight-mode, chase view
-		// 		ofInLoadout         = 0x000040,64
-		//			loadout-screen
-		// 		ofTeleportPane      = 0x000100,256
-		//			teleport window is opened (default F8)
-		// 		ofInvestment        = 0x000200,512
-		//			investment window is opened (default F5)
-		// 		ofGameState         = 0x000400,1024
-		//			game state window is opened (default G)
-		// 		ofTeam              = 0x000800,2048
-		//			narrow team window is opened (default F6, then click on small arrow)
-		// 		ofExpandedTeam      = 0x001000,4096
-		//			expanded team window is opened (default F6)
-		// 		ofInventory         = 0x002000,8192
-		//			inventory window is opened (default F4)
-		// 		ofCommandPane       = 0x004000,16384
-		//			the command bar is displayed (map)
-		// 		ofSectorPane        = 0x008000,32768
-		//			the minimap is displayed (default F7)
-		// 		ofGloatCam          = 0x010000,65536
-		//			the camera is overridden (launch sequence, training missions)
-		// undetectable - If a pane is undetectable, then no click events are generated for the pane.
+        // coordinate origin is at lower left of screen. Positive axii going right and upward.
+        // In the end, when the image is visible, the lower left of the image is located at (sidePoint + OnPoint)
+        // image: the image to display ;)
+        // side: one of the Side* constants. This is an offset to the off and on-points, 
+        // they are defined relative to this point. Possible values:
+        // NOTE: as mentioned, origin is at lower left of screen
+        //      SideLeftOffset = (xmin,  yhalf)
+        //      SideTopLeftOffset = (xmin,  ymax )
+        //      SideTopOffset = (xhalf, ymax )
+        //      SideTopRightOffset = (xmax,  ymax )
+        //      SideRightOffset = (xmax,  yhalf)
+        //      SideBottomRightOffset = (xmax,  ymin )
+        //      SideBottomOffset = (xhalf, ymin )
+        //      SideBottomLeftOffset = (xmin,  ymin )
+        //      SideCenterOffset = (xhalf, yhalf)
+        // off point: where the pane should move when it's becoming not visible (e.g. when moving to a console mode)
+        //            where this image should not be shown
+        // on point:  where the pane should be placed when visible
+        // transition time: how long it should take for the pane to move between on and off points
+        // console mode: a bit field that decides in what contexts to show the specified image:
+        //      ofInHangar          = 0x000001,1
+        //          the hangar image can be seen in the background
+        //      ofInFlightCommand   = 0x000002,2
+        //          map-mode (default F3) during flight
+        //      ofInStationCommand  = 0x000004,4
+        //          map-mode (default F3) in base
+        //      ofInFlight          = 0x000008,8
+        //          in flight (launch animation, cockpit, chase view, map, ...)
+        //      ofInCockpit         = 0x000010,16
+        //          flight-mode, cockpit
+        //      ofInChase           = 0x000020,32
+        //          flight-mode, chase view
+        //      ofInLoadout         = 0x000040,64
+        //          loadout-screen
+        //      ofTeleportPane      = 0x000100,256
+        //          teleport window is opened (default F8)
+        //      ofInvestment        = 0x000200,512
+        //          investment window is opened (default F5)
+        //      ofGameState         = 0x000400,1024
+        //          game state window is opened (default G)
+        //      ofTeam              = 0x000800,2048
+        //          narrow team window is opened (default F6, then click on small arrow)
+        //      ofExpandedTeam      = 0x001000,4096
+        //          expanded team window is opened (default F6)
+        //      ofInventory         = 0x002000,8192
+        //          inventory window is opened (default F4)
+        //      ofCommandPane       = 0x004000,16384
+        //          the command bar is displayed (map)
+        //      ofSectorPane        = 0x008000,32768
+        //          the minimap is displayed (default F7)
+        //      ofGloatCam          = 0x010000,65536
+        //          the camera is overridden (launch sequence, training missions)
+        // undetectable - If a pane is undetectable, then no click events are generated for the pane.
         //
         // (image, side, off point, on point, transition time, consoles modes, undetectable
 
-		// to see in every situation which 'console mode' flags are set, uncomment the following lines:
-		/*
-		(StringImage(JustifyLeft, 150, medVerdana, Color(0.586, 0.578, 0.680), "ofInHangar (1)"),			SideCenter, Point(0,0), Point(0,-12),  .5, 0x000001, true),
-		(StringImage(JustifyLeft, 150, medVerdana, Color(0.586, 0.578, 0.680), "ofInFlightCommand (2)"),	SideCenter, Point(0,0), Point(0,-24),  .5, 0x000002, true),
-		(StringImage(JustifyLeft, 150, medVerdana, Color(0.586, 0.578, 0.680), "ofInStationCommand (4)"),	SideCenter, Point(0,0), Point(0,-36),  .5, 0x000004, true),
-		(StringImage(JustifyLeft, 150, medVerdana, Color(0.586, 0.578, 0.680), "ofInFlight (8)"),			SideCenter, Point(0,0), Point(0,-48),  .5, 0x000008, true),
-		(StringImage(JustifyLeft, 150, medVerdana, Color(0.586, 0.578, 0.680), "ofInCockpit (16)"),			SideCenter, Point(0,0), Point(0,-60),  .5, 0x000010, true),
-		(StringImage(JustifyLeft, 150, medVerdana, Color(0.586, 0.578, 0.680), "ofInChase (32)"),			SideCenter, Point(0,0), Point(0,-72),  .5, 0x000020, true),
-		(StringImage(JustifyLeft, 150, medVerdana, Color(0.586, 0.578, 0.680), "ofInLoadout (64)"),			SideCenter, Point(0,0), Point(0,-84),  .5, 0x000040, true),
-		(StringImage(JustifyLeft, 150, medVerdana, Color(0.586, 0.578, 0.680), "UNKNOWN (128)"),			SideCenter, Point(0,0), Point(0,-96),  .5, 0x000080, true),
-		(StringImage(JustifyLeft, 150, medVerdana, Color(0.586, 0.578, 0.680), "ofTeleportPane (256)"),		SideCenter, Point(0,0), Point(0,-108), .5, 0x000100, true),
-		(StringImage(JustifyLeft, 150, medVerdana, Color(0.586, 0.578, 0.680), "ofInvestment (512)"),		SideCenter, Point(0,0), Point(0,-120), .5, 0x000200, true),
-		(StringImage(JustifyLeft, 150, medVerdana, Color(0.586, 0.578, 0.680), "ofGameState (1024)"),		SideCenter, Point(0,0), Point(0,-132), .5, 0x000400, true),
-		(StringImage(JustifyLeft, 150, medVerdana, Color(0.586, 0.578, 0.680), "ofTeam (2048)"),			SideCenter, Point(0,0), Point(0,-144), .5, 0x000800, true),
-		(StringImage(JustifyLeft, 150, medVerdana, Color(0.586, 0.578, 0.680), "ofExpandedTeam (4096)"),	SideCenter, Point(0,0), Point(0,-156), .5, 0x001000, true),
-		(StringImage(JustifyLeft, 150, medVerdana, Color(0.586, 0.578, 0.680), "ofInventory (8192)"),		SideCenter, Point(0,0), Point(0,-168), .5, 0x002000, true),
-		(StringImage(JustifyLeft, 150, medVerdana, Color(0.586, 0.578, 0.680), "ofCommandPane (16384)"),	SideCenter, Point(0,0), Point(0,-180), .5, 0x004000, true),
-		(StringImage(JustifyLeft, 150, medVerdana, Color(0.586, 0.578, 0.680), "ofSectorPane (32768)"),		SideCenter, Point(0,0), Point(0,-192), .5, 0x008000, true),
-		(StringImage(JustifyLeft, 150, medVerdana, Color(0.586, 0.578, 0.680), "ofGloatCam (65536)"),		SideCenter, Point(0,0), Point(0,-204), .5, 0x010000, true),
-		*/
+        // to see in every situation which 'console mode' flags are set, uncomment the following lines:
+        /*
+        (StringImage(JustifyLeft, 150, medVerdana, Color(0.586, 0.578, 0.680), "ofInHangar (1)"),           SideCenter, Point(0,0), Point(0,-12),  .5, 0x000001, true),
+        (StringImage(JustifyLeft, 150, medVerdana, Color(0.586, 0.578, 0.680), "ofInFlightCommand (2)"),    SideCenter, Point(0,0), Point(0,-24),  .5, 0x000002, true),
+        (StringImage(JustifyLeft, 150, medVerdana, Color(0.586, 0.578, 0.680), "ofInStationCommand (4)"),   SideCenter, Point(0,0), Point(0,-36),  .5, 0x000004, true),
+        (StringImage(JustifyLeft, 150, medVerdana, Color(0.586, 0.578, 0.680), "ofInFlight (8)"),           SideCenter, Point(0,0), Point(0,-48),  .5, 0x000008, true),
+        (StringImage(JustifyLeft, 150, medVerdana, Color(0.586, 0.578, 0.680), "ofInCockpit (16)"),         SideCenter, Point(0,0), Point(0,-60),  .5, 0x000010, true),
+        (StringImage(JustifyLeft, 150, medVerdana, Color(0.586, 0.578, 0.680), "ofInChase (32)"),           SideCenter, Point(0,0), Point(0,-72),  .5, 0x000020, true),
+        (StringImage(JustifyLeft, 150, medVerdana, Color(0.586, 0.578, 0.680), "ofInLoadout (64)"),         SideCenter, Point(0,0), Point(0,-84),  .5, 0x000040, true),
+        (StringImage(JustifyLeft, 150, medVerdana, Color(0.586, 0.578, 0.680), "UNKNOWN (128)"),            SideCenter, Point(0,0), Point(0,-96),  .5, 0x000080, true),
+        (StringImage(JustifyLeft, 150, medVerdana, Color(0.586, 0.578, 0.680), "ofTeleportPane (256)"),     SideCenter, Point(0,0), Point(0,-108), .5, 0x000100, true),
+        (StringImage(JustifyLeft, 150, medVerdana, Color(0.586, 0.578, 0.680), "ofInvestment (512)"),       SideCenter, Point(0,0), Point(0,-120), .5, 0x000200, true),
+        (StringImage(JustifyLeft, 150, medVerdana, Color(0.586, 0.578, 0.680), "ofGameState (1024)"),       SideCenter, Point(0,0), Point(0,-132), .5, 0x000400, true),
+        (StringImage(JustifyLeft, 150, medVerdana, Color(0.586, 0.578, 0.680), "ofTeam (2048)"),            SideCenter, Point(0,0), Point(0,-144), .5, 0x000800, true),
+        (StringImage(JustifyLeft, 150, medVerdana, Color(0.586, 0.578, 0.680), "ofExpandedTeam (4096)"),    SideCenter, Point(0,0), Point(0,-156), .5, 0x001000, true),
+        (StringImage(JustifyLeft, 150, medVerdana, Color(0.586, 0.578, 0.680), "ofInventory (8192)"),       SideCenter, Point(0,0), Point(0,-168), .5, 0x002000, true),
+        (StringImage(JustifyLeft, 150, medVerdana, Color(0.586, 0.578, 0.680), "ofCommandPane (16384)"),    SideCenter, Point(0,0), Point(0,-180), .5, 0x004000, true),
+        (StringImage(JustifyLeft, 150, medVerdana, Color(0.586, 0.578, 0.680), "ofSectorPane (32768)"),     SideCenter, Point(0,0), Point(0,-192), .5, 0x008000, true),
+        (StringImage(JustifyLeft, 150, medVerdana, Color(0.586, 0.578, 0.680), "ofGloatCam (65536)"),       SideCenter, Point(0,0), Point(0,-204), .5, 0x010000, true),
+        */
 
-		// **********************************
-		// * Level 1 (topmost)
-		// **********************************
+        // **********************************
+        // * Level 1 (topmost)
+        // **********************************
 
-		// CriticalTipImage: the four red lines in the middle of the screen
-        (CriticalTipImage_Adjusted,		SideTop,			Point( -310, 0), Point(-310, 0), .5,   15, true),
+        // CriticalTipImage: the four red lines in the middle of the screen
+        (CriticalTipImage_Adjusted,     SideTop,            Point( -310, 0), Point(-310, 0), .5,   15, true),
 
-		// LoadoutCriticalTipImage: the four red lines in the middle of the screen, when you're in the loadout-screen
-        (LoadoutCriticalTipImage,		SideCenter,			Point( -310, 0   ), Point(-310,    0), .5,   64, true),
+        // LoadoutCriticalTipImage: the four red lines in the middle of the screen, when you're in the loadout-screen
+        (LoadoutCriticalTipImage,       SideCenter,         Point( -310, 0   ), Point(-310,    0), .5,   64, true),
 
-		// TipTextImage: the line with joiners/leavers/money, etc at the bottom of the screen (two additional lines added by YP's patch from 2006-08-02)
+        // TipTextImage: the line with joiners/leavers/money, etc at the bottom of the screen (two additional lines added by YP's patch from 2006-08-02)
         (TipTextImage2,                 SideBottom,         Point( -300, -180), Point(-300,   34), .5, 65535, true),
         (TipTextImage1,                 SideBottom,         Point( -300, -190), Point(-300,   25), .5, 65535, true),
-        (TipTextImage,					SideBottom,			Point( -300, -200), Point(-300,   14), .5, 65535, true),
+        (TipTextImage,                  SideBottom,         Point( -300, -200), Point(-300,   14), .5, 65535, true),
 
-		// VoteTextImage: the line that is displayed when a vote is called
-        (VoteTextImage_Adjusted,		SideTop,			Point( -310, 0),    Point(-310, 0),    .5, 65535, true),
+        // VoteTextImage: the line that is displayed when a vote is called
+        (VoteTextImage_Adjusted,        SideTop,            Point( -310, 0),    Point(-310, 0),    .5, 65535, true),
 
-		// ChatCompositionImage: the chat window (where you enter your messages)
-        (ChatCompositionImage,			SideBottom,			Point( -170,  -78), Point(-150,  148), .5, 65663, false),
+        // ChatCompositionImage: the chat window (where you enter your messages)
+        (ChatCompositionImage,          SideBottom,         Point( -170,  -78), Point(-150,  148), .5, 65663, false),
 
-		// **********************************
-		// * Level 2
-		// **********************************
+        // **********************************
+        // * Level 2
+        // **********************************
 
-		// gameStateImage: the gamestate, your kills, etc.
-        (gameStateImage,				SideLeft,			Point( -500,   33), Point(  10,   33), .5, 1024, false),
+        // gameStateImage: the gamestate, your kills, etc.
+        (gameStateImage,                SideLeft,           Point( -500,   33), Point(  10,   33), .5, 1024, false),
 
-		// TeamPaneImage: the information window about the teams (F6)
-        (TeamPaneImage,					SideLeft,			Point( -620, -150),	Point( 110, -150), .5, 6144, false),		//0, -500
+        // TeamPaneImage: the information window about the teams (F6)
+        (TeamPaneImage,                 SideRight,          Point(  10, -150),  Point(-750, -150), .5, 6144, false),        //0, -500
 
-		// MergedInvestmentsPaneImage: the investments pane (F5)
-        (MergedInvestmentsPaneImage,	SideCenter,			Point( -192, 2000), Point(-192, -265), .5, 512, false),
+        // MergedInvestmentsPaneImage: the investments pane (F5)
+        (MergedInvestmentsPaneImage,    SideCenter,         Point( -192, 2000), Point(-192, -265), .5, 512, false),
 
-		// TeleportPane: the teleport selection window (F8)
-        (TeleportPaneImage,				SideLeft,			Point( -620, -100),	Point(  16, -100), .5, 256, false),		//16, -280
+        // TeleportPane: the teleport selection window (F8)
+        (TeleportPaneImage,             SideLeft,           Point( -620, -100), Point(  16, -100), .5, 256, false),     //16, -280
 
-		// **********************************
-		// * Level 3
-		// **********************************
+        // **********************************
+        // * Level 3
+        // **********************************
 
-		//SectorImage: the minimap (flight mode)
-        (SectorImage,					SideBottomLeft,		Point(   0, -187), Point(  36,   28), .5, 65584, false),		//== 65536 + 32 + 16
-		//SectorImage: the minimap (in base)
-        (SectorImage,					SideBottomLeft,		Point(   0, -187),	Point(  0,   8), .5, Add(263, Multiply(ShowMinimapAtLoadoutScreen, 64)) , false),		//== 256 + 4 + 2 + 1
+        //SectorImage: the minimap (flight mode)
+        (SectorImage,                   SideBottomLeft,     Point(   0, -187), Point(  36,   28), .5, 65584, false),        //== 65536 + 32 + 16
+        //SectorImage: the minimap (in base)
+        (SectorImage,                   SideBottomLeft,     Point(   0, -187),  Point(  0,   8), .5, Add(263, Multiply(ShowMinimapAtLoadoutScreen, 64)) , false),       //== 256 + 4 + 2 + 1
 
-		// **********************************
-		// * Level 4
-		// **********************************
+        // **********************************
+        // * Level 4
+        // **********************************
 
-		//MergedInventoryImage: the inventory pane (normal mode)
-		(MergedInventoryPaneImage,		SideBottomRight,	Point( -245, -150), Point( -245,  40), .5, Add(Subtract(8192, Multiply(AlwaysShowLoadoutWindow, 8144)), 0x010000), true),
-		//MergedInventoryImage: the inventory pane (map during flight)
-		(MergedInventoryPaneImage,		SideBottomRight,	Point( -245, 0), Point( -214,  20), .5, 2, true),
+        //MergedInventoryImage: the inventory pane (normal mode)
+        (MergedInventoryPaneImage,      SideBottomRight,    Point( -245, -150), Point( -245,  40), .5, Add(Subtract(8192, Multiply(AlwaysShowLoadoutWindow, 8144)), 0x010000), true),
+        //MergedInventoryImage: the inventory pane (map during flight)
+        (MergedInventoryPaneImage,      SideBottomRight,    Point( -245, 0), Point( -214,  20), .5, 2, true),
 
-		// **********************************
-		// * Level 5 (below everything else)
-		// **********************************
+        // **********************************
+        // * Level 5 (below everything else)
+        // **********************************
 
-		// cortWeaponRangeIndicator: new feature
-//        (cortWeaponRangeIndicator,		SideCenter,			Point(    0,    0), Point( -53,  100), 0,    48,              true),
+        // cortWeaponRangeIndicator: new feature
+//        (cortWeaponRangeIndicator,        SideCenter,         Point(    0,    0), Point( -53,  100), 0,    48,              true),
 //        (StringImage(JustifyRight, 75, medVerdana, cortText, NumberString(SoftwareHudCriticalTipYOffset)), SideCenter, Point(    0,    0), Point(   0,  -20), .5,    48, true),
 //        (StringImage(JustifyRight, 75, medVerdana, cortText, NumberString(SoftwareHudVoteTextImageYOffset)), SideCenter, Point(    0,    0), Point(   0,  -40), .5,    48, true),
 //        (StringImage(JustifyRight, 75, medVerdana, cortText, NumberString(SoftCenterHudDisplayYOffset)), SideCenter, Point(    0,    0), Point(   0,  -60), .5,    48, true),
@@ -3991,63 +4071,69 @@ dialogs =
 //        (testImage2, SideCenter, Point(    0,    0), Point( 0,  -100), .5,    48, true),
 //        (StringImage(JustifyRight, 75, medVerdana, cortText, NumberString(VoteTextImageYOffset)), SideCenter, Point(    0,    0), Point(   0,  -100), .5,    48, true),
 
-		// CommPane: the chat display
-		(cortCommPaneImage,				SideTop,			Point(-160, -126), Point(-160, -126), 0, 63, true),
-		(cortCommPaneLoadoutImage,		SideTop,			Point(-160, -126), Point(-160, -126), 0, 64, true),
+        // CommPane: the chat display
+        (cortCommPaneImage,             SideTop,            Point(-160, -126), Point(-160, -126), 0, 63, true),
+        (cortCommPaneLoadoutImage,      SideTop,            Point(-160, -126), Point(-160, -126), 0, 64, true),
 
-		// (soft)CenterHudDisplay: the HUD (either normal or software)
-        (CenterHudDisplayImage,			      SideCenter,	  Point( -320, 1000), Point( -320, -240), .5, 48, true ),
-        (SoftCenterHudDisplayImage,		      SideTop,		  Point( -320, 1000), Point( -232, SoftCenterHudDisplayYOffset), .5, 48, true ),
-        (SoftCenterHudDisplayImageParciStyle, SideBottomLeft, Point(   0, -187),  Point(  36,   180), .5, 48, true),
+        // (soft)CenterHudDisplay: the HUD (either normal or software)
+        (CenterHudDisplayImage,               SideCenter,     Point( -320, 1000), Point( -320, -240), .5, 48, true),
+        (SoftCenterHudDisplayImage,           SideTop,        Point( -320, 1000), Point( -232, SoftCenterHudDisplayYOffset), .5, 48, true ),
+        (SoftCenterHudDisplayImageParciStyle, SideBottomLeft, Point(    0, -187),  Point(  36,   180), .5, 48, true),
 
-		// TargetDisplay: the targeting system
-        (TargetDisplayImage,			SideBottom,			Point( -320, -183), Point( -320,   12), .5, 48, true ),
+        // TargetDisplay: the targeting system
+        (TargetDisplayImage,            SideBottom,         Point(-320, -183), Point(-320,   12), .5,    48, true),
 
-		// CommandRadarDetectPaneImage: probably the info whether you are 'eyed'
-        (CommandRadarDetectPaneImage,	SideTopRight,		Point(  -90,  190), Point(-90, -100), .5, 65542, true ),
+        // CommandRadarDetectPaneImage: probably the info whether you are 'eyed'
+        (CommandRadarDetectPaneImage,   SideTopRight,       Point( -90,  190), Point(-90,  -100), .5, 65542, true),
 
-		// cortCommandModeInfo: the additional ship status information at the upper left corner of the map
-        (cortCommandModeInfo,			SideTopLeft,		Point(   20,  185), Point( 20,   -37), .5,    2, true),
-        (cortCommandModeInfoBase,		SideTopLeft,		Point(   20,  185), Point( 20,   -37), .5,    4, true),
+        // cortCommandModeInfo: the additional ship status information at the upper left corner of the map
+        (cortCommandModeInfo,           SideTopLeft,        Point(  20,  185), Point(  20,  -37), .5,     2, true),
+        (cortCommandModeInfoBase,       SideTopLeft,        Point(  20,  185), Point(  20,  -37), .5,     4, true),
 
-		// CommandPane: the command bar at the F3-map
-        (CommandPaneImage,				SideBottom,			Point( -135, -190), Point(-135,   40), .5, 6, false),
+        // CommandPane: the command bar at the F3-map
+        (CommandPaneImage,              SideBottom,         Point(-135, -190), Point(-135,   40), .5,     6, false),
 
-		// LocationImage: "current location" in cockpit mode
-        (LocationImage,					SideTopRight,		Point( -180,  185), Point( -180, -35), .5, 65584, true ),
-		// LookingAtImage: "currently viewing" in map mode
-        (LookingAtImage,				SideTopRight,		Point( -180,  185), Point( -180, -35), .5, 6, true ),
+        // LocationImage: "current location" in cockpit mode
+        (LocationImage,                 SideTopRight,       Point(-180, 185), Point(-180,  -35), .5, 0x10032, true),
+        // LocationInHangarImage: "current location" in hangar (SectorName is not set correctly, so it has to be retrieved via GetSectorName(MyStation, OnEveryFrame))
+        (LocationInHangarImage,         SideTopRight,       Point(-180, 185), Point(-180,  -35), .5, 0x00001, true),
+        // LookingAtImage: "currently viewing" in map mode
+        (LookingAtImage,                SideTopRight,       Point(-180, 185), Point(-180,  -35), .5,      4, true),
 
-		// RipcordCountdownImage: the ripcord countdown
-        (RipcordCountdownImage,			SideCenter,			Point( -75,    15), Point( -75,   15), .5,   58, true ),
+        // TurretOfImage: who's turret I'm in, for launch anim, map (both), hangar, cockpit, chase
+        (TurretOfImage,                 SideTopRight,       Point(-180,  185), Point(-180,  -65),  .5, 0x10037, true),
 
-		// BoardTextImage: the info whether I'm in a turret
-        (BoardTextImage,				SideBottom,			Point( -300, -200), Point( -300, 73), .5,  119, true),
+        // RipcordCountdownImage: the ripcord countdown
+        (RipcordCountdownImage,         SideCenter,         Point( -75,   15), Point( -75,   15), .5,     58, true),
 
-		// StationPane: station status indicator
-        (StationPane,					SideTopLeft,		Point(  -148,  85),	Point( 3,  -33), 0, 69, true ),
+        // BoardTextImage: who's turret I'm in, on the loadout screen
+        (InTurretPaneImage,             SideCenter,         Point(-150,   25), Point(-150,   25),   0,    64, true),
+        (BoardTextImage,                SideCenter,         Point(-362,   20), Point(-362,   20),   0,    64, true),
 
-		// EjectPodPane: the eject pod display
-        (EjectPodPaneImage,				SideCenter,			Point(   -86, -87),	Point( -86,  -87), .5,   48, true ),
+        // StationPane: station status indicator
+        (StationPane,                   SideTopLeft,        Point(-148,   85), Point(   3,  -33),   0,    69, true),
 
-		// DeathBannerPane: when you're dead???
-        (DeathBannerPaneImage,			SideCenter,			Point(  -105,  15),	Point( -105,   15), .5,65535, true ),
+        // EjectPodPane: the eject pod display
+        (EjectPodPaneImage,             SideCenter,         Point( -86,  -87), Point( -86,  -87),  .5,    48, true),
 
-		// LivesImage: your lives
-        (LivesImage,					SideTopLeft,		Point(    45, -97),	Point(   40,  -97), .5, 48, true ),
+        // DeathBannerPane: when you're dead???
+        (DeathBannerPaneImage,          SideCenter,         Point(-105,   15), Point(-105,   15),  .5, 65535, true),
 
-		// KillsImage: your kills
-        (KillsImage,					SideTopLeft,		Point(    45,-177), Point(   40, -177), .5, 48, true ),
+        // LivesImage: your lives
+        (LivesImage,                    SideTopLeft,        Point(  45,  -97), Point(   40,  -97), .5, 48, true),
 
-		// CountdownImage: ?????????????
-        (CountdownImage,				SideTopLeft,		Point(    45,-137), Point(   40, -137), .5, 48, true ),
+        // KillsImage: your kills
+        (KillsImage,                    SideTopLeft,        Point(  45, -177), Point(   40, -177), .5, 48, true),
 
-		// LastOrderImage: the last two commands you received
-        (LastOrderImage,				SideTopLeft,    	Point(    50,  -7), Point(   50,  -37), .5, 53, true ),
+        // CountdownImage: ?????????????
+        (CountdownImage,                SideTopLeft,        Point(  45, -137), Point(   40, -137), .5, 48, true),
 
-		// cortVersionInformation: the current version display of CortUI in the map-mode
-		(cortVersionInformation,		SideBottomRight,	Point( -200, 12),	 Point( -200,   12), 0, 6, true)
+        // LastOrderImage: the last two commands you received
+        (LastOrderImage,                SideTopLeft,        Point(  50,  -7), Point(   50,  -37), .5, 53, true),
 
-//		//backButtonPane: the back button, that allows to switch from map to hangar when in base		
+        // cortVersionInformation: the current version display of CortUI in the map-mode
+        (cortVersionInformation,        SideBottomRight,    Point( -200, 12),    Point( -200,   12), 0, 6, true)
+
+//      //backButtonPane: the back button, that allows to switch from map to hangar when in base        
 //        (PaneImage(BlackPane(backButtonPane), false, true), SideBottomLeft, Point( -200,   17), Point(  20,   0), .5,     6, false)
     ];
