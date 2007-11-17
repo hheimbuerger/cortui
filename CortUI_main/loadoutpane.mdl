@@ -1,6 +1,10 @@
 // /**************************************************************************\
 // | File version history:                                                    |
 // |                                                                          |
+// | 1.2 / Cortex:                                                            |
+// | - removed some info texts which overlapped with the three status lines   |
+// |   on R4 and were pretty useless for experienced players anyway           |
+// |                                                                          |
 // | 1.1 / Cortex:                                                            |
 // | * moved the 'default loadout' button to the lower right to avoid         |
 // |   clicking it by accident                                                |
@@ -57,18 +61,18 @@ hoverImage = StringImage(JustifyLeft, 150, medBoldVerdana, white, hoverString);
 hoverPane  = AnimatedImagePaneRect(hoverImage, Rect(0, -30, 150, 0));
 
 
-stateString = 
-    SwitchString(
-        loadoutShipState,
-        "This is your current loadout.",
-        [
-            (1, "Press 'confirm change' to select this loadout."),
-            (2, "Press 'buy' to purchase this loadout."),
-            (3, "You can't afford this loadout.")
-        ]
-    );
-stateImage = StringImage(JustifyLeft, 300, medBoldVerdana, white, stateString);
-statePane  = AnimatedImagePaneRect(stateImage, Rect(0, -25, 300, 0));
+//stateString = 
+//    SwitchString(
+//        loadoutShipState,
+//        "This is your current loadout.",
+//        [
+//            (1, "Press 'confirm change' to select this loadout."),
+//            (2, "Press 'buy' to purchase this loadout."),
+//            (3, "You can't afford this loadout.")
+//        ]
+//    );
+//stateImage = StringImage(JustifyLeft, 300, medBoldVerdana, white, stateString);
+//statePane  = AnimatedImagePaneRect(stateImage, Rect(0, -25, 300, 0));
 
 //////////////////////////////////////////////////////////////////////////////
 //
@@ -143,8 +147,8 @@ loadoutPane =
             (creditsPane,                                   creditsPosition        ),
             
             (HoverPane(hoverSite,  8, backButtonPane),      Point(5, 565)          ),
-            (hoverPane, Point(540, 565)),
-            (statePane, Point(150, 565))
+            (hoverPane, Point(540, 565))
+            //(statePane, Point(150, 565))
         ]
     );
 
