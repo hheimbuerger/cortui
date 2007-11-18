@@ -1,6 +1,11 @@
 // /**************************************************************************\
 // | File version history:                                                    |
 // |                                                                          |
+// | 1.16 / Cortex:                                                           |
+// | * switched to using PNGs in a subdirectory instead of using BMP.MDLs     |
+// | - removed special targeting view images for software HUDs, because       |
+// |   ImportImage3D() is not yet available for PNGs                          |
+// |                                                                          |
 // | 1.15 / Cortex:                                                           |
 // | * fixed upper case in "Current Location" and "Currently Viewing"         |
 // | + added "Current location" to the hangar screen                          |
@@ -135,14 +140,14 @@ hudBlendMode = BlendModeAdd;
 //Zero for the 1st col so we can have something that corresponds to nothing selected
 
 RecipientsColumns    = [53, 106, 159, 212]; 
-RecipientsBB = ButtonBarPane(ImportImage("cortui_recipientsbmp", true), ButtonNormal, RecipientsColumns, true);
+RecipientsBB = ButtonBarPane(ImportImageFromFile("mods/CortUI/cortui_core_recipients.png", true), ButtonNormal, RecipientsColumns, true);
 
 VerbsColumns    = [32, 62, 92, 122, 152, 182, 212, 242, 268];
-VerbsBB      = ButtonBarPane(ImportImage("cortui_verbsbmp", true), ButtonNormal, VerbsColumns, false);
+VerbsBB      = ButtonBarPane(ImportImageFromFile("mods/CortUI/cortui_core_verbs.png", true), ButtonNormal, VerbsColumns, false);
 
 
 WingCombo    = 
-   ImageComboPane(ImportImage("cortui_btnchangewing3bmp", true), smallFont);
+   ImageComboPane(ImportImageFromFile("mods/CortUI/cortui_core_btnchangewing3.png", true), smallFont);
  
 
 //
@@ -184,7 +189,7 @@ commandRadarDetectPane =
 
 CommandPane = 
     ImagePane(
-        ImportImage("cortui_commandbkgndbmp", false),
+        ImportImageFromFile("mods/CortUI/cortui_core_commandbkgnd.png", false),
         [
             (RecipientsBB, Point(4, 8)),
             (WingCombo, Point(216, 8)),
@@ -304,7 +309,7 @@ StationPane =
                 ),
                 Point(10, 28)			//150, 18
             ),
-            ImportImage("cortui_constationdisplay1bmp", false)
+            ImportImageFromFile("mods/CortUI/cortui_core_constationdisplay1.png", false)
             
         ]
     );
@@ -338,7 +343,7 @@ cortChatListPaneLoadout = ChatListPane(Point(340, Add(8,Multiply(12,NumChatLines
 
 CommPane =
     ImagePane(
-        ImportImage("cortui_concommdisplaybmp", false),
+        ImportImageFromFile("mods/CortUI/cortui_core_concommdisplay.png", false),
         [
             (chatListPane, Point(0,0))
         ]
@@ -346,7 +351,7 @@ CommPane =
 
 cortCommPaneLoadout =
     ImagePane(
-        ImportImage("cortui_concommdisplaybmp", false),
+        ImportImageFromFile("mods/CortUI/cortui_core_concommdisplay.png", false),
         [
             (cortChatListPaneLoadout, Point(0,0))
         ]
@@ -726,7 +731,7 @@ backButtonPane =
 //
 //////////////////////////////////////////////////////////////////////////////
 
-cortVectorLockNormal = ImportImage("cortui_convectorlockbmp", true);
+cortVectorLockNormal = ImportImageFromFile("mods/CortUI/cortui_core_convectorlock.png", true);
 
 cortVectorLockOn = 
     SwitchImage(
@@ -737,7 +742,7 @@ cortVectorLockOn =
         ]
     );
 
-cortAutopilotNormal = ImportImage("cortui_conautopilotbmp", true);
+cortAutopilotNormal = ImportImageFromFile("mods/CortUI/cortui_core_conautopilot.png", true);
 
 cortAutopilotOnImage =
     SwitchImage(
@@ -1242,8 +1247,6 @@ DefaultCenterHudOn =
             TranslateImage(CaptureFlag, Point(427, 350)),
             TranslateImage(Artifact, Point(159, 350)),
             TranslateImage(SignatureImage, Point(281, 133))
-        
-
         ]
     );
 
@@ -1478,7 +1481,6 @@ fpShieldRed =
         hudBlendMode
     );
 
-
 fpShieldGauge =
     SwitchImage(
         Flash,
@@ -1495,7 +1497,6 @@ fpShieldGaugeBack =
         hudBlendMode
     );
 
-    
 fpShieldImage = 
 	GroupImage(
 	    [
@@ -2716,17 +2717,20 @@ TargetOvalWord2 =
             hudBlendMode
         );
 
-cortTargetOvalColor = ImportImage3D("cortui_targetovalcolorbmp", targetHudColor, true);
-        
+//cortTargetOvalColor = ImportImageFromFile3D("mods/CortUI/cortui_core_targetovalcolor.png", true);
+cortTargetOvalColor = ImportImage3D("targetovalcolorbmp", targetHudColor, true);
+
 cortTargetOvalWord1 = 
   BlendImage(
-            ImportImage3D("cortui_targetovalword1bmp", white, true),
+//            ImportImageFromFile3D("mods/CortUI/cortui_core_targetovalword1.png", true),
+            ImportImage3D("targetovalword1bmp", white, true),
             hudBlendMode
         );
 
 cortTargetOvalWord2 = 
         BlendImage(
-            ImportImage3D("cortui_targetovalword2bmp", white, true),
+//            ImportImageFromFile3D("mods/CortUI/cortui_core_targetovalword2.png", true),
+            ImportImage3D("targetovalword2bmp", white, true),
             hudBlendMode
         );
 
@@ -3126,7 +3130,7 @@ ModifiedSoftwareTargetDisplayRaveenStyle =
                 TranslateImage(cortTargetOvalWord2, Point(155, -6)),
                 TranslateImage(TargetOval, Point(27, -86)),
                 TranslateImage(cortTargetOvalColor, Point(91, -13)),
-                ImportImage("cortui_softtargetbgbmp", true)
+                ImportImageFromFile("mods/CortUI/cortui_core_softtargetbg.png", true)
                 ]
             ),
             Point(125, 30)
@@ -3217,9 +3221,9 @@ cortWeaponRangeIndicator =
 		VisibleImage(
 			GroupImage(
 	    		[
-				ImportImage("cortui_weaponrangeindicatorgauge_greenbmp", true),
-				TranslateImage(GaugeImage(JustifyLeft, ImportImage("cortui_weaponrangeindicatorgauge_yellowbmp", true), cortTargetDistanceProcentualYellow), Point(18, 0)),
-				TranslateImage(GaugeImage(JustifyLeft, ImportImage("cortui_weaponrangeindicatorgauge_redbmp", true), cortTargetDistanceProcentualRed), Point(36, 0))
+				ImportImageFromFile("mods/CortUI/cortui_core_weaponrangeindicatorgauge_green.png", true),
+				TranslateImage(GaugeImage(JustifyLeft, ImportImageFromFile("mods/CortUI/cortui_core_weaponrangeindicatorgauge_yellow.png", true), cortTargetDistanceProcentualYellow), Point(18, 0)),
+				TranslateImage(GaugeImage(JustifyLeft, ImportImageFromFile("mods/CortUI/cortui_core_weaponrangeindicatorgauge_red.png", true), cortTargetDistanceProcentualRed), Point(36, 0))
 				]
 			),
 			IsNotNull(Target, OnEveryFrame)
