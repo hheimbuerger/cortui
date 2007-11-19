@@ -5,11 +5,11 @@ Function un.checkForAllegProcess
 		IntCmp $R0 1 allegProcessFound allegProcessGeneralError
 
 	allegProcessFound:
-		MessageBox MB_ABORTRETRYIGNORE|MB_ICONSTOP|MB_DEFBUTTON2 "Allegiance seems to be running. CortUI / Slipstream GUI can *not* be uninstalled while Allegiance is running! Please close Allegiance and retry."IDIGNORE endCheckProcess IDRETRY tryagainCheckProcess
+		MessageBox MB_ABORTRETRYIGNORE|MB_ICONSTOP|MB_DEFBUTTON2 "Allegiance seems to be running. CortUI can *not* be uninstalled while Allegiance is running! Please close Allegiance and retry."IDIGNORE endCheckProcess IDRETRY tryagainCheckProcess
 		Abort
 
 	allegProcessGeneralError:
-		MessageBox MB_ABORTRETRYIGNORE|MB_ICONSTOP|MB_DEFBUTTON2 "An error occured while trying to check whether the Allegiance process is running. CortUI / Slipstream GUI can *not* be uninstalled while Allegiance is running!"IDIGNORE endCheckProcess IDRETRY tryagainCheckProcess
+		MessageBox MB_ABORTRETRYIGNORE|MB_ICONSTOP|MB_DEFBUTTON2 "An error occured while trying to check whether the Allegiance process is running. CortUI can *not* be uninstalled while Allegiance is running!"IDIGNORE endCheckProcess IDRETRY tryagainCheckProcess
 		Abort
 
 	endCheckProcess:
@@ -31,8 +31,10 @@ Function backupCoreFiles
   CreateDirectory $8
   CopyFiles /silent "$INSTDIR\dialog.mdl" $8
   CopyFiles /silent "$INSTDIR\hangar.mdl" $8
-  CopyFiles /silent "$INSTDIR\teamscreen.mdl" $8
   CopyFiles /silent "$INSTDIR\loadoutpane.mdl" $8
+  CopyFiles /silent "$INSTDIR\missionbrief.mdl" $8
+  CopyFiles /silent "$INSTDIR\partinfo.mdl" $8
+  CopyFiles /silent "$INSTDIR\teamscreen.mdl" $8
   IfFileExists "$INSTDIR\cortui_settings.mdl" 0 +2
     CopyFiles /silent "$INSTDIR\cortui_settings.mdl" $8
 FunctionEnd
@@ -53,8 +55,10 @@ Function un.backupCoreFiles
   CreateDirectory $8
   CopyFiles /silent "$INSTDIR\dialog.mdl" $8
   CopyFiles /silent "$INSTDIR\hangar.mdl" $8
-  CopyFiles /silent "$INSTDIR\teamscreen.mdl" $8
   CopyFiles /silent "$INSTDIR\loadoutpane.mdl" $8
+  CopyFiles /silent "$INSTDIR\missionbrief.mdl" $8
+  CopyFiles /silent "$INSTDIR\partinfo.mdl" $8
+  CopyFiles /silent "$INSTDIR\teamscreen.mdl" $8
   IfFileExists "$INSTDIR\cortui_settings.mdl" 0 +2
     CopyFiles /silent "$INSTDIR\cortui_settings.mdl" $8
 FunctionEnd

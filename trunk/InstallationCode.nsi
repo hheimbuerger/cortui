@@ -10,12 +10,12 @@ Section # MainSection
   WriteRegStr HKLM "Software\CortUI" "InstallDir" $INSTDIR
   
   ;Create uninstaller
-  CreateDirectory "$INSTDIR\CortUI\"
-  WriteUninstaller "$INSTDIR\CortUI\Uninstall.exe"
+  CreateDirectory "$INSTDIR\mods\CortUI\"
+  WriteUninstaller "$INSTDIR\mods\CortUI\Uninstall.exe"
 
   ;Create uninstaller in Add/Remove Programs
   WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\CortUI" "DisplayName" "Allegiance CortUI"
-  WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\CortUI" "UninstallString" '"$INSTDIR\CortUI\Uninstall.exe"'
+  WriteRegStr HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\CortUI" "UninstallString" '"$INSTDIR\mods\CortUI\Uninstall.exe"'
   WriteRegDWORD HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\CortUI" "NoModify" "1"
   WriteRegDWORD HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\CortUI" "NoRepair" "1"
 
@@ -29,14 +29,17 @@ Section "${SECTIONTITLE_CORTUI}" SECIDX_CORTUI
 
 #  DetailPrint "=== starting CortUI Installation"
 
-  File CortUI_common\*
   Push $OUTDIR
-  StrCpy $OUTDIR "$OUTDIR\CortUI"
-  File "CortUI_main\# Release Notes.txt"
+  StrCpy $OUTDIR "$OUTDIR\mods\CortUI"
+  File Media\*
+  File "# Release Notes.txt"
   Pop $OUTDIR
-  File CortUI_main\dialog.mdl
-  File CortUI_main\loadoutpane.mdl
-  File CortUI_main\cortui_settings.mdl
+  File Code\dialog.mdl
+  File Code\loadoutpane.mdl
+  File Code\missionbrief.mdl
+  File Code\partinfo.mdl
+  File Code\cortui_settings.mdl
+
   StrCpy $IsCortuiSelected "true"
 
   !insertmacro MUI_INSTALLOPTIONS_READ $isLobbyScreenSelected "ConfigurationScreen.ini" "${FIELD_INSTALLLOBBY}" "State"
@@ -83,48 +86,18 @@ Section "${SECTIONTITLE_CORTUI}" SECIDX_CORTUI
 
   StrCpy $settingsNumChatLinesLobby "6"
   StrCmp $isLobbyScreenSelected "0" dontInstallLobbyScreen 0
-    File CortUI_main\teamscreen.mdl
+    File Code\teamscreen.mdl
     StrCpy $settingsNumChatLinesLobby "10"
   dontInstallLobbyScreen:
 
   StrCmp $isHangarScreenSelected "0" dontInstallHangarScreen 0
-    File CortUI_main\hangar.mdl
+    File Code\hangar.mdl
   dontInstallHangarScreen:
 
   StrCpy $settingsFilename "$INSTDIR\cortui_settings.mdl"
   Call setSettings
 
   WriteRegStr HKLM "Software\CortUI" "isCortUIInstalled" "1"
-
-SectionEnd
-
-Section /o "${SECTIONTITLE_SLIPSTREAMGUI}" SECIDX_SLIPSTREAMGUI
-
-    !ifdef DEBUG
-		File Slipstream\arrowbmp.mdl
-	!else
-    	File Slipstream\*
-	!endif
-
-	StrCpy $IsSlipstreamSelected "true"
-	WriteRegStr HKLM "Software\CortUI" "isSlipstreamInstalled" "1"
-
-SectionEnd
-
-Section # Slipstream modified CortUI files
-
-  StrCmp $IsCortuiSelected "true" 0 endoffunc
-  StrCmp $IsSlipstreamSelected "true" yesSlipstream noSlipstream
-
-  yesSlipstream:
-    File CortUI_slipstream\*
-    Goto endoffunc
-
-  noSlipstream:
-    File CortUI_only\*
-    Goto endoffunc
-
-  endoffunc:
 
 SectionEnd
 
@@ -140,7 +113,7 @@ Function .onInit
   !insertmacro MUI_INSTALLOPTIONS_EXTRACT "ConfigurationScreen.ini"
 
   SectionSetSize ${SECIDX_CORTUI} 2520
-  SectionSetSize ${SECIDX_SLIPSTREAMGUI} 249
+#  SectionSetSize ${SECIDX_SLIPSTREAMGUI} 249
 
 FunctionEnd
 
@@ -151,10 +124,10 @@ Function readSectionFlags
 		StrCpy $shallInstallCortUI true
 	dont:
 
-	StrCpy $shallInstallSlipstreamGUI false
-	!insertmacro SectionFlagIsSet ${SECIDX_SLIPSTREAMGUI} ${SF_SELECTED} 0 dont2
-		StrCpy $shallInstallSlipstreamGUI true
-	dont2:
+#	StrCpy $shallInstallSlipstreamGUI false
+#	!insertmacro SectionFlagIsSet ${SECIDX_SLIPSTREAMGUI} ${SF_SELECTED} 0 dont2
+#		StrCpy $shallInstallSlipstreamGUI true
+#	dont2:
 
 #	!ifdef DEBUG
 #		MessageBox MB_OK "shallInstallCortUI: $shallInstallCortUI"
@@ -172,9 +145,8 @@ Function cbLeaveComponentsPage
 	Call readSectionFlags
 
 	StrCmp $shallInstallCortUI true atLeastOneSelected
-		StrCmp $shallInstallSlipstreamGUI true atLeastOneSelected
-			MessageBox MB_ICONSTOP|MB_OK "You need to select at least one of the following to proceed: CortUI or Slipstream GUI."
-			Abort
+        MessageBox MB_ICONSTOP|MB_OK "You need to select CortUI to proceed."
+        Abort
 	atLeastOneSelected:
 
 	tryagainCheckProcess:
@@ -183,15 +155,16 @@ Function cbLeaveComponentsPage
 		IntCmp $R0 1 allegProcessFound allegProcessGeneralError
 
 	allegProcessFound:
-		MessageBox MB_ABORTRETRYIGNORE|MB_ICONSTOP|MB_DEFBUTTON2 "Allegiance seems to be running. CortUI / Slipstream GUI can *not* be installed while Allegiance is running! Please close Allegiance and retry."IDIGNORE endCheckProcess IDRETRY tryagainCheckProcess
+		MessageBox MB_ABORTRETRYIGNORE|MB_ICONSTOP|MB_DEFBUTTON2 "Allegiance seems to be running. CortUI can *not* be installed while Allegiance is running! Please close Allegiance and retry."IDIGNORE endCheckProcess IDRETRY tryagainCheckProcess
 		Abort
 
 	allegProcessGeneralError:
-		MessageBox MB_ABORTRETRYIGNORE|MB_ICONSTOP|MB_DEFBUTTON2 "An error occured while trying to check whether the Allegiance process is running. CortUI / Slipstream GUI can *not* be installed while Allegiance is running!"IDIGNORE endCheckProcess IDRETRY tryagainCheckProcess
+		MessageBox MB_ABORTRETRYIGNORE|MB_ICONSTOP|MB_DEFBUTTON2 "An error occured while trying to check whether the Allegiance process is running. CortUI can *not* be installed while Allegiance is running!"IDIGNORE endCheckProcess IDRETRY tryagainCheckProcess
 		Abort
 
 	endCheckProcess:
 FunctionEnd
+
 
 
 Function cbPreFinishPage
@@ -201,13 +174,6 @@ Function cbPreFinishPage
 FunctionEnd
 
 
-#Function openWelcome
-#  #MessageBox MB_OK "openWelcome"
-#
-#  !insertmacro MUI_HEADER_TEXT "Welcome" "Some general advices and warnings about CortUI and its installer."
-#  !insertmacro MUI_INSTALLOPTIONS_DISPLAY "Welcome.ini"
-#
-#FunctionEnd
 
 Function openConfigurationScreen
 #MessageBox MB_OK "openConfigurationScreen"
@@ -218,27 +184,7 @@ Function openConfigurationScreen
 		Abort
 	dontSkipConfigurationScreen:
 
-	StrCmp $shallInstallSlipstreamGUI true deactivateHangarModification
-#MessageBox MB_OK "activatingCheckbox"
-		!insertmacro MUI_INSTALLOPTIONS_WRITE "ConfigurationScreen.ini" "${FIELD_INSTALLHANGAR}" "Flags" ""
-		!insertmacro MUI_INSTALLOPTIONS_WRITE "ConfigurationScreen.ini" "${FIELD_INSTALLHANGAR}" "Text" "Install modified hangar screen (up to ten lines of chat on black background)"
-		Goto end
-	deactivateHangarModification:
-#MessageBox MB_OK "deactivatingCheckbox"
-		!insertmacro MUI_INSTALLOPTIONS_WRITE "ConfigurationScreen.ini" "${FIELD_INSTALLHANGAR}" "Flags" "DISABLED"
-		!insertmacro MUI_INSTALLOPTIONS_WRITE "ConfigurationScreen.ini" "${FIELD_INSTALLHANGAR}" "State" "0"
-		!insertmacro MUI_INSTALLOPTIONS_WRITE "ConfigurationScreen.ini" "${FIELD_INSTALLHANGAR}" "Text" "[Hangar screen modification unavailable with CortUI *and* Slipstream GUI!]"
-		Goto end
-	end:
-
 	!insertmacro MUI_HEADER_TEXT "Customize Options" "Set custom options for your CortUI."
 	!insertmacro MUI_INSTALLOPTIONS_DISPLAY "ConfigurationScreen.ini"
 
 FunctionEnd
-
-#Function ValidateCustom
-#  ReadINIStr $R0 "ConfigurationScreen.ini" "Field 1" "State"
-#  StrCmp $R0 "" 0 +3
-#    MessageBox MB_ICONEXCLAMATION|MB_OK "Please enter your name."
-#    Abort
-#FunctionEnd
