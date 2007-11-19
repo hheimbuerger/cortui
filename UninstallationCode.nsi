@@ -29,83 +29,38 @@ Section -un.Uninstall
 SectionEnd
 
 Section /o "${SECTIONTITLE_UN_CORTUI}" UN_SECIDX_CORTUI
-  	File unCortUI\*
-    Delete "$INSTDIR\cortui_*.mdl"
-    Delete "$INSTDIR\CortUI\# Release Notes.txt"
-SectionEnd
-
-Section /o "${SECTIONTITLE_UN_SLIPSTREAMGUI}" UN_SECIDX_SLIPSTREAMGUI
-    !ifdef DEBUG
-        File unSlipstream\arrowbmp.mdl
-	!else
-	  	File unSlipstream\*
-	!endif
+  	File unCode\*
+    Delete "$INSTDIR\cortui_settings.mdl"
+    Delete "$INSTDIR\mods\CortUI\# Release Notes.txt"
 SectionEnd
 
 Section /o "${SECTIONTITLE_UN_REMOVEBACKUPS}" UN_SECIDX_REMOVEBACKUPS
-  	StrCpy $0 "$INSTDIR\CortUI"
+  	StrCpy $0 "$INSTDIR\mods"
 	Call un.RemoveBackupDirectories
 SectionEnd
 
 Section "${SECTIONTITLE_UN_REMOVEUNINSTALLER}" UN_SECIDX_REMOVEUNINSTALLER
-    Delete "$INSTDIR\CortUI\Uninstall.exe"
+    Delete "$INSTDIR\mods\CortUI\Uninstall.exe"
     DeleteRegKey HKLM "Software\CortUI"
     DeleteRegKey HKLM "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\CortUI"
 SectionEnd
 
 Section -un.Uninstall
 	!ifdef DEBUG
-		MessageBox MB_OK "removing $INSTDIR\CortUI"
+		MessageBox MB_OK "removing $INSTDIR\mods\CortUI"
 	!endif
 	SetOutPath $TEMP
-	RMDir "$INSTDIR\CortUI"
+	RMDir "$INSTDIR\mods\CortUI"
 SectionEnd
 
 
 
 Function un.onInit
-#MessageBox MB_OK "un.init"
-
-#  InitPluginsDir
-#  File ConfigurationScreen.ini
-#  File ConfigurationScreen.ini
-#  !insertmacro MUI_INSTALLOPTIONS_EXTRACT "UninstallerWelcome.ini"
-#  !insertmacro MUI_INSTALLOPTIONS_EXTRACT "UninstallerOptions.ini"
-
 	ReadRegStr $isCortUIInstalled HKLM "Software\CortUI" "isCortUIInstalled"
-	ReadRegStr $isSlipstreamInstalled HKLM "Software\CortUI" "isSlipstreamInstalled"
 	StrCmp $isCortUIInstalled "1" 0 dont
 		!insertmacro SetSectionFlag ${UN_SECIDX_CORTUI} ${SF_SELECTED}
 	dont:
-	StrCmp $isSlipstreamInstalled "1" 0 dont2
-		!insertmacro SetSectionFlag ${UN_SECIDX_SLIPSTREAMGUI} ${SF_SELECTED}
-	dont2:
 
   SectionSetSize ${UN_SECIDX_CORTUI} 0
-  SectionSetSize ${UN_SECIDX_SLIPSTREAMGUI} 0
 
 FunctionEnd
-
-#Function un.openUninstallerWelcome
-#  #MessageBox MB_OK "openUninstallerWelcome"
-#
-#  !insertmacro MUI_HEADER_TEXT "Uninstaller" "Some general advices and warnings about the CortUI uninstaller."
-#  !insertmacro MUI_INSTALLOPTIONS_DISPLAY "UninstallerWelcome.ini"
-#
-#FunctionEnd
-
-#Function un.openUninstallerOptions
-#	#MessageBox MB_OK "openUninstallerOptions"
-#	
-#	!insertmacro MUI_HEADER_TEXT "Customize Uninstallation" "Select what you want to uninstall."
-#	ReadRegStr $isCortUIInstalled HKLM "Software\CortUI" "isCortUIInstalled"
-#	ReadRegStr $isSlipstreamInstalled HKLM "Software\CortUI" "isSlipstreamInstalled"
-#	MessageBox MB_OK "isCortUIInstalled: $isCortUIInstalled"
-#	MessageBox MB_OK "isSlipstreamInstalled: $isSlipstreamInstalled"
-#	StrCmp $isCortUIInstalled "1" 0 +2
-#		!insertmacro MUI_INSTALLOPTIONS_WRITE "UninstallerOptions.ini" "Field 1" "State" "1"
-#	StrCmp $isSlipstreamInstalled "1" 0 +2
-#		!insertmacro MUI_INSTALLOPTIONS_WRITE "UninstallerOptions.ini" "Field 2" "State" "1"
-#	!insertmacro MUI_INSTALLOPTIONS_DISPLAY "UninstallerOptions.ini"
-#
-#FunctionEnd

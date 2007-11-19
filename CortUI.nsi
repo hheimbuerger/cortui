@@ -1,9 +1,3 @@
-;NSIS Modern User Interface
-;Basic Example Script
-;Written by Joost Verburg
-
-
-
 #!define DEBUG
 
 !ifdef DEBUG
@@ -17,26 +11,22 @@
 ;--------------------------------
 ;Includes
 
-  !include "MUI.nsh"
+!include "MUI.nsh"
 !include "Sections.nsh"
 
 ;--------------------------------
 
 
-!define NAME						"CortUI 1.75-beta1"
+!define NAME						"CortUI 1.75-RC1"
 !define INSTALLER_BUILD				"0023"
-!define FILENAME					"CortUI-1.75-beta1.exe"
+!define FILENAME					"CortUI-1.75-RC1.exe"
 !define REGKEY_ALLEGARTWORK			"SOFTWARE\Microsoft\Microsoft Games\Allegiance\1.0\"
 !define REGNAME_ALLEGARTWORK		"ArtPath"
 
 !define SECTIONTITLE_CORTUI					"!CortUI v1.75"
 !define SECTIONDESC_CORTUI					"A modification of the look and feel of Allegiance."
-!define SECTIONTITLE_SLIPSTREAMGUI			"Slipstream GUI v0.2"
-!define SECTIONDESC_SLIPSTREAMGUI			"Newtype's famous new Allegiance skin."
 !define SECTIONTITLE_UN_CORTUI				"un.Uninstall CortUI"
 !define SECTIONDESC_UN_CORTUI				"Uninstall CortUI by restoring the original files of the replaced ones (as of freeallegiance.org-installer 1.8.5)"
-!define SECTIONTITLE_UN_SLIPSTREAMGUI		"un.Uninstall Slipstream GUI"
-!define SECTIONDESC_UN_SLIPSTREAMGUI		"Uninstall Slipstream GUI by restoring the original files of the replaced ones (as of freeallegiance.org-installer 1.8.5)"
 !define SECTIONTITLE_UN_REMOVEBACKUPS		"un.Remove backups"
 !define SECTIONDESC_UN_REMOVEBACKUPS		"Remove all backups"
 !define SECTIONTITLE_UN_REMOVEUNINSTALLER	"un.Remove uninstaller"
@@ -53,8 +43,6 @@
 !define FIELD_NORMALHUDMODE   	    "Field 13"
 !define FIELD_SOFTWAREHUDMODE   	"Field 15"
 
-#Var test
-Var IsSlipstreamSelected
 Var IsCortuiSelected
 Var isLobbyScreenSelected
 Var isHangarScreenSelected
@@ -70,11 +58,8 @@ Var settingsSoftwareHUDModeText
 Var settingsSoftwareHUDMode
 Var settingsNormalHUDModeText
 Var settingsNormalHUDMode
-Var isSlipstreamInstalled
 Var isCortUIInstalled
 Var shallInstallCortUI
-Var shallInstallSlipstreamGUI
-#Var allegiancePath
 
 
   !include "GetLocalTime.nsi"
@@ -122,15 +107,11 @@ Var shallInstallSlipstreamGUI
 
 	;Assign language strings to sections
 	!insertmacro MUI_FUNCTION_DESCRIPTION_BEGIN
-#	  !insertmacro MUI_DESCRIPTION_TEXT ${SECIDX_CORTUI} $(DESC_SectionCortUI)
-#	  !insertmacro MUI_DESCRIPTION_TEXT ${SECIDX_SLIPSTREAMGUI} $(DESC_SectionSlipstreamGUI)
 	  !insertmacro MUI_DESCRIPTION_TEXT ${SECIDX_CORTUI} "${SECTIONDESC_CORTUI}"
-	  !insertmacro MUI_DESCRIPTION_TEXT ${SECIDX_SLIPSTREAMGUI} "${SECTIONDESC_SLIPSTREAMGUI}"
 	!insertmacro MUI_FUNCTION_DESCRIPTION_END
 
 	!insertmacro MUI_UNFUNCTION_DESCRIPTION_BEGIN
 	  !insertmacro MUI_DESCRIPTION_TEXT ${UN_SECIDX_CORTUI} "${SECTIONDESC_UN_CORTUI}"
-	  !insertmacro MUI_DESCRIPTION_TEXT ${UN_SECIDX_SLIPSTREAMGUI} "${SECTIONDESC_UN_SLIPSTREAMGUI}"
 	  !insertmacro MUI_DESCRIPTION_TEXT ${UN_SECIDX_REMOVEBACKUPS} "${SECTIONDESC_UN_REMOVEBACKUPS}"
 	  !insertmacro MUI_DESCRIPTION_TEXT ${UN_SECIDX_REMOVEUNINSTALLER} "${SECTIONDESC_UN_REMOVEUNINSTALLER}"
 	!insertmacro MUI_UNFUNCTION_DESCRIPTION_END
