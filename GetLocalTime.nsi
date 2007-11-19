@@ -109,7 +109,7 @@ Function GetLocalTime
 FunctionEnd
 
 
-
+/*
 Function un.GetLocalTime
 
   # Prepare variables
@@ -180,3 +180,4 @@ Function un.GetLocalTime
   Exch 6
 
 FunctionEnd
+*/

@@ -27,7 +27,7 @@ Function backupCoreFiles
   Pop $5
   Pop $6
   StrCpy $7 "$2.$1.$0 $4.$5.$6"
-  StrCpy $8 "$INSTDIR\CortUI\Backup $7\"
+  StrCpy $8 "$INSTDIR\mods\CortUI\Backup $7\"
   CreateDirectory $8
   CopyFiles /silent "$INSTDIR\dialog.mdl" $8
   CopyFiles /silent "$INSTDIR\hangar.mdl" $8
@@ -41,27 +41,27 @@ FunctionEnd
 
 
 
-Function un.backupCoreFiles
-  Call un.GetLocalTime
-  Pop $0
-  Pop $1
-  Pop $2
-  Pop $3
-  Pop $4
-  Pop $5
-  Pop $6
-  StrCpy $7 "$2.$1.$0 $4.$5.$6"
-  StrCpy $8 "$INSTDIR\CortUI\Backup $7\"
-  CreateDirectory $8
-  CopyFiles /silent "$INSTDIR\dialog.mdl" $8
-  CopyFiles /silent "$INSTDIR\hangar.mdl" $8
-  CopyFiles /silent "$INSTDIR\loadoutpane.mdl" $8
-  CopyFiles /silent "$INSTDIR\missionbrief.mdl" $8
-  CopyFiles /silent "$INSTDIR\partinfo.mdl" $8
-  CopyFiles /silent "$INSTDIR\teamscreen.mdl" $8
-  IfFileExists "$INSTDIR\cortui_settings.mdl" 0 +2
-    CopyFiles /silent "$INSTDIR\cortui_settings.mdl" $8
-FunctionEnd
+#Function un.backupCoreFiles
+#  Call un.GetLocalTime
+#  Pop $0
+#  Pop $1
+#  Pop $2
+#  Pop $3
+#  Pop $4
+#  Pop $5
+#  Pop $6
+#  StrCpy $7 "$2.$1.$0 $4.$5.$6"
+#  StrCpy $8 "$INSTDIR\mods\CortUI\Backup $7\"
+#  CreateDirectory $8
+#  CopyFiles /silent "$INSTDIR\dialog.mdl" $8
+#  CopyFiles /silent "$INSTDIR\hangar.mdl" $8
+#  CopyFiles /silent "$INSTDIR\loadoutpane.mdl" $8
+#  CopyFiles /silent "$INSTDIR\missionbrief.mdl" $8
+#  CopyFiles /silent "$INSTDIR\partinfo.mdl" $8
+#  CopyFiles /silent "$INSTDIR\teamscreen.mdl" $8
+#  IfFileExists "$INSTDIR\cortui_settings.mdl" 0 +2
+#    CopyFiles /silent "$INSTDIR\cortui_settings.mdl" $8
+#FunctionEnd
 
 
 
