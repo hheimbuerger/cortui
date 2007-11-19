@@ -115,6 +115,9 @@ Known problems:
   is mainly an Allegiance bug, not a CortUI bug.
 - The minimap can no longer be hidden (it can't be toggled at all). (Don't
   press F7. If you accidently do, press it again.)
+- The uninstaller doesn't delete the /artwork/mods/CortUI directory, even if
+  it's empty. I consider this an NSIS bug until I hear otherwise, because
+  RMDir *is* called on the directory and should succeed when it's empty.
 
 
 Package contents:

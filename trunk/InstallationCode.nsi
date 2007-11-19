@@ -8,9 +8,12 @@ Section # MainSection
   
   ;Store installation folder
   WriteRegStr HKLM "Software\CortUI" "InstallDir" $INSTDIR
-  
+
+  ;Create directories  
+  CreateDirectory "$INSTDIR\mods\CortUI"
+  CreateDirectory "$INSTDIR\mods\CortUI\media"
+
   ;Create uninstaller
-  CreateDirectory "$INSTDIR\mods\CortUI\"
   WriteUninstaller "$INSTDIR\mods\CortUI\Uninstall.exe"
 
   ;Create uninstaller in Add/Remove Programs
@@ -31,10 +34,11 @@ Section "${SECTIONTITLE_CORTUI}" SECIDX_CORTUI
 
   Push $OUTDIR
   StrCpy $OUTDIR "$OUTDIR\mods\CortUI"
-  File Media\*
-  File "# Release Notes.txt"
+  File "# Release Notes.txt"            ; is going to $INSTDIR\mods\CortUI
+  StrCpy $OUTDIR "$OUTDIR\media"
+  File Media\*                          ; is going to $INSTDIR\mods\CortUI\media
   Pop $OUTDIR
-  File Code\dialog.mdl
+  File Code\dialog.mdl                  ; is going to $INSTDIR
   File Code\loadoutpane.mdl
   File Code\missionbrief.mdl
   File Code\partinfo.mdl
@@ -104,17 +108,9 @@ SectionEnd
 
 
 Function .onInit
-#MessageBox MB_OK "init"
-
-#  InitPluginsDir
-#  File ConfigurationScreen.ini
-#  File ConfigurationScreen.ini
-#  !insertmacro MUI_INSTALLOPTIONS_EXTRACT "Welcome.ini"
   !insertmacro MUI_INSTALLOPTIONS_EXTRACT "ConfigurationScreen.ini"
 
-  SectionSetSize ${SECIDX_CORTUI} 2520
-#  SectionSetSize ${SECIDX_SLIPSTREAMGUI} 249
-
+  SectionSetSize ${SECIDX_CORTUI} ${CORTUI_SIZE}
 FunctionEnd
 
 
@@ -123,25 +119,11 @@ Function readSectionFlags
 	!insertmacro SectionFlagIsSet ${SECIDX_CORTUI} ${SF_SELECTED} 0 dont
 		StrCpy $shallInstallCortUI true
 	dont:
-
-#	StrCpy $shallInstallSlipstreamGUI false
-#	!insertmacro SectionFlagIsSet ${SECIDX_SLIPSTREAMGUI} ${SF_SELECTED} 0 dont2
-#		StrCpy $shallInstallSlipstreamGUI true
-#	dont2:
-
-#	!ifdef DEBUG
-#		MessageBox MB_OK "shallInstallCortUI: $shallInstallCortUI"
-#		MessageBox MB_OK "shallInstallSlipstreamGUI: $shallInstallSlipstreamGUI"
-#	!endif
 FunctionEnd
 
 
 
 Function cbLeaveComponentsPage
-#  SectionGetFlags SECIDX_SLIPSTREAM $0
-#  MessageBox MB_OK "cbLeaveComponentsPage: $0"
-#  Abort
-
 	Call readSectionFlags
 
 	StrCmp $shallInstallCortUI true atLeastOneSelected
@@ -176,8 +158,6 @@ FunctionEnd
 
 
 Function openConfigurationScreen
-#MessageBox MB_OK "openConfigurationScreen"
-
 	Call readSectionFlags
 
 	StrCmp $shallInstallCortUI true dontSkipConfigurationScreen
