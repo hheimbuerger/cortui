@@ -1290,7 +1290,6 @@ fpThrustGaugeBack =
         hudBlendMode
     );
 
-
 fpThrustGauge =
 	BlendImage(
 		GaugeImageRect(
@@ -2916,8 +2915,8 @@ GroupImage(
 
 fpTargetDisplay = VisibleImage(
 	GroupImage([
-		TranslateImage(fpTargetShieldImage, Point(353, 17)),
-		TranslateImage(fpTargetHullImage, Point(234, 17)),
+		TranslateImage(fpTargetShieldImage, Point(353, 27)),
+		TranslateImage(fpTargetHullImage, Point(234, 27)),
 		TranslateImage(
 			GeoImage(
 				targetGeo,
@@ -2925,14 +2924,14 @@ fpTargetDisplay = VisibleImage(
 				targetCamera,
 				true
 			), 
-			Point(270, 9)
+			Point(270, 19)
 		),
-		TranslateImage(fpTargetExperienceImage, Point(280, 110)),
-		TranslateImage(fpTargetOvalColor, Point(240, 31)),
-		TranslateImage(TargetName, Point(240, 125)),
-		TranslateImage(fpTargetRange, Point(400, 33)),
-		TranslateImage(fpTargetSpeed, Point(92, 33)),
-		TranslateImage(fpTargetInRange, Point(240, 31))
+		TranslateImage(fpTargetExperienceImage, Point(280, 120)),
+		TranslateImage(fpTargetOvalColor, Point(240, 41)),
+		TranslateImage(TargetName, Point(240, 135)),
+		TranslateImage(fpTargetRange, Point(400, 43)),
+		TranslateImage(fpTargetSpeed, Point(92, 43)),
+		TranslateImage(fpTargetInRange, Point(240, 41))
 		]
     ),
 	IsNotNull(Target, OnEveryFrame)
@@ -4099,14 +4098,14 @@ dialogs =
         (CommandPaneImage,              SideBottom,         Point(-135, -190), Point(-135,   40), .5,     6, false),
 
         // LocationImage: "current location" in cockpit mode
-        (LocationImage,                 SideTopRight,       Point(-180, 185), Point(-180,  -35), .5, 0x10032, true),
+        (LocationImage,                 SideTopRight,       Point(-180, 185), Point(-180,  -15), .5, 0x10032, true),
         // LocationInHangarImage: "current location" in hangar (SectorName is not set correctly, so it has to be retrieved via GetSectorName(MyStation, OnEveryFrame))
-        (LocationInHangarImage,         SideTopRight,       Point(-180, 185), Point(-180,  -35), .5, 0x00001, true),
+        (LocationInHangarImage,         SideTopRight,       Point(-180, 185), Point(-180,  -15), .5, 0x00001, true),
         // LookingAtImage: "currently viewing" in map mode
-        (LookingAtImage,                SideTopRight,       Point(-180, 185), Point(-180,  -35), .5,      4, true),
+        (LookingAtImage,                SideTopRight,       Point(-180, 185), Point(-180,  -15), .5,      4, true),
 
         // TurretOfImage: who's turret I'm in, for launch anim, map (both), hangar, cockpit, chase
-        (TurretOfImage,                 SideTopRight,       Point(-180,  185), Point(-180,  -65),  .5, 0x10037, true),
+        (TurretOfImage,                 SideTopRight,       Point(-180,  185), Point(-180,  -50),  .5, 0x10037, true),
 
         // RipcordCountdownImage: the ripcord countdown
         (RipcordCountdownImage,         SideCenter,         Point( -75,   15), Point( -75,   15), .5,     58, true),
