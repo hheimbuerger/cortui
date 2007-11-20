@@ -61,7 +61,7 @@ Tip23 = "After training, learn basic gameplay and technology on the Newbie serve
 Tip24 = "Games with an imbalanced skill are NOT fun. If you're new, don't join the team with the most new players.";
 Tip25 = "As with all communities, Allegiance has 'good apples' and 'bad apples.' Don't let the bad ones ruin your fun.";
 Tip26 = "Enemy nans will often be with important targets. Attack the nans first because any damage you attempt to inflict on the main target will be instantly repaired.)";
-Tip27 = "If you are too close to a friendly con it will think you're on a collision course, and try to avoid you. This can delay it's building time.";
+Tip27 = "If you are too close to a friendly con it will think you're on a collision course, and try to avoid you. This can delay its building time.";
 Tip28 = "Both sheilds and missiles raise your radar signature, making it easier for the enemy to spot you.  Keep them in cargo when you don't need them.";
 Tip29 = "Picking up teammates who are in a lifepod transports them instantly back to base, where they can immediately launch to help defend, attack, or whatever again.";
 Tip30 = "If no one probes then the enemy will always surprise you, always have the upper hand, and your team will lose. This is a fact.";
@@ -336,7 +336,7 @@ completeBriefingPane =
 
 MissionBriefDialog =
     ImagePane(
-        ImportImageFromFile("mods/CortUI/cortui_core_transparentbackground.png", true),
+        ImportImageFromFile("mods/CortUI/media/cortui_core_transparentbackground.png", true),
         [
             (
                 completeBriefingPane,
