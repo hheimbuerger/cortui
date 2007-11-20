@@ -1256,7 +1256,7 @@ DefaultCenterHudOn =
 //
 //////////////////////////////////////////////////////////////////////////////
 
-fpVectorLockNormal = ImportImage("cortui_fp1_con_vector_lockbmp", true);
+fpVectorLockNormal = ImportImageFromFile("mods/CortUI/media/cortui_fp1_con_vector_lock.png", true);
 
 fpVectorLockOn = 
     SwitchImage(
@@ -1267,7 +1267,7 @@ fpVectorLockOn =
         ]
     );
 
-fpAutopilotNormal = ImportImage("cortui_fp1_con_auto_pilotbmp", true);
+fpAutopilotNormal = ImportImageFromFile("mods/CortUI/media/cortui_fp1_con_auto_pilot.png", true);
 
 fpAutopilotOnImage =
     SwitchImage(
@@ -1282,7 +1282,7 @@ fpThrustGaugeBack =
     BlendImage(
         GaugeImageRect(
             JustifyRight,
-            ImportImage("cortui_fp1_thrust_gaugebmp", true),
+            ImportImageFromFile("mods/CortUI/media/cortui_fp1_thrust_gauge.png", true),
             Rect(0, 0, 83, 36),
             true,
             1
@@ -1295,7 +1295,7 @@ fpThrustGauge =
 	BlendImage(
 		GaugeImageRect(
 			JustifyRight,
-			ImportImage("cortui_fp1_thrust_gauge2bmp", true),
+			ImportImageFromFile("mods/CortUI/media/cortui_fp1_thrust_gauge2.png", true),
 			Rect(0, 0, 83, 36),
 			true,
 			playerThrottle
@@ -1315,7 +1315,7 @@ fpFuelGaugeBack =
    BlendImage(
         GaugeImageRect(
             JustifyLeft,
-            ImportImage("cortui_fp1_fuel_gaugebmp", true),
+            ImportImageFromFile("mods/CortUI/media/cortui_fp1_fuel_gauge.png", true),
             Rect(0, 0, 83, 36),
             true,
             1
@@ -1327,7 +1327,7 @@ fpFuelGauge =
    BlendImage(
 		GaugeImageRect(
 			JustifyLeft,
-			ImportImage("cortui_fp1_fuel_gauge2bmp", true),
+			ImportImageFromFile("mods/CortUI/media/cortui_fp1_fuel_gauge2.png", true),
 			Rect(0, 0, 83, 36),
 			true,
 			GetFuel(Me, OnEveryFrame)
@@ -1347,7 +1347,7 @@ fpAmmoGaugeBack =
     BlendImage(
         GaugeImageRect(
             JustifyRight,
-            ImportImage("cortui_fp1_ammo_gaugebmp", true),
+            ImportImageFromFile("mods/CortUI/media/cortui_fp1_ammo_gauge.png", true),
             Rect(0, 0, 83, 36),
             true,
             1
@@ -1359,7 +1359,7 @@ fpAmmoGauge =
 	BlendImage(
 		GaugeImageRect(
 			JustifyRight,
-			ImportImage("cortui_fp1_ammo_gauge2bmp", true),
+			ImportImageFromFile("mods/CortUI/media/cortui_fp1_ammo_gauge2.png", true),
 			Rect(0, 0, 83, 36),
 			true,
 			GetAmmo(Me, OnEveryFrame)
@@ -1380,7 +1380,7 @@ fpEnergyGaugeBack =
      BlendImage(
         GaugeImageRect(
             JustifyLeft,
-            ImportImage("cortui_fp1_energy_gaugebmp", true),
+            ImportImageFromFile("mods/CortUI/media/cortui_fp1_energy_gauge.png", true),
             Rect(0, 0, 83, 36),
             true,
             1
@@ -1392,7 +1392,7 @@ fpEnergyGauge =
 	BlendImage(
 		GaugeImageRect(
 			JustifyLeft,
-			ImportImage("cortui_fp1_energy_gauge2bmp", true),
+			ImportImageFromFile("mods/CortUI/media/cortui_fp1_energy_gauge2.png", true),
 			Rect(0, 0, 83, 36),
 			true,
 			GetPercentEnergy(Me, OnEveryFrame)
@@ -1412,7 +1412,7 @@ fpHullGreen =
         BlendImage(     
             GaugeImageRect(         
                 JustifyBottom,
-                ImportImage("cortui_fp1_hull_gaugebmp", true),
+                ImportImageFromFile("mods/CortUI/media/cortui_fp1_hull_gauge.png", true),
 				Rect(0, 0, 36, 174),
                 true,
                 GetPercentHitPoints(Me, OnEveryFrame)
@@ -1425,7 +1425,7 @@ fpHullRed =
     BlendImage( 
         GaugeImageRect(         
             JustifyBottom,
-            ImportImage("cortui_fp1_hull_gauge_redbmp", true),
+            ImportImageFromFile("mods/CortUI/media/cortui_fp1_hull_gauge_red.png", true),
             Rect(0, 0, 36, 174),
             true,
             GetPercentHitPoints(Me, OnEveryFrame)
@@ -1461,7 +1461,7 @@ fpShieldGreen =
         BlendImage(
             GaugeImageRect(
                 JustifyBottom,
-                ImportImage("cortui_fp1_shield_gaugebmp", true),
+                ImportImageFromFile("mods/CortUI/media/cortui_fp1_shield_gauge.png", true),
                 Rect(0, 0, 36, 174),
                 true,
                 GetPercentShields(Me, OnEveryFrame)
@@ -1473,7 +1473,7 @@ fpShieldRed =
     BlendImage( 
         GaugeImageRect(
             JustifyBottom,
-            ImportImage("cortui_fp1_shield_gauge_redbmp", true),
+            ImportImageFromFile("mods/CortUI/media/cortui_fp1_shield_gauge_red.png", true),
 			Rect(0, 0, 36, 174),
             true,
             GetPercentShields(Me, OnEveryFrame)
@@ -1506,9 +1506,9 @@ fpShieldImage =
 	);
 
 fpRadOn = 
-    ImagePane(ImportImage("cortui_fp1_rad_onbmp", false), []);
+    ImagePane(ImportImageFromFile("mods/CortUI/media/cortui_fp1_rad_on.png", false), []);
 // fpRadOff = 
-    // ImagePane(ImportImage("cortui_fp1_rad_onbmp", false), []);
+    // ImagePane(ImportImageFromFile("mods/CortUI/media/cortui_fp1_rad_on.png", false), []);
 
 fpRadarDetectPane = 
     SwitchPane(
@@ -1555,7 +1555,7 @@ fpCaptureFlag =
         ]
     );
 
-fpCloakNormal = ImportImage("cortui_fp1_con_cloakbmp", true);
+fpCloakNormal = ImportImageFromFile("mods/CortUI/media/cortui_fp1_con_cloak.png", true);
 
 fpCloakOn = 
     SwitchImage(
@@ -1594,7 +1594,7 @@ fpCenterHudOn = GroupImage([
 fp2ShieldGauge = BlendImage(
 	GaugeImageRect(
 		JustifyBottom,
-		ImportImage("cortui_fp2_shield_guagebmp", true),
+		ImportImageFromFile("mods/CortUI/media/cortui_fp2_shield_guage.png", true),
 		Rect(5, 2, 252, 225),
 		true,
 		GetPercentShields(Me, OnEveryFrame)
@@ -1605,7 +1605,7 @@ fp2ShieldGauge = BlendImage(
 fp2ShieldGaugeBack = BlendImage(
 	GaugeImageRect(
 		JustifyTop,
-		ImportImage("cortui_fp2_shield_guage_backbmp", true),
+		ImportImageFromFile("mods/CortUI/media/cortui_fp2_shield_guage_back.png", true),
 		Rect(5, 2, 252, 225),
 		true,
 		Subtract(1, GetPercentShields(Me, OnEveryFrame))
@@ -1621,7 +1621,7 @@ fp2ShieldImage = GroupImage([
 fp2HullGauge = BlendImage(     
 	GaugeImageRect(         
 		JustifyBottom,
-		ImportImage("cortui_fp2_hull_gaugebmp", true),
+		ImportImageFromFile("mods/CortUI/media/cortui_fp2_hull_gauge.png", true),
 		Rect(5, 29, 252, 252),
 		true,
 		GetPercentHitPoints(Me, OnEveryFrame)
@@ -1633,7 +1633,7 @@ fp2HullGauge = BlendImage(
 fp2HullGaugeBack = BlendImage( 
 	GaugeImageRect(         
 		JustifyTop,
-		ImportImage("cortui_fp2_hull_gauge_backbmp", true),
+		ImportImageFromFile("mods/CortUI/media/cortui_fp2_hull_gauge_back.png", true),
 		Rect(5, 29, 252, 252),
 		true,
 		Subtract(1, GetPercentHitPoints(Me, OnEveryFrame))
@@ -1649,7 +1649,7 @@ fp2HullImage = GroupImage([
 fp2ThrustGaugeBack = BlendImage(
 	GaugeImageRect(
 		JustifyLeft,
-		ImportImage("cortui_fp2_thrust_gauge_backbmp", true),
+		ImportImageFromFile("mods/CortUI/media/cortui_fp2_thrust_gauge_back.png", true),
 		Rect(10, 48, 254, 246),
 		true,
 		Subtract(1, playerThrottle)
@@ -1660,7 +1660,7 @@ fp2ThrustGaugeBack = BlendImage(
 fp2ThrustGauge = BlendImage(
 	GaugeImageRect(
 		JustifyRight,
-		ImportImage("cortui_fp2_thrust_gaugebmp", true),
+		ImportImageFromFile("mods/CortUI/media/cortui_fp2_thrust_gauge.png", true),
 		Rect(10, 48, 254, 246),
 		true,
 		playerThrottle
@@ -1679,7 +1679,7 @@ GroupImage(
 fp2FuelGaugeBack = BlendImage(
 	GaugeImageRect(
 		JustifyRight,
-		ImportImage("cortui_fp2_fuel_gauge_backbmp", true),
+		ImportImageFromFile("mods/CortUI/media/cortui_fp2_fuel_gauge_back.png", true),
 		Rect(2, 48, 246, 246),
 		true,
 		Subtract(1, GetFuel(Me, OnEveryFrame))
@@ -1690,7 +1690,7 @@ fp2FuelGaugeBack = BlendImage(
 fp2FuelGauge = BlendImage(
 	GaugeImageRect(
 		JustifyLeft,
-		ImportImage("cortui_fp2_fuel_gaugebmp", true),
+		ImportImageFromFile("mods/CortUI/media/cortui_fp2_fuel_gauge.png", true),
 		Rect(2, 48, 246, 246),
 		true,
 		GetFuel(Me, OnEveryFrame)
@@ -1706,7 +1706,7 @@ fp2FuelImage = GroupImage([
 fp2AmmoGaugeBack = BlendImage(
 	GaugeImageRect(
 		JustifyLeft,
-		ImportImage("cortui_fp2_ammo_gauge_backbmp", true),
+		ImportImageFromFile("mods/CortUI/media/cortui_fp2_ammo_gauge_back.png", true),
 		Rect(10, 10, 254, 208),
 		true,
 		Subtract(1, GetAmmo(Me, OnEveryFrame))
@@ -1717,7 +1717,7 @@ fp2AmmoGaugeBack = BlendImage(
 fp2AmmoGauge = BlendImage(
 	GaugeImageRect(
 		JustifyRight,
-		ImportImage("cortui_fp2_ammo_gaugebmp", true),
+		ImportImageFromFile("mods/CortUI/media/cortui_fp2_ammo_gauge.png", true),
 		Rect(10, 10, 254, 208),
 		true,
 		GetAmmo(Me, OnEveryFrame)
@@ -1734,7 +1734,7 @@ fp2AmmoImage = GroupImage([
 fp2EnergyGaugeBack = BlendImage(
 	GaugeImageRect(
 		JustifyRight,
-		ImportImage("cortui_fp2_energy_gauge_backbmp", true),
+		ImportImageFromFile("mods/CortUI/media/cortui_fp2_energy_gauge_back.png", true),
 		Rect(2, 10, 246, 208),
 		true,
 		Subtract(1, GetPercentEnergy(Me, OnEveryFrame))
@@ -1745,7 +1745,7 @@ fp2EnergyGaugeBack = BlendImage(
 fp2EnergyGauge = BlendImage(
 	GaugeImageRect(
 		JustifyLeft,
-		ImportImage("cortui_fp2_energy_gaugebmp", true),
+		ImportImageFromFile("mods/CortUI/media/cortui_fp2_energy_gauge.png", true),
 		Rect(2, 10, 246, 208),
 		true,
 		GetPercentEnergy(Me, OnEveryFrame)
@@ -1866,7 +1866,7 @@ fp2NeutralExperience = StringImage(
 	":KB:"
 );
 
-fp2MiscText = ImportImage("cortui_fp2_misc_textbmp", true);
+fp2MiscText = ImportImageFromFile("mods/CortUI/media/cortui_fp2_misc_text.png", true);
 
 fp2NeutralSignature = StringImage(
 	JustifyCenter,
@@ -1901,7 +1901,7 @@ fp2Signature = StringImage(
 fp2TargetShieldGauge = BlendImage(
 	GaugeImageRect(
 		JustifyBottom,
-		ImportImage("cortui_fp2_target_shield_guagebmp", true),
+		ImportImageFromFile("mods/CortUI/media/cortui_fp2_target_shield_guage.png", true),
 		Rect(4, 2, 251, 225),
 		true,
 		GetPercentShields(Target, OnEveryFrame)
@@ -1912,7 +1912,7 @@ fp2TargetShieldGauge = BlendImage(
 fp2TargetShieldGaugeBack = BlendImage(
 	GaugeImageRect(
 		JustifyTop,
-		ImportImage("cortui_fp2_target_shield_guage_backbmp", true),
+		ImportImageFromFile("mods/CortUI/media/cortui_fp2_target_shield_guage_back.png", true),
 		Rect(4, 2, 251, 225),
 		true,
 		Subtract(1, GetPercentShields(Target, OnEveryFrame))
@@ -1928,7 +1928,7 @@ fp2TargetShieldImage = GroupImage([
 fp2TargetHullGauge = BlendImage(
 	GaugeImageRect(
 		JustifyBottom,
-		ImportImage("cortui_fp2_target_hull_guagebmp", true),
+		ImportImageFromFile("mods/CortUI/media/cortui_fp2_target_hull_guage.png", true),
 		Rect(4, 29, 251, 252),
 		true,
 		GetPercentHitPoints(Target, OnEveryFrame)
@@ -1939,7 +1939,7 @@ fp2TargetHullGauge = BlendImage(
 fp2TargetHullGaugeBack = BlendImage(
 	GaugeImageRect(
 		JustifyTop,
-		ImportImage("cortui_fp2_target_hull_guage_backbmp", true),
+		ImportImageFromFile("mods/CortUI/media/cortui_fp2_target_hull_guage_back.png", true),
 		Rect(4, 29, 251, 252),
 		true,
 		Subtract(1, GetPercentHitPoints(Target, OnEveryFrame))
@@ -2369,7 +2369,7 @@ parciAutopilotOnImage =
         AutopilotOn,
         emptyImage, 
         [
-            (1, ImportImage("cortui_parci_autopilotbmp", true))
+            (1, ImportImageFromFile("mods/CortUI/media/cortui_parci_autopilot.png", true))
         ]
     );
 
@@ -2378,7 +2378,7 @@ parciRadarDetectImage =
         Detected,
         emptyImage,
         [
-            (0, ImportImage("cortui_parci_eyebmp", true))
+            (0, ImportImageFromFile("mods/CortUI/media/cortui_parci_eye.png", true))
         ]
     );
 
@@ -2387,7 +2387,7 @@ parciCloakOn =
         IsCloaked(Me, OnEveryFrame),
         emptyImage,
         [
-            (1, ImportImage("cortui_parci_cloakbmp", true))
+            (1, ImportImageFromFile("mods/CortUI/media/cortui_parci_cloak.png", true))
         ]
     );
 
@@ -2396,15 +2396,15 @@ parciVectorLockOn =
         GetVectorLock(Me, OnEveryFrame),
         emptyImage,
         [
-            (1, ImportImage("cortui_parci_vectorlockbmp", true))
+            (1, ImportImageFromFile("mods/CortUI/media/cortui_parci_vectorlock.png", true))
         ]
     );
 
 parciThrustGauge =
-    GaugeImage(JustifyBottom, ImportImage("cortui_parci_thrustbmp", true), playerThrottle);
+    GaugeImage(JustifyBottom, ImportImageFromFile("mods/CortUI/media/cortui_parci_thrust.png", true), playerThrottle);
 
 parciThrustGaugeHit =
-    GaugeImage(JustifyBottom, ImportImage("cortui_parci_thrusthitbmp", true), playerThrottle);
+    GaugeImage(JustifyBottom, ImportImageFromFile("mods/CortUI/media/cortui_parci_thrusthit.png", true), playerThrottle);
 
 parciThrust = 
     SwitchImage(
@@ -2417,10 +2417,10 @@ parciThrust =
     );
 
 parciFuelGauge = 
-    GaugeImage(JustifyBottom, ImportImage("cortui_parci_fuelbmp", true), GetFuel(Me, OnEveryFrame));
+    GaugeImage(JustifyBottom, ImportImageFromFile("mods/CortUI/media/cortui_parci_fuel.png", true), GetFuel(Me, OnEveryFrame));
     
 parciFuelGaugeHit = 
-    GaugeImage(JustifyBottom, ImportImage("cortui_parci_fuelhitbmp", true), GetFuel(Me, OnEveryFrame));
+    GaugeImage(JustifyBottom, ImportImageFromFile("mods/CortUI/media/cortui_parci_fuelhit.png", true), GetFuel(Me, OnEveryFrame));
     
 parciFuel = 
     SwitchImage(
@@ -2433,10 +2433,10 @@ parciFuel =
     );
 
 parciAmmoGauge =
-    GaugeImage(JustifyBottom, ImportImage("cortui_parci_ammobmp", true), GetAmmo(Me, OnEveryFrame));
+    GaugeImage(JustifyBottom, ImportImageFromFile("mods/CortUI/media/cortui_parci_ammo.png", true), GetAmmo(Me, OnEveryFrame));
 
 parciAmmoGaugeHit =
-    GaugeImage(JustifyBottom, ImportImage("cortui_parci_ammohitbmp", true), GetAmmo(Me, OnEveryFrame));
+    GaugeImage(JustifyBottom, ImportImageFromFile("mods/CortUI/media/cortui_parci_ammohit.png", true), GetAmmo(Me, OnEveryFrame));
 
 parciAmmo = 
     SwitchImage(
@@ -2449,10 +2449,10 @@ parciAmmo =
     );
 
 parciEnergyGauge = 
-    GaugeImage(JustifyBottom, ImportImage("cortui_parci_energybmp", true), GetPercentEnergy(Me, OnEveryFrame));    
+    GaugeImage(JustifyBottom, ImportImageFromFile("mods/CortUI/media/cortui_parci_energy.png", true), GetPercentEnergy(Me, OnEveryFrame));    
 
 parciEnergyGaugeHit = 
-    GaugeImage(JustifyBottom, ImportImage("cortui_parci_energyhitbmp", true), GetPercentEnergy(Me, OnEveryFrame));    
+    GaugeImage(JustifyBottom, ImportImageFromFile("mods/CortUI/media/cortui_parci_energyhit.png", true), GetPercentEnergy(Me, OnEveryFrame));    
 
 parciEnergy = 
     SwitchImage(
@@ -2465,10 +2465,10 @@ parciEnergy =
     );
 
 parciHullGauge =
-    GaugeImage(JustifyBottom, ImportImage("cortui_parci_hullbmp", true), GetPercentHitPoints(Me, OnEveryFrame));    
+    GaugeImage(JustifyBottom, ImportImageFromFile("mods/CortUI/media/cortui_parci_hull.png", true), GetPercentHitPoints(Me, OnEveryFrame));    
 
 parciHullGaugeHit =
-    GaugeImage(JustifyBottom, ImportImage("cortui_parci_hullhitbmp", true), GetPercentHitPoints(Me, OnEveryFrame));
+    GaugeImage(JustifyBottom, ImportImageFromFile("mods/CortUI/media/cortui_parci_hullhit.png", true), GetPercentHitPoints(Me, OnEveryFrame));
 
 parciHull = 
     SwitchImage(
@@ -2481,10 +2481,10 @@ parciHull =
     );
 
 parciShieldGauge =
-    GaugeImage(JustifyBottom, ImportImage("cortui_parci_shieldbmp", true), GetPercentShields(Me, OnEveryFrame));
+    GaugeImage(JustifyBottom, ImportImageFromFile("mods/CortUI/media/cortui_parci_shield.png", true), GetPercentShields(Me, OnEveryFrame));
 
 parciShieldGaugeHit =
-    GaugeImage(JustifyBottom, ImportImage("cortui_parci_shieldhitbmp", true), GetPercentShields(Me, OnEveryFrame));
+    GaugeImage(JustifyBottom, ImportImageFromFile("mods/CortUI/media/cortui_parci_shieldhit.png", true), GetPercentShields(Me, OnEveryFrame));
 
 parciShield = 
     SwitchImage(
@@ -2520,7 +2520,7 @@ ModifiedCenterHudParciStyle =
 		    TranslateImage(softArtifact, Point(194, 0)),
 		    TranslateImage(softCaptureFlag, Point(194, 0)),
 
-			ImportImage("cortui_parci_softhudbgbmp", true)
+			ImportImageFromFile("mods/CortUI/media/cortui_parci_softhudbg.png", true)
 		]);
 
 
@@ -2821,7 +2821,7 @@ fpTargetRange =
     ); 
 
 fpTargetInRangeImage = 
-        ImportImage("cortui_fp1_turret_rangebmp", true);
+        ImportImageFromFile("mods/CortUI/media/cortui_fp1_turret_range.png", true);
 
 fpTargetInRange =     
     SwitchImage(
@@ -2871,7 +2871,7 @@ fpTargetHullGauge =
     BlendImage(
             GaugeImageRect(
                 JustifyBottom,
-                ImportImage("cortui_fp1_target_hull_gaugebmp", true),
+                ImportImageFromFile("mods/CortUI/media/cortui_fp1_target_hull_gauge.png", true),
                 Rect(0, 0, 53, 94),
                 true,
                 GetPercentHitPoints(Target, OnEveryFrame)
@@ -2897,7 +2897,7 @@ fpTargetShieldGauge =
     BlendImage(
             GaugeImageRect(
                 JustifyBottom,
-                ImportImage("cortui_fp1_target_shield_gaugebmp", true),
+                ImportImageFromFile("mods/CortUI/media/cortui_fp1_target_shield_gauge.png", true),
                 Rect(0, 0, 53, 94),
                 true,
                 GetPercentShields(Target, OnEveryFrame)
