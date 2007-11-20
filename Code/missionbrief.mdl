@@ -3,10 +3,11 @@
 // |                                                                          |
 // | 1.6 / Cortex:                                                            |
 // | * switched to using PNGs in a subdirectory instead of using BMP.MDLs     |
+// | * fixed a few mistakes in the "tips of the game"                         |
 // |                                                                          |
 // | 1.5 / Cortex:                                                            |
-// | * moved the info text at the upper right to make it not overlap with the |
-// |   minimize/maximize/close buttons                                        |
+// | * moved the mission briefing up and right to make the chat completely    |
+// |   visible during game launch                                             |
 // |                                                                          |
 // | 1.4 / Cortex:                                                            |
 // | * incorporated the changes of R4 to the game lobby                       |
@@ -35,7 +36,7 @@ use "missionbriefdata";
 // Tip of the Game
 numTips = "40";
 
-Tip1 = "Use your I key to toggle between Radar modes. None-target only-default-all";
+Tip1 = "Use your I key to toggle between Radar modes. None -> target only -> default -> all";
 Tip2 = "Use Ctrl-G to turn on the grid feature when flying.";
 Tip3 = "Remember to turn off your nanite gun when flying a Ga'Taraan Scout (Press 1 to select the gun, 2 to select the nanite -- press the same number again to select all-fire again).";
 Tip4 = "When not sure what to do, deploy more probes.";
@@ -62,7 +63,7 @@ Tip24 = "Games with an imbalanced skill are NOT fun. If you're new, don't join t
 Tip25 = "As with all communities, Allegiance has 'good apples' and 'bad apples.' Don't let the bad ones ruin your fun.";
 Tip26 = "Enemy nans will often be with important targets. Attack the nans first because any damage you attempt to inflict on the main target will be instantly repaired.)";
 Tip27 = "If you are too close to a friendly con it will think you're on a collision course, and try to avoid you. This can delay its building time.";
-Tip28 = "Both sheilds and missiles raise your radar signature, making it easier for the enemy to spot you.  Keep them in cargo when you don't need them.";
+Tip28 = "Both shields and missiles raise your radar signature, making it easier for the enemy to spot you.  Keep them in cargo when you don't need them.";
 Tip29 = "Picking up teammates who are in a lifepod transports them instantly back to base, where they can immediately launch to help defend, attack, or whatever again.";
 Tip30 = "If no one probes then the enemy will always surprise you, always have the upper hand, and your team will lose. This is a fact.";
 Tip31 = "Exploring with an int or fig does not work because their scan range is very low.";
@@ -321,16 +322,16 @@ mapPreviewPane      = MapPreviewPane(ImportImage("sectormapbkgndbmp",false),fals
 
 completeBriefingPane =
     ImagePane(
-        ImportImage("missionbriefbkgndbmp", false),
+        ImportImageFromFile("mods/CortUI/media/cortui_core_missionbriefbkgnd.png", false),
         [
-            (missionBriefingTeamImage, Point(8, 160)),
-            (missionBriefingCountDown, Point(406, 333)),
-            (missionBriefingFaction, Point(95, 170)),
-            (missionBriefingString, Point(95, 195)),
-            (missionBriefingTextBody, Point(27, 240)),
-            (missionBriefingMapStr, Point(365, 162)),
-            (mapPreviewPane, Point(365, 177)), //R4
-            (missionTipText, Point(225, 82)) //R4
+            (missionBriefingTeamImage, Point(8, 151)),
+            (missionBriefingCountDown, Point(406, 324)),
+            (missionBriefingFaction, Point(95, 161)),
+            (missionBriefingString, Point(95, 186)),
+            (missionBriefingTextBody, Point(27, 232)),
+            (missionBriefingMapStr, Point(365, 153)),
+            (mapPreviewPane, Point(365, 168)), //R4
+            (missionTipText, Point(225, 79)) //R4
         ]
     );
 
@@ -340,7 +341,7 @@ MissionBriefDialog =
         [
             (
                 completeBriefingPane,
-                Point(264, -8)
+                Point(264, 1)
             )
         ]
     );
