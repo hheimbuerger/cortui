@@ -1594,7 +1594,7 @@ fpCenterHudOn = GroupImage([
 fp2ShieldGauge = BlendImage(
 	GaugeImageRect(
 		JustifyBottom,
-		ImportImageFromFile("mods/CortUI/media/cortui_fp2_shield_guage.png", true),
+		ImportImageFromFile("mods/CortUI/media/cortui_fp2_shield_gauge.png", true),
 		Rect(5, 2, 252, 225),
 		true,
 		GetPercentShields(Me, OnEveryFrame)
@@ -1605,7 +1605,7 @@ fp2ShieldGauge = BlendImage(
 fp2ShieldGaugeBack = BlendImage(
 	GaugeImageRect(
 		JustifyTop,
-		ImportImageFromFile("mods/CortUI/media/cortui_fp2_shield_guage_back.png", true),
+		ImportImageFromFile("mods/CortUI/media/cortui_fp2_shield_gauge_back.png", true),
 		Rect(5, 2, 252, 225),
 		true,
 		Subtract(1, GetPercentShields(Me, OnEveryFrame))
@@ -1901,7 +1901,7 @@ fp2Signature = StringImage(
 fp2TargetShieldGauge = BlendImage(
 	GaugeImageRect(
 		JustifyBottom,
-		ImportImageFromFile("mods/CortUI/media/cortui_fp2_target_shield_guage.png", true),
+		ImportImageFromFile("mods/CortUI/media/cortui_fp2_target_shield_gauge.png", true),
 		Rect(4, 2, 251, 225),
 		true,
 		GetPercentShields(Target, OnEveryFrame)
@@ -1912,7 +1912,7 @@ fp2TargetShieldGauge = BlendImage(
 fp2TargetShieldGaugeBack = BlendImage(
 	GaugeImageRect(
 		JustifyTop,
-		ImportImageFromFile("mods/CortUI/media/cortui_fp2_target_shield_guage_back.png", true),
+		ImportImageFromFile("mods/CortUI/media/cortui_fp2_target_shield_gauge_back.png", true),
 		Rect(4, 2, 251, 225),
 		true,
 		Subtract(1, GetPercentShields(Target, OnEveryFrame))
@@ -1928,7 +1928,7 @@ fp2TargetShieldImage = GroupImage([
 fp2TargetHullGauge = BlendImage(
 	GaugeImageRect(
 		JustifyBottom,
-		ImportImageFromFile("mods/CortUI/media/cortui_fp2_target_hull_guage.png", true),
+		ImportImageFromFile("mods/CortUI/media/cortui_fp2_target_hull_gauge.png", true),
 		Rect(4, 29, 251, 252),
 		true,
 		GetPercentHitPoints(Target, OnEveryFrame)
@@ -1939,7 +1939,7 @@ fp2TargetHullGauge = BlendImage(
 fp2TargetHullGaugeBack = BlendImage(
 	GaugeImageRect(
 		JustifyTop,
-		ImportImageFromFile("mods/CortUI/media/cortui_fp2_target_hull_guage_back.png", true),
+		ImportImageFromFile("mods/CortUI/media/cortui_fp2_target_hull_gauge_back.png", true),
 		Rect(4, 29, 251, 252),
 		true,
 		Subtract(1, GetPercentHitPoints(Target, OnEveryFrame))
