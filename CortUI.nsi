@@ -18,7 +18,7 @@
 
 
 !define NAME						"CortUI 1.75-RC1"
-!define INSTALLER_BUILD				"0023"
+!define INSTALLER_BUILD				"0024"
 !define FILENAME					"CortUI-1.75-RC1.exe"
 !define CORTUI_SIZE                 1013
 
