@@ -37,7 +37,7 @@ launchButtonPane    = FrameImageButtonPane("animlaunch", .7, false, false);
 //launchButtonPane    = ButtonPane(ImportImage("animradar2bmp", false), 5, false);
 commandButtonPane   = ButtonPane(ImportImage("animradarbmp", false), 5, false);
 loadoutButtonPane   = ButtonPane(ImportImage("animloadoutbmp", false), 5, false);
-investButtonPane    = ButtonPane(ImportImageFromFile("mods/CortUI/cortui_core_animinvest.png", false), 5, false);
+investButtonPane    = ButtonPane(ImportImageFromFile("mods/CortUI/media/cortui_core_animinvest.png", false), 5, false);
 teleportButtonPane  = ButtonPane(ImportImage("animsectorbmp", false), 5, false);
 teamButtonPane      = ButtonPane(ImportImage("animteambmp", false), 5, false);
 
@@ -112,7 +112,7 @@ InTurretPane =
 
 screen =
     ScreenPane(
-        ImportImageFromFile("mods/CortUI/cortui_core_hangar.png", false),
+        ImportImageFromFile("mods/CortUI/media/cortui_core_hangar.png", false),
         [
             (launchButtonPane,       Point( 367, 162)),
             (commandButtonPane,      Point(  84, 283)),

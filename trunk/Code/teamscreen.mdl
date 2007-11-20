@@ -56,7 +56,7 @@ playerColumns   = [110, 138, 163, 249, 319, 398];
 playerListHeader = ButtonBarPane(ImportImage("headerplayersbmp", false), Button3State, playerColumns, false);
 playerScrollBar  = ScrollBarPane(Point(14, 282));
 playerListPane   = ListWithScrollBarPane(Point(398, 287), playerScrollBar);
-tableImage       = ImportImageFromFile("mods/CortUI/cortui_core_lobbylistbkg.png", true);
+tableImage       = ImportImageFromFile("mods/CortUI/media/cortui_core_lobbylistbkg.png", true);
 
 playerTablePane  = 
     ImagePane(
@@ -261,7 +261,7 @@ textCorename        = StringPane(strCoreName, TextColor, Point(235, 20), Justify
 
 screen =
     ScreenPane(
-        ImportImageFromFile("mods/CortUI/cortui_core_teamscreen.png", false),
+        ImportImageFromFile("mods/CortUI/media/cortui_core_teamscreen.png", false),
         [   
             (textLobby,            Point( 20,   3)),
             (textFor,              Point(170,   3)), 
