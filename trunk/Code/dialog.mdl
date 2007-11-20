@@ -1445,7 +1445,7 @@ fpHullGauge =
 
 fpHullGaugeBack = 
     BlendImage(
-        ImportImage3D("cortui_fp1_hull_gauge2bmp", white, true),
+        ImportImageFromFile("mods/CortUI/media/cortui_fp1_hull_gauge2.png", true),
         hudBlendMode
     );
 
@@ -1493,7 +1493,7 @@ fpShieldGauge =
 
 fpShieldGaugeBack = 
     BlendImage(
-        ImportImage3D("cortui_fp1_shield_gauge2bmp", white, true),
+        ImportImageFromFile("mods/CortUI/media/cortui_fp1_shield_gauge2.png", true),
         hudBlendMode
     );
 
@@ -1759,7 +1759,7 @@ fp2EnergyImage = GroupImage([
 ]);      
 
 fp2AutopilotOn = BlendImage(
-	ImportImage3D("cortui_fp2_autopilot_onbmp", white, true),
+	ImportImageFromFile("mods/CortUI/media/cortui_fp2_autopilot_on.png", true),
 	hudBlendMode
 );
 
@@ -1772,7 +1772,7 @@ fp2Autopilot = SwitchImage(
 );
 
 fp2CloakOn = BlendImage(
-	ImportImage3D("cortui_fp2_cloak_onbmp", white, true),
+	ImportImageFromFile("mods/CortUI/media/cortui_fp2_cloak_on.png", true),
 	hudBlendMode
 );
 
@@ -1785,7 +1785,7 @@ fp2Cloak = SwitchImage(
 );
 
 fp2VectorLockOn = BlendImage(
-	ImportImage3D("cortui_fp2_vector_lock_onbmp", white, true),
+	ImportImageFromFile("mods/CortUI/media/cortui_fp2_vector_lock_on.png", true),
 	hudBlendMode
 );
 
@@ -1798,7 +1798,7 @@ fp2VectorLock = SwitchImage(
 );
 
 fp2EyeOn = BlendImage(
-	ImportImage3D("cortui_fp2_eye_onbmp", white, true),
+	ImportImageFromFile("mods/CortUI/media/cortui_fp2_eye_on.png", true),
 	hudBlendMode
 );
 
@@ -1811,19 +1811,19 @@ fp2Eye = SwitchImage(
 );
 
 fp2DamageOn1 = BlendImage(
-	ImportImage3D("cortui_fp2_damage1bmp", white, true),
+	ImportImageFromFile("mods/CortUI/media/cortui_fp2_damage1.png", true),
 	hudBlendMode
 );
 fp2DamageOn2 = BlendImage(
-	ImportImage3D("cortui_fp2_damage2bmp", white, true),
+	ImportImageFromFile("mods/CortUI/media/cortui_fp2_damage2.png", true),
 	hudBlendMode
 );
 fp2DamageOn3 = BlendImage(
-	ImportImage3D("cortui_fp2_damage3bmp", white, true),
+	ImportImageFromFile("mods/CortUI/media/cortui_fp2_damage3.png", true),
 	hudBlendMode
 );
 fp2DamageOn4 = BlendImage(
-	ImportImage3D("cortui_fp2_damage4bmp", white, true),
+	ImportImageFromFile("mods/CortUI/media/cortui_fp2_damage4.png", true),
 	hudBlendMode
 );
 
@@ -1953,7 +1953,7 @@ fp2TargetHullImage = GroupImage([
 ]);
 
 fp2TargetOvalColor = BlendImage(
-	ImportImage3D("cortui_fp2_target_oval_colorbmp", targetHudColor, true),
+	ImportImageFromFile("mods/CortUI/media/cortui_fp2_target_oval_color.png", true),
 	hudBlendMode
 );
 
@@ -1987,7 +1987,8 @@ fp2TargetRange3 = StringImage(
 	fp2FontNormal,
 	targetHudColor,
 	NumberString(GetRange(Target, OnEveryFrame))
-); 
+);
+
 fp2TargetRange4 = StringImage(
 	JustifyRight,
 	20,
@@ -2035,19 +2036,19 @@ fp2TargetSpeed = StringImage(
 );  
 
 fp2TargetInRange1 = BlendImage(
-	ImportImage3D("cortui_fp2_target_in_range1bmp", white, true),
+	ImportImageFromFile("mods/CortUI/media/cortui_fp2_target_in_range1.png", true),
 	hudBlendMode
 );
 fp2TargetInRange2 = BlendImage(
-	ImportImage3D("cortui_fp2_target_in_range2bmp", white, true),
+	ImportImageFromFile("mods/CortUI/media/cortui_fp2_target_in_range2.png", true),
 	hudBlendMode
 );
 fp2TargetInRange3 = BlendImage(
-	ImportImage3D("cortui_fp2_target_in_range3bmp", white, true),
+	ImportImageFromFile("mods/CortUI/media/cortui_fp2_target_in_range3.png", true),
 	hudBlendMode
 );
 fp2TargetInRange4 = BlendImage(
-	ImportImage3D("cortui_fp2_target_in_range4bmp", white, true),
+	ImportImageFromFile("mods/CortUI/media/cortui_fp2_target_in_range4.png", true),
 	hudBlendMode
 );
 
@@ -2798,7 +2799,7 @@ DefaultNormalTargetDisplay =
 
 fpTargetOvalColor =
         BlendImage(
-            ImportImage3D("cortui_fp1_target_oval_colorbmp", targetHudColor, true),
+            ImportImageFromFile("mods/CortUI/media/cortui_fp1_target_oval_color.png", true),
             hudBlendMode
     );
 
@@ -2863,7 +2864,7 @@ fpTargetExperienceImage =
 
 fpTargetHullGaugeBack = 
     BlendImage(
-        ImportImage3D("cortui_fp1_target_hull_gauge2bmp", white, true),
+        ImportImageFromFile("mods/CortUI/media/cortui_fp1_target_hull_gauge2.png", true),
         hudBlendMode
     );
 
@@ -2889,7 +2890,7 @@ GroupImage(
 
 fpTargetShieldGaugeBack = 
     BlendImage(
-        ImportImage3D("cortui_fp1_target_shield_gauge2bmp", white, true),
+        ImportImageFromFile("mods/CortUI/media/cortui_fp1_target_shield_gauge2.png", true),
         hudBlendMode
     );
 
