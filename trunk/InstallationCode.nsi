@@ -40,7 +40,6 @@ Section "${SECTIONTITLE_CORTUI}" SECIDX_CORTUI
   Pop $OUTDIR
   File Code\dialog.mdl                  ; is going to $INSTDIR
   File Code\loadoutpane.mdl
-  File Code\missionbrief.mdl
   File Code\partinfo.mdl
   File Code\cortui_settings.mdl
 
@@ -91,12 +90,20 @@ Section "${SECTIONTITLE_CORTUI}" SECIDX_CORTUI
   StrCpy $settingsNumChatLinesLobby "6"
   StrCmp $isLobbyScreenSelected "0" dontInstallLobbyScreen 0
     File Code\teamscreen.mdl
+    File Code\missionbrief.mdl
     StrCpy $settingsNumChatLinesLobby "10"
+    Goto endInstallLobbyScreen
   dontInstallLobbyScreen:
+    File unCode\teamscreen.mdl
+    File unCode\missionbrief.mdl
+  endInstallLobbyScreen:
 
   StrCmp $isHangarScreenSelected "0" dontInstallHangarScreen 0
     File Code\hangar.mdl
+    Goto endInstallHangarScreen
   dontInstallHangarScreen:
+    File unCode\hangar.mdl
+  endInstallHangarScreen:
 
   StrCpy $settingsFilename "$INSTDIR\cortui_settings.mdl"
   Call setSettings
