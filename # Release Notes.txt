@@ -296,6 +296,8 @@ To Do:
 - Redesign dialog.mdl. It has grown way too much and is a real mess, stuff
   being spread out because it has to be initialised in a particular order.
   Split it up into multiple files.
+- Investigate whether R4's "minimap shown by default" should be taken into
+  account by CortUI / can somehow be used.
 - Investigate minimap refreshing issue.
 - Investigate installer bug mentioned in the 'Known problems' section.
 - Implement detection of all selected HUDs at startup and allow the user to
