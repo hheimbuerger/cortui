@@ -2496,6 +2496,24 @@ parciShield =
         ]
     );
 
+ParciSoftSpeed = 
+    StringImage(
+        JustifyRight,
+        75,
+        medVerdana,
+        softText,
+        ConcatinatedString(NumberString(GetSpeed(Me, OnEveryFrame)), " mps")
+);
+	
+ParciSoftSignatureImage = 
+    StringImage(
+        JustifyRight,
+        75,
+        medVerdana,
+        softText,
+        ConcatinatedString("Sig ", NumberString(Signature))
+    );
+	
 ModifiedCenterHudParciStyle = 
 		GroupImage([    
 		    TranslateImage(parciAutopilotOnImage, Point(91, 77)),
@@ -2514,8 +2532,8 @@ ModifiedCenterHudParciStyle =
 			TranslateImage(parciShield, Point(95, 1)),
 		    TranslateImage(parciHull, Point(113, 1)),
 
-			TranslateImage(softSpeed, Point(0, 97)),
-		    TranslateImage(softSignatureImage, Point(0, 109)),
+			TranslateImage(ParciSoftSpeed, Point(-32, 97)),
+		    TranslateImage(ParciSoftSignatureImage, Point(-32, 109)),
 
 		    TranslateImage(softArtifact, Point(194, 0)),
 		    TranslateImage(softCaptureFlag, Point(194, 0)),
