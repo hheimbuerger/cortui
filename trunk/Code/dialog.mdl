@@ -1444,7 +1444,13 @@ fpHullGauge =
 
 fpHullGaugeBack = 
     BlendImage(
-        ImportImageFromFile("mods/CortUI/media/cortui_fp1_hull_gauge2.png", true),
+		GaugeImageRect(         
+            JustifyBottom,
+            ImportImageFromFile("mods/CortUI/media/cortui_fp1_hull_gauge2.png", true),
+            Rect(0, 0, 36, 174),
+            true,
+            1
+        ),
         hudBlendMode
     );
 
@@ -1492,7 +1498,13 @@ fpShieldGauge =
 
 fpShieldGaugeBack = 
     BlendImage(
-        ImportImageFromFile("mods/CortUI/media/cortui_fp1_shield_gauge2.png", true),
+		GaugeImageRect(
+            JustifyBottom,
+            ImportImageFromFile("mods/CortUI/media/cortui_fp1_shield_gauge2.png", true),
+			Rect(0, 0, 36, 174),
+            true,
+            1
+        ),
         hudBlendMode
     );
 
@@ -2881,7 +2893,13 @@ fpTargetExperienceImage =
 
 fpTargetHullGaugeBack = 
     BlendImage(
-        ImportImageFromFile("mods/CortUI/media/cortui_fp1_target_hull_gauge2.png", true),
+		GaugeImageRect(
+            JustifyBottom,
+            ImportImageFromFile("mods/CortUI/media/cortui_fp1_target_hull_gauge2.png", true),
+            Rect(0, 0, 53, 94),
+            true,
+            1
+        ),
         hudBlendMode
     );
 
@@ -2907,7 +2925,13 @@ GroupImage(
 
 fpTargetShieldGaugeBack = 
     BlendImage(
-        ImportImageFromFile("mods/CortUI/media/cortui_fp1_target_shield_gauge2.png", true),
+		GaugeImageRect(
+                JustifyBottom,
+                ImportImageFromFile("mods/CortUI/media/cortui_fp1_target_shield_gauge2.png", true),
+                Rect(0, 0, 53, 94),
+                true,
+                1
+		),
         hudBlendMode
     );
 
