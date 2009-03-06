@@ -1,0 +1,90 @@
+body {
+    margin: 0px;
+}
+
+/* the banner, containing the header and the quicksearch box and the metanav */
+div#banner {
+    background: white left top repeat-x fixed;
+    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAACMCAIAAAAyWVTYAAAALHRFWHRDcmVhdGlvbiBUaW1lAEZyaSAyNyBGZWIgMjAwOSAyMjo1MDo1OSArMDEwMCGeFB4AAAAHdElNRQfZAhsWJhtVLfGzAAAACXBIWXMAAB7CAAAewgFu0HU+AAAABGdBTUEAALGPC/xhBQAAABhJREFUeNpjYBgFIwbw8/MzUYAZ/v//DwBxogXsfedjewAAAABJRU5ErkJggg%3D%3D);
+    height: 140px;
+}
+
+/* sub-node of banner, containing the logo */
+div#header {
+    height: 50px;
+}
+
+/* sub-node of banner, containing the quicksearch box */
+form#search {
+    margin-top: -40px;
+    margin-right: 10px;
+}
+
+/* sub-node of banner, containing the metanav links */
+div#metanav {
+    margin-top: 110px;
+    margin-right: 5px;
+}
+
+/*div#metanav, div#metanav :visited, div#metanav :link {
+    color: white;
+}*/
+
+/* the main navigation bar */
+div#mainnav {
+    margin: 20px 10px 0px 10px;
+    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAAAQCAIAAAAphe5+AAAALHRFWHRDcmVhdGlvbiBUaW1lAFNhdCAyOCBGZWIgMjAwOSAwMDoyMzo0MCArMDEwMFaUZDgAAAAHdElNRQfZAhwAHDBZRDHxAAAACXBIWXMAAAsSAAALEgHS3X78AAAABGdBTUEAALGPC/xhBQAAAFxJREFUeNrV0tENgCAUQ1HA6gey/3DMATExgIYZ3sfL7QQ9aWPtXyBHfcIBbcABz/SuYAS8y7uCFcB+0F6ALcBfKHkXsEYXnKAzelcwAvAL4AH5YH9IRXDADV/gBzInFAqCmKRAAAAAAElFTkSuQmCC);
+}
+
+div#mainnav :link, div#mainnav :visited, div#mainnav :link:hover, div#mainnav :visited:hover {
+    border-right: 1px transparent;
+}
+
+div#mainnav .active :link, div#mainnav .active :visited {
+    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAAAQCAIAAAAphe5+AAAALHRFWHRDcmVhdGlvbiBUaW1lAFNhdCAyOCBGZWIgMjAwOSAwMDozNTowMSArMDEwMLg5zvEAAAAHdElNRQfZAhsXKikwjYUIAAAACXBIWXMAAAsSAAALEgHS3X78AAAABGdBTUEAALGPC/xhBQAAAF1JREFUeNrtk9EJwCAUAyNI6Ycbuow7t1CrwusQ+QjBZoI7jqSjNjgvY75qBk4g1lAzcAL2BTDNC4R9gf8DcgHzArHcC4yuZuAE4rnUDKzArWbgBNC9BRLOombYex/mxR91glRn1gAAAABJRU5ErkJggg%3D%3D);
+}
+
+/* the main text area */
+div#main {
+    margin: 5px;
+}
+
+/* the content area */
+div#content {
+    margin: 5px;
+}
+
+/* the footer */
+div#footer {
+    margin: 10px;
+}
+
+/* the headings */
+h1, h2 {
+    padding: 2px 0px 2px 5px;
+    width: 450px;
+}
+
+h1 {
+    background-color: #065b80;
+    color: white;
+}
+
+h2 {
+    background-color: #a2e4fc;
+}
+
+/* the h2 rules (the coloured background) shouldn't apply to the ticket summary */
+h2.summary {
+    background-color: transparent;
+}
+
+/* the h2 background makes the section anchor helpers almost invisible, so change their colour */
+a.anchor:link, a.anchor:visited {
+    color: gray;
+}
+
+/* h1 background makes the ticket status and the first part of the current directory in the source browser almost invisible, so change their colour, too */
+span.status, a.pathentry.first {
+    color: lightgray;
+}
