@@ -2413,7 +2413,15 @@ parciVectorLockOn =
     );
 
 parciThrustGauge =
-    GaugeImage(JustifyBottom, ImportImageFromFile("mods/CortUI/media/cortui_parci_thrust.png", true), playerThrottle);
+    GaugeImageRect(
+        JustifyBottom,
+        ImportImageFromFile("mods/CortUI/media/cortui_parci_thrust_fix.png", true), // texture, bounds must be power of 2 if 3D mode
+        Rect(0, 0, 28, 82), // which part of the tex to use
+        true, // this set 3D mode
+        playerThrottle
+    );
+// parciThrustGauge =
+//    GaugeImage(JustifyBottom, ImportImageFromFile("mods/CortUI/media/cortui_parci_thrust.png", true), playerThrottle);
 
 parciThrustGaugeHit =
     GaugeImage(JustifyBottom, ImportImageFromFile("mods/CortUI/media/cortui_parci_thrusthit.png", true), playerThrottle);
@@ -2428,8 +2436,16 @@ parciThrust =
         ]
     );
 
-parciFuelGauge = 
-    GaugeImage(JustifyBottom, ImportImageFromFile("mods/CortUI/media/cortui_parci_fuel.png", true), GetFuel(Me, OnEveryFrame));
+parciFuelGauge =
+    GaugeImageRect(
+        JustifyBottom,
+        ImportImageFromFile("mods/CortUI/media/cortui_parci_fuel_fix.png", true), // texture, bounds must be pow2 if 3D mode
+        Rect(0, 0, 22, 82), // which part of the tex to use
+        true, // this set 3D mode
+        GetFuel(Me, OnEveryFrame)
+    );
+// parciFuelGauge = 
+//    GaugeImage(JustifyBottom, ImportImageFromFile("mods/CortUI/media/cortui_parci_fuel.png", true), GetFuel(Me, OnEveryFrame));
     
 parciFuelGaugeHit = 
     GaugeImage(JustifyBottom, ImportImageFromFile("mods/CortUI/media/cortui_parci_fuelhit.png", true), GetFuel(Me, OnEveryFrame));
@@ -2445,7 +2461,15 @@ parciFuel =
     );
 
 parciAmmoGauge =
-    GaugeImage(JustifyBottom, ImportImageFromFile("mods/CortUI/media/cortui_parci_ammo.png", true), GetAmmo(Me, OnEveryFrame));
+    GaugeImageRect(
+        JustifyBottom,
+        ImportImageFromFile("mods/CortUI/media/cortui_parci_ammo_fix.png", true), // texture, bounds must be pow2 if 3D mode
+        Rect(0, 0, 19, 82), // which part of the tex to use
+        true, // this set 3D mode
+        GetAmmo(Me, OnEveryFrame)
+    );
+// parciAmmoGauge =
+//    GaugeImage(JustifyBottom, ImportImageFromFile("mods/CortUI/media/cortui_parci_ammo.png", true), GetAmmo(Me, OnEveryFrame));
 
 parciAmmoGaugeHit =
     GaugeImage(JustifyBottom, ImportImageFromFile("mods/CortUI/media/cortui_parci_ammohit.png", true), GetAmmo(Me, OnEveryFrame));
@@ -2460,8 +2484,16 @@ parciAmmo =
         ]
     );
 
-parciEnergyGauge = 
-    GaugeImage(JustifyBottom, ImportImageFromFile("mods/CortUI/media/cortui_parci_energy.png", true), GetPercentEnergy(Me, OnEveryFrame));    
+parciEnergyGauge =
+    GaugeImageRect(
+        JustifyBottom,
+        ImportImageFromFile("mods/CortUI/media/cortui_parci_energy_fix.png", true), // texture, bounds must be pow2 if 3D mode
+        Rect(0, 0, 19, 82), // which part of the tex to use
+        true, // this set 3D mode
+        GetPercentEnergy(Me, OnEveryFrame)
+    );
+// parciEnergyGauge = 
+//    GaugeImage(JustifyBottom, ImportImageFromFile("mods/CortUI/media/cortui_parci_energy.png", true), GetPercentEnergy(Me, OnEveryFrame));    
 
 parciEnergyGaugeHit = 
     GaugeImage(JustifyBottom, ImportImageFromFile("mods/CortUI/media/cortui_parci_energyhit.png", true), GetPercentEnergy(Me, OnEveryFrame));    
