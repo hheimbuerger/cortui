@@ -17,15 +17,15 @@
 ;--------------------------------
 
 
-!define NAME						"CortUI 1.75"
-!define INSTALLER_BUILD				"0026"
-!define FILENAME					"CortUI-1.75.exe"
+!define NAME						"CortUI 1.76"
+!define INSTALLER_BUILD				"0027"
+!define FILENAME					"CortUI-1.76.exe"
 !define CORTUI_SIZE                 1057
 
 !define REGKEY_ALLEGARTWORK			"SOFTWARE\Microsoft\Microsoft Games\Allegiance\1.0\"
 !define REGNAME_ALLEGARTWORK		"ArtPath"
 
-!define SECTIONTITLE_CORTUI					"!CortUI v1.75"
+!define SECTIONTITLE_CORTUI					"!CortUI v1.76"
 !define SECTIONDESC_CORTUI					"A modification of the look and feel of Allegiance."
 !define SECTIONTITLE_UN_CORTUI				"un.Uninstall CortUI"
 !define SECTIONDESC_UN_CORTUI				"Uninstall CortUI by restoring the original files of the replaced ones (as of freeallegiance.org-installer 1.8.5)"
