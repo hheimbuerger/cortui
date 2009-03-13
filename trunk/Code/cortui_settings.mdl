@@ -1,5 +1,5 @@
 // Version information
-cortUIVersionString = "CortUI v1.75";
+cortUIVersionString = "CortUI v1.76 dev";
 
 // Parameter: Number of chat lines in the lobby. Keep between 1 and 10.
 NumChatLinesLobby = ?;
