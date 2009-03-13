@@ -382,7 +382,18 @@ SectorNameInHangarImage =
         ),
         hudBlendMode);
 
-LocationImage =
+CloakNormal = ImportImage("concloakbmp", true);
+
+CloakOn = 
+    SwitchImage(
+        IsCloaked(Me, OnEveryFrame),
+        emptyImage,
+        [
+            (1, CloakNormal)
+        ]
+    );
+
+LocationInCockpitImage =
     GroupImage([
         BlendImage(
             StringImage(
@@ -394,6 +405,12 @@ LocationImage =
             ),
             hudBlendMode),
         TranslateImage(SectorNameImage, Point(0, -14))
+    ]);
+
+LocationOnMapImage =
+    GroupImage([
+        LocationInCockpitImage,
+        TranslateImage(CloakOn, Point(34, -110))
     ]);
 
 LocationInHangarImage =
@@ -1201,17 +1218,6 @@ AutopilotOnImage =
         emptyImage, 
         [
             (1, AutopilotNormal)
-        ]
-    );
-
-CloakNormal = ImportImage("concloakbmp", true);
-
-CloakOn = 
-    SwitchImage(
-        IsCloaked(Me, OnEveryFrame),
-        emptyImage,
-        [
-            (1, CloakNormal)
         ]
     );
 
@@ -3862,8 +3868,7 @@ LookingAtImage =
                 "Currently viewing:"
             ),
             hudBlendMode),
-        TranslateImage(SectorNameImage, Point(0, -14)),
-        TranslateImage(CloakOn, Point(30, -110))
+        TranslateImage(SectorNameImage, Point(0, -14))
     ]);
 
 //////////////////////////////////////////////////////////////
@@ -4171,8 +4176,10 @@ dialogs =
         // CommandPane: the command bar at the F3-map
         (CommandPaneImage,              SideBottom,         Point(-135, -190), Point(-135,   40), .5,     6, false),
 
-        // LocationImage: "current location" in cockpit mode
-        (LocationImage,                 SideTopRight,       Point(-180, 185), Point(-180,  -15), .5, 0x10032, true),
+        // LocationInCockpitImage: "current location" in cockpit mode
+        (LocationInCockpitImage,        SideTopRight,       Point(-180, 185), Point(-180,  -15), .5, 0x00030, true),
+        // LocationOnMapImage: "current location" in map mode
+        (LocationOnMapImage,            SideTopRight,       Point(-180, 185), Point(-180,  -15), .5, 0x10002, true),
         // LocationInHangarImage: "current location" in hangar (SectorName is not set correctly, so it has to be retrieved via GetSectorName(MyStation, OnEveryFrame))
         (LocationInHangarImage,         SideTopRight,       Point(-180, 185), Point(-180,  -15), .5, 0x00001, true),
         // LookingAtImage: "currently viewing" in map mode
