@@ -19,8 +19,9 @@
 	!define CORTUI_SIZE                 1013
 	!define LATEST_ALLEG_INSTALLER_VER	"build 210"
 
-	!define REGKEY_ALLEGARTWORK			"SOFTWARE\Microsoft\Microsoft Games\Allegiance\1.0\"
-	!define REGNAME_ALLEGARTWORK		"ArtPath"
+	!define REGKEY_ALLEG				"SOFTWARE\Microsoft\Microsoft Games\Allegiance\1.0\"
+	!define REGNAME_ALLEG_ARTWORK		"ArtPath"
+	!define REGNAME_ALLEG_EXEPATH		"EXE Path"
 	!define REGKEY_CORTUI				"SOFTWARE\CortUI"
 	!define REGNAME_CORTUI_VERSION		"version"
 	!define REGNAME_CORTUI_INSTALLDIR	"installDir"
@@ -68,6 +69,7 @@
 	Var settingsSoftwareHUDMode
 	Var settingsNormalHUDModeText
 	Var settingsNormalHUDMode
+	Var allegiancePath
 
 
 ;--------------------------------
@@ -81,22 +83,27 @@
 	InstallDir ""
 
 	# Get installation folder from registry if available
-	InstallDirRegKey HKLM "${REGKEY_ALLEGARTWORK}" "${REGNAME_ALLEGARTWORK}"
+	InstallDirRegKey HKLM "${REGKEY_ALLEG}" "${REGNAME_ALLEG_ARTWORK}"
 
 
 ;--------------------------------
 ; Includes
 
 	# NSIS components
-	!include "MUI2.nsh"
-	!include "InstallOptions.nsh"
+	!include "MUI2.nsh"														# used for the installer UI
+	!include "InstallOptions.nsh"											# used for the controls on the configuration screen
 
 	# Custom configuration (note: the order of the imports is *very* relevant for ModernUI2/NSIS!)
-	!include "Installer\GetLocalTime.nsi"
-	!include "Installer\HelperFunctions.nsi"
-	!define INSTALLOPTIONS_INI_FILE "Installer\ConfigurationScreen.ini"
-	!include "Installer\InstallationPages.nsi"
-	!include "Installer\UninstallationPages.nsi"
-	!include "Installer\Interface.nsi"
-	!include "Installer\InstallationCode.nsi"
-	!include "Installer\UninstallationCode.nsi"
+	!include "Installer\Interface.nsi"										# defines general UI options (header, icon, etc.)
+	!include "Installer\GetLocalTime.nsi"									# used for creating the backup directories with a timestamp
+	!include "Installer\HelperFunctions.nsi"								# various helpers (checking for Alleg process, writing cortui_settings.mdl, backup)
+	!define INSTALLOPTIONS_INI_FILE "Installer\ConfigurationScreen.ini"		# defines the configuration screen UI
+	!include "Installer\InstallationPages.nsi"								# the pages shown during installation
+	!include "Installer\UninstallationPages.nsi"							# the code used during installation
+	!include "Installer\InstallationCode.nsi"								# the pages shown during uninstallation
+	!include "Installer\UninstallationCode.nsi"								# the code used during uninstallation
+		
+;--------------------------------
+; Languages
+
+	!insertmacro MUI_LANGUAGE "English"

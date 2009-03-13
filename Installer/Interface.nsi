@@ -17,9 +17,3 @@
 	# Do not jump to the finish pages automatically, to allow the user to review the (un)installation log
 	!define MUI_FINISHPAGE_NOAUTOCLOSE
 	!define MUI_UNFINISHPAGE_NOAUTOCLOSE
-
-
-;--------------------------------
-; Languages
-
-	!insertmacro MUI_LANGUAGE "English"

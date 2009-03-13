@@ -44,11 +44,12 @@
 ;--------------------------------
 ; Finish page
 
-	#!define MUI_FINISHPAGE_RUN_TEXT "Run Allegiance"
-	#!define MUI_FINISHPAGE_RUN "$allegiancePath\ASGSClient.exe"
-	#!define MUI_FINISHPAGE_RUN_NOTCHECKED
-	;!define MUI_PAGE_CUSTOMFUNCTION_PRE cbPreFinishPage
+	!define MUI_FINISHPAGE_RUN_TEXT "Run Allegiance"
+	!define MUI_FINISHPAGE_RUN "$allegiancePath\ASGSClient.exe"
+	!define MUI_FINISHPAGE_RUN_NOTCHECKED
 	!define MUI_FINISHPAGE_SHOWREADME_TEXT "Show Release Notes"
 	!define MUI_FINISHPAGE_SHOWREADME "$INSTDIR\mods\CortUI\# Release Notes.txt"
 	!define MUI_FINISHPAGE_SHOWREADME_CHECKED
+	!define MUI_FINISHPAGE_LINK "Visit the CortUI website now"
+	!define MUI_FINISHPAGE_LINK_LOCATION "http://cortui.rtsquad.org/"
 	!insertmacro MUI_PAGE_FINISH

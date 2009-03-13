@@ -29,4 +29,6 @@
 ;--------------------------------
 ; Finish page
 
+	!define MUI_FINISHPAGE_LINK "Ran into problems with CortUI? Please file a ticket!"
+	!define MUI_FINISHPAGE_LINK_LOCATION "http://cortui.rtsquad.org/"
 	!insertmacro MUI_UNPAGE_FINISH

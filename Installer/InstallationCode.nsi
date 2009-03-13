@@ -22,6 +22,9 @@
 
 		# Trigger a backup of the files we're going to overwrite
 		Call backupCoreFiles
+		
+		# Determine the Allegiance directory so we can offer the user to start Allegiance automatically at the end of the installation
+		ReadRegStr $allegiancePath HKLM "${REGKEY_ALLEG}" "${REGNAME_ALLEG_EXEPATH}"
 	SectionEnd
 
 
