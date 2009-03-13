@@ -3,7 +3,7 @@
 # *****************************************************************************
 !define MUI_ABORTWARNING
 
-!define MUI_WELCOMEPAGE_TEXT "You're using this installer on your own risk. You might want to backup your complete \artwork directory before using it.\r\n\r\nThe uninstaller will remove the CortUI files and restore the replaced UI files as of version 1.8.5 of the freeallegiance.org-installer. It will *not* restore any files you edited before installing CortUI. But it will backup all replaced files before installing and before uninstalling (in the directory '\artwork\mods\CortUI\backup *').\r\n\r\nPlease contact me if you have any problems or feature requests for this installer or CortUI itself. (PM 'Cortex' at freeallegiance.org, e-mail: henrik@heimbuerger.de, ICQ: 14011335, MSN: h.heimbuerger@gmx.net)\r\n\r\n[Installer build: ${INSTALLER_BUILD}]"
+!define MUI_WELCOMEPAGE_TEXT "You're using this installer on your own risk. You might want to backup your complete \artwork directory before using it.\r\n\r\nThe uninstaller will remove the CortUI files and restore the replaced UI files as of build 210 of the freeallegiance.org-installer. It will *not* restore any files you edited before installing CortUI. But it will backup all replaced files before installing and before uninstalling (in the directory '\artwork\mods\CortUI\backup *').\r\n\r\nPlease contact me if you have any problems or feature requests for this installer or CortUI itself. (PM 'Cortex' at freeallegiance.org, e-mail: henrik@heimbuerger.de, ICQ: 14011335, MSN: h.heimbuerger@gmx.net)\r\n\r\n[Installer build: ${INSTALLER_BUILD}]"
 !insertmacro MUI_PAGE_WELCOME
 
 
@@ -61,7 +61,7 @@ Page custom openConfigurationScreen
 # *****************************************************************************
 # * Welcome page
 # *****************************************************************************
-!define MUI_WELCOMEPAGE_TEXT "You're using this uninstaller on your own risk. Hopefully, you have read the installer welcome page and have your \artwork directory backup ready now. ;)\r\n\r\nThe uninstaller will remove the CortUI files and restore the replaced UI files as of version 1.8.5 of the freeallegiance.org-installer. It will *not* restore any files you edited before installing CortUI. But there is a backup of all replaced files in the directory '\artwork\mods\CortUI\backup *').\r\n\r\nPlease contact me if you have any problems or feature requests for this installer or CortUI itself. (PM 'Cortex' at freeallegiance.org, e-mail: henrik@heimbuerger.de, ICQ: 14011335, MSN: h.heimbuerger@gmx.net)\r\n\r\n[Uninstaller build: ${INSTALLER_BUILD}]"
+!define MUI_WELCOMEPAGE_TEXT "You're using this uninstaller on your own risk. Hopefully, you have read the installer welcome page and have your \artwork directory backup ready now. ;)\r\n\r\nThe uninstaller will remove the CortUI files and restore the replaced UI files as of build 210 of the freeallegiance.org-installer. It will *not* restore any files you edited before installing CortUI. But there is a backup of all replaced files in the directory '\artwork\mods\CortUI\backup *').\r\n\r\nPlease contact me if you have any problems or feature requests for this installer or CortUI itself. (PM 'Cortex' at freeallegiance.org, e-mail: henrik@heimbuerger.de, ICQ: 14011335, MSN: h.heimbuerger@gmx.net)\r\n\r\n[Uninstaller build: ${INSTALLER_BUILD}]"
 
 # *****************************************************************************
 # * Custom options page
