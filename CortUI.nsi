@@ -13,11 +13,20 @@
 	!define VER_MINOR					"7"
 	!define VER_BUGFIX					"6"
 	!define INSTALLER_BUILD				"0027"
-	!define VERSION						"${VER_MAJOR}.${VER_MINOR}${VER_BUGFIX}"
-	!define NAME						"CortUI ${VERSION}"
-	!define FILENAME					"CortUI-${VERSION}.exe"
+	!define VERSION_NUMBER				"${VER_MAJOR}.${VER_MINOR}${VER_BUGFIX}"
 	!define CORTUI_SIZE                 1013
 	!define LATEST_ALLEG_INSTALLER_VER	"build 210"
+	
+	!ifdef RELEASE
+		!define VERSION ${VERSION_NUMBER}
+		!define NAME						"CortUI ${VERSION}"
+		!define FILENAME					"CortUI-${VERSION}.exe"
+	!else
+		!define /date NOW "%Y%m%d-%H%M%S"
+		!define VERSION "${VERSION_NUMBER}-dev-${NOW}"
+		!define NAME						"CortUI ${VERSION_NUMBER}-dev-${NOW}"
+		!define FILENAME					"CortUI-${VERSION_NUMBER}-dev-${NOW}.exe"
+	!endif
 
 	!define REGKEY_ALLEG				"SOFTWARE\Microsoft\Microsoft Games\Allegiance\1.0\"
 	!define REGNAME_ALLEG_ARTWORK		"ArtPath"

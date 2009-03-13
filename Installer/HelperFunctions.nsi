@@ -70,6 +70,9 @@ Function setSettings
 	   FileRead $3 $5
 	   IfErrors done
 #MessageBox MB_ICONEXCLAMATION|MB_OK "|$5|"
+	   StrCmp $5 "cortUIVersionString = $\"?$\";$\r$\n" 0 +3
+	      FileWrite $4 "cortUIVersionString = $\"CortUI v${VERSION}$\";$\r$\n"
+	      Goto loop
 	   StrCmp $5 "NumChatLinesLobby = ?;$\r$\n" 0 +3
 	      FileWrite $4 "NumChatLinesLobby = $settingsNumChatLinesLobby;$\r$\n"
 	      Goto loop
