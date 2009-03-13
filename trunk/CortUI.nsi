@@ -1,122 +1,102 @@
-#!define DEBUG
-
-!ifdef DEBUG
-	SetCompressor bzip2
-!else
-	SetCompressor /SOLID lzma
-!endif
+; CortUI Installer script
+;
+; Latest NSIS tested with: 2.44 (http://nsis.sourceforge.net/). Modern UI 2 and InstallOption 2 are required.
+;
+; This installer requires the FindProc plugin. Copy FindProc/FindProcDLL.dll to your /Program Files/NSIS/Plugins/ directory and you're set.
 
 
 
 ;--------------------------------
-;Includes
+; Constants
 
-!include "MUI.nsh"
-!include "Sections.nsh"
+	!define VER_MAJOR					"1"
+	!define VER_MINOR					"7"
+	!define VER_BUGFIX					"6"
+	!define INSTALLER_BUILD				"0027"
+	!define VERSION						"${VER_MAJOR}.${VER_MINOR}${VER_BUGFIX}"
+	!define NAME						"CortUI ${VERSION}"
+	!define FILENAME					"CortUI-${VERSION}.exe"
+	!define CORTUI_SIZE                 1013
+	!define LATEST_ALLEG_INSTALLER_VER	"build 210"
 
-;--------------------------------
+	!define REGKEY_ALLEGARTWORK			"SOFTWARE\Microsoft\Microsoft Games\Allegiance\1.0\"
+	!define REGNAME_ALLEGARTWORK		"ArtPath"
+	!define REGKEY_CORTUI				"SOFTWARE\CortUI"
+	!define REGNAME_CORTUI_VERSION		"version"
+	!define REGNAME_CORTUI_INSTALLDIR	"installDir"
 
+	!define SECTIONTITLE_CORTUI					"!CortUI v${VERSION}"
+	!define SECTIONDESC_CORTUI					"A modification of the look and feel of Allegiance, including various alternative HUDs."
+	!define SECTIONTITLE_UN_CORTUI				"un.Uninstall CortUI"
+	!define SECTIONDESC_UN_CORTUI				"Uninstall CortUI by restoring the original files of the replaced ones (as of freeallegiance.org-installer ${LATEST_ALLEG_INSTALLER_VER})"
+	!define SECTIONTITLE_UN_REMOVEBACKUPS		"un.Remove backups"
+	!define SECTIONDESC_UN_REMOVEBACKUPS		"Remove all backups"
+	!define SECTIONTITLE_UN_REMOVEUNINSTALLER	"un.Remove uninstaller"
+	!define SECTIONDESC_UN_REMOVEUNINSTALLER	"Remove this uninstaller"
 
-!define NAME						"CortUI 1.76"
-!define INSTALLER_BUILD				"0027"
-!define FILENAME					"CortUI-1.76.exe"
-!define CORTUI_SIZE                 1057
+	!define CONFIGURATION_PAGE_TITLE "Customize Options"
+	!define CONFIGURATION_PAGE_SUBTITLE "Set custom options and choose your HUD."
 
-!define REGKEY_ALLEGARTWORK			"SOFTWARE\Microsoft\Microsoft Games\Allegiance\1.0\"
-!define REGNAME_ALLEGARTWORK		"ArtPath"
+	!define FIELD_INSTALLLOBBY			"Field 1"
+	!define FIELD_INSTALLHANGAR			"Field 2"
+	!define FIELD_CHATLINESGLOBAL		"Field 5"
+	!define FIELD_CHATLINESLOADOUT		"Field 7"
+	!define FIELD_SHOWLOADOUT			"Field 8"
+	!define FIELD_SHOWMINIMAP			"Field 9"
+	!define FIELD_SHOWORDERS			"Field 10"
+	!define FIELD_SHOWSCROLLBAR			"Field 11"
+	!define FIELD_NORMALHUDMODE   	    "Field 13"
+	!define FIELD_SOFTWAREHUDMODE   	"Field 15"
 
-!define SECTIONTITLE_CORTUI					"!CortUI v1.76"
-!define SECTIONDESC_CORTUI					"A modification of the look and feel of Allegiance."
-!define SECTIONTITLE_UN_CORTUI				"un.Uninstall CortUI"
-!define SECTIONDESC_UN_CORTUI				"Uninstall CortUI by restoring the original files of the replaced ones (as of freeallegiance.org-installer 1.8.5)"
-!define SECTIONTITLE_UN_REMOVEBACKUPS		"un.Remove backups"
-!define SECTIONDESC_UN_REMOVEBACKUPS		"Remove all backups"
-!define SECTIONTITLE_UN_REMOVEUNINSTALLER	"un.Remove uninstaller"
-!define SECTIONDESC_UN_REMOVEUNINSTALLER	"Remove this uninstaller"
-
-!define FIELD_INSTALLLOBBY			"Field 1"
-!define FIELD_INSTALLHANGAR			"Field 2"
-!define FIELD_CHATLINESGLOBAL		"Field 5"
-!define FIELD_CHATLINESLOADOUT		"Field 7"
-!define FIELD_SHOWLOADOUT			"Field 8"
-!define FIELD_SHOWMINIMAP			"Field 9"
-!define FIELD_SHOWORDERS			"Field 10"
-!define FIELD_SHOWSCROLLBAR			"Field 11"
-!define FIELD_NORMALHUDMODE   	    "Field 13"
-!define FIELD_SOFTWAREHUDMODE   	"Field 15"
-
-Var IsCortuiSelected
-Var isLobbyScreenSelected
-Var isHangarScreenSelected
-Var settingsFilename
-Var settingsNumChatLinesLobby
-Var settingsNumChatLinesGlobal
-Var settingsNumChatLinesLoadout
-Var settingsAlwaysShowLoadoutWindow
-Var settingsShowMinimapAtLoadoutScreen
-Var settingsShowLastOrders
-Var settingsShowScrollbar
-Var settingsSoftwareHUDModeText
-Var settingsSoftwareHUDMode
-Var settingsNormalHUDModeText
-Var settingsNormalHUDMode
-Var isCortUIInstalled
-Var shallInstallCortUI
-
-
-  !include "GetLocalTime.nsi"
-  !include "HelperFunctions.nsi"
-  !include "InstallationCode.nsi"
-  !include "UninstallationCode.nsi"
-  !include "Pages.nsi"
-
-#	SectionSetSize SECIDX_SLIPSTREAM 99999
+	!define INSTALLOPTIONS_TEMP_FILE "CortUIConfig.ini"       # the name of the configuration .ini file in the temp directory at installation-time
 
 
 ;--------------------------------
-;General
-  ;Name and file
-  Name "${NAME}"
-  OutFile "${FILENAME}"
+; Variables
 
-  ;Get installation folder
-#  Call CheckRegPath
-
-  ;Default installation folder
-  InstallDir ""
-  
-  ;Get installation folder from registry if available
-  InstallDirRegKey HKLM "${REGKEY_ALLEGARTWORK}" "${REGNAME_ALLEGARTWORK}"
-#  InstallDir "f:\temp2"
-
-
-;--------------------------------
-;Pages
-
- 
-;--------------------------------
-;Languages
- 
-  !insertmacro MUI_LANGUAGE "English"
+	Var isLobbyScreenSelected
+	Var isHangarScreenSelected
+	Var settingsFilename
+	Var settingsNumChatLinesLobby
+	Var settingsNumChatLinesGlobal
+	Var settingsNumChatLinesLoadout
+	Var settingsAlwaysShowLoadoutWindow
+	Var settingsShowMinimapAtLoadoutScreen
+	Var settingsShowLastOrders
+	Var settingsShowScrollbar
+	Var settingsSoftwareHUDModeText
+	Var settingsSoftwareHUDMode
+	Var settingsNormalHUDModeText
+	Var settingsNormalHUDMode
 
 
 ;--------------------------------
-;Descriptions
+; General
 
-	;Language strings
-#	LangString DESC_SectionCortUI ${LANG_ENGLISH} 
-#	LangString DESC_SectionSlipstreamGUI ${LANG_ENGLISH} 
+	# Name and file
+	Name "${NAME}"
+	OutFile "${FILENAME}"
 
-	;Assign language strings to sections
-	!insertmacro MUI_FUNCTION_DESCRIPTION_BEGIN
-	  !insertmacro MUI_DESCRIPTION_TEXT ${SECIDX_CORTUI} "${SECTIONDESC_CORTUI}"
-	!insertmacro MUI_FUNCTION_DESCRIPTION_END
+	# Default installation folder
+	InstallDir ""
 
-	!insertmacro MUI_UNFUNCTION_DESCRIPTION_BEGIN
-	  !insertmacro MUI_DESCRIPTION_TEXT ${UN_SECIDX_CORTUI} "${SECTIONDESC_UN_CORTUI}"
-	  !insertmacro MUI_DESCRIPTION_TEXT ${UN_SECIDX_REMOVEBACKUPS} "${SECTIONDESC_UN_REMOVEBACKUPS}"
-	  !insertmacro MUI_DESCRIPTION_TEXT ${UN_SECIDX_REMOVEUNINSTALLER} "${SECTIONDESC_UN_REMOVEUNINSTALLER}"
-	!insertmacro MUI_UNFUNCTION_DESCRIPTION_END
+	# Get installation folder from registry if available
+	InstallDirRegKey HKLM "${REGKEY_ALLEGARTWORK}" "${REGNAME_ALLEGARTWORK}"
 
 
+;--------------------------------
+; Includes
 
+	# NSIS components
+	!include "MUI2.nsh"
+	!include "InstallOptions.nsh"
+
+	# Custom configuration (note: the order of the imports is *very* relevant for ModernUI2/NSIS!)
+	!include "Installer\GetLocalTime.nsi"
+	!include "Installer\HelperFunctions.nsi"
+	!define INSTALLOPTIONS_INI_FILE "Installer\ConfigurationScreen.ini"
+	!include "Installer\InstallationPages.nsi"
+	!include "Installer\UninstallationPages.nsi"
+	!include "Installer\Interface.nsi"
+	!include "Installer\InstallationCode.nsi"
+	!include "Installer\UninstallationCode.nsi"
