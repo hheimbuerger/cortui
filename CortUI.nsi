@@ -22,10 +22,12 @@
 		!define NAME						"CortUI ${VERSION}"
 		!define FILENAME					"CortUI-${VERSION}.exe"
 	!else
-		!define /date NOW "%Y%m%d-%H%M%S"
-		!define VERSION "${VERSION_NUMBER}-dev-${NOW}"
-		!define NAME						"CortUI ${VERSION_NUMBER}-dev-${NOW}"
-		!define FILENAME					"CortUI-${VERSION_NUMBER}-dev-${NOW}.exe"
+		!ifndef BUILD_ID
+			!define /date BUILD_ID "%Y%m%d-%H%M%S"
+		!endif
+		!define VERSION "${VERSION_NUMBER}-dev-${BUILD_ID}"
+		!define NAME						"CortUI ${VERSION_NUMBER}-dev-${BUILD_ID}"
+		!define FILENAME					"CortUI-${VERSION_NUMBER}-dev-${BUILD_ID}.exe"
 	!endif
 
 	!define REGKEY_ALLEG				"SOFTWARE\Microsoft\Microsoft Games\Allegiance\1.0\"
