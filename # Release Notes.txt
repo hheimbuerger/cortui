@@ -1,78 +1,127 @@
-﻿/*****************************************************************************\
-| CortUI v1.76 - Release Notes                                                |
+/*****************************************************************************\
+| CortUI v1.3 - Release Notes                                                 |
 \*****************************************************************************/
 
 
-=== http://cortui.rtsquad.org/ ===
-
-
-CortUI is a modification package of the user interface of Allegiance
+This is a modification of the user interface of Allegiance
 (http://www.freeallegiance.org/). It is based on and inspired by Ksero's
-modification.
+modification
+(http://www.freeallegiance.org/modules.php?name=Forums&file=viewtopic&t=11664).
 
 
-More information:
+Changes in CortUI (compared to default UI):
+-------------------------------------------
+- Chat has ten lines instead of five.
+- Base status display in hangar-mode has been moved from the top to the bottom
+  right, to not overlap with the chat.
+- Parts of the hangar graphics have been removed to not overlap with the chat.
+- Help button in hangar-mode has been removed because it overlapped with the
+  chat and isn't helpful anyway.
+- Autopilot and vector-lock status in flight-mode have been moved and the
+  graphics have been made smaller to not overlap with the chat.
+- Map-mode shows all necessary ship status info in upper left area of the
+  screen. (Autopilot and vector-lock status, name of current target, distance
+  to current target, ship type, shield status, hull status, energy status,
+  ammo status, fuel status, current thrust, current speed, current signature,
+  kill bonus.)
+- Ripcord time is now displayed in map-mode as well, not only in flight-mode.
+
+
+Installation:
+-------------
+1. Shut down Allegiance.
+2. Create a backup of the following files in your \artwork directory:
+   - dialog.mdl
+   - hangar.mdl
+   This package contains a \backup directory that contains the unmodified
+   files. Nevertheless, you shouldn't trust it but rather do your own backup.
+3. Extract the files in this archive to your \artwork directory, overwriting
+   the existing files.
+4. Launch Allegiance.
+
+
+Additional remarks:
+-------------------
+- Designed for the normal UI and Slipstream GUI. When you want to use it with
+  Slipstream, you should use the special package for this. Otherwise, the
+  command bar in the map mode will have the standard design.
+- Designed for 800x600 and 1024x768.
+- Works with normal HUD and software HUD. (Although I don't recommend using
+  this UI with software HUD at 800x600, because I had to move down the status
+  bar to make room for the ten chat lines, so its pretty much in the center
+  at 800x600 now.)
+- The four red lines of command wing info don't overlap with the chat lines,
+  but they do overlap with the hud and the info in map-mode. :( Suggestions
+  to solve this problem are appreciated, I don't see any proper solution
+  currently. I can move them, modify their font, etc. But I just don't know
+  where to.
+- The chat lines overlap with the normal display in the loadout-screen. I
+  can't think of a proper solution either.
+
+
+Package contents:
 -----------------
-See http://cortui.rtsquad.org/wiki/Features
-  for a list of all features.
-See http://cortui.rtsquad.org/wiki/Screenshots
-  for screenshots of the features and the included HUDs.
-See http://cortui.rtsquad.org/wiki/DownloadAndInstallation
-  for instructions on how to install and uninstall CortUI.
-See http://cortui.rtsquad.org/wiki/InstallationOptions
-  for more detailed information about the options available during install.
-See http://cortui.rtsquad.org/milestone/1.76
-  for an overview of this release.
+- dialog.mdl (replaces existing file): Contains all changes of in-game GUI.
+- hangar.mdl (replaces existing file): Contains all changes of hangar GUI.
+- cortui_animinvestbmp.mdl: Contains the animation that highlights the
+  investment button when you hover with your mouse cursor over it. Some pixels
+  at the top of this graphic were made black to not overlay the chat.
+- cortui_conautopilotbmp.mdl: Contains the autopilot-icon. The icon was resized
+  to take less space on the screen in in-flight- and map-mode.
+- cortui_convectorlockbmp.mdl: Contains the autopilot-icon. The icon was
+  resized to take less space on the screen in in-flight- and map-mode.
+- cortui_concommdisplaybmp.mdl: I'm not completely sure about this one. It
+  seems to be the graphic (completely black) that is used as the background of
+  the chat display. I had to increase its size to display all ten lines of
+  chat.
+- cortui_hangarbmp.mdl: Contains the background image of the hangar. Some
+  pixels at the top of this graphic were made black to not overlay the chat.
+- backup\dialog.mdl: the original dialog.mdl from the installer 1.26
+- backup\hangar.mdl: the original hangar.mdl from the installer 1.26
+- backup\dialog.mdl.Ksero: Ksero's modification of the dialog.mdl
 
 
-Contributing:
--------------
-See http://cortui.rtsquad.org/wiki#HowToContribute
-  for more information on how to report problems and suggest improvements.
+Version history:
+----------------
+1.2:
+  * added support for software HUD
+
+1.1:
+  + added current ship name and KB to map-mode
+  * moved base status display down and to the right
+  * moved the chat four pixels down
+
+1.0:
+  + 10 chat-lines
+  + hangar-view modified
+  + AP- and VL-icons modified and moved
+  + ship status and ripcord time added to map-mode 
 
 
-Changelog:
-----------
-See http://cortui.rtsquad.org/query?milestone=1.76
-  for a list of changes in this release
-See http://cortui.rtsquad.org/wiki/VersionHistory
-  for a list of changes in previous releases.
-See http://cortui.rtsquad.org/roadmap
-  for planned changes in future versions.
+To Do:
+------
+- The base status display image should be modified so that it fits better to
+  the background of its new position. This can be done with any pixel graphic
+  editor (Paint, PSP, Photoshop) and a bit of talent. I'm missing the latter,
+  so please contact me if you want to do that. You'll be mentioned in the
+  release notes as a matter of fact.
+- Test for compatibility with Slipstream GUI.
 
 
-Known problems:
----------------
-- The chat in the loadout screen can't be scrolled with PageUp/PageDown.
-  Pressing these buttons anyway will only scroll the chat display on the
-  other screens.
-- Don't press F4 on the map, the inventory is shown anyway at all times.
-- After pressing F3, the 'last hovered over' information of the minimap is
-  lost.
-- After you died, in the one or two seconds until you return to the station,
-  you still see some UI elements that shouldn't be there. :(
-- Sometimes, you see the autopilot indicator without having a target. This
-  is mainly an Allegiance bug, not a CortUI bug.
-- The minimap can no longer be hidden (it can't be toggled at all). (Don't
-  press F7. If you accidently do, press it again.)
-- The uninstaller doesn't delete the /artwork/mods/CortUI directory, even if
-  it is empty.
+Contact:
+--------
+e-mail: Henrik@Heimbuerger.de
+ICQ: 14011335
+PM at forums: Cortex
 
-See http://cortui.rtsquad.org/report/9
-  for a newer list of tickets.
+Constructive criticism and feature requests are appreciated. This modification
+is free for use. :D The files may be modified without further notification of
+the author. Would be nice if you mention me in the release notes of
+modifications that are based on this one. :)
 
 
-Contributors:
--------------
-Based on Ksero's HUD modification, making use of his excellent documentation of
-the .mdl files.
-
-Original logo design by Newtype, logo modifications by Sp4wn, favicon by
-Loriana.
-
-HUD contributions by Parcival, Raveen and FlingPu.
-
-Special thanks to all testers who have reported bugs. 
-
-
--- Cort, 2009-03-17
+Acknowledgements:
+-----------------
+This modification would not have been possible without Ksero's modification,
+his excellent documentation of the .mdl-files, and his support!
+Thanks to Radikal for the first (and only :D) beta test.
