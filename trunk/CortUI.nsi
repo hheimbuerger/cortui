@@ -1,6 +1,6 @@
 ; CortUI Installer script
 ;
-; Latest NSIS tested with: 2.44 (http://nsis.sourceforge.net/). Modern UI 2 and InstallOption 2 are required.
+; Latest NSIS tested with: 2.44 (http://nsis.sourceforge.net/). Modern UI 2 and InstallOptions 2 are required.
 ;
 ; This installer requires the FindProc plugin. Copy FindProc/FindProcDLL.dll to your /Program Files/NSIS/Plugins/ directory and you're set.
 
@@ -16,18 +16,18 @@
 	!define VERSION_NUMBER				"${VER_MAJOR}.${VER_MINOR}${VER_BUGFIX}"
 	!define CORTUI_SIZE                 1013
 	!define LATEST_ALLEG_INSTALLER_VER	"build 210"
-	
+
 	!ifdef RELEASE
-		!define VERSION ${VERSION_NUMBER}
-		!define NAME						"CortUI ${VERSION}"
-		!define FILENAME					"CortUI-${VERSION}.exe"
+		!define VERSION		${VERSION_NUMBER}
+		!define NAME		"CortUI ${VERSION}"
+		!define FILENAME	"CortUI-${VERSION}.exe"
 	!else
 		!ifndef BUILD_ID
 			!define /date BUILD_ID "%Y%m%d-%H%M%S"
 		!endif
-		!define VERSION "${VERSION_NUMBER}-dev-${BUILD_ID}"
-		!define NAME						"CortUI ${VERSION_NUMBER}-dev-${BUILD_ID}"
-		!define FILENAME					"CortUI-${VERSION_NUMBER}-dev-${BUILD_ID}.exe"
+		!define VERSION		"${VERSION_NUMBER}-dev-${BUILD_ID}"
+		!define NAME		"CortUI ${VERSION_NUMBER}-dev-${BUILD_ID}"
+		!define FILENAME	"CortUI-${VERSION_NUMBER}-dev-${BUILD_ID}.exe"
 	!endif
 
 	!define REGKEY_ALLEG				"SOFTWARE\Microsoft\Microsoft Games\Allegiance\1.0\"
@@ -46,8 +46,8 @@
 	!define SECTIONTITLE_UN_REMOVEUNINSTALLER	"un.Remove uninstaller"
 	!define SECTIONDESC_UN_REMOVEUNINSTALLER	"Remove this uninstaller"
 
-	!define CONFIGURATION_PAGE_TITLE "Customize Options"
-	!define CONFIGURATION_PAGE_SUBTITLE "Set custom options and choose your HUD."
+	!define CONFIGURATION_PAGE_TITLE			"Customize Options"
+	!define CONFIGURATION_PAGE_SUBTITLE			"Set custom options and choose your HUD."
 
 	!define FIELD_INSTALLLOBBY			"Field 1"
 	!define FIELD_INSTALLHANGAR			"Field 2"
@@ -60,7 +60,7 @@
 	!define FIELD_NORMALHUDMODE   	    "Field 13"
 	!define FIELD_SOFTWAREHUDMODE   	"Field 15"
 
-	!define INSTALLOPTIONS_TEMP_FILE "CortUIConfig.ini"       # the name of the configuration .ini file in the temp directory at installation-time
+	!define INSTALLOPTIONS_TEMP_FILE	"CortUIConfig.ini"       # the name of the configuration .ini file in the temp directory at installation-time
 
 
 ;--------------------------------
@@ -113,7 +113,8 @@
 	!include "Installer\UninstallationPages.nsi"							# the code used during installation
 	!include "Installer\InstallationCode.nsi"								# the pages shown during uninstallation
 	!include "Installer\UninstallationCode.nsi"								# the code used during uninstallation
-		
+
+
 ;--------------------------------
 ; Languages
 
