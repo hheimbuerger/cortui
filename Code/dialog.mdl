@@ -382,18 +382,7 @@ SectorNameInHangarImage =
         ),
         hudBlendMode);
 
-CloakNormal = ImportImage("concloakbmp", true);
-
-CloakOn = 
-    SwitchImage(
-        IsCloaked(Me, OnEveryFrame),
-        emptyImage,
-        [
-            (1, CloakNormal)
-        ]
-    );
-
-LocationInCockpitImage =
+LocationImage =
     GroupImage([
         BlendImage(
             StringImage(
@@ -405,12 +394,6 @@ LocationInCockpitImage =
             ),
             hudBlendMode),
         TranslateImage(SectorNameImage, Point(0, -14))
-    ]);
-
-LocationOnMapImage =
-    GroupImage([
-        LocationInCockpitImage,
-        TranslateImage(CloakOn, Point(34, -110))
     ]);
 
 LocationInHangarImage =
@@ -1221,6 +1204,17 @@ AutopilotOnImage =
         ]
     );
 
+CloakNormal = ImportImage("concloakbmp", true);
+
+CloakOn = 
+    SwitchImage(
+        IsCloaked(Me, OnEveryFrame),
+        emptyImage,
+        [
+            (1, CloakNormal)
+        ]
+    );
+
 SignatureImage = 
     StringImage(
         JustifyCenter,
@@ -1450,13 +1444,7 @@ fpHullGauge =
 
 fpHullGaugeBack = 
     BlendImage(
-		GaugeImageRect(         
-            JustifyBottom,
-            ImportImageFromFile("mods/CortUI/media/cortui_fp1_hull_gauge2.png", true),
-            Rect(0, 0, 36, 174),
-            true,
-            1
-        ),
+        ImportImageFromFile("mods/CortUI/media/cortui_fp1_hull_gauge2.png", true),
         hudBlendMode
     );
 
@@ -1504,13 +1492,7 @@ fpShieldGauge =
 
 fpShieldGaugeBack = 
     BlendImage(
-		GaugeImageRect(
-            JustifyBottom,
-            ImportImageFromFile("mods/CortUI/media/cortui_fp1_shield_gauge2.png", true),
-			Rect(0, 0, 36, 174),
-            true,
-            1
-        ),
+        ImportImageFromFile("mods/CortUI/media/cortui_fp1_shield_gauge2.png", true),
         hudBlendMode
     );
 
@@ -2419,15 +2401,7 @@ parciVectorLockOn =
     );
 
 parciThrustGauge =
-    GaugeImageRect(
-        JustifyBottom,
-        ImportImageFromFile("mods/CortUI/media/cortui_parci_thrust_fix.png", true), // texture, bounds must be power of 2 if 3D mode
-        Rect(0, 0, 28, 82), // which part of the tex to use
-        true, // this set 3D mode
-        playerThrottle
-    );
-// parciThrustGauge =
-//    GaugeImage(JustifyBottom, ImportImageFromFile("mods/CortUI/media/cortui_parci_thrust.png", true), playerThrottle);
+    GaugeImage(JustifyBottom, ImportImageFromFile("mods/CortUI/media/cortui_parci_thrust.png", true), playerThrottle);
 
 parciThrustGaugeHit =
     GaugeImage(JustifyBottom, ImportImageFromFile("mods/CortUI/media/cortui_parci_thrusthit.png", true), playerThrottle);
@@ -2442,16 +2416,8 @@ parciThrust =
         ]
     );
 
-parciFuelGauge =
-    GaugeImageRect(
-        JustifyBottom,
-        ImportImageFromFile("mods/CortUI/media/cortui_parci_fuel_fix.png", true), // texture, bounds must be pow2 if 3D mode
-        Rect(0, 0, 22, 82), // which part of the tex to use
-        true, // this set 3D mode
-        GetFuel(Me, OnEveryFrame)
-    );
-// parciFuelGauge = 
-//    GaugeImage(JustifyBottom, ImportImageFromFile("mods/CortUI/media/cortui_parci_fuel.png", true), GetFuel(Me, OnEveryFrame));
+parciFuelGauge = 
+    GaugeImage(JustifyBottom, ImportImageFromFile("mods/CortUI/media/cortui_parci_fuel.png", true), GetFuel(Me, OnEveryFrame));
     
 parciFuelGaugeHit = 
     GaugeImage(JustifyBottom, ImportImageFromFile("mods/CortUI/media/cortui_parci_fuelhit.png", true), GetFuel(Me, OnEveryFrame));
@@ -2467,15 +2433,7 @@ parciFuel =
     );
 
 parciAmmoGauge =
-    GaugeImageRect(
-        JustifyBottom,
-        ImportImageFromFile("mods/CortUI/media/cortui_parci_ammo_fix.png", true), // texture, bounds must be pow2 if 3D mode
-        Rect(0, 0, 19, 82), // which part of the tex to use
-        true, // this set 3D mode
-        GetAmmo(Me, OnEveryFrame)
-    );
-// parciAmmoGauge =
-//    GaugeImage(JustifyBottom, ImportImageFromFile("mods/CortUI/media/cortui_parci_ammo.png", true), GetAmmo(Me, OnEveryFrame));
+    GaugeImage(JustifyBottom, ImportImageFromFile("mods/CortUI/media/cortui_parci_ammo.png", true), GetAmmo(Me, OnEveryFrame));
 
 parciAmmoGaugeHit =
     GaugeImage(JustifyBottom, ImportImageFromFile("mods/CortUI/media/cortui_parci_ammohit.png", true), GetAmmo(Me, OnEveryFrame));
@@ -2490,16 +2448,8 @@ parciAmmo =
         ]
     );
 
-parciEnergyGauge =
-    GaugeImageRect(
-        JustifyBottom,
-        ImportImageFromFile("mods/CortUI/media/cortui_parci_energy_fix.png", true), // texture, bounds must be pow2 if 3D mode
-        Rect(0, 0, 19, 82), // which part of the tex to use
-        true, // this set 3D mode
-        GetPercentEnergy(Me, OnEveryFrame)
-    );
-// parciEnergyGauge = 
-//    GaugeImage(JustifyBottom, ImportImageFromFile("mods/CortUI/media/cortui_parci_energy.png", true), GetPercentEnergy(Me, OnEveryFrame));    
+parciEnergyGauge = 
+    GaugeImage(JustifyBottom, ImportImageFromFile("mods/CortUI/media/cortui_parci_energy.png", true), GetPercentEnergy(Me, OnEveryFrame));    
 
 parciEnergyGaugeHit = 
     GaugeImage(JustifyBottom, ImportImageFromFile("mods/CortUI/media/cortui_parci_energyhit.png", true), GetPercentEnergy(Me, OnEveryFrame));    
@@ -2546,24 +2496,6 @@ parciShield =
         ]
     );
 
-ParciSoftSpeed = 
-    StringImage(
-        JustifyRight,
-        75,
-        medVerdana,
-        softText,
-        ConcatinatedString(NumberString(GetSpeed(Me, OnEveryFrame)), " mps")
-);
-	
-ParciSoftSignatureImage = 
-    StringImage(
-        JustifyRight,
-        75,
-        medVerdana,
-        softText,
-        ConcatinatedString("Sig ", NumberString(Signature))
-    );
-	
 ModifiedCenterHudParciStyle = 
 		GroupImage([    
 		    TranslateImage(parciAutopilotOnImage, Point(91, 77)),
@@ -2582,8 +2514,8 @@ ModifiedCenterHudParciStyle =
 			TranslateImage(parciShield, Point(95, 1)),
 		    TranslateImage(parciHull, Point(113, 1)),
 
-			TranslateImage(ParciSoftSpeed, Point(-32, 97)),
-		    TranslateImage(ParciSoftSignatureImage, Point(-32, 109)),
+			TranslateImage(softSpeed, Point(0, 97)),
+		    TranslateImage(softSignatureImage, Point(0, 109)),
 
 		    TranslateImage(softArtifact, Point(194, 0)),
 		    TranslateImage(softCaptureFlag, Point(194, 0)),
@@ -2931,13 +2863,7 @@ fpTargetExperienceImage =
 
 fpTargetHullGaugeBack = 
     BlendImage(
-		GaugeImageRect(
-            JustifyBottom,
-            ImportImageFromFile("mods/CortUI/media/cortui_fp1_target_hull_gauge2.png", true),
-            Rect(0, 0, 53, 94),
-            true,
-            1
-        ),
+        ImportImageFromFile("mods/CortUI/media/cortui_fp1_target_hull_gauge2.png", true),
         hudBlendMode
     );
 
@@ -2963,13 +2889,7 @@ GroupImage(
 
 fpTargetShieldGaugeBack = 
     BlendImage(
-		GaugeImageRect(
-                JustifyBottom,
-                ImportImageFromFile("mods/CortUI/media/cortui_fp1_target_shield_gauge2.png", true),
-                Rect(0, 0, 53, 94),
-                true,
-                1
-		),
+        ImportImageFromFile("mods/CortUI/media/cortui_fp1_target_shield_gauge2.png", true),
         hudBlendMode
     );
 
@@ -3868,7 +3788,8 @@ LookingAtImage =
                 "Currently viewing:"
             ),
             hudBlendMode),
-        TranslateImage(SectorNameImage, Point(0, -14))
+        TranslateImage(SectorNameImage, Point(0, -14)),
+        TranslateImage(CloakOn, Point(30, -110))
     ]);
 
 //////////////////////////////////////////////////////////////
@@ -4176,10 +4097,8 @@ dialogs =
         // CommandPane: the command bar at the F3-map
         (CommandPaneImage,              SideBottom,         Point(-135, -190), Point(-135,   40), .5,     6, false),
 
-        // LocationInCockpitImage: "current location" in cockpit mode
-        (LocationInCockpitImage,        SideTopRight,       Point(-180, 185), Point(-180,  -15), .5, 0x00030, true),
-        // LocationOnMapImage: "current location" in map mode
-        (LocationOnMapImage,            SideTopRight,       Point(-180, 185), Point(-180,  -15), .5, 0x10002, true),
+        // LocationImage: "current location" in cockpit mode
+        (LocationImage,                 SideTopRight,       Point(-180, 185), Point(-180,  -15), .5, 0x10032, true),
         // LocationInHangarImage: "current location" in hangar (SectorName is not set correctly, so it has to be retrieved via GetSectorName(MyStation, OnEveryFrame))
         (LocationInHangarImage,         SideTopRight,       Point(-180, 185), Point(-180,  -15), .5, 0x00001, true),
         // LookingAtImage: "currently viewing" in map mode

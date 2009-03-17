@@ -182,22 +182,6 @@ effixFlags = "\n *  Capture and return %d of the enemy flags.";
 effixProsperity = "\n * Invest in \"Reinforcement\", costing %d credits, whereby reinforcements will be sent immediately to crush the opposition.";
 effixDeathmatch = "\n *  Destroy %d enemy ships.";
 
-
-///////////////////////////////////////////////////////////////////////////////
-// BSG strings
-
-colonialTitle = "Colonial Fleet";
-colonialString = "Mission Breifing";
-colonialNoWin = "Your squadron %s has been stationed in %s. Hostile %s have been detected. Neutralize them. Good hunting.";
-colonialDefault = "Your squadron %s has been stationed in %s. Hostile %s have been detected. Neutralize them, and destroy or capture all of their bases. Good hunting.";
-colonialSecondaryObjectives = "\n\nOther objectives include:\n";
-colonialConquest = "\n *  Control %d%% of the bases.";
-colonialCountdown = "\n *  Eliminate as many enemies as possible within %d minutes.";
-colonialArtifacts = "\n *  Capture and return %d artifacts.";
-colonialFlags = "\n *  Capture and return %d enemy flags.";
-colonialProsperity = "\n *  Invest in \"Reinforcement\", costing %d credits, whereby reinforcements will be sent immediately to crush the opposition.";
-colonialDeathmatch = "\n *  Destroy %d enemy ships.";
-
 ///////////////////////////////////////////////////////////////////////////////
 // AW4 strings
 
