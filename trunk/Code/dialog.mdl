@@ -2418,16 +2418,18 @@ parciVectorLockOn =
         ]
     );
 
+
 parciThrustGauge =
-    GaugeImageRect(
-        JustifyBottom,
-        ImportImageFromFile("mods/CortUI/media/cortui_parci_thrust_fix.png", true), // texture, bounds must be power of 2 if 3D mode
-        Rect(0, 0, 28, 82), // which part of the tex to use
-        true, // this set 3D mode
-        playerThrottle
-    );
-// parciThrustGauge =
-//    GaugeImage(JustifyBottom, ImportImageFromFile("mods/CortUI/media/cortui_parci_thrust.png", true), playerThrottle);
+	BlendImage(  
+		GaugeImageRect(
+			JustifyBottom,
+			ImportImageFromFile("mods/CortUI/media/cortui_parci_thrust.png", true),
+			Rect(0, 0, 28, 82), // which part of the image to use
+			true, // this set 3D mode
+			playerThrottle
+		),
+	BlendModeSource //hudBlendMode	
+	);
 
 parciThrustGaugeHit =
     GaugeImage(JustifyBottom, ImportImageFromFile("mods/CortUI/media/cortui_parci_thrusthit.png", true), playerThrottle);
@@ -2442,16 +2444,18 @@ parciThrust =
         ]
     );
 
+
 parciFuelGauge =
-    GaugeImageRect(
-        JustifyBottom,
-        ImportImageFromFile("mods/CortUI/media/cortui_parci_fuel_fix.png", true), // texture, bounds must be pow2 if 3D mode
-        Rect(0, 0, 22, 82), // which part of the tex to use
-        true, // this set 3D mode
-        GetFuel(Me, OnEveryFrame)
-    );
-// parciFuelGauge = 
-//    GaugeImage(JustifyBottom, ImportImageFromFile("mods/CortUI/media/cortui_parci_fuel.png", true), GetFuel(Me, OnEveryFrame));
+	BlendImage(  
+		GaugeImageRect(
+			JustifyBottom,
+			ImportImageFromFile("mods/CortUI/media/cortui_parci_fuel.png", true),
+			Rect(0, 0, 22, 82), // which part of the image to use
+			true, // this set 3D mode
+			GetFuel(Me, OnEveryFrame)
+		),
+	BlendModeSource //hudBlendMode	
+	);
     
 parciFuelGaugeHit = 
     GaugeImage(JustifyBottom, ImportImageFromFile("mods/CortUI/media/cortui_parci_fuelhit.png", true), GetFuel(Me, OnEveryFrame));
@@ -2466,17 +2470,19 @@ parciFuel =
         ]
     );
 
-parciAmmoGauge =
-    GaugeImageRect(
-        JustifyBottom,
-        ImportImageFromFile("mods/CortUI/media/cortui_parci_ammo_fix.png", true), // texture, bounds must be pow2 if 3D mode
-        Rect(0, 0, 19, 82), // which part of the tex to use
-        true, // this set 3D mode
-        GetAmmo(Me, OnEveryFrame)
-    );
-// parciAmmoGauge =
-//    GaugeImage(JustifyBottom, ImportImageFromFile("mods/CortUI/media/cortui_parci_ammo.png", true), GetAmmo(Me, OnEveryFrame));
 
+parciAmmoGauge =
+	BlendImage(  
+		GaugeImageRect(
+			JustifyBottom,
+			ImportImageFromFile("mods/CortUI/media/cortui_parci_ammo.png", true),
+			Rect(0, 0, 19, 82), // which part of the image to use
+			true, // this set 3D mode
+			GetAmmo(Me, OnEveryFrame)
+		),
+	BlendModeSource //hudBlendMode	
+	);
+	
 parciAmmoGaugeHit =
     GaugeImage(JustifyBottom, ImportImageFromFile("mods/CortUI/media/cortui_parci_ammohit.png", true), GetAmmo(Me, OnEveryFrame));
 
@@ -2490,17 +2496,19 @@ parciAmmo =
         ]
     );
 
+	
 parciEnergyGauge =
-    GaugeImageRect(
-        JustifyBottom,
-        ImportImageFromFile("mods/CortUI/media/cortui_parci_energy_fix.png", true), // texture, bounds must be pow2 if 3D mode
-        Rect(0, 0, 19, 82), // which part of the tex to use
-        true, // this set 3D mode
-        GetPercentEnergy(Me, OnEveryFrame)
-    );
-// parciEnergyGauge = 
-//    GaugeImage(JustifyBottom, ImportImageFromFile("mods/CortUI/media/cortui_parci_energy.png", true), GetPercentEnergy(Me, OnEveryFrame));    
-
+	BlendImage(  
+		GaugeImageRect(
+			JustifyBottom,
+			ImportImageFromFile("mods/CortUI/media/cortui_parci_energy.png", true),
+			Rect(0, 0, 19, 82), // which part of the image to use
+			true, // this set 3D mode
+			GetPercentEnergy(Me, OnEveryFrame)
+		),
+	BlendModeSource //hudBlendMode	
+	);
+	
 parciEnergyGaugeHit = 
     GaugeImage(JustifyBottom, ImportImageFromFile("mods/CortUI/media/cortui_parci_energyhit.png", true), GetPercentEnergy(Me, OnEveryFrame));    
 
@@ -2513,13 +2521,32 @@ parciEnergy =
             (1, parciEnergyGaugeHit)
         ]
     );
-
+	
+	
 parciHullGauge =
-    GaugeImage(JustifyBottom, ImportImageFromFile("mods/CortUI/media/cortui_parci_hull.png", true), GetPercentHitPoints(Me, OnEveryFrame));    
+	BlendImage(  
+		GaugeImageRect(
+			JustifyBottom,
+			ImportImageFromFile("mods/CortUI/media/cortui_parci_hull.png", true),
+			Rect(0, 0, 23, 82), // which part of the image to use
+			true, // this set 3D mode
+			GetPercentHitPoints(Me, OnEveryFrame)
+		),
+	BlendModeSource //hudBlendMode	
+	);
 
 parciHullGaugeHit =
-    GaugeImage(JustifyBottom, ImportImageFromFile("mods/CortUI/media/cortui_parci_hullhit.png", true), GetPercentHitPoints(Me, OnEveryFrame));
-
+	BlendImage(  
+		GaugeImageRect(
+			JustifyBottom,
+			ImportImageFromFile("mods/CortUI/media/cortui_parci_hullhit.png", true),
+			Rect(0, 0, 23, 82), // which part of the image to use
+			true, // this set 3D mode
+			GetPercentHitPoints(Me, OnEveryFrame)
+		),
+	BlendModeSource //hudBlendMode	
+	);
+	
 parciHull = 
     SwitchImage(
         Flash,
@@ -2530,11 +2557,30 @@ parciHull =
         ]
     );
 
+	
 parciShieldGauge =
-    GaugeImage(JustifyBottom, ImportImageFromFile("mods/CortUI/media/cortui_parci_shield.png", true), GetPercentShields(Me, OnEveryFrame));
+	BlendImage(  
+		GaugeImageRect(
+			JustifyBottom,
+			ImportImageFromFile("mods/CortUI/media/cortui_parci_shield.png", true),
+			Rect(0, 0, 59, 74), // which part of the image to use
+			true, // this set 3D mode
+			GetPercentShields(Me, OnEveryFrame)
+		),
+	BlendModeSource //hudBlendMode	
+	);
 
 parciShieldGaugeHit =
-    GaugeImage(JustifyBottom, ImportImageFromFile("mods/CortUI/media/cortui_parci_shieldhit.png", true), GetPercentShields(Me, OnEveryFrame));
+	BlendImage(  
+		GaugeImageRect(
+			JustifyBottom,
+			ImportImageFromFile("mods/CortUI/media/cortui_parci_shieldhit.png", true),
+			Rect(0, 0, 59, 74), // which part of the image to use
+			true, // this set 3D mode
+			GetPercentShields(Me, OnEveryFrame)
+		),
+	BlendModeSource //hudBlendMode	
+	);
 
 parciShield = 
     SwitchImage(
@@ -2545,7 +2591,8 @@ parciShield =
             (1, parciShieldGaugeHit)
         ]
     );
-
+	
+	
 ParciSoftSpeed = 
     StringImage(
         JustifyRight,
