@@ -1,5 +1,5 @@
 ﻿/*****************************************************************************\
-| CortUI v1.76 - Release Notes                                                |
+| CortUI v1.77 - Release Notes                                                |
 \*****************************************************************************/
 
 
@@ -21,7 +21,7 @@ See http://cortui.rtsquad.org/wiki/DownloadAndInstallation
   for instructions on how to install and uninstall CortUI.
 See http://cortui.rtsquad.org/wiki/InstallationOptions
   for more detailed information about the options available during install.
-See http://cortui.rtsquad.org/milestone/1.76
+See http://cortui.rtsquad.org/milestone/1.77
   for an overview of this release.
 
 
@@ -33,7 +33,7 @@ See http://cortui.rtsquad.org/wiki#HowToContribute
 
 Changelog:
 ----------
-See http://cortui.rtsquad.org/query?milestone=1.76
+See http://cortui.rtsquad.org/query?milestone=1.77
   for a list of changes in this release
 See http://cortui.rtsquad.org/wiki/VersionHistory
   for a list of changes in previous releases.
@@ -75,4 +75,4 @@ HUD contributions by Parcival, Raveen and FlingPu.
 Special thanks to all testers who have reported bugs. 
 
 
--- Cort, 2009-03-17
+-- Cort, 2010-03-01
