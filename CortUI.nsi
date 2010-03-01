@@ -11,8 +11,8 @@
 
 	!define VER_MAJOR					"1"
 	!define VER_MINOR					"7"
-	!define VER_BUGFIX					"6"
-	!define INSTALLER_BUILD				"0027"
+	!define VER_BUGFIX					"7"
+	!define INSTALLER_BUILD				"0028"
 	!define VERSION_NUMBER				"${VER_MAJOR}.${VER_MINOR}${VER_BUGFIX}"
 	!define CORTUI_SIZE                 1013
 	!define LATEST_ALLEG_INSTALLER_VER	"build 210"
