@@ -288,7 +288,7 @@ ChatCompositionImage = PaneImage(ComposingPane, false, true);
 //
 //////////////////////////////////////////////////////
 
-StationPane =
+StationPaneImage =
     GroupImage(
         [
             TranslateImage(
@@ -4242,8 +4242,8 @@ dialogs =
         (InTurretPaneImage,             SideCenter,         Point(-150,   25), Point(-150,   25),   0,    64, true),
         (BoardTextImage,                SideCenter,         Point(-362,   20), Point(-362,   20),   0,    64, true),
 
-        // StationPane: station status indicator
-        (StationPane,                   SideTopLeft,        Point(-148,   85), Point(   3,  -33),   0,    69, true),
+        // StationPaneImage: station status indicator
+        (StationPaneImage,              SideTopLeft,        Point(-148,   85), Point(   3,  -33),   0,    69, true),
 
         // EjectPodPane: the eject pod display
         (EjectPodPaneImage,             SideCenter,         Point( -86,  -87), Point( -86,  -87),  .5,    48, true),
