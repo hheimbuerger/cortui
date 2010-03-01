@@ -626,16 +626,16 @@ TipTextImage1 =
         JustifyCenter,
         600, 
         medVerdana, 
-        Color(.7, .5, .5), 
+        mySideColor, 
         TipText1
     );
-    
+
 TipTextImage2 =
     StringImage(
         JustifyCenter,
         600, 
         smVerdana, 
-        Color(.7, .4, .4), 
+        mySideColor, 
         TipText2
     );
 //
