@@ -1,15 +1,3 @@
-// /**************************************************************************\
-// | File version history:                                                    |
-// |                                                                          |
-// | 1.1 / Cortex:                                                            |
-// | * the part description has been moved up and can now hold the headline   |
-// |   plus three lines of text without running out of the box                |
-// |                                                                          |
-// | 1.0 / original Allegiance developers:                                    |
-// | + basic functionality                                                    |
-// |                                                                          |
-// \**************************************************************************/
-
 use "loadoutinclude";
 use "font";
 

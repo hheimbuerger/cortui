@@ -1,35 +1,3 @@
-// /**************************************************************************\
-// | File version history:                                                    |
-// |                                                                          |
-// | 1.6 / Cortex:                                                            |
-// | * switched to using PNGs in a subdirectory instead of using BMP.MDLs     |
-// |                                                                          |
-// | 1.5 / Cortex:                                                            |
-// | * moved the info text at the upper right to make it not overlap with the |
-// |   minimize/maximize/close buttons                                        |
-// |                                                                          |
-// | 1.4 / Cortex:                                                            |
-// | * incorporated the changes of R4 to the game lobby                       |
-// |                                                                          |
-// | 1.3 / Cortex:                                                            |
-// | * moved the (H)ELO display a little to make it not run out of the team	  |
-// |   display                                                                |
-// |                                                                          |
-// | 1.2 / Cortex:                                                            |
-// | + uses external settings now											  |
-// |                                                                          |
-// | 1.1 / Cortex:                                                            |
-// | + added some chat lines                                                  |
-// | * water mark image and player list has been shrinked to make room for    |
-// |   extra chat lines														  |
-// | * *really* fixed the graphical error right of the send button            |
-// |   (therefore the workaround 'crnrpatchbmp.mdl' is no longer necessary)   |
-// |                                                                          |
-// | 1.0 / original Allegiance developers:                                    |
-// | + basic functionality                                                    |
-// |                                                                          |
-// \**************************************************************************/
-
 use "gamepanes";
 use "font";
 use "teamscreendata";
