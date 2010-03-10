@@ -15,7 +15,7 @@
 	!define INSTALLER_BUILD				"0028"
 	!define VERSION_NUMBER				"${VER_MAJOR}.${VER_MINOR}${VER_BUGFIX}"
 	!define CORTUI_SIZE                 1013
-	!define LATEST_ALLEG_INSTALLER_VER	"build 210"
+	!define LATEST_ALLEG_INSTALLER_VER	"build 255"
 
 	!ifdef RELEASE
 		!define VERSION		${VERSION_NUMBER}
