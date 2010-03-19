@@ -1856,10 +1856,17 @@ fp2TargetHullImage = GroupImage([
         TranslateImage(fp2TargetHullGauge, Point(4, 29))
 ]);
 
-fp2TargetOvalColor = BlendImage(
-	ImportImageFromFile("mods/CortUI/media/cortui_fp2_target_oval_color.png", true),
-	hudBlendMode
-);
+fp2TargetOvalColor =
+	BlendImage(
+		GaugeImageRect(
+			JustifyBottom,
+			ImportImageFromFile("mods/CortUI/media/cortui_fp2_target_oval_color.png", true),
+			Rect(0, 0, 256, 256),
+			true,
+			1
+		),
+		hudBlendMode
+	);
 
 fp2TargetExperience = StringImage(
 	JustifyLeft,
@@ -2799,10 +2806,16 @@ DefaultNormalTargetDisplay =
 //////////////////////////////////////////////////////////////////////////////
 
 fpTargetOvalColor =
-        BlendImage(
-            ImportImageFromFile("mods/CortUI/media/cortui_fp1_target_oval_color.png", true),
-            hudBlendMode
-    );
+	BlendImage(
+		GaugeImageRect(
+			JustifyBottom,
+			ImportImageFromFile("mods/CortUI/media/cortui_fp1_target_oval_color.png", true),
+			Rect(0, 0, 164, 67),
+			true,
+			1
+		),
+		hudBlendMode
+	);
 
 fpTargetRangeString = 
     SwitchString(
