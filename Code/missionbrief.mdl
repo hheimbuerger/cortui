@@ -32,7 +32,7 @@ Tip22 = "The Allegiance Community has dedicated a LOT of time into helping every
 Tip23 = "After training, learn basic gameplay and technology on the Newbie servers. Once you've mastered the basics, join the vets and don't look back.";
 Tip24 = "Games with an imbalanced skill are NOT fun. If you're new, don't join the team with the most new players.";
 Tip25 = "As with all communities, Allegiance has 'good apples' and 'bad apples.' Don't let the bad ones ruin your fun.";
-Tip26 = "During an enemy attack nans will try and keep the main attacker alive. It is crucial that you attack the nans first because any damage you attempt to inflict on the main target will be instantly repaired.";
+Tip26 = "During an enemy attack nans will try and keep the main attacker alive. It is crucial that you attack the nans first because any damage you attempt to inflict on the main target will be instantly repaired. ";
 Tip27 = "Constructors have to line up on an asteroid exactly before 'diving in' and building the base. By ramming its nose or tail, you can swing it around forcing it to attempt again, buying your team precious seconds to kill it.";
 Tip28 = "Both shields and missiles raise your radar signature, making it easier for the enemy to spot you.  Keep them in cargo when you don't need them.";
 Tip29 = "Picking up teammates who are in a lifepod transports them instantly back to base, where they can immediately launch to help defend, attack, or whatever again.";
@@ -304,28 +304,26 @@ missionBriefingMapStr = StringPane(missionBriefingMapType, white, Point(118, 32)
 missionBriefingTextBody = AnimatedImagePaneRect(StringImage(JustifyLeft, 306, medVerdana, white, missionBriefingBodyText), Rect(0, -131, 306, 0));
 missionBriefingCountDown = StringPane(NumberString(countdown), white, Point(36, 36), JustifyCenter, hugeBoldFont);
 missionBriefingTeamImage = AnimatedImagePaneRect(teamImage, Rect(0, 0, 73, 68));
-missionTipText = AnimatedImagePaneRect(StringImage(JustifyLeft, 250, medVerdana, white, missionBriefingTipText), Rect(0, -131, 306, 0));
+missionTipText = AnimatedImagePaneRect(StringImage(JustifyLeft, 416, medVerdana, white, missionBriefingTipText), Rect(0, -131, 416, 0));
 
 // R4
 //mapPreviewPane      = MapPreviewPane(Rect(0, 0, 120, 96),false,true);
 mapPreviewPane      = MapPreviewPane(ImportImage("sectormapbkgndbmp",false),false,true);
 
-
-
 completeBriefingPane =
-    ImagePane(
-        ImportImageFromFile("mods/CortUI/media/cortui_core_missionbriefbkgnd.png", false),
-        [
-            (missionBriefingTeamImage, Point(8, 151)),
-            (missionBriefingCountDown, Point(406, 324)),
-            (missionBriefingFaction, Point(95, 161)),
-            (missionBriefingString, Point(95, 186)),
-            (missionBriefingTextBody, Point(27, 232)),
-            (missionBriefingMapStr, Point(365, 153)),
-            (mapPreviewPane, Point(365, 168)), //R4
-            (missionTipText, Point(225, 79)) //R4
-        ]
-    );
+	ImagePane(
+		ImportImage("missionbriefbkgndbmp", false),
+		[
+			(missionBriefingTeamImage, Point(8,160)),
+			(missionBriefingCountDown, Point(406, 333)),
+			(missionBriefingFaction, Point(95, 170)),
+			(missionBriefingString, Point(95, 195)),
+			(missionBriefingTextBody, Point(27, 240)),
+			(missionBriefingMapStr, Point(365, 162)),
+			(mapPreviewPane, Point(365, 177)), //R4
+			(missionTipText, Point(45, 72)) //R4
+		]
+	);
 
 MissionBriefDialog =
     ImagePane(
@@ -333,7 +331,7 @@ MissionBriefDialog =
         [
             (
                 completeBriefingPane,
-                Point(264, 1)
+                Point(264, -8)
             )
         ]
     );
