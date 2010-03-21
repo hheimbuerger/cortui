@@ -312,7 +312,7 @@ mapPreviewPane      = MapPreviewPane(ImportImage("sectormapbkgndbmp",false),fals
 
 completeBriefingPane =
 	ImagePane(
-		ImportImage("missionbriefbkgndbmp", false),
+		ImportImageFromFile("mods/CortUI/media/cortui_core_missionbriefbkgnd.png", true),
 		[
 			(missionBriefingTeamImage, Point(8,160)),
 			(missionBriefingCountDown, Point(406, 333)),
@@ -329,9 +329,6 @@ MissionBriefDialog =
     ImagePane(
         ImportImageFromFile("mods/CortUI/media/cortui_core_transparentbackground.png", true),
         [
-            (
-                completeBriefingPane,
-                Point(264, -8)
-            )
+            (completeBriefingPane, Point(264, -8))
         ]
     );
