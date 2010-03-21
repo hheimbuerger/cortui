@@ -1,6 +1,6 @@
 ; CortUI Installer script
 ;
-; Latest NSIS tested with: 2.44 (http://nsis.sourceforge.net/). Modern UI 2 and InstallOptions 2 are required.
+; Latest NSIS tested with: 2.46 (http://nsis.sourceforge.net/). Modern UI 2 and InstallOptions 2 are required.
 ;
 ; This installer requires the FindProc plugin. Copy FindProc/FindProcDLL.dll to your /Program Files/NSIS/Plugins/ directory and you're set.
 
@@ -14,20 +14,22 @@
 	!define VER_BUGFIX					"7"
 	!define INSTALLER_BUILD				"0028"
 	!define VERSION_NUMBER				"${VER_MAJOR}.${VER_MINOR}${VER_BUGFIX}"
-	!define CORTUI_SIZE                 1013
+	!define CORTUI_SIZE                 1200
 	!define LATEST_ALLEG_INSTALLER_VER	"build 255"
 
 	!ifdef RELEASE
 		!define VERSION		${VERSION_NUMBER}
 		!define NAME		"CortUI ${VERSION}"
 		!define FILENAME	"CortUI-${VERSION}.exe"
+		SetCompressor /solid lzma
 	!else
 		!ifndef BUILD_ID
 			!define /date BUILD_ID "%Y%m%d-%H%M%S"
 		!endif
-		!define VERSION		"${VERSION_NUMBER}-dev-${BUILD_ID}"
-		!define NAME		"CortUI ${VERSION_NUMBER}-dev-${BUILD_ID}"
-		!define FILENAME	"CortUI-${VERSION_NUMBER}-dev-${BUILD_ID}.exe"
+		!define VERSION		"${VERSION_NUMBER}-dev-r${BUILD_ID}"
+		!define NAME		"CortUI ${VERSION_NUMBER}-dev-r${BUILD_ID}"
+		!define FILENAME	"CortUI-${VERSION_NUMBER}-dev-r${BUILD_ID}.exe"
+		SetCompressor zlib
 	!endif
 
 	!define REGKEY_ALLEG				"SOFTWARE\Microsoft\Microsoft Games\Allegiance\1.0\"
