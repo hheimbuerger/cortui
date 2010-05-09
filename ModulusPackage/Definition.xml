@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<ModulusFile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Status>NotInstalled</Status>
+  <Name>CortUI</Name>
+  <Description>CortUI is a modification package of the user interface of Allegiance. See the website for a list of all changes.</Description>
+  <AuthorName>Cort</AuthorName>
+  <AuthorLink>http://cortui.rtsquad.org/</AuthorLink>
+  <DateCreated>2010-05-09T18:32:53.984375+02:00</DateCreated>
+  <UniqueIdentifier>e19416f3-d84e-43dc-9c8b-b3c3fd2b3947</UniqueIdentifier>
+  <Version>
+    <Major>1</Major>
+    <Minor>7</Minor>
+    <Build>7</Build>
+    <Revision>0</Revision>
+  </Version>
+  <LatestVersion>
+    <Major>1</Major>
+    <Minor>7</Minor>
+    <Build>7</Build>
+    <Revision>0</Revision>
+  </LatestVersion>
+  <IsFeatured>false</IsFeatured>
+  <IsExclusive>false</IsExclusive>
+  <FromServer>false</FromServer>
+  <CustomAction>
+    <EntryType>CortUI.ModulusCustomAction.CortUICustomAction</EntryType>
+    <AssemblyName>CortUIModulusCustomAction.dll</AssemblyName>
+  </CustomAction>
+</ModulusFile>
