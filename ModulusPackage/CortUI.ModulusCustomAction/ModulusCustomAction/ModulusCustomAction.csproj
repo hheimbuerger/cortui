@@ -65,6 +65,9 @@
     <EmbeddedResource Include="cortui_settings.mdl" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>copy $(SolutionDir)\..\..\Code\cortui_settings.mdl $(ProjectDir)\cortui_settings.mdl</PreBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
