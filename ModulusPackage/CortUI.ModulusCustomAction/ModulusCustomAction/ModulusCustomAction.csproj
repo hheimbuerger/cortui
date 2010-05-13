@@ -53,7 +53,7 @@
     <Compile Include="CustomizationForm.Designer.cs">
       <DependentUpon>CustomizationForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="ICustomAction.cs" />
+    <Compile Include="Interface\ICustomAction.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
