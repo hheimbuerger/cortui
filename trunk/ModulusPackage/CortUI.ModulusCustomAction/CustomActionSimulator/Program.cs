@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Allegiance.Modulus.CustomAction;
-using ICSharpCode.SharpZipLib.Zip;
-using CortUI.ModulusCustomAction;
 using System.IO;
+using CortUI.ModulusCustomAction;
+using ICSharpCode.SharpZipLib.Zip;
+using Allegiance.Modulus.Library.Interface;
 
 namespace CortUI.CustomActionSimulator
 {
