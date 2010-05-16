@@ -2,22 +2,30 @@
 <ModulusFile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Status>NotInstalled</Status>
   <Name>CortUI</Name>
-  <Description>CortUI is a modification package of the user interface of Allegiance. See the website for a list of all changes.</Description>
+  <Description><![CDATA[
+<div style="position:absolute; width: 100%; height: 100%; margin: 0; padding: 0; border: 0;">
+	<a href="http://cortui.rtsquad.org/" target="_blank"><div style="width: 180px; height: 39px; cursor: pointer; background-image: url(data:image/png;base64,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);"></div></a>
+	<span style="font-size: 8pt; font-family: Verdana, sans-serif; margin: 0; padding: 0; border: 0;"><a href="http://cortui.rtsquad.org/" target="_blank">http://cortui.rtsquad.org/</a></span>
+
+	<p style="font-size: 10pt; font-family: Verdana, Georgia, sans-serif;">CortUI is a modification package of the user interface of Allegiance. See the website for a list of all <a href="http://cortui.rtsquad.org/wiki/Features" target="_blank">features</a> and <a href="http://cortui.rtsquad.org/wiki/Screenshots" target="_blank">screenshots</a>.</p>
+	
+</div>
+]]></Description>
   <AuthorName>Cort</AuthorName>
-  <AuthorLink>http://cortui.rtsquad.org/</AuthorLink>
+  <AuthorLink>http://www.freeallegiance.org/forums/index.php?showuser=4012</AuthorLink>
   <DateCreated>2010-05-09T18:32:53.984375+02:00</DateCreated>
   <UniqueIdentifier>e19416f3-d84e-43dc-9c8b-b3c3fd2b3947</UniqueIdentifier>
   <Version>
     <Major>1</Major>
     <Minor>7</Minor>
     <Build>7</Build>
-    <Revision>0</Revision>
+    <Revision>2</Revision>
   </Version>
   <LatestVersion>
     <Major>1</Major>
     <Minor>7</Minor>
     <Build>7</Build>
-    <Revision>0</Revision>
+    <Revision>2</Revision>
   </LatestVersion>
   <IsFeatured>false</IsFeatured>
   <IsExclusive>false</IsExclusive>
