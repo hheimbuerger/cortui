@@ -61,7 +61,7 @@ namespace CortUI.ModulusCustomAction
                     return false;
                 }
 
-                settingsMdl = InsertParameter(settingsMdl, "cortUIVersionString", CORTUI_VERSION_NUMBER, true);
+                settingsMdl = InsertParameter(settingsMdl, "cortUIVersionString", "CortUI v" + CORTUI_VERSION_NUMBER, true);
                 settingsMdl = InsertParameter(settingsMdl, "NumChatLinesLobby", "10");
                 settingsMdl = InsertParameter(settingsMdl, "NumChatLinesGlobal", customizationForm.SelectedNumChatLinesGlobal);
                 settingsMdl = InsertParameter(settingsMdl, "NumChatLinesLoadout", customizationForm.SelectedNumChatLinesLoadout);
