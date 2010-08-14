@@ -23,7 +23,9 @@ xcopy /q ModulusPackage\CortUI.ModulusCustomAction\ModulusCustomAction\bin\Relea
 xcopy /q ModulusPackage\Definition.xml temp\ >nul:
 
 echo 3. Creating the package...
+if not exist %PACKAGE_FILE% goto skipDeletion
 del %PACKAGE_FILE%
+:skipDeletion
 cd temp
 ..\tools\7za a -tzip ..\%PACKAGE_FILE% * >nul:
 cd ..
