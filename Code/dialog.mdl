@@ -4,7 +4,6 @@ use "teleportpane";
 use "teampane";
 use "cortui_settings";
 
-
 White = Color(1, 1, 1);
 fp2DarkGrey = Color(.4, .4, .4);
 TextColor = Color(0, 0, 0.0625);
@@ -36,7 +35,6 @@ VerbsBB      = ButtonBarPane(ImportImageFromFile("mods/CortUI/media/cortui_core_
 WingCombo    = 
    ImageComboPane(ImportImageFromFile("mods/CortUI/media/cortui_core_btnchangewing3.png", true), smallFont);
  
-
 //
 //  Mouseover Text for Verbs
 //
@@ -66,14 +64,6 @@ hoverString =
 hoverImage = StringImage(JustifyCenter, 126, promptFont, yellowText, hoverString);
 hoverPane  = AnimatedImagePaneRect(hoverImage, Rect(0, -13, 126, 0));
 
-commandRadarDetectPane = 
-    SwitchPane(
-                Detected,
-                [
-                    (ImagePane(ImportImage("radonbmp", false), []), 0)
-                ]
-               );
-
 CommandPane = 
     ImagePane(
         ImportImageFromFile("mods/CortUI/media/cortui_core_commandbkgnd.png", false),
@@ -84,8 +74,6 @@ CommandPane =
             (hoverPane, Point(72, 73))
         ]
     );
-
-
 
 ComposingMouse = ImagePane(ImportImage("chatmousebmp", false),
                           [
@@ -168,39 +156,7 @@ ComposingPane =
 
 
 ChatCompositionImage = PaneImage(ComposingPane, false, true);
-
-///////////////////////////////////////////////////////
-//
-//            Station Display                        
-//
-//////////////////////////////////////////////////////
-
-StationPaneImage =
-    GroupImage(
-        [
-            TranslateImage(
-                GaugeImage(JustifyLeft, ImportImage("softgaugebmp", true), GetPercentShields(MyStation, OnEveryFrame)),
-                Point(20, 4)
-            ),
-            TranslateImage(
-                GaugeImage(JustifyLeft, ImportImage("softgaugebmp", true), GetPercentHitPoints(MyStation, OnEveryFrame)),
-                Point(79, 4)
-            ),
-            TranslateImage(
-                StringImage(
-                    JustifyLeft,
-                    400,
-                    medBoldVerdana,
-                    myStationColor,
-                    ConcatinatedString(GetName(MyStation, OnEveryFrame), (ConcatinatedString(" in ", GetSectorName(MyStation, OnEveryFrame))))
-                ),
-                Point(10, 28)			//150, 18
-            ),
-            ImportImageFromFile("mods/CortUI/media/cortui_core_constationdisplay1.png", false)
-            
-        ]
-    );
-        
+      
 ///////////////////////////////////////////////////////
 //
 //          Chat History Pane
@@ -244,8 +200,11 @@ cortCommPaneLoadout =
         ]
     );
 
-//////////////////////////
-
+//////////////////////////////////////////////////////////////
+//
+//  Current sector
+//
+//////////////////////////////////////////////////////////////
 
 SectorNameImage = 
     BlendImage(
@@ -257,7 +216,21 @@ SectorNameImage =
             SectorName
         ),
         hudBlendMode);
-
+		
+LookingAtImage =
+    GroupImage([
+        BlendImage(
+            StringImage(
+                JustifyCenter,
+                160,
+                promptFont,
+                yellowText,
+                "Currently viewing:"
+            ),
+            hudBlendMode),
+        TranslateImage(SectorNameImage, Point(0, -14))
+    ]);
+	
 SectorNameInHangarImage = 
     BlendImage(
         StringImage(
@@ -268,17 +241,6 @@ SectorNameInHangarImage =
             GetSectorName(MyStation, OnEveryFrame)
         ),
         hudBlendMode);
-
-CloakNormal = ImportImage("concloakbmp", true);
-
-CloakOn = 
-    SwitchImage(
-        IsCloaked(Me, OnEveryFrame),
-        emptyImage,
-        [
-            (1, CloakNormal)
-        ]
-    );
 
 LocationInCockpitImage =
     GroupImage([
@@ -294,11 +256,7 @@ LocationInCockpitImage =
         TranslateImage(SectorNameImage, Point(0, -14))
     ]);
 
-LocationOnMapImage =
-    GroupImage([
-        LocationInCockpitImage,
-        TranslateImage(CloakOn, Point(34, -110))
-    ]);
+LocationOnMapImage = LocationInCockpitImage;
 
 LocationInHangarImage =
     GroupImage([
@@ -313,6 +271,12 @@ LocationInHangarImage =
             hudBlendMode),
         TranslateImage(SectorNameInHangarImage, Point(0, -14))
     ]);
+
+/////////////////////////////////
+//////
+//////	TURRETING
+//////
+/////////////////////////////////	
 
 PilotNameImage = 
     BlendImage(
@@ -360,7 +324,12 @@ InTurretPaneImage =
         true
     );
         
-
+//////////////////////////////////
+//////
+//////	ORDERS
+//////
+/////////////////////////////////	
+		
 AcceptedOrderImage = 
     GroupImage([
         TranslateImage(
@@ -397,7 +366,12 @@ QueuedOrderImage =
         hudBlendMode)
     ]);
 
-
+//////////////////////////////////
+//////
+//////	MINIMAP
+//////
+/////////////////////////////////	
+		
 SectorInfoPaneX = SectorInfoPane([]);
 SectorOverviewFlag = 33536;
 SectorPane = SectorMapPane(SectorInfoPaneX, OverlayFlags, SectorOverviewFlag, []);
@@ -462,8 +436,6 @@ moneyPane = ImagePane(ImportImage("creditboxbmp", false),
 
 
 ////////////////////////////////////////////////
-
-
 
 
 EjectPodDisplayOn = ImagePane(ImportImage("conejectpoddisplaybmp", false), 
@@ -1037,6 +1009,15 @@ RadarDetectPane =
                 ]
                );
 
+CloakOn = 
+    SwitchImage(
+        IsCloaked(Me, OnEveryFrame),
+        emptyImage,
+        [
+            (1, ImportImage("concloakbmp", true))
+        ]
+    );			   
+						   
 SpeedImage = 
     
         StringImage(
@@ -3305,6 +3286,15 @@ cortVersionInformation =
 
 cortText = Color(0.586, 0.578, 0.680);
 
+cortTargetGroupHeader =
+    StringImage(
+        JustifyLeft,
+        150,
+        medVerdana,
+        cortText,
+        "Targeting:"
+    );
+
 cortTargetExperienceOff =
     StringImage(
         JustifyLeft, 
@@ -3349,7 +3339,7 @@ cortTargetRange =
         cortText,
         cortTargetRangeString
     );      
-
+	
 cortTargetSpeed =
     SwitchImage(
         GetModelType(Target, OnEveryFrame),
@@ -3365,7 +3355,20 @@ cortTargetSpeed =
 			)
         ]
     );
-
+	
+cortTargetGroup = 	
+	VisibleImage(
+		GroupImage(
+			[
+			TranslateImage(cortTargetGroupHeader,  Point(0, 33)),
+			TranslateImage(cortTargetName,  Point(0, 22)),
+			TranslateImage(cortTargetRange, Point(0, 11)),
+			TranslateImage(cortTargetSpeed, Point(0, 0))
+			]
+		),
+		IsNotNull(Target, OnEveryFrame)
+	);	
+	
 cortShipLabel =
     StringImage(
         JustifyLeft, 
@@ -3608,32 +3611,69 @@ cortPodDisplays =
 		TranslateImage(cortEnduranceGauge,      Point(50, -8))
 	]);
 
+cortCommandModeEyeImage = 
+	SwitchImage(
+			Detected,
+			emptyImage,
+			[
+				(0, ImportImage("radonbmp", false))
+			]
+		);
+		
+cortCommandModeCloakImage = 
+	SwitchImage(
+		IsCloaked(Me, OnEveryFrame),
+		emptyImage,
+		[
+			(1, ImportImage("concloakbmp", true))
+		]
+	);		
+
+cortCommandModeIcons =	
+	GroupImage([
+		TranslateImage(cortAutopilotOnImage, Point(2, 53)), // 32x28
+		TranslateImage(cortVectorLockOn, Point(0, 50)), //32x32
+		TranslateImage(cortCommandModeEyeImage, Point(24, 0)), //128x128
+		TranslateImage(cortCommandModeCloakImage, Point(10, 16)) //96x96
+	]);
+	
+cortStationShieldsLabel =
+    StringImage(
+        JustifyLeft, 
+        130,
+        medVerdana,
+        cortText,
+        "Station Shields:"
+    );
+
+cortStationShieldsGauge = 
+    GaugeImage(JustifyLeft, ImportImage("softgaugebmp", true), GetPercentShields(MyStation, OnEveryFrame));
+
+cortStationHullLabel =
+    StringImage(
+        JustifyLeft, 
+        130,
+        medVerdana,
+        cortText,
+        "Station Hull:"
+    );
+
+cortStationHullGauge = 
+    GaugeImage(JustifyLeft, ImportImage("softgaugebmp", true), GetPercentHitPoints(MyStation, OnEveryFrame));
+
+cortStationName =	
+	StringImage(
+		JustifyLeft,
+		130,
+		medVerdana,
+		cortText,
+		ConcatinatedString(GetName(MyStation, OnEveryFrame), (ConcatinatedString(" in ", GetSectorName(MyStation, OnEveryFrame))))
+	);
+	
 cortCommandModeInfo = 
 	GroupImage([
-		SwitchImage(
-			AutopilotOn,
-			emptyImage,
-			[
-				(1, TranslateImage(cortAutopilotOnImage, Point(0, -5)))
-			]
-		),
-		SwitchImage(
-			GetVectorLock(Me, OnEveryFrame),
-			emptyImage,
-			[
-				(1, TranslateImage(cortVectorLockOn, Point(0, -5)))
-			]
-		),
-    	VisibleImage(
-			GroupImage(
-        		[
-				TranslateImage(cortTargetName,  Point(49, 27)),
-				TranslateImage(cortTargetRange, Point(49, 16)),
-				TranslateImage(cortTargetSpeed, Point(49, 5))
-				]
-			),
-			IsNotNull(Target, OnEveryFrame)
-		),
+		TranslateImage(cortCommandModeIcons, Point(0,-55)),
+		TranslateImage(cortTargetGroup, 	 Point(160, -30)),
 		TranslateImage(cortShipLabel,        Point(0,  -10)),
 		TranslateImage(cortShipValue,        Point(49, -10)),
 		TranslateImage(cortShieldsLabel,     Point(0,  -22)),
@@ -3663,15 +3703,19 @@ cortCommandModeInfo =
 		TranslateImage(cortKillbonusValue,   Point(5,  -118)),
 		TranslateImage(cortKillbonusPostfix, Point(82, -118))
 	]);
-
+	
 cortCommandModeInfoBase = 
 	GroupImage([
-		TranslateImage(cortShipLabel,                             Point(0,  -50)),
-		TranslateImage(cortShipValue,                             Point(49, -50)),
-		TranslateImage(cortKillbonusLabel,                        Point(0,  -62)),
-		TranslateImage(cortKillbonusValueAndPostfixLeftAligned,   Point(49, -62))
+		TranslateImage(cortStationName,							  Point(0,-50)),	
+		TranslateImage(cortStationShieldsLabel,					  Point(0,-62)),
+		TranslateImage(cortStationShieldsGauge,					  Point(100,-70)),
+		TranslateImage(cortStationHullLabel,					  Point(0,-74)),
+		TranslateImage(cortStationHullGauge,					  Point(100,-82)),
+		TranslateImage(cortShipLabel,                             Point(0,  -90)),
+		TranslateImage(cortShipValue,                             Point(49, -90)),
+		TranslateImage(cortKillbonusLabel,                        Point(0,  -102)),
+		TranslateImage(cortKillbonusValueAndPostfixLeftAligned,   Point(49, -102))
 	]);
-
 
 /////////////////////////////////////////////////////////////
 //
@@ -3800,26 +3844,6 @@ RipcordCountdownImage =
 
 //////////////////////////////////////////////////////////////
 //
-//  Current sector
-//
-//////////////////////////////////////////////////////////////
-    
-LookingAtImage =
-    GroupImage([
-        BlendImage(
-            StringImage(
-                JustifyCenter,
-                160,
-                promptFont,
-                yellowText,
-                "Currently viewing:"
-            ),
-            hudBlendMode),
-        TranslateImage(SectorNameImage, Point(0, -14))
-    ]);
-
-//////////////////////////////////////////////////////////////
-//
 // Actual dialogs
 //
 // Ksero 2005-03:
@@ -3907,7 +3931,6 @@ VoteTextImage_Adjusted = SwitchImage(
 						 );
 
 CommandPaneImage			      = PaneImage(CommandPane, false, true);
-CommandRadarDetectPaneImage       = PaneImage(commandRadarDetectPane, false, true);
 TeamPaneImage				      = PaneImage(TeamPanePane, false, true);
 TeleportPaneImage			      = PaneImage(TeleportPane, false, true);
 MoneyPaneImage				      = PaneImage(moneyPane, false, true);
@@ -4112,13 +4135,10 @@ dialogs =
 
         // TargetDisplay: the targeting system
         (TargetDisplayImage,            SideBottom,         Point(-320, -183), Point(-320,   12), .5,    48, true),
-
-        // CommandRadarDetectPaneImage: probably the info whether you are 'eyed'
-        (CommandRadarDetectPaneImage,   SideTopRight,       Point( -90,  190), Point(-90,  -100), .5, 65542, true),
-
+       
         // cortCommandModeInfo: the additional ship status information at the upper left corner of the map
-        (cortCommandModeInfo,           SideTopLeft,        Point(  20,  185), Point(  20,  -37), .5,     2, true),
-        (cortCommandModeInfoBase,       SideTopLeft,        Point(  20,  185), Point(  20,  -37), .5,     4, true),
+        (cortCommandModeInfo,           SideTopLeft,        Point(  20,  185), Point(  20,  -105), .5,     2, true),
+        (cortCommandModeInfoBase,       SideTopLeft,        Point(  20,  185), Point(  20,  -100), .5,     69, true), 
 
         // CommandPane: the command bar at the F3-map
         (CommandPaneImage,              SideBottom,         Point(-135, -190), Point(-135,   40), .5,     6, false),
@@ -4142,9 +4162,6 @@ dialogs =
         (InTurretPaneImage,             SideCenter,         Point(-150,   25), Point(-150,   25),   0,    64, true),
         (BoardTextImage,                SideCenter,         Point(-362,   20), Point(-362,   20),   0,    64, true),
 
-        // StationPaneImage: station status indicator
-        (StationPaneImage,              SideTopLeft,        Point(-148,   85), Point(   3,  -33),   0,    69, true),
-
         // EjectPodPane: the eject pod display
         (EjectPodPaneImage,             SideCenter,         Point( -86,  -87), Point( -86,  -87),  .5,    48, true),
 
@@ -4161,7 +4178,7 @@ dialogs =
         (CountdownImage,                SideTopLeft,        Point(  45, -137), Point(   40, -137), .5, 48, true),
 
         // LastOrderImage: the last two commands you received
-        (LastOrderImage,                SideTopLeft,        Point(  50,  -7), Point(   50,  -37), .5, 53, true),
+        (LastOrderImage,                SideTopLeft,        Point(  50,  -7), Point(   50,  -37), .5, 55, true),
 
         // cortVersionInformation: the current version display of CortUI in the map-mode
         (cortVersionInformation,        SideBottomRight,    Point( -200, 12),    Point( -200,   12), 0, 6, true)
