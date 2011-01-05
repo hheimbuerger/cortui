@@ -1,0 +1,4 @@
+use "model";
+
+gh_inrange =	
+	ImportImageFromFile("mods/CortUI/media/GlassHUD/gh_inRange.png", true);

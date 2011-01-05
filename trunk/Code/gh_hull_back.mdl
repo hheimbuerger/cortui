@@ -1,0 +1,4 @@
+use "model";
+
+gh_hull_back =	
+	ImportImageFromFile("mods/CortUI/media/GlassHUD/gh_hull_back.png", true);

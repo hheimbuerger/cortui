@@ -1,0 +1,4 @@
+use "model";
+
+gh_targetbackground = 
+	ImportImageFromFile("mods/CortUI/media/GlassHUD/gh_targetbackground.png", true);

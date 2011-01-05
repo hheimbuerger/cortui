@@ -1,0 +1,4 @@
+use "model";
+
+gh_autopilot = 
+	ImportImageFromFile("mods/CortUI/media/GlassHUD/gh_Autopilot.png", true);

@@ -1,0 +1,4 @@
+use "model";
+
+gh_kbbg = 
+	ImportImageFromFile("mods/CortUI/media/GlassHUD/gh_kbbg.png", true);

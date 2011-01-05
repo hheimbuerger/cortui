@@ -1,0 +1,4 @@
+use "model";
+
+gh_throttle_back =	
+	ImportImageFromFile("mods/CortUI/media/GlassHUD/gh_throttle_back.png", true);

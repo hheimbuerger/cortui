@@ -1,0 +1,4 @@
+use "model";
+
+gh_cloakon = 
+	ImportImageFromFile("mods/CortUI/media/GlassHUD/gh_cloakon.png", true);

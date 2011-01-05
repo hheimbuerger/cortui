@@ -1,0 +1,4 @@
+use "model";
+
+gh_targetgauge = 
+	ImportImageFromFile("mods/CortUI/media/GlassHUD/gh_targetgauge.png", true);

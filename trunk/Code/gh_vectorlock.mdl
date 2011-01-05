@@ -1,0 +1,4 @@
+use "model";
+
+gh_vectorlock = 
+	ImportImageFromFile("mods/CortUI/media/GlassHUD/gh_vectorlock.png", true);

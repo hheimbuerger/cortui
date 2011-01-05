@@ -1,0 +1,4 @@
+use "model";
+
+gh_glass =	
+	ImportImageFromFile("mods/CortUI/media/GlassHUD/ghglass.png", true);
