@@ -1,0 +1,4 @@
+use "model";
+
+gh_fuel_back =	
+	ImportImageFromFile("mods/CortUI/media/GlassHUD/gh_fuel_back.png", true);

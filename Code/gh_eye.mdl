@@ -1,0 +1,4 @@
+use "model";
+
+gh_eye = 
+	ImportImageFromFile("mods/CortUI/media/GlassHUD/gh_eye.png", true);
