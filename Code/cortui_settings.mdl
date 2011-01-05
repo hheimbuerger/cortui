@@ -22,7 +22,7 @@ ShowLastOrders = ?;
 // Parameter: 1 if the in-game chat display shall have a scrollbar, 0 if not
 ShowScrollbarOnCockpitChat = ?;
 
-// Parameter: 0 if classic CortUI normal HUD is used, 1 for lessHUD by FlingPu, 2 for JelloShot by FlingPu 
+// Parameter: 0 if classic CortUI normal HUD is used, 1 for lessHUD by FlingPu, 2 for JelloShot by FlingPu, 3 for GlassHUD by Bunnywabbit
 NormalHUDMode = ?;
 
 // Parameter: 0 if the default software HUD is used, 1 for the software HUD with targeting view,
