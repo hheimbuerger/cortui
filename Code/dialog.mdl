@@ -31,10 +31,9 @@ RecipientsBB = ButtonBarPane(ImportImageFromFile("mods/CortUI/media/cortui_core_
 VerbsColumns    = [32, 62, 92, 122, 152, 182, 212, 242, 268];
 VerbsBB      = ButtonBarPane(ImportImageFromFile("mods/CortUI/media/cortui_core_verbs.png", true), ButtonNormal, VerbsColumns, false);
 
-
 WingCombo    = 
    ImageComboPane(ImportImageFromFile("mods/CortUI/media/cortui_core_btnchangewing3.png", true), smallFont);
- 
+
 //
 //  Mouseover Text for Verbs
 //
@@ -156,7 +155,7 @@ ComposingPane =
 
 
 ChatCompositionImage = PaneImage(ComposingPane, false, true);
-      
+    
 ///////////////////////////////////////////////////////
 //
 //          Chat History Pane
@@ -434,31 +433,31 @@ moneyPane = ImagePane(ImportImage("creditboxbmp", false),
                           ]
                          );
 
-
 ////////////////////////////////////////////////
+//
+//          EJECT POD
+//
+///////////////////////////////////////////////
 
-
-EjectPodDisplayOn = ImagePane(ImportImage("conejectpoddisplaybmp", false), 
-		[
-            (
-                GaugePane( 
-                    ImportImage("softgaugebmp", true),
-                    GetEndurance(Me, OnEveryFrame), 
-                    Color(0, 0, 0.04),
-                    Color(0, 0, 0.04)
-                ),
-                Point(66,30)
-            )
-		]
+EjectPodDisplayOn = 
+	GroupImage([
+		TranslateImage(
+			GaugeImage(
+				JustifyLeft, 
+				ImportImage("softgaugebmp", true), 
+				GetEndurance(Me, OnEveryFrame)
+			),
+			Point(66,10)
+		),
+		ImportImage("conejectpoddisplaybmp", false)
+	]);
+	
+EjectPodImage  =
+	SwitchImage(
+		IsEjectPod(Me, OnEveryFrame),
+		emptyImage,
+		[(1, EjectPodDisplayOn)]
 	);
-
-EjectPodPane =
-    SwitchPane(
-        IsEjectPod(Me, OnEveryFrame),
-        [
-            (EjectPodDisplayOn,1)
-        ]
-    );
 
 DeathBannerPane =
     SwitchPane(
@@ -3946,7 +3945,6 @@ cortCommPaneImage			      = SwitchImage(
 								       [(1, cortCommPaneImageWithScrollbar)]
 							        );
 cortCommPaneLoadoutImage	      = PaneImage(cortCommPaneLoadout, false, true);
-EjectPodPaneImage			      = PaneImage(EjectPodPane, false, true);
 DeathBannerPaneImage		      = PaneImage(DeathBannerPane, false, true);
 CenterHudDisplayImage		      = VisibleImage(CenterHudDisplay, ShowCenterHUD);
 SoftCenterHudDisplayImage	      = VisibleImage(softCenterHudDisplay, ShowCenterHUD);
@@ -4147,11 +4145,11 @@ dialogs =
         (LocationInCockpitImage,        SideTopRight,       Point(-180, 185), Point(-180,  -15), .5, 0x00030, true),
         // LocationOnMapImage: "current location" in map mode
         (LocationOnMapImage,            SideTopRight,       Point(-180, 185), Point(-180,  -15), .5, 0x10002, true),
-        // LocationInHangarImage: "current location" in hangar (SectorName is not set correctly, so it has to be retrieved via GetSectorName(MyStation, OnEveryFrame))
+		// LocationInHangarImage: "current location" in hangar (SectorName is not set correctly, so it has to be retrieved via GetSectorName(MyStation, OnEveryFrame))
         (LocationInHangarImage,         SideTopRight,       Point(-180, 185), Point(-180,  -15), .5, 0x00001, true),
         // LookingAtImage: "currently viewing" in map mode
         (LookingAtImage,                SideTopRight,       Point(-180, 185), Point(-180,  -15), .5,      4, true),
-
+  
         // TurretOfImage: who's turret I'm in, for launch anim, map (both), hangar, cockpit, chase
         (TurretOfImage,                 SideTopRight,       Point(-180,  185), Point(-180,  -50),  .5, 0x10037, true),
 
@@ -4162,11 +4160,11 @@ dialogs =
         (InTurretPaneImage,             SideCenter,         Point(-150,   25), Point(-150,   25),   0,    64, true),
         (BoardTextImage,                SideCenter,         Point(-362,   20), Point(-362,   20),   0,    64, true),
 
-        // EjectPodPane: the eject pod display
-        (EjectPodPaneImage,             SideCenter,         Point( -86,  -87), Point( -86,  -87),  .5,    48, true),
-
-        // DeathBannerPane: when you're dead???
-        (DeathBannerPaneImage,          SideCenter,         Point(-105,   15), Point(-105,   15),  .5, 65535, true),
+        // EjectPodImage: the eject pod display;   
+		(EjectPodImage,             SideCenter,         Point( -86,  -87), Point( -86,  -87),  .5,    48, true),        
+		
+		// DeathBannerPane: when you're dead???
+       	(DeathBannerPaneImage,          SideCenter,         Point(-105,   15), Point(-105,   15),  .5, 65535, true),
 
         // LivesImage: your lives
         (LivesImage,                    SideTopLeft,        Point(  45,  -97), Point(   40,  -97), .5, 48, true),
