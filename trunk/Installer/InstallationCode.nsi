@@ -68,6 +68,8 @@
 		StrCpy $settingsNormalHUDMode "1"
 		StrCmp $settingsNormalHUDModeText "JelloShot - by FlingPu" 0 +2
 		StrCpy $settingsNormalHUDMode "2"
+		StrCmp $settingsNormalHUDModeText "GlassHUD - by Bunnywabbit" 0 +2
+		StrCpy $settingsNormalHUDMode "3"
 
 		# Determine which software HUD to use and set settingsNormalHUDMode accordingly
 		StrCpy $settingsSoftwareHUDMode "0"
