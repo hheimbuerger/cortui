@@ -1,0 +1,3 @@
+use  "dialog_minimapstyle";
+
+conesectorinfobmp = minimappanelexpanded;
