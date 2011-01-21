@@ -2,6 +2,7 @@ use "gamepanes";
 use "font";
 use "missionbriefdata";
 use "custombrief";
+use "dialog_minimapstyle";
 
 ///////////////////////////////////////////////////////////////////////////////
 // Tip of the Game
@@ -320,7 +321,7 @@ missionTipText = AnimatedImagePaneRect(StringImage(JustifyLeft, 416, medVerdana,
 
 // R4
 //mapPreviewPane      = MapPreviewPane(Rect(0, 0, 120, 96),false,true);
-mapPreviewPane      = MapPreviewPane(ImportImage("sectormapbkgndbmp",false),false,true);
+mapPreviewPane      = MapPreviewPane(sectormapbg_opaque,false,true);
 
 completeBriefingPane =
 	ImagePane(

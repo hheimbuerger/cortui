@@ -1,0 +1,40 @@
+use "model";
+use "console";
+
+//this file is called by the mdl files of the same name as the variables.
+//the
+
+//glasshud	
+inventorytop = ImportImageFromFile("mods/CortUI/media/GlassHUD/inventorytop.png", false);
+inventorylinebkgnd = ImportImageFromFile("mods/CortUI/media/GlassHUD/inventorylinebkgnd.png", false);
+inventorybottom = ImportImageFromFile("mods/CortUI/media/GlassHUD/inventorybottom.png", false);
+armingbar = ImportImageFromFile("mods/CortUI/media/GlassHUD/armingbar.png", false);
+armingbarbkgnd = ImportImageFromFile("mods/CortUI/media/GlassHUD/armingbarbkgnd.png", false);
+mountingbar = ImportImageFromFile("mods/CortUI/media/GlassHUD/mountingbar.png", false);
+mountingbarbkgnd = ImportImageFromFile("mods/CortUI/media/GlassHUD/mountingbarbkgnd.png", false);
+inventorytab = ImportImageFromFile("mods/CortUI/media/GlassHUD/inventorytab.png", false);;
+inventoryselected = ImportImageFromFile("mods/CortUI/media/GlassHUD/inventoryselected.png", false); //is this even used?
+
+/*
+//greytones
+inventorytop = ImportImageFromFile("mods/CortUI/media/greytones/inventorytop.png", false);
+inventorylinebkgnd = ImportImageFromFile("mods/CortUI/media/greytones/inventorylinebkgnd.png", false);
+inventorybottom = ImportImageFromFile("mods/CortUI/media/greytones/inventorybottom.png", false);
+inventorytab = ImportImageFromFile("mods/CortUI/media/greytones/inventorytab.png", false);
+inventoryselected = ImportImageFromFile("mods/CortUI/media/greytones/inventoryselected.png", false);
+armingbar = ImportImageFromFile("mods/CortUI/media/greytones/armingbar.png", false);
+armingbarbkgnd = ImportImageFromFile("mods/CortUI/media/greytones/armingbarbkgnd.png", false);
+mountingbar = ImportImageFromFile("mods/CortUI/media/greytones/mountingbar.png", false);
+mountingbarbkgnd = ImportImageFromFile("mods/CortUI/media/greytones/mountingbarbkgnd.png", false);
+
+//classic
+inventorytop = ImportImageFromFile("mods/CortUI/media/classic/inventorytop.png", false);
+inventorylinebkgnd = ImportImageFromFile("mods/CortUI/media/classic/inventorylinebkgnd.png", false);
+inventorybottom = ImportImageFromFile("mods/CortUI/media/classic/inventorybottom.png", false);
+inventorytab = ImportImageFromFile("mods/CortUI/media/classic/inventorytab.png", false); 
+inventoryselected = ImportImageFromFile("mods/CortUI/media/classic/inventoryselected.png", false);
+armingbar = ImportImageFromFile("mods/CortUI/media/classic/armingbar.png", false);
+armingbarbkgnd = ImportImageFromFile("mods/CortUI/media/classic/armingbarbkgnd.png", false);
+mountingbar = ImportImageFromFile("mods/CortUI/media/classic/mountingbar.png", false);
+mountingbarbkgnd = ImportImageFromFile("mods/CortUI/media/classic/mountingbarbkgnd.png", false);
+*/
