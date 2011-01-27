@@ -162,8 +162,9 @@
             this.NormalHUDMode.FormattingEnabled = true;
             this.NormalHUDMode.Items.AddRange(new object[] {
             "Classic CortUI",
-            "lessHUD",
-            "JelloShot"});
+            "lessHUD - by FlingPu",
+            "JelloShot - by FlingPu",
+            "GlassHUD - by Bunnywabbit"});
             this.NormalHUDMode.Location = new System.Drawing.Point(121, 19);
             this.NormalHUDMode.Name = "NormalHUDMode";
             this.NormalHUDMode.Size = new System.Drawing.Size(241, 21);
