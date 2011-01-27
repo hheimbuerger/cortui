@@ -10,12 +10,12 @@
 ; Constants
 
 	!define VER_MAJOR					"1"
-	!define VER_MINOR					"7"
-	!define VER_BUGFIX					"7"
-	!define INSTALLER_BUILD				"0028"
+	!define VER_MINOR					"8"
+	!define VER_BUGFIX					"0"
+	!define INSTALLER_BUILD				"0029"
 	!define VERSION_NUMBER				"${VER_MAJOR}.${VER_MINOR}${VER_BUGFIX}"
-	!define CORTUI_SIZE                 1200
-	!define LATEST_ALLEG_INSTALLER_VER	"build 255"
+	!define CORTUI_SIZE                 9999
+	!define LATEST_ALLEG_INSTALLER_VER	"build 258"
 
 	!ifdef RELEASE
 		!define VERSION		${VERSION_NUMBER}
