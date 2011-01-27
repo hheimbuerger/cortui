@@ -14,7 +14,7 @@ namespace CortUI.ModulusCustomAction
     {
         private const string SETTINGS_MDL_RESOURCE_NAME = "CortUI.ModulusCustomAction.cortui_settings.mdl";
 
-        private const string CORTUI_VERSION_NUMBER = "1.77";
+        private const string CORTUI_VERSION_NUMBER = "1.80";
 
         public bool Cancelled { get; set; }
 

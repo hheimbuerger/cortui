@@ -9,6 +9,7 @@
 
 	<p style="font-size: 10pt; font-family: Verdana, Georgia, sans-serif;">CortUI is a modification package of the user interface of Allegiance. See the website for a list of all <a href="http://cortui.rtsquad.org/wiki/Features" target="_blank">features</a> and <a href="http://cortui.rtsquad.org/wiki/Screenshots" target="_blank">screenshots</a>.</p>
 	
+	<p style="font-size: 10pt; font-family: Verdana, Georgia, sans-serif;">Download size: &lt;600 KiB</p>
 </div>
 ]]></Description>
   <AuthorName>Cort</AuthorName>
@@ -17,15 +18,15 @@
   <UniqueIdentifier>e19416f3-d84e-43dc-9c8b-b3c3fd2b3947</UniqueIdentifier>
   <Version>
     <Major>1</Major>
-    <Minor>7</Minor>
-    <Build>7</Build>
-    <Revision>3</Revision>
+    <Minor>8</Minor>
+    <Build>0</Build>
+    <Revision>1</Revision>
   </Version>
   <LatestVersion>
     <Major>1</Major>
-    <Minor>7</Minor>
-    <Build>7</Build>
-    <Revision>3</Revision>
+    <Minor>8</Minor>
+    <Build>0</Build>
+    <Revision>1</Revision>
   </LatestVersion>
   <IsFeatured>false</IsFeatured>
   <IsExclusive>false</IsExclusive>
@@ -34,4 +35,8 @@
     <EntryType>CortUI.ModulusCustomAction.CortUICustomAction</EntryType>
     <AssemblyName>CortUIModulusCustomAction.dll</AssemblyName>
   </CustomAction>
+  <Tags>
+    <string>UI</string>
+	<string>HUD</string>
+  </Tags>
 </ModulusFile>
