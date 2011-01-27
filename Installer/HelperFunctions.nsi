@@ -54,6 +54,19 @@ Function backupCoreFiles
   CopyFiles /silent "$INSTDIR\missionbrief.mdl" $8
   CopyFiles /silent "$INSTDIR\partinfo.mdl" $8
   CopyFiles /silent "$INSTDIR\teamscreen.mdl" $8
+  CopyFiles /silent "$INSTDIR\armingbarbkgndbmp.mdl" $8
+  CopyFiles /silent "$INSTDIR\armingbarbmp.mdl" $8
+  CopyFiles /silent "$INSTDIR\conesectorinfobmp.mdl" $8
+  CopyFiles /silent "$INSTDIR\consectorexpandbmp.mdl" $8
+  CopyFiles /silent "$INSTDIR\consectorinfobmp.mdl" $8
+  CopyFiles /silent "$INSTDIR\inventorybottombmp.mdl" $8
+  CopyFiles /silent "$INSTDIR\inventorylinebkgndbmp.mdl" $8
+  CopyFiles /silent "$INSTDIR\inventoryselectedbmp.mdl" $8
+  CopyFiles /silent "$INSTDIR\inventorytabbmp.mdl" $8
+  CopyFiles /silent "$INSTDIR\inventorytopbmp.mdl" $8
+  CopyFiles /silent "$INSTDIR\mountingbarbkgndbmp.mdl" $8
+  CopyFiles /silent "$INSTDIR\mountingbarbmp.mdl" $8
+  CopyFiles /silent "$INSTDIR\sectormapbkgndbmp.mdl" $8
   IfFileExists "$INSTDIR\cortui_settings.mdl" 0 +2
     CopyFiles /silent "$INSTDIR\cortui_settings.mdl" $8
 FunctionEnd
