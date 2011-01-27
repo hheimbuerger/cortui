@@ -41,12 +41,9 @@
 		StrCpy $OUTDIR "$OUTDIR\mods\CortUI"
 		File "# Release Notes.txt"            ; is going to $INSTDIR\mods\CortUI
 		StrCpy $OUTDIR "$OUTDIR\media"
-		File Media\*                          ; is going to $INSTDIR\mods\CortUI\media
+		File /r /x .svn Media\*                          ; is going to $INSTDIR\mods\CortUI\media
 		Pop $OUTDIR
-		File Code\dialog.mdl                  ; is going to $INSTDIR
-		File Code\loadoutpane.mdl
-		File Code\partinfo.mdl
-		File Code\cortui_settings.mdl
+		File Code\*.mdl
 
 		# Read the options the user selected on the Configuration page
 		!insertmacro INSTALLOPTIONS_READ $isLobbyScreenSelected ${INSTALLOPTIONS_TEMP_FILE} "${FIELD_INSTALLLOBBY}" "State"
@@ -64,11 +61,11 @@
 		StrCpy $settingsNormalHUDMode "0"
 		StrCmp $settingsNormalHUDModeText "Classic CortUI" 0 +2
 		StrCpy $settingsNormalHUDMode "0"
-		StrCmp $settingsNormalHUDModeText "lessHUD - by FlingPu" 0 +2
+		StrCmp $settingsNormalHUDModeText "lessHUD (by FlingPu)" 0 +2
 		StrCpy $settingsNormalHUDMode "1"
-		StrCmp $settingsNormalHUDModeText "JelloShot - by FlingPu" 0 +2
+		StrCmp $settingsNormalHUDModeText "JelloShot (by FlingPu)" 0 +2
 		StrCpy $settingsNormalHUDMode "2"
-		StrCmp $settingsNormalHUDModeText "GlassHUD - by Bunnywabbit" 0 +2
+		StrCmp $settingsNormalHUDModeText "GlassHUD (by Bunnywabbit)" 0 +2
 		StrCpy $settingsNormalHUDMode "3"
 
 		# Determine which software HUD to use and set settingsNormalHUDMode accordingly
