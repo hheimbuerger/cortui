@@ -1,5 +1,5 @@
 ﻿/*****************************************************************************\
-| CortUI v1.77 - Release Notes                                                |
+| CortUI v1.80 - Release Notes                                                |
 \*****************************************************************************/
 
 
@@ -21,7 +21,7 @@ See http://cortui.rtsquad.org/wiki/DownloadAndInstallation
   for instructions on how to install and uninstall CortUI.
 See http://cortui.rtsquad.org/wiki/InstallationOptions
   for more detailed information about the options available during install.
-See http://cortui.rtsquad.org/milestone/1.77
+See http://cortui.rtsquad.org/milestone/1.80
   for an overview of this release.
 
 
@@ -33,7 +33,7 @@ See http://cortui.rtsquad.org/wiki#HowToContribute
 
 Changelog:
 ----------
-See http://cortui.rtsquad.org/query?milestone=1.77
+See http://cortui.rtsquad.org/query?milestone=1.80
   for a list of changes in this release
 See http://cortui.rtsquad.org/wiki/VersionHistory
   for a list of changes in previous releases.
@@ -51,12 +51,8 @@ Known problems:
   lost.
 - After you died, in the one or two seconds until you return to the station,
   you still see some UI elements that shouldn't be there. :(
-- Sometimes, you see the autopilot indicator without having a target. This
-  is mainly an Allegiance bug, not a CortUI bug.
 - The minimap can no longer be hidden (it can't be toggled at all). (Don't
   press F7. If you accidently do, press it again.)
-- The uninstaller doesn't delete the /artwork/mods/CortUI directory, even if
-  it is empty.
 
 See http://cortui.rtsquad.org/report/9
   for a newer list of tickets.
@@ -70,9 +66,9 @@ the .mdl files.
 Original logo design by Newtype, logo modifications by Sp4wn, favicon by
 Loriana.
 
-HUD contributions by Parcival, Raveen and FlingPu.
+HUD contributions by Parcival, Raveen, FlingPu and Bunnywabbit.
 
 Special thanks to all testers who have reported bugs. 
 
 
--- Cort, 2010-03-21
+-- Cort, 2011-01-27
