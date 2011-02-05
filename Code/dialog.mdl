@@ -4486,7 +4486,7 @@ cortWeaponRangeIndicator =
 cortVersionInformation =
     StringImage(
         JustifyRight,
-        200,
+        400,
         medVerdana,
         Color(0.586, 0.578, 0.680),
         cortUIVersionString
@@ -5422,7 +5422,7 @@ dialogs =
         (LastOrderImage,                SideTopLeft,        Point(  50,  -7), Point(   50,  -37), .5, 55, true),
 
         // cortVersionInformation: the current version display of CortUI in the map-mode
-        (cortVersionInformation,        SideBottomRight,    Point( -200, 12),    Point( -200,   12), 0, 6, true)
+        (cortVersionInformation,        SideBottomRight,    Point( -400, 12),    Point( -400,   12), 0, 6, true)
 
 //      //backButtonPane: the back button, that allows to switch from map to hangar when in base        
 //        (PaneImage(BlackPane(backButtonPane), false, true), SideBottomLeft, Point( -200,   17), Point(  20,   0), .5,     6, false)
