@@ -667,16 +667,16 @@ GHCommandModeIcons =
 		TranslateImage(GHCloakDrained,Point(120,0))
 	]);		
 
-/*	
-GHGlass =
+
+GHGaugeLabels =
 	JustifyImage(
 		BlendImage(
-			ImportImage3D("gh_glass", GHSideColor, true),
+			ImportImage3D("gh_gaugelabels", GHSideColor, true),
 			BlendModeAdd
 			),
 	JustifyCenter
 	);
-*/
+
 	
 GHInRange =
 	SwitchImage(
@@ -904,7 +904,7 @@ GHCenterHudOn =
 		TranslateImage(GHCloakDrained, Point(232,273)),
 		TranslateImage(GHEye, Point(225,301)),
 		TranslateImage(GHSmallTargetImage, Point(270,50)),
-		//TranslateImage(GHGlass, Point(320,240)),
+		TranslateImage(GHGaugeLabels, Point(320,240)),
 		emptyImage
 	]);
 

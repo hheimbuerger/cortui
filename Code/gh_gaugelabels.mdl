@@ -1,0 +1,4 @@
+use "model";
+
+gh_gaugelabels =	
+	ImportImageFromFile("mods/CortUI/media/GlassHUD/gh_gaugelabels.png", true);
