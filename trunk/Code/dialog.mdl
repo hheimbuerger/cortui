@@ -1157,53 +1157,64 @@ GHLargeTargetSpeed =
 		)
 	]);		
 	
-GHETA_allseconds = Divide(GetRange(Target, OnEveryFrame),GetSpeed(Me, OnEveryFrame)); 	
-GHETA_Mod = Mod(GHETA_allseconds, 60);
-GHETA_Minutes = Divide(Subtract(GHETA_allseconds, GHETA_Mod),60);
-GHETA_SecondString = 
+GHTTI_allseconds = Divide(GetRange(Target, OnEveryFrame),Subtract(GetSpeed(Me, OnEveryFrame), GetSpeed(Target, OnEveryFrame)));
+GHTTI_Mod = Mod(GHTTI_allseconds, 60);
+GHTTI_Minutes = Divide(Subtract(GHTTI_allseconds, GHTTI_Mod),60);
+GHTTI_Seconds = Min(GHTTI_Mod, 59);
+GHTTI_SecondString = 
 	SwitchString(
-		Min(10,GHETA_Mod),
-		ConcatinatedString(":0", NumberString(GHETA_Mod)),
-		[(10, ConcatinatedString(":", NumberString(GHETA_Mod)))]
+		Max(9,GHTTI_Seconds),
+		ConcatinatedString(":", NumberString(GHTTI_Seconds)),
+		[(9, ConcatinatedString(":0", NumberString(GHTTI_Seconds)))]
 	);
-	
-GHETA = 
+
+GHTTI_neg = 
+	ConcatinatedString(
+		ConcatinatedString(
+			ConcatinatedString("(", NumberString(Multiply(-1,GHTTI_Minutes))),
+			SwitchString(
+				Min(-9,GHTTI_Seconds),
+				ConcatinatedString(":", NumberString(Multiply(-1,GHTTI_Seconds))),
+				[(-9, ConcatinatedString(":0", NumberString(Multiply(-1,GHTTI_Seconds))))]
+			)
+		),
+		")"
+	);
+
+GHTTI = 
 	SwitchString(
-		GetSpeed(Me, OnEveryFrame),
-		ConcatinatedString(NumberString(GHETA_Minutes), GHETA_SecondString),
-		[(0, "0:00")]
+		Min(Max(GHTTI_allseconds,0),1800),
+		ConcatinatedString(NumberString(GHTTI_Minutes), GHTTI_SecondString),
+		[
+		(0,GHTTI_neg),
+		(1800, "infinite")
+		]
 	); 
-	
-GHLargeTargetSpeedOrETA = 
-	SwitchImage(
-		GetSpeed(Target, OnEveryFrame),
-		GHLargeTargetSpeed,
-		[(
-			0, 
-			GroupImage([
-				TranslateImage(
-					StringImage(
-						JustifyLeft, 
-						100,
-						Win32Font("Verdana", 12, false, 0),
-						GHTextColor,
-						"ETA"
-					),
-					Point(30,0)
-				),
-				TranslateImage(
-					StringImage(
-						JustifyLeft, 
-						100,
-						Win32Font("Verdana", 12, false, 0),
-						GHTextColor,
-						ConcatinatedString(": ", GHETA)
-					),
-					Point(100,0)
-				)	
-			])
-		)]
-	);
+
+GHLargeTargetTTI = 
+	GroupImage([
+		TranslateImage(
+			StringImage(
+				JustifyLeft, 
+				100,
+				Win32Font("Verdana", 12, false, 0),
+				GHTextColor,
+				"TTI"
+			),
+			Point(30,0)
+		),
+		TranslateImage(
+			StringImage(
+				JustifyLeft, 
+				100,
+				Win32Font("Verdana", 12, false, 0),
+				GHTextColor,
+				ConcatinatedString(": ", GHTTI)
+			),
+			Point(100,0)
+		)	
+	]);
+		
 /*
 GHMetaString = 
 	StringImage(
@@ -1248,9 +1259,10 @@ GHLargeTargetView =
 			//Strings
 			TranslateImage(GHLargeTargetDescriptionLabel, Point(30,110)),
 			TranslateImage(GHLargeTargetDescription, Point(100,110)),
-			TranslateImage(GHLargeTargetSpeedOrETA, Point(0,95)),
-			TranslateImage(GHLargeTargetRangeLabel, Point(30,80)),
-			TranslateImage(GHLargeTargetRange, Point(100,80)),
+			TranslateImage(GHLargeTargetRangeLabel, Point(30,95)),
+			TranslateImage(GHLargeTargetRange, Point(100,95)),
+			TranslateImage(GHLargeTargetSpeed, Point(0,80)),
+			TranslateImage(GHLargeTargetTTI, Point(0,65)),
 			//TranslateImage(GHMetaString, Point(0,0)),
 			//TranslateImage(GHMetaString2, Point(0,-15)),
 			//TranslateImage(GHMetaString3, Point(0,-30)),
