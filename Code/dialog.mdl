@@ -1090,23 +1090,14 @@ GHLargeTargetKB =
 		emptyImage,
 		[(0, GHLargeTargetKBImage)]
 	);	
-
-GHLargeTargetDescriptionLabel = 	
-	StringImage(
-		JustifyLeft, 
-		100,
-		Win32Font("Verdana", 12, false, 0),
-		GHTextColor,
-		"type"
-	);		
 	
 GHLargeTargetDescription = 	
 	StringImage(
-		JustifyLeft, 
-		100,
+		JustifyCenter, 
+		200,
 		Win32Font("Verdana", 12, false, 0),
 		GHTextColor,
-		ConcatinatedString(": ", GetModelTypeDesc(Target, OnTargetChange))
+		GetModelTypeDesc(Target, OnTargetChange)
 	);	
 
 GHLargeTargetRangeLabel = 	
@@ -1257,8 +1248,7 @@ GHLargeTargetView =
 			TranslateImage(GHLargeTargetHull, Point(0,0)),
 			
 			//Strings
-			TranslateImage(GHLargeTargetDescriptionLabel, Point(30,110)),
-			TranslateImage(GHLargeTargetDescription, Point(100,110)),
+			TranslateImage(GHLargeTargetDescription, Point(0,110)),
 			TranslateImage(GHLargeTargetRangeLabel, Point(30,95)),
 			TranslateImage(GHLargeTargetRange, Point(100,95)),
 			TranslateImage(GHLargeTargetSpeed, Point(0,80)),
