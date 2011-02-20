@@ -654,7 +654,7 @@ GHCloakOn =
 	
 GHCloakDrained = 
 	SwitchImage(
-			Multiply(IsCloaked(Me, OnEveryFrame),Max(0.1,Multiply(GHCloakF, GHCloakE))),
+			Max(0.1,GetPercentEnergy(Me,OnEveryFrame)),
 			emptyImage, 
 			[(0.1,ImportImage3D("gh_cloakdrained", GHSideColor,true))]
 		);		
@@ -807,12 +807,12 @@ KBwithTarget =
 		TranslateImage(
 			StringImage(
 				JustifyCenter, 
-				100,
+				150,
 				Win32Font("Verdana", 13, true, 0),
 				targetHudColor,
 				GetName(Target, OnTargetChange)
 			),
-			Point(-20,-16)
+			Point(-45,-16)
 		)
 	]);	
 	
@@ -966,7 +966,7 @@ GHCenterHudOn =
 		TranslateImage(GHInRange, Point(320,240)),
 		TranslateImage(GHPiloting, Point(177,245)),
 		TranslateImage(GHCloakOn, Point(426,245)),
-		TranslateImage(GHCloakDrained, Point(416,255)),
+		TranslateImage(GHCloakDrained, Point(416,270)),
 		TranslateImage(GHSmallTargetBackgroundDetected, Point(270,15)),
 		TranslateImage(GHSmallTargetImage, Point(265,10)),
 		TranslateImage(GHGaugeLabels, Point(320,240)),
