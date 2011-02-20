@@ -5377,7 +5377,7 @@ dialogs =
         (TargetDisplayImage,            SideBottom,         Point(-320, -183), Point(-320,   12), .5,    48, true),
 		
 		// GLASSHUD TARGET DISPLAY
-		(GHLargeTargetView,            SideTopRight,         Point(-200, 50), Point(-230,-330), .75,   65590, true),
+		(GHLargeTargetView,            SideTopRight,         Point(-230, 50), Point(-230,-330), .75,   65590, true),
        
         // cortCommandModeInfo: the additional ship status information at the upper left corner of the map
         (cortCommandModeInfo,           SideTopLeft,        Point(  20,  185), Point(  20,  -105), .5,     2, true),
