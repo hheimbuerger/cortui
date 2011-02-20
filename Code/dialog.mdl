@@ -217,7 +217,8 @@ GHStyleSwitchSource = NormalHUDMode; //if using cortUI_settings.
 // GHStyleSwitchSource = StyleHUD; // this would be more elegant if Alleg saved the last used hudmode somewhere.
 GHHudSlot = 3;  // if not CortUI, change to appropriate number
 
-GHDetected = Detected;
+// since 'Detected' = 0 when eyed: 
+GHHidden = Detected;
 IsNotEjected = Multiply(-1,Subtract(IsEjectPod(Me, OnEveryFrame),1));
 
 // HULL
@@ -226,7 +227,7 @@ GHHullSrc =
 	SwitchImage(
 		Flash,
 		SwitchImage(
-			GHDetected,
+			GHHidden,
 			ImportImageFromFile("mods/CortUI/media/GlassHUD/gh_hull_detected.png", true),
 			[(1,ImportImageFromFile("mods/CortUI/media/GlassHUD/gh_hull.png", true))]
 		),
@@ -335,7 +336,7 @@ GHShieldSrc =
 	SwitchImage(
 		Flash,
 		SwitchImage(
-			GHDetected,
+			GHHidden,
 			ImportImageFromFile("mods/CortUI/media/GlassHUD/gh_shield_detected.png", true),
 			[(1,ImportImageFromFile("mods/CortUI/media/GlassHUD/gh_shield.png", true))]
 		),
@@ -439,7 +440,7 @@ GHGearSrc =
 	SwitchImage(
 		Flash,
 		SwitchImage(
-			GHDetected,
+			GHHidden,
 			ImportImageFromFile("mods/CortUI/media/GlassHUD/gh_gear_detected.png", true),
 			[(1,ImportImageFromFile("mods/CortUI/media/GlassHUD/gh_gear.png", true))]
 		),
@@ -646,7 +647,7 @@ GHPiloting =
 	);
 	
 GHEye = 
-	SwitchImage(GHDetected,ImportImage3D("gh_eye", GHSideColor,true),[(1, emptyImage)]);	
+	SwitchImage(GHHidden,ImportImage3D("gh_eye", GHSideColor,true),[(1, emptyImage)]);	
 
 GHCloakOn = 
 	SwitchImage(IsCloaked(Me, OnEveryFrame),ImportImage3D("gh_cloakon", GHSideColor,true),[(0, emptyImage)]);	
@@ -696,66 +697,169 @@ GHInRange =
 
 // String section
 
-GHSpeed = 
-	BlendImage(
-		GroupImage([
-			TranslateImage(
-				StringImage(
-					JustifyRight,
-					40,
-					Win32Font("Verdana", 13, false, 0),
-					GHSideColor,
-					SwitchString(
-						Min(100,GetSpeed(Me,OnEveryFrame)),
-						ConcatinatedString("0",NumberString(GetSpeed(Me, OnEveryFrame))), 
-						[(100, NumberString(GetSpeed(Me, OnEveryFrame)))]
-					)
-				),
-				Point(0,0)
+GHSpeednoTarget = 
+	GroupImage([
+		StringImage(
+			JustifyRight,
+			30,
+			Win32Font("Verdana", 13, false, 0),
+			GHSideColor,
+			NumberString(GetSpeed(Me, OnEveryFrame))
+		),
+		TranslateImage(
+			StringImage(
+				JustifyLeft,
+				30,
+				Win32Font("Verdana", 13, false, 0),
+				GHTextColor,
+				"mps"
 			),
-			TranslateImage(
-				StringImage(
-					JustifyLeft,
-					40,
-					Win32Font("Verdana", 13, false, 0),
-					GHTextColor,
-					"mps"
-				),
-				Point(40,0)
-			)
-		]),
-		hudBlendMode
-	);
+			Point(32,0)
+		)
+	]);
 
-GHKB = 
-	BlendImage(
-		GroupImage([
-			TranslateImage(
-				StringImage(
-					JustifyCenter,
-					70,
-					Win32Font("Verdana", 13, true, 0),
-					GHSideColor,
-					NumberString(Experience)
-				),
-				Point(0,42)
+GHSpeedwithTarget =
+	GroupImage([
+		TranslateImage(
+			StringImage(
+				JustifyRight,
+				30,
+				Win32Font("Verdana", 13, false, 0),
+				GHSideColor,
+				NumberString(GetSpeed(Me, OnEveryFrame))
 			),
-			TranslateImage(
-				ImportImage3D("gh_kbbg", GHSideColor, true), 
-				Point(15,15)
-			)
-			
-		]),
-		hudBlendMode
+			Point(0,6)
+		),
+		TranslateImage(
+			StringImage(
+				JustifyRight,
+				30,
+				Win32Font("Verdana", 13, false, 0),
+				targetHudColor,
+				NumberString(GetSpeed(Target, OnEveryFrame))
+			),
+			Point(0,-6)
+		),
+		TranslateImage(
+			StringImage(
+				JustifyLeft,
+				30,
+				Win32Font("Verdana", 13, false, 0),
+				GHTextColor,
+				"mps"
+			),
+			Point(32,0)
+		)
+	]);
+	
+GHSpeed = 
+	SwitchImage(
+		GetModelType(Target, OnTargetChange),
+		GHSpeednoTarget,
+		[(
+			0,
+			SwitchImage(
+				GetSpeed(Target, OnEveryFrame),
+				GHSpeedwithTarget,
+				[(0, GHSpeednoTarget)]
+			)		
+		)]
 	);	
 
+KBnoTarget =				
+	StringImage(
+		JustifyCenter,
+		60,
+		Win32Font("Verdana", 14, true, 0),
+		GHSideColor,
+		NumberString(Experience)
+	);
+
+KBwithTarget =
+	GroupImage([
+		StringImage(
+			JustifyRight,
+			20,
+			Win32Font("Verdana", 14, true, 0),
+			GHSideColor,
+			NumberString(Experience)
+		),
+		TranslateImage(
+			StringImage(
+				JustifyCenter,
+				20,
+				Win32Font("Verdana", 12, false, 0),
+				GHTextColor,
+				"vs"
+			),
+			Point(20,-5)
+		),
+		TranslateImage(
+			StringImage(
+				JustifyLeft,
+				20,
+				Win32Font("Verdana", 14, true, 0),
+				targetHudColor,
+				NumberString(TargetExperience)
+			),
+			Point(40,0)
+		),
+		TranslateImage(
+			StringImage(
+				JustifyCenter, 
+				100,
+				Win32Font("Verdana", 13, true, 0),
+				targetHudColor,
+				GetName(Target, OnTargetChange)
+			),
+			Point(-20,-16)
+		)
+	]);	
+	
+GHKB = 
+	SwitchImage(
+		GetModelType(Target, OnTargetChange),
+		KBnoTarget,
+		[(0, KBwithTarget)]
+	);	
+
+GHTargetRangePre =
+	VisibleImage(
+		StringImage(
+			JustifyCenter,
+			50,
+			Win32Font("Verdana", 13, false, 0),
+			targetHudColor,
+			SwitchString(
+				GetRange(Target, OnEveryFrame),
+				ConcatinatedString(NumberString(GetRange(Target, OnEveryFrame)),"m"),
+				[(-1, GetSectorName(Target, OnEveryFrame))]
+			)
+		),
+		IsNotNull(Target, OnEveryFrame)
+	);
+
+GHTargetRange =
+	SwitchImage(
+		GetModelType(Target, OnTargetChange),
+		GHTargetRangePre,
+		[(
+			0, 
+			TranslateImage(
+				GHTargetRangePre,
+				Point(0,-15)
+			)
+		)]
+	);	
+	
+	
 GHSigString =
 	BlendImage(
 		GroupImage([
 			TranslateImage(
 				StringImage(
 					JustifyRight,
-					40,
+					30,
 					Win32Font("Verdana", 13, false, 0),
 					GHTextColor,
 					"sig"
@@ -765,12 +869,12 @@ GHSigString =
 			TranslateImage(
 				StringImage(
 					JustifyLeft,
-					40,
+					30,
 					Win32Font("Verdana", 13, false, 0),
 					GHSideColor,
 					NumberString(Signature)
 				),
-				Point(40,0)
+				Point(32,0)
 			)			
 		]),
 		hudBlendMode
@@ -778,9 +882,10 @@ GHSigString =
 
 GHStrings = 
 	GroupImage([
-		TranslateImage(GHKB, Point(285,  Subtract(ThrottleY, 26))), 
-		TranslateImage(GHSpeed, Point(190, 188)),
-		TranslateImage(GHSigString, Point(370,188)), 
+		TranslateImage(GHKB, Point(290,385)), 
+		TranslateImage(GHSpeed, Point(165, 245)),
+		TranslateImage(GHTargetRange, Point(295, 370)),
+		TranslateImage(GHSigString, Point(410,245)), 
 		emptyImage
 	]);	
 
@@ -792,7 +897,7 @@ GHSmallTargetGEO =
 	BlendImage(
 		GeoImage(
 			targetGeo,
-			Rect(0, 0,	100, 100),
+			Rect(0, 0,	110, 110),
 			targetCamera,
 			true
 		),
@@ -804,91 +909,51 @@ GHSmallTargetBackground =
 		ImportImage3D("gh_targetbackground", targetHudColor, true),
 	hudBlendMode
 	); 
-
-GHSmallTargetShieldHidden =
-	GaugeImage(JustifyLeft, ImportImageFromFile("mods/CortUI/media/GlassHUD/gh_targetgauge_hidden.png", true) , GetPercentShields(Target, OnEveryFrame));
 	
-GHSmallTargetShieldDetected = 
-	GaugeImage(JustifyLeft, ImportImageFromFile("mods/CortUI/media/GlassHUD/gh_targetgauge_detected.png", true) , GetPercentShields(Target, OnEveryFrame));
-
-GHSmallTargetShield = 
+GHSmallTargetBackgroundDetected =
 	SwitchImage(
-		GHDetected,
-		GHSmallTargetShieldHidden,
-		[(0,GHSmallTargetShieldDetected)]
+		GHHidden,
+		GHSmallTargetBackground,
+		[(1, emptyImage)]
 	);
 
-GHSmallTargetHullHidden =
-	GaugeImage(JustifyLeft, ImportImageFromFile("mods/CortUI/media/GlassHUD/gh_targetgauge_hidden.png", true) , GetPercentHitPoints(Target, OnEveryFrame));
-	
-GHSmallTargetHullDetected = 
-	GaugeImage(JustifyLeft, ImportImageFromFile("mods/CortUI/media/GlassHUD/gh_targetgauge_detected.png", true) , GetPercentHitPoints(Target, OnEveryFrame));	
-
-GHSmallTargetHull = 
+GHSmallTargetGaugeSource = 
 	SwitchImage(
-		GHDetected,
-		GHSmallTargetHullHidden,
-		[(0,GHSmallTargetHullDetected)]
+		GHHidden,
+		ImportImageFromFile("mods/CortUI/media/GlassHUD/gh_targetgauge_hidden.png", true),
+		[(0, ImportImageFromFile("mods/CortUI/media/GlassHUD/gh_targetgauge_detected.png", true))]
 	);
+	
+GHSmallTargetShield = 	
+	BlendImage(   
+		GaugeImageRect(         
+				JustifyBottom,
+				GHSmallTargetGaugeSource,
+				Rect(0,0,80,68),
+				true,			
+				GetPercentShields(Target, OnEveryFrame)
+		),
+	hudBlendMode);
+	
+GHSmallTargetHull = 	
+	BlendImage(   
+		GaugeImageRect(         
+				JustifyBottom,
+				GHSmallTargetGaugeSource,
+				Rect(80,0,160,68),
+				true,			
+				GetPercentHitPoints(Target, OnEveryFrame)
+		),
+	hudBlendMode);	
 
 // strings
-
-GHSmallTargetCallsign =
-		StringImage(
-		JustifyCenter, 
-		100,
-		Win32Font("Verdana", 12, false, 0),
-		targetHudColor,
-		GetName(Target, OnTargetChange)
-	);
-
-GHSmallTargetKB = 	
-	StringImage(
-		JustifyCenter,
-		100,
-		Win32Font("Verdana", 12, true, 0),
-		targetHudColor,
-		SwitchString(
-			GetModelType(Target, OnTargetChange),
-			emptyString,
-			[(0, NumberString(TargetExperience))]
-		) 
-	);	
-	
-GHSmallTargetSpeed = 	
-	StringImage(
-		JustifyLeft,
-		40,
-		Win32Font("Verdana", 13, false, 0),
-		targetHudColor,
-		ConcatinatedString(NumberString(GetSpeed(Target, OnEveryFrame)),"mps")
-	);
-	
-GHSmallTargetRange =
-	StringImage(
-		JustifyLeft,
-		80,
-		Win32Font("Verdana", 13, false, 0),
-		targetHudColor,
-		SwitchString(
-			GetRange(Target, OnEveryFrame),
-			ConcatinatedString(NumberString(GetRange(Target, OnEveryFrame)),"m"),
-			[(-1, GetSectorName(Target, OnEveryFrame))]
-		)
-	);
-		
 	
 GHSmallTargetImage = 
 	VisibleImage(
 		GroupImage([
-			TranslateImage(GHSmallTargetBackground, Point(0,22)),
 			TranslateImage(GHSmallTargetGEO, Point(0,0)),
-			TranslateImage(GHSmallTargetShield, Point(0,15)),
-			TranslateImage(GHSmallTargetHull, Point(0,8)),
-			TranslateImage(GHSmallTargetKB, Point(0,37)),
-			TranslateImage(GHSmallTargetCallsign, Point(0,10)),
-			TranslateImage(GHSmallTargetRange, Point(80,80)),
-			TranslateImage(GHSmallTargetSpeed, Point(-20,80)),
+			TranslateImage(GHSmallTargetShield, Point(-25,21)),
+			TranslateImage(GHSmallTargetHull, Point(55,21)),
 			emptyImage
 			]),
 		IsNotNull(Target, OnEveryFrame)
@@ -899,11 +964,11 @@ GHCenterHudOn =
 		TranslateImage(GHGauges, Point(0,0)),
 		TranslateImage(GHStrings, Point(0,0)),
 		TranslateImage(GHInRange, Point(320,240)),
-		TranslateImage(GHPiloting, Point(175,238)),
-		TranslateImage(GHCloakOn, Point(193,273)),
-		TranslateImage(GHCloakDrained, Point(232,273)),
-		TranslateImage(GHEye, Point(225,301)),
-		TranslateImage(GHSmallTargetImage, Point(270,50)),
+		TranslateImage(GHPiloting, Point(177,245)),
+		TranslateImage(GHCloakOn, Point(426,245)),
+		TranslateImage(GHCloakDrained, Point(416,255)),
+		TranslateImage(GHSmallTargetBackgroundDetected, Point(270,15)),
+		TranslateImage(GHSmallTargetImage, Point(265,10)),
 		TranslateImage(GHGaugeLabels, Point(320,240)),
 		emptyImage
 	]);
@@ -941,7 +1006,7 @@ GHLTHTH = 17;
 
 GHLargeTargetHullSrc = 
 	SwitchImage(
-		GHDetected,
+		GHHidden,
 		ImportImageFromFile("mods/CortUI/media/GlassHUD/gh_largetargethull_hidden.png", true),
 		[(0, ImportImageFromFile("mods/CortUI/media/GlassHUD/gh_largetargethull.png", true))]
 	);
@@ -1003,7 +1068,7 @@ GHLTSTH = 18;
 
 GHLargeTargetShieldSrc =
 	SwitchImage(
-		GHDetected,
+		GHHidden,
 		ImportImageFromFile("mods/CortUI/media/GlassHUD/gh_largetargetshield_hidden.png", true),
 		[(0, ImportImageFromFile("mods/CortUI/media/GlassHUD/gh_largetargetshield.png", true))]
 	);
@@ -1615,17 +1680,17 @@ moneyPane = ImagePane(ImportImage("creditboxbmp", false),
 ///////////////////////////////////////////////
 
 DefaultEjectPodDisplayOn = 
-	GroupImage([ 
-		TranslateImage(
-			GaugeImage(
-				JustifyLeft, 
-				ImportImage("softgaugebmp", true), 
-				GetEndurance(Me, OnEveryFrame)
+		GroupImage([ 
+			TranslateImage(
+				GaugeImage(
+					JustifyLeft, 
+					ImportImage("softgaugebmp", true), 
+					GetEndurance(Me, OnEveryFrame)
+				),
+				Point(66,10)
 			),
-			Point(66,10)
-		),
-		ImportImage("conejectpoddisplaybmp", false)
-	]);
+			ImportImage("conejectpoddisplaybmp", false)
+		]);
 
 GHEjectPodDisplayOn = 
 	TranslateImage(
@@ -1681,6 +1746,7 @@ GHEjectPodDisplayOn =
 		]),
 		Point(0,230)
 	);
+
 
 EjectPodImage  =
 	SwitchImage(
