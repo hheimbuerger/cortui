@@ -5340,7 +5340,7 @@ dialogs =
         //SectorImage: the minimap (flight mode)
         (SectorImage,                   SideBottomLeft,     Point(   0, -187), Point(  36,   28), .5, 65584, false),        //== 65536 + 32 + 16
         //SectorImage: the minimap (in base)
-        (SectorImage,                   SideBottomLeft,     Point(   0, -187),  Point(  0,   8), .5, Add(263, Multiply(ShowMinimapAtLoadoutScreen, 64)) , false),       //== 256 + 4 + 2 + 1
+        (SectorImage,                   SideBottomLeft,     Point(   0, -187),  Point(  36,  28), .5, Add(263, Multiply(ShowMinimapAtLoadoutScreen, 64)) , false),       //== 256 + 4 + 2 + 1
 
         // **********************************
         // * Level 4
@@ -5349,7 +5349,7 @@ dialogs =
         //MergedInventoryImage: the inventory pane (normal mode)
         (MergedInventoryPaneImage,      SideBottomRight,    Point( -245, -150), Point( -245,  40), .5, Add(Subtract(8192, Multiply(AlwaysShowLoadoutWindow, 8144)), 0x010000), true),
         //MergedInventoryImage: the inventory pane (map during flight)
-        (MergedInventoryPaneImage,      SideBottomRight,    Point( -245, 0), Point( -214,  20), .5, 2, true),
+        (MergedInventoryPaneImage,      SideBottomRight,    Point( -245, -150), Point( -245,  40), .5, 2, true),
 
         // **********************************
         // * Level 5 (below everything else)
