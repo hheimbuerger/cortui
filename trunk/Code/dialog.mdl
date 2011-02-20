@@ -1628,57 +1628,59 @@ DefaultEjectPodDisplayOn =
 	]);
 
 GHEjectPodDisplayOn = 
-	GroupImage([
-		TranslateImage(
-			StringImage(
-				JustifyCenter,
-				160,
-				Win32Font("Verdana", 14, true, 0),
-				hudColor,
-				"you have ejected"
-	        ),
-		Point(0,95)
-		), 
-		TranslateImage(
-			StringImage(
-				JustifyCenter,
-				160,
-				Win32Font("Verdana", 13, false, 0),
-				hudColor,
-				"press B,P to return to base"
-	        ),
-		Point(0,79)
-		), 
-		TranslateImage(
-			StringImage(
-				JustifyLeft,
-				160,
-				Win32Font("Verdana", 13, false, 0),
-				Color(0.6,0.6,0.6),
-				"O :"
-	        ),
-		Point(41,62)
-		), 
-		TranslateImage(
-			StringImage(
-				JustifyLeft,
-				160,
-				Win32Font("Verdana", 11, false, 0),
-				Color(0.6,0.6,0.6),
-				"2"
-	        ),
-		Point(49,64)
-		), 
-		TranslateImage(
-			GaugeImage(
-				JustifyLeft, 
-				ImportImage("softgaugebmp", true), 
-				GetEndurance(Me, OnEveryFrame)
-			),
-			Point(60,52)
-		)
-	]);
-
+	TranslateImage(
+		GroupImage([
+			TranslateImage(
+				StringImage(
+					JustifyCenter,
+					160,
+					Win32Font("Verdana", 14, true, 0),
+					hudColor,
+					"You have ejected."
+				),
+			Point(0,95)
+			), 
+			TranslateImage(
+				StringImage(
+					JustifyCenter,
+					160,
+					Win32Font("Verdana", 13, false, 0),
+					hudColor,
+					"Press B, P to return to base"
+				),
+			Point(0,79)
+			), 
+			TranslateImage(
+				StringImage(
+					JustifyLeft,
+					160,
+					Win32Font("Verdana", 13, false, 0),
+					Color(0.6,0.6,0.6),
+					"O :"
+				),
+			Point(41,62)
+			), 
+			TranslateImage(
+				StringImage(
+					JustifyLeft,
+					160,
+					Win32Font("Verdana", 11, false, 0),
+					Color(0.6,0.6,0.6),
+					"2"
+				),
+			Point(49,64)
+			), 
+			TranslateImage(
+				GaugeImage(
+					JustifyLeft, 
+					ImportImage("softgaugebmp", true), 
+					GetEndurance(Me, OnEveryFrame)
+				),
+				Point(60,52)
+			)
+		]),
+		Point(0,230)
+	);
 
 EjectPodImage  =
 	SwitchImage(
