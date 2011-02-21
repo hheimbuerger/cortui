@@ -884,7 +884,7 @@ GHStrings =
 	GroupImage([
 		TranslateImage(GHKB, Point(290,385)), 
 		TranslateImage(GHSpeed, Point(165, 245)),
-		TranslateImage(GHTargetRange, Point(295, 370)),
+		TranslateImage(GHTargetRange, Point(280, 370)),
 		TranslateImage(GHSigString, Point(410,245)), 
 		emptyImage
 	]);	
