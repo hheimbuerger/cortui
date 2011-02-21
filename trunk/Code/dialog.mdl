@@ -5015,9 +5015,9 @@ cortStationHullGauge =
 cortStationName =	
 	StringImage(
 		JustifyLeft,
-		200,
-		medVerdana,
-		cortText,
+		250,
+		medBoldVerdana,
+		GetSideColor(MyStation, OnEveryFrame),
 		ConcatinatedString(GetName(MyStation, OnEveryFrame), (ConcatinatedString(" in ", GetSectorName(MyStation, OnEveryFrame))))
 	);
 	
