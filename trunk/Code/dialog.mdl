@@ -1166,12 +1166,24 @@ GHLargeTargetDescription =
 	);	
 
 GHLargeTargetRangeLabel = 	
-	StringImage(
-		JustifyLeft, 
-		100,
-		Win32Font("Verdana", 12, false, 0),
-		GHTextColor,
-		"range"
+	SwitchImage(
+		GetPercentHitPoints(MyStation, OnEveryFrame),
+		StringImage(
+			JustifyLeft, 
+			100,
+			Win32Font("Verdana", 12, false, 0),
+			GHTextColor,
+			"from center"
+		),
+		[(0, 
+			StringImage(
+				JustifyLeft, 
+				100,
+				Win32Font("Verdana", 12, false, 0),
+				GHTextColor,
+				"distance"
+			)
+		)]
 	);
 		
 GHLargeTargetRange = 	
@@ -1214,73 +1226,92 @@ GHLargeTargetSpeed =
 	]);		
 	
 GHTTI_allseconds = Divide(GetRange(Target, OnEveryFrame),Subtract(GetSpeed(Me, OnEveryFrame), GetSpeed(Target, OnEveryFrame)));
-GHTTI_Mod = Mod(GHTTI_allseconds, 60);
-GHTTI_Minutes = Divide(Subtract(GHTTI_allseconds, GHTTI_Mod),60);
+GHTTI_allseconds_Abs = Max(Multiply(-1,GHTTI_allseconds),GHTTI_allseconds);
+GHTTI_Mod = Mod(GHTTI_allseconds_Abs, 60);
+GHTTI_Minutes = Divide(Subtract(GHTTI_allseconds_Abs, GHTTI_Mod),60);
 GHTTI_Seconds = Min(GHTTI_Mod, 59);
 GHTTI_SecondString = 
 	SwitchString(
-		Max(9,GHTTI_Seconds),
+		Max(9.4999,GHTTI_Seconds),
 		ConcatinatedString(":", NumberString(GHTTI_Seconds)),
-		[(9, ConcatinatedString(":0", NumberString(GHTTI_Seconds)))]
+		[(9.4999, ConcatinatedString(":0", NumberString(GHTTI_Seconds)))]
 	);
-
-GHTTI_neg = 
+	
+GHTTI_string = 
 	ConcatinatedString(
-		ConcatinatedString(
-			ConcatinatedString("(", NumberString(Multiply(-1,GHTTI_Minutes))),
-			SwitchString(
-				Min(-9,GHTTI_Seconds),
-				ConcatinatedString(":", NumberString(Multiply(-1,GHTTI_Seconds))),
-				[(-9, ConcatinatedString(":0", NumberString(Multiply(-1,GHTTI_Seconds))))]
+		NumberString(GHTTI_Minutes), 
+		GHTTI_SecondString
+	);
+	
+GHTTI_posneg = 
+	SwitchString(
+		Max(0,GHTTI_allseconds),
+		GHTTI_string ,
+		[(
+			0,
+			ConcatinatedString(		
+				ConcatinatedString(
+					"(",
+					GHTTI_string
+				),
+				")"		
 			)
-		),
-		")"
+		)]
 	);
 
 GHTTI = 
 	SwitchString(
-		Min(Max(GHTTI_allseconds,0),1800),
-		ConcatinatedString(NumberString(GHTTI_Minutes), GHTTI_SecondString),
-		[
-		(0,GHTTI_neg),
-		(1800, "infinite")
-		]
+		Subtract(GetSpeed(Me, OnEveryFrame), GetSpeed(Target, OnEveryFrame)), //avoid div/0 errors and funkyness.
+		SwitchString(
+			Min(GHTTI_allseconds_Abs,1800), // avoid ridiculously long numbers. 
+			GHTTI_posneg,
+			[
+			(1800, "infinite")
+			]
+		),
+		[(0, "infinite")]
 	); 
 
 GHLargeTargetTTI = 
-	GroupImage([
-		TranslateImage(
-			StringImage(
-				JustifyLeft, 
-				100,
-				Win32Font("Verdana", 12, false, 0),
-				GHTextColor,
-				"TTI"
-			),
-			Point(30,0)
-		),
-		TranslateImage(
-			StringImage(
-				JustifyLeft, 
-				100,
-				Win32Font("Verdana", 12, false, 0),
-				GHTextColor,
-				ConcatinatedString(": ", GHTTI)
-			),
-			Point(100,0)
-		)	
-	]);
+	SwitchImage(
+		GetPercentHitPoints(MyStation, OnEveryFrame), // 0 if not in base
+		emptyImage, // hide if in base
+		[(0,
+			GroupImage([
+				TranslateImage(
+					StringImage(
+						JustifyLeft, 
+						100,
+						Win32Font("Verdana", 12, false, 0),
+						GHTextColor,
+						"TTI"
+					),
+					Point(30,0)
+				),
+				TranslateImage(
+					StringImage(
+						JustifyLeft, 
+						100,
+						Win32Font("Verdana", 12, false, 0),
+						GHTextColor,
+						ConcatinatedString(": ", GHTTI)
+					),
+					Point(100,0)
+				)	
+			])
+		)]
+	);
 		
-/*
+/*	
 GHMetaString = 
 	StringImage(
 	JustifyLeft,
 	200,
 	medVerdana,
 	white,
-	ConcatinatedString("Target Modeltype: ", NumberString(GetModelType(Target, OnTargetChange)))
+	ConcatinatedString("Numberstring Rounding: ", NumberString(9.499))
 	);
-	
+
 GHMetaString2 = 
 	StringImage(
 	JustifyLeft,
@@ -1318,9 +1349,13 @@ GHLargeTargetView =
 			TranslateImage(GHLargeTargetRange, Point(100,95)),
 			TranslateImage(GHLargeTargetSpeed, Point(0,80)),
 			TranslateImage(GHLargeTargetTTI, Point(0,65)),
+	///////////////////////////////////////////////////
+			//for dev purposes only:
 			//TranslateImage(GHMetaString, Point(0,0)),
 			//TranslateImage(GHMetaString2, Point(0,-15)),
 			//TranslateImage(GHMetaString3, Point(0,-30)),
+			
+	/////////////////////////////////////////////////////
 			emptyImage
 			]),
 		IsNotNull(Target, OnTargetChange)
