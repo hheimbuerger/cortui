@@ -1333,7 +1333,7 @@ GHMetaString3 =
 //this is a separate pane and gets a separate slide in line below!	
 // don't forget the 'slide in'-line at the end of this file!
 	
-GHLargeTargetView = 
+GHLargeTargetViewGroup = 	
 	VisibleImage(
 		GroupImage([
 			TranslateImage(GHLargeTargetBackground, Point(0,0)),
@@ -1359,6 +1359,13 @@ GHLargeTargetView =
 			emptyImage
 			]),
 		IsNotNull(Target, OnTargetChange)
+	);
+
+GHLargeTargetView = 
+	SwitchImage(
+		GHStyleSwitchSource,
+		emptyImage,
+		[(GHHudSlot,GHLargeTargetViewGroup)]
 	);
 	
 //////////////////////////////////////////////////////////////
