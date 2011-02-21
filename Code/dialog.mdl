@@ -1122,7 +1122,7 @@ GHLargeTargetShield =
 GHLargeTargetCallsign =
 		StringImage(
 		JustifyCenter, 
-		200,
+		250,
 		Win32Font("Verdana", 16, true, 0),
 		targetHudColor,
 		GetName(Target, OnTargetChange)
@@ -1159,7 +1159,7 @@ GHLargeTargetKB =
 GHLargeTargetDescription = 	
 	StringImage(
 		JustifyCenter, 
-		200,
+		250,
 		Win32Font("Verdana", 12, false, 0),
 		GHTextColor,
 		GetModelTypeDesc(Target, OnTargetChange)
