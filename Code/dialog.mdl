@@ -1366,7 +1366,7 @@ GHLargeTargetView =
 		GHStyleSwitchSource,
 		emptyImage,
 		[(GHHudSlot,GHLargeTargetViewGroup)]
-	);
+	);	
 	
 //////////////////////////////////////////////////////////////
 //
@@ -4630,21 +4630,12 @@ cortVersionInformation =
 
 cortText = Color(0.586, 0.578, 0.680);
 
-cortTargetGroupHeader =
-    StringImage(
-        JustifyLeft,
-        150,
-        medVerdana,
-        cortText,
-        "Targeting:"
-    );
-
 cortTargetExperienceOff =
     StringImage(
         JustifyLeft, 
         200,
-        medVerdana,
-        cortText,
+        medBoldVerdana,
+        GetSideColor(Target, OnEveryFrame),
         GetName(Target, OnEveryFrame)
     );
 
@@ -4652,8 +4643,8 @@ cortTargetExperienceOn =
     StringImage(
         JustifyLeft, 
         200,
-        medVerdana,
-        cortText,
+        medBoldVerdana,
+        GetSideColor(Target, OnEveryFrame),
         ConcatinatedString(ConcatinatedString(ConcatinatedString(GetName(Target, OnEveryFrame), " ("), NumberString(TargetExperience)), "%)")
     );
 
@@ -4666,6 +4657,15 @@ cortTargetName =
         ]
     );
 
+cortTargetRangeLabel = 
+    StringImage(
+        JustifyLeft, 
+        130,
+        medVerdana,
+        cortText,
+        "Target range:"
+    );
+	
 cortTargetRangeString = 
     SwitchString(
         GetRange(Target, OnEveryFrame),
@@ -4683,6 +4683,22 @@ cortTargetRange =
         cortText,
         cortTargetRangeString
     );      
+
+cortTargetSpeedLabel = 
+     SwitchImage(
+        GetModelType(Target, OnEveryFrame),
+        emptyImage,
+        [
+			(0, StringImage(
+					JustifyLeft, 
+					130,
+					medVerdana,
+					cortText,
+					"Target speed:"
+				)
+			)
+		]
+	);
 	
 cortTargetSpeed =
     SwitchImage(
@@ -4700,17 +4716,53 @@ cortTargetSpeed =
         ]
     );
 	
+cortTargetShieldsLabel =
+    StringImage(
+        JustifyLeft, 
+        130,
+        medVerdana,
+        cortText,
+        "Target shields:"
+    );
+
+cortTargetShieldsGauge = 
+    GaugeImage(JustifyLeft, ImportImage("softgaugebmp", true), GetPercentShields(Target, OnEveryFrame));
+
+cortTargetHullLabel =
+    StringImage(
+        JustifyLeft, 
+        130,
+        medVerdana,
+        cortText,
+        "Target hull:"
+    );
+
+cortTargetHullGauge = 
+    GaugeImage(JustifyLeft, ImportImage("softgaugebmp", true), GetPercentHitPoints(Target, OnEveryFrame));
+	
 cortTargetGroup = 	
 	VisibleImage(
 		GroupImage(
 			[
-			TranslateImage(cortTargetGroupHeader,  Point(0, 33)),
 			TranslateImage(cortTargetName,  Point(0, 22)),
-			TranslateImage(cortTargetRange, Point(0, 11)),
-			TranslateImage(cortTargetSpeed, Point(0, 0))
+			TranslateImage(cortTargetShieldsLabel, Point(0,  11)),
+			TranslateImage(cortTargetShieldsGauge, Point(80, 3)),
+			TranslateImage(cortTargetHullLabel,    Point(0,  0)),
+			TranslateImage(cortTargetHullGauge,    Point(80, -8)),
+			TranslateImage(cortTargetRangeLabel, Point(0, -11)),
+			TranslateImage(cortTargetRange, Point(80, -11)),
+			TranslateImage(cortTargetSpeedLabel, Point(0, -22)),
+			TranslateImage(cortTargetSpeed, Point(80,-22))
 			]
 		),
 		IsNotNull(Target, OnEveryFrame)
+	);	
+	
+CommandModeTargetGroup = 
+	SwitchImage(
+		GHStyleSwitchSource,
+		cortTargetGroup,
+		[(GHHudSlot, emptyImage)]
 	);	
 	
 cortShipLabel =
@@ -5024,7 +5076,6 @@ cortStationName =
 cortCommandModeInfo = 
 	GroupImage([
 		TranslateImage(CommandModeIcons, Point(0,-5)),
-		TranslateImage(cortTargetGroup, 	 Point(160, -30)),
 		TranslateImage(cortShipLabel,        Point(0,  -10)),
 		TranslateImage(cortShipValue,        Point(49, -10)),
 		TranslateImage(cortShieldsLabel,     Point(0,  -22)),
@@ -5052,7 +5103,8 @@ cortCommandModeInfo =
 		TranslateImage(cortSigPostfix,       Point(82, -106)),
 		TranslateImage(cortKillbonusLabel,   Point(0,  -118)),
 		TranslateImage(cortKillbonusValue,   Point(5,  -118)),
-		TranslateImage(cortKillbonusPostfix, Point(82, -118))
+		TranslateImage(cortKillbonusPostfix, Point(82, -118)),
+		TranslateImage(CommandModeTargetGroup, 	 Point(0, -180))
 	]);
 	
 cortCommandModeInfoBase = 
