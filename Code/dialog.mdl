@@ -1753,7 +1753,7 @@ GHEjectPodDisplayOn =
 					160,
 					Win32Font("Verdana", 13, false, 0),
 					hudColor,
-					"Press B, P to return to base"
+					"Press B, P to return to base."
 				),
 			Point(0,79)
 			), 
