@@ -1,0 +1,136 @@
+use "inventorypart";
+use "cortui_settings";
+
+StatsBar = StringPane(
+        ConcatinatedString(
+            ConcatinatedString(
+                ConcatinatedString(
+                    ConcatinatedString(
+                        NumberString(GetCount(part, OnEveryFrame)),
+                        " / "
+                    ),
+                    NumberString(GetWeaponRange(part, OnEveryFrame))
+                ),
+                "m / "
+            ),
+            NumberString(GetDamage(part, OnEveryFrame))
+        ),
+        Color(1,1,1), Point(83, 12)
+    );
+
+//these separate declarations seem like overkill, but without them the Switch doesnt work.	
+	
+GaugePaneClassic = 
+	GaugePane(
+		ImportImageFromFile("mods/CortUI/media/classic/mountingbar.png", false),
+		GetMountedFraction(part, OnEveryFrame),
+		Color(0, 0, 0),
+		Color(0, 0, 0)
+	);
+	
+GaugePaneGreytones = 	
+	GaugePane(
+		ImportImageFromFile("mods/CortUI/media/greytones/mountingbar.png", false),
+		GetMountedFraction(part, OnEveryFrame),
+		Color(0, 0, 0),
+		Color(0, 0, 0)
+	);	
+	
+GaugePaneGlassHUD = 
+	GaugePane(
+		ImportImageFromFile("mods/CortUI/media/GlassHUD/mountingbar.png", false),
+		GetMountedFraction(part, OnEveryFrame),
+		Color(0, 0, 0),
+		Color(0, 0, 0)
+	);	
+	
+MountingBarGaugePane = 
+	SwitchPane(
+		NormalHUDMode,
+		[
+		(GaugePaneClassic, 0),
+		(GaugePaneGreytones, 1),
+		(GaugePaneGreytones, 2),
+		(GaugePaneGlassHUD, 3)	
+		]
+	);
+	
+MountingBar = 
+    ImagePane(ImportImage("mountingbarbkgndbmp", true),
+        [
+            (
+				MountingBarGaugePane,
+                Point(0,0)
+            )
+        ]
+    );
+
+ArmingGaugePaneClassic = 
+	GaugePane(
+		ImportImageFromFile("mods/CortUI/media/classic/armingbar.png", false),
+		GetArmedFraction(part, OnEveryFrame),
+		Color(0, 0, 0),
+		Color(0, 0, 0)
+	);
+	
+ArmingGaugePaneGreytones = 	
+	GaugePane(
+		ImportImageFromFile("mods/CortUI/media/greytones/armingbar.png", false),
+		GetArmedFraction(part, OnEveryFrame),
+		Color(0, 0, 0),
+		Color(0, 0, 0)
+	);	
+	
+ArmingGaugePaneGlassHUD = 
+	GaugePane(
+		ImportImageFromFile("mods/CortUI/media/GlassHUD/armingbar.png", false),
+		GetArmedFraction(part, OnEveryFrame),
+		Color(0, 0, 0),
+		Color(0, 0, 0)
+	);		
+
+ArmingGaugePane = 
+	SwitchPane(
+		NormalHUDMode,
+		[
+		(ArmingGaugePaneClassic, 0),
+		(ArmingGaugePaneGreytones, 1),
+		(ArmingGaugePaneGreytones, 2),
+		(ArmingGaugePaneGlassHUD, 3)	
+		]
+	);
+	
+ArmingBar = 
+    ImagePane(ImportImage("armingbarbkgndbmp", true),
+        [
+            (
+                ArmingGaugePane,
+                Point(0,0)
+            )
+        ]
+    );
+
+
+InventoryLine = ImagePane(ImportImage("inventorylinebkgndbmp", false),
+    [	
+		(ImagePane(ImportImage("misslebmp", true), []), Point(5, 5)), 
+        (StringPane(partkey, Color(1,1,1), Point(12, 12)), Point(23, 5)),
+		
+		(StringPane(GetPartName(part, OnEveryFrame), Color(1,1,1), Point(88, 12)), Point(35,5)),
+		
+		
+
+        (
+            SwitchPane(
+                GetReadyState(part, OnEveryFrame),
+                [
+                    (StatsBar,      0),
+                    (MountingBar,   1),
+                    (ArmingBar,     2),
+                    (StatsBar,      3)
+                ]
+            ),
+            Point(130,5)
+        )
+    ]
+);
