@@ -1,3 +1,3 @@
-use "dialog_minimapstyle";
+use "model";
 
-consectorinfobmp = minimappanel;
+consectorinfobmp = ImportImageFromFile("mods/CortUI/media/common/consectorinfo.png", false);

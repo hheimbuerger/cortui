@@ -1,3 +1,3 @@
-use "dialog_inventorystyle";
+use "model";
 
-inventorybottombmp = inventorybottom;
+inventorybottombmp = ImportImageFromFile("mods/CortUI/media/common/inventorylinetransparent.png", false);

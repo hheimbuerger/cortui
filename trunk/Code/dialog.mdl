@@ -827,7 +827,7 @@ GHTargetRangePre =
 	VisibleImage(
 		StringImage(
 			JustifyCenter,
-			50,
+			80,
 			Win32Font("Verdana", 13, false, 0),
 			targetHudColor,
 			SwitchString(
@@ -1301,6 +1301,7 @@ GHLargeTargetTTI =
 			])
 		)]
 	);
+
 		
 /*	
 GHMetaString = 
@@ -1311,7 +1312,6 @@ GHMetaString =
 	white,
 	ConcatinatedString("Numberstring Rounding: ", NumberString(9.499))
 	);
-
 GHMetaString2 = 
 	StringImage(
 	JustifyLeft,
@@ -1653,11 +1653,11 @@ QueuedOrderImage  =
 //////
 /////////////////////////////////	
 		
-SectorInfoPaneX = SectorInfoPane([]);
+SectorInfoPaneX = SectorInfoPane([]); // these are the icons and data.
 SectorOverviewFlag = 33536;
-SectorPane = SectorMapPane(SectorInfoPaneX, OverlayFlags, SectorOverviewFlag, []);
+SectorPane = SectorMapPane(SectorInfoPaneX, OverlayFlags, SectorOverviewFlag, []); //this is the actual map. 
 
-SectorImage =
+SectorImagePre =
     PaneImage(
         BlackPane(
             AnimatedImagePane(
@@ -1673,7 +1673,210 @@ SectorImage =
         false, 
         true
     );
+	
+SectorImageWidth = 
+	PointX(
+		ImageSize(
+			SectorImagePre
+		)
+	);	
 
+SectorMapBG =	
+	SwitchImage(
+			NormalHUDMode,
+			ImportImageFromFile("mods/CortUI/media/classic/sectormapbg.png", false),
+			[
+			(1, ImportImageFromFile("mods/CortUI/media/greytones/sectormapbg.png", false)),
+			(2, ImportImageFromFile("mods/CortUI/media/greytones/sectormapbg.png", false)),
+			(3, ImportImageFromFile("mods/CortUI/media/GlassHUD/sectormapbg.png", false))		
+			]
+		);
+
+minimapexpandbtn = 
+	SwitchImage(
+			NormalHUDMode,
+			ImportImageFromFile("mods/CortUI/media/classic/minimapexpandbtn.png", false),
+			[
+			(1, ImportImageFromFile("mods/CortUI/media/greytones/minimapexpandbtn.png", false)),
+			(2, ImportImageFromFile("mods/CortUI/media/greytones/minimapexpandbtn.png", false)),
+			(3, ImportImageFromFile("mods/CortUI/media/GlassHUD/minimapexpandbtn.png", false))		
+			]
+		);
+		
+MinimapPanelCollapsed = 
+	GroupImage([
+		TranslateImage(minimapexpandbtn, Point(110,120)),
+		SwitchImage(
+				NormalHUDMode,
+				ImportImageFromFile("mods/CortUI/media/classic/minimappanel.png", false),
+				[
+				(1, ImportImageFromFile("mods/CortUI/media/greytones/minimappanel.png", false)),
+				(2, ImportImageFromFile("mods/CortUI/media/greytones/minimappanel.png", false)),
+				(3, ImportImageFromFile("mods/CortUI/media/GlassHUD/minimappanel.png", false))		
+				]
+		)
+	]);
+	
+MinimapPanelExpanded = 
+	GroupImage([
+		TranslateImage(minimapexpandbtn, Point(170,120)),
+		SwitchImage(
+			NormalHUDMode,
+			ImportImageFromFile("mods/CortUI/media/classic/minimappanelexpanded.png", false),
+			[
+			(1, ImportImageFromFile("mods/CortUI/media/greytones/minimappanelexpanded.png", false)),
+			(2, ImportImageFromFile("mods/CortUI/media/greytones/minimappanelexpanded.png", false)),
+			(3, ImportImageFromFile("mods/CortUI/media/GlassHUD/minimappanelexpanded.png", false))		
+			]
+		)
+	]);
+	
+MinimapPanel = 
+	SwitchImage(
+		SectorImageWidth,
+		MinimapPanelCollapsed,
+		[(PointX(ImageSize(MinimapPanelExpanded)),MinimapPanelExpanded)]
+	);
+	
+SectorImage = 
+	GroupImage([
+		SectorImagePre,
+		TranslateImage(SectorMapBG,Point(9,20)),
+		MinimapPanel
+		
+	]);
+
+
+////////////////////////////////////////////////
+//
+//          Inventory Pane
+//
+///////////////////////////////////////////////	
+
+InvTopImage = 
+	SwitchImage(
+		NormalHUDMode,
+		ImportImageFromFile("mods/CortUI/media/classic/inventorytop.png", false),
+		[
+		(1, ImportImageFromFile("mods/CortUI/media/greytones/inventorytop.png", false)),
+		(2, ImportImageFromFile("mods/CortUI/media/greytones/inventorytop.png", false)),
+		(3, ImportImageFromFile("mods/CortUI/media/GlassHUD/inventorytop.png", false))		
+		]
+	);
+	
+InvLineImage = 
+	SwitchImage(
+		NormalHUDMode,
+		ImportImageFromFile("mods/CortUI/media/classic/inventorylinebkgnd.png", false),
+		[
+		(1, ImportImageFromFile("mods/CortUI/media/greytones/inventorylinebkgnd.png", false)),
+		(2, ImportImageFromFile("mods/CortUI/media/greytones/inventorylinebkgnd.png", false)),
+		(3, ImportImageFromFile("mods/CortUI/media/GlassHUD/inventorylinebkgnd.png", false))		
+		]
+	);
+
+InvBottomImage = 
+	SwitchImage(
+		NormalHUDMode,
+		ImportImageFromFile("mods/CortUI/media/classic/inventorybottom.png", false),
+		[
+		(1, ImportImageFromFile("mods/CortUI/media/greytones/inventorybottom.png", false)),
+		(2, ImportImageFromFile("mods/CortUI/media/greytones/inventorybottom.png", false)),
+		(3, ImportImageFromFile("mods/CortUI/media/GlassHUD/inventorybottom.png", false))		
+		]
+	);
+	
+InventoryTabImage = 	
+	SwitchImage(
+		NormalHUDMode,
+		ImportImageFromFile("mods/CortUI/media/classic/inventorytab.png", false),
+		[
+		(1, ImportImageFromFile("mods/CortUI/media/greytones/inventorytab.png", false)),
+		(2, ImportImageFromFile("mods/CortUI/media/greytones/inventorytab.png", false)),
+		(3, ImportImageFromFile("mods/CortUI/media/GlassHUD/inventorytab.png", false))		
+		]
+	);
+
+ShipNameImage = StringImage(
+                    JustifyCenter,
+                    214,
+                    smallBoldFont, 
+                    Color(1, 1, 1),
+                    GetModelTypeDesc(Me, OnEveryFrame)
+                );
+
+
+// the height of the complete inventory image, as collected by the game engine thingymagoo.	
+InventoryHeight = 
+	PointY(
+		ImageSize(
+			InventoryImage()
+		)
+	);
+
+//debugging
+InventoryHeightStringImage = 
+	StringImage(
+		JustifyLeft,
+		80,
+		Win32Font("Verdana", 12, true, 0),
+		white,
+		NumberString(InventoryHeight)
+	);
+	
+ILH = 18; //the height of each line - must be same as image.
+IL = Divide(Subtract(InventoryHeight,Multiply(ILH,2)),ILH); //the number of lines.
+
+LN1 = SwitchImage(Min(IL,1),emptyImage,[(0, InvTopImage),(1, InvLineImage)]);
+LN2 = SwitchImage(Min(IL,2),emptyImage,[(1, InvTopImage),(2, InvLineImage)]);
+LN3 = SwitchImage(Min(IL,3),emptyImage,[(2, InvTopImage),(3, InvLineImage)]);
+LN4 = SwitchImage(Min(IL,4),emptyImage,[(3, InvTopImage),(4, InvLineImage)]);
+LN5 = SwitchImage(Min(IL,5),emptyImage,[(4, InvTopImage),(5, InvLineImage)]);
+LN6 = SwitchImage(Min(IL,6),emptyImage,[(5, InvTopImage),(6, InvLineImage)]);
+LN7 = SwitchImage(Min(IL,7),emptyImage,[(6, InvTopImage),(7, InvLineImage)]);
+LN8 = SwitchImage(Min(IL,8),emptyImage,[(7, InvTopImage),(8, InvLineImage)]);
+LN9 = SwitchImage(Min(IL,9),emptyImage,[(8, InvTopImage),(9, InvLineImage)]);
+LN10 = SwitchImage(Min(IL,10),emptyImage,[(9, InvTopImage),(10, InvLineImage)]);
+LN11 = SwitchImage(Min(IL,11),emptyImage,[(10, InvTopImage),(11, InvLineImage)]);
+LN12 = SwitchImage(Min(IL,12),emptyImage,[(11, InvTopImage), (12, InvLineImage)]);
+LN13 = SwitchImage(Min(IL,13),emptyImage,[(12, InvTopImage),(13, InvLineImage)]);
+LN14 = SwitchImage(Min(IL,14),emptyImage,[(13, InvTopImage),(14, InvLineImage)]);
+LN15 = SwitchImage(Min(IL,15),emptyImage,[(14, InvTopImage),(15, InvLineImage)]);
+LN16 = SwitchImage(Min(IL,16),emptyImage,[(15, InvTopImage),(16, InvLineImage)]);
+LN17 = SwitchImage(Min(IL,17),emptyImage,[(16, InvTopImage)]);
+
+InvBackgroundLines = 
+	GroupImage([
+		InventoryHeightStringImage,
+		TranslateImage(InvBottomImage, Point(0,Subtract(ILH,PointY(ImageSize(InvBottomImage))))),
+		TranslateImage(LN1, Point(0,ILH)),
+		TranslateImage(LN2, Point(0,Multiply(2,ILH))),
+		TranslateImage(LN3, Point(0,Multiply(3,ILH))),
+		TranslateImage(LN4, Point(0,Multiply(4,ILH))),
+		TranslateImage(LN5, Point(0,Multiply(5,ILH))),
+		TranslateImage(LN6, Point(0,Multiply(6,ILH))),
+		TranslateImage(LN7, Point(0,Multiply(7,ILH))),
+		TranslateImage(LN8, Point(0,Multiply(8,ILH))),
+		TranslateImage(LN9, Point(0,Multiply(9,ILH))),
+		TranslateImage(LN10, Point(0,Multiply(10,ILH))),
+		TranslateImage(LN11, Point(0,Multiply(11,ILH))),
+		TranslateImage(LN12, Point(0,Multiply(12,ILH))),
+		TranslateImage(LN13, Point(0,Multiply(13,ILH))),
+		TranslateImage(LN14, Point(0,Multiply(14,ILH))),
+		TranslateImage(LN15, Point(0,Multiply(15,ILH))),
+		TranslateImage(LN16, Point(0,Multiply(16,ILH))),
+		TranslateImage(LN17, Point(0,Multiply(17,ILH)))
+	]);
+
+MergedInventoryPaneImage    = 
+	GroupImage([
+		TranslateImage(ShipNameImage,		Point(-5, Add(14,Subtract(ILH,PointY(ImageSize(InvBottomImage)))))),
+		TranslateImage(InventoryImage(),	Point(   0,  0)),
+		TranslateImage(InvBackgroundLines,  Point(   0, 0)),
+		TranslateImage(InventoryTabImage,	Point( -10,  4))
+	  ]);
+	
+	
 ////////////////////////////////////////////////
 //
 //          Investments Pane
@@ -1715,6 +1918,9 @@ moneyPane = ImagePane(ImportImage("creditboxbmp", false),
                           ]
                          );
 
+						 
+						 
+						 
 ////////////////////////////////////////////////
 //
 //          EJECT POD
@@ -1753,7 +1959,7 @@ GHEjectPodDisplayOn =
 					160,
 					Win32Font("Verdana", 13, false, 0),
 					hudColor,
-					"Press B, P to return to base."
+					"Press B, P to return to base"
 				),
 			Point(0,79)
 			), 
@@ -5142,17 +5348,6 @@ gameStateImage     =
 
 RecipientsVisibleOM = 6;
 
-InventoryTabImage = ImportImage("inventorytabbmp", true);
-
-ShipNameImage = StringImage(
-                    JustifyCenter,
-                    214,
-                    smallBoldFont, 
-                    Color(1, 1, 1),
-                    GetModelTypeDesc(Me, OnEveryFrame)
-                );
-
-
 //////////////////////////////////////////////////////////////
 //
 //  LIVES COUNTER & COUNTDOWN & KILL COUNTER
@@ -5354,11 +5549,6 @@ CenterHudDisplayImage		      = VisibleImage(CenterHudDisplay, ShowCenterHUD);
 SoftCenterHudDisplayImage	      = VisibleImage(softCenterHudDisplay, ShowCenterHUD);
 SoftCenterHudDisplayImageParciStyle = VisibleImage(softCenterHudDisplayParciStyle, ShowCenterHUD);
 TargetDisplayImage			      = VisibleImage(TargetDisplay, ShowTargetHUD);
-MergedInventoryPaneImage    = GroupImage([
-									TranslateImage(ShipNameImage,		Point( -5,  14)),
-							        TranslateImage(InventoryImage(),	Point(  0,  0)),
-							        TranslateImage(InventoryTabImage,	Point( -10, 4))
-							  ]);
 MergedInvestmentsPaneImage  = GroupImage([
 									TranslateImage(MoneyPaneImage,				Point(  33, 0)),
 									TranslateImage(InvestmentsInfoPaneImage,	Point(  17, 122)), 
