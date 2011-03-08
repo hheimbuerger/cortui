@@ -1847,7 +1847,7 @@ LN17 = SwitchImage(Min(IL,17),emptyImage,[(16, InvTopImage)]);
 
 InvBackgroundLines = 
 	GroupImage([
-		InventoryHeightStringImage,
+		//InventoryHeightStringImage,
 		TranslateImage(InvBottomImage, Point(0,Subtract(ILH,PointY(ImageSize(InvBottomImage))))),
 		TranslateImage(LN1, Point(0,ILH)),
 		TranslateImage(LN2, Point(0,Multiply(2,ILH))),
