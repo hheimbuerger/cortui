@@ -2,7 +2,6 @@ use "gamepanes";
 use "font";
 use "missionbriefdata";
 use "custombrief";
-use "dialog_minimapstyle";
 
 ///////////////////////////////////////////////////////////////////////////////
 // Tip of the Game
@@ -319,8 +318,11 @@ missionBriefingCountDown = StringPane(NumberString(countdown), white, Point(36, 
 missionBriefingTeamImage = AnimatedImagePaneRect(teamImage, Rect(0, 0, 73, 68));
 missionTipText = AnimatedImagePaneRect(StringImage(JustifyLeft, 416, medVerdana, white, missionBriefingTipText), Rect(0, -131, 416, 0));
 
+
+
 // R4
 //mapPreviewPane      = MapPreviewPane(Rect(0, 0, 120, 96),false,true);
+sectormapbg_opaque = ImportImageFromFile("mods/CortUI/media/classic/sectormapbg.png", false);
 mapPreviewPane      = MapPreviewPane(sectormapbg_opaque,false,true);
 
 completeBriefingPane =
