@@ -1338,13 +1338,13 @@ GHLargeTargetViewGroup =
 		GroupImage([
 			TranslateImage(GHLargeTargetBackground, Point(0,0)),
 			TranslateImage(GHLargeTargetGEO, Point(0,100)),
-			TranslateImage(GHLargeTargetCallsign, Point(0,125)),
+			TranslateImage(GHLargeTargetCallsign, Point(-25,125)),
 			TranslateImage(GHLargeTargetKB, Point(65,95)),
 			TranslateImage(GHLargeTargetShield, Point(0,0)),
 			TranslateImage(GHLargeTargetHull, Point(0,0)),
 			
 			//Strings
-			TranslateImage(GHLargeTargetDescription, Point(0,110)),
+			TranslateImage(GHLargeTargetDescription, Point(-25,110)),
 			TranslateImage(GHLargeTargetRangeLabel, Point(30,95)),
 			TranslateImage(GHLargeTargetRange, Point(100,95)),
 			TranslateImage(GHLargeTargetSpeed, Point(0,80)),
