@@ -2020,25 +2020,15 @@ DefaultEjectPodDisplayOn =
 GHEjectPodDisplayOn = 
 	TranslateImage(
 		GroupImage([
-			TranslateImage(
+		TranslateImage(
 				StringImage(
 					JustifyCenter,
-					160,
+					180,
 					Win32Font("Verdana", 14, true, 0),
 					hudColor,
-					"You have ejected."
+					"you bring shame on us all."
 				),
-			Point(0,95)
-			), 
-			TranslateImage(
-				StringImage(
-					JustifyCenter,
-					160,
-					Win32Font("Verdana", 13, false, 0),
-					hudColor,
-					"Press B, P to return to base"
-				),
-			Point(0,79)
+			Point(-10,79)
 			), 
 			TranslateImage(
 				StringImage(
