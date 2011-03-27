@@ -1374,37 +1374,66 @@ GHLargeTargetView =
 // (with GlassHUD Switches)
 //////////////////////////////////////////////////////////////	
 	
+// SectorName when in Flight
 	
 DefaultSectorNameImage = 
-    BlendImage(
-        StringImage(
-            JustifyCenter,
-            160,
-            medVerdana,
-			Color(1,0,0),
-            SectorName
-        ),
-    hudBlendMode);
+	StringImage(
+		JustifyCenter,
+		160,
+		medVerdana,
+		Color(1,0,0),
+		SectorName
+	);
 
 GHSectorNameImage = 
-    BlendImage(
-        StringImage(
-            JustifyCenter,
-            160,
-            medVerdana,
-			GHTextColor,
-            SectorName
-        ),
-    hudBlendMode);
+	StringImage(
+		JustifyCenter,
+		160,
+		medVerdana,
+		GHTextColor,
+		SectorName
+	);
 	
 SectorNameImage = 
-	SwitchImage(
-		GHStyleSwitchSource,
-		DefaultSectorNameImage,
-		[(GHHudSlot,GHSectorNameImage)]
-	);		
-    
-LookingAtImage =
+	BlendImage(
+		SwitchImage(
+			GHStyleSwitchSource,
+			DefaultSectorNameImage,
+			[(GHHudSlot,GHSectorNameImage)]
+		),
+	hudBlendMode);		
+
+// SectorName when in Base
+// (uses MyStation)
+	
+DefaultSectorNameInHangarImage = 
+	StringImage(
+		JustifyCenter,
+		160,
+		medVerdana,
+		Color(1, 1, 1),
+		GetSectorName(MyStation, OnEveryFrame)
+	);
+
+GHSectorNameInHangarImage = 
+	StringImage(
+		JustifyCenter,
+		160,
+		medVerdana,
+		GHTextColor,
+		GetSectorName(MyStation, OnEveryFrame)
+	);
+	
+SectorNameInHangarImage = 
+	BlendImage(
+		SwitchImage(
+			GHStyleSwitchSource,
+			DefaultSectorNameInHangarImage,
+			[(GHHudSlot,GHSectorNameInHangarImage)]
+		),
+	hudBlendMode);	
+  
+DefaultLookingAtImage =
     GroupImage([
         BlendImage(
             StringImage(
@@ -1418,34 +1447,63 @@ LookingAtImage =
         TranslateImage(SectorNameImage, Point(0, -14))
     ]);
 	
-DefaultSectorNameInHangarImage = 
-    BlendImage(
-        StringImage(
-            JustifyCenter,
-            160,
-            medVerdana,
-            Color(1, 1, 1),
-            GetSectorName(MyStation, OnEveryFrame)
-        ),
-        hudBlendMode);
+GHLookingAtImage =
+	GroupImage([
+        BlendImage(
+            StringImage(
+                JustifyCenter,
+                160,
+                promptFont,
+                mySideColor,
+                "Currently viewing:"
+            ),
+            hudBlendMode),
+        TranslateImage(SectorNameImage, Point(0, -14))
+    ]);
 
-GHSectorNameInHangarImage = 
-    BlendImage(
-        StringImage(
-            JustifyCenter,
-            160,
-            medVerdana,
-            Color(1, 1, 1),
-            GetSectorName(MyStation, OnEveryFrame)
-        ),
-        hudBlendMode);
-	
-SectorNameInHangarImage = 
+LookingAtImage = 
 	SwitchImage(
 		GHStyleSwitchSource,
-		DefaultSectorNameInHangarImage,
-		[(GHHudSlot,GHSectorNameInHangarImage)]
-	);			
+		DefaultLookingAtImage,
+		[(GHHudSlot,GHLookingAtImage)]
+	);	
+
+DefaultLocationInHangarImage =
+    GroupImage([
+        BlendImage(
+            StringImage(
+                JustifyCenter,
+                160,
+                promptFont,
+                yellowText,
+                "Current location:"
+            ),
+            hudBlendMode),
+        TranslateImage(SectorNameInHangarImage, Point(0, -14))
+    ]);
+
+GHLocationInHangarImage =
+    GroupImage([
+        BlendImage(
+            StringImage(
+                JustifyCenter,
+                160,
+                promptFont,
+                mySideColor,
+                "Current location:"
+            ),
+            hudBlendMode),
+        TranslateImage(SectorNameInHangarImage, Point(0, -14))
+    ]);
+
+LocationInHangarImage = 
+	SwitchImage(
+		GHStyleSwitchSource,
+		DefaultLocationInHangarImage,
+		[(GHHudSlot,GHLocationInHangarImage)]
+	);	
+
+//// In Flight
 	
 DefaultLocationInCockpitImage =
     GroupImage([
@@ -1466,9 +1524,9 @@ GHLocationInCockpitImage =
         BlendImage(
             StringImage(
                 JustifyCenter,
-                100,
+                160,
                 promptFont,
-                GHTextColor,
+                hudColor,
                 "Current location:"
             ),
             hudBlendMode),
@@ -1479,29 +1537,12 @@ LocationInCockpitImage =
 	SwitchImage(
 		GHStyleSwitchSource,
 		DefaultLocationInCockpitImage,
-		[(GHHudSlot,emptyImage)]
+		[(GHHudSlot,TranslateImage(GHLocationInCockpitImage, Point(-30, 0)))]
 	);	
 
-LocationOnMapImage =
-	SwitchImage(
-		GHStyleSwitchSource,
-		DefaultLocationInCockpitImage,
-		[(GHHudSlot,GHLocationInCockpitImage)]
-	);	
+LocationOnMapImage = LocationInCockpitImage;
 
-LocationInHangarImage =
-    GroupImage([
-        BlendImage(
-            StringImage(
-                JustifyCenter,
-                160,
-                promptFont,
-                yellowText,
-                "Current location:"
-            ),
-            hudBlendMode),
-        TranslateImage(SectorNameInHangarImage, Point(0, -14))
-    ]);
+
 
 /////////////////////////////////
 //////
@@ -1511,25 +1552,61 @@ LocationInHangarImage =
 
 PilotNameImage = 
     BlendImage(
-        StringImage(
-            JustifyCenter,
-            160,
-            medVerdana,
-            Color(1, 0, 0),
-            GetName(Me, OnEveryFrame)
-        ),
-        hudBlendMode);
+		SwitchImage(
+			GHStyleSwitchSource,
+			StringImage(
+				JustifyCenter,
+				160,
+				medVerdana,
+				Color(1, 0, 0),
+				GetName(Me, OnEveryFrame)
+			),
+			[(
+				GHHudSlot,
+				TranslateImage(
+					StringImage(
+						JustifyCenter,
+						160,
+						medVerdana,
+						hudColor,
+						GetName(Me, OnEveryFrame)
+					), 
+					Point(-30, 0)
+				)
+			)]
+		),
+        hudBlendMode
+	);
 
-BigTurretTextImage =
-    GroupImage([
-        BlendImage(
-            StringImage(
+TurretHeader = 
+	SwitchImage(
+		GHStyleSwitchSource,
+		StringImage(
                 JustifyCenter,
                 160,
                 promptFont,
                 yellowText,
                 "Turret of:"
             ),
+		[(
+			GHHudSlot,
+			TranslateImage(
+				StringImage(
+					JustifyCenter,
+					160,
+					promptFont,
+					hudColor,
+					"Turret of:"
+				), 
+				Point(-30, 0)
+			)
+		)]
+	);	
+		
+BigTurretTextImage =
+    GroupImage([
+        BlendImage(
+            TurretHeader,
             hudBlendMode),
         TranslateImage(PilotNameImage, Point(0, -14))
     ]);
@@ -5739,12 +5816,12 @@ dialogs =
         (CommandPaneImage,              SideBottom,         Point(-135, -190), Point(-135,   40), .5,     6, false),
 
         // LocationInCockpitImage: "current location" in cockpit mode
-        (LocationInCockpitImage,        SideTopRight,       Point(-180, 185), Point(-180,  -15), .5, 0x00030, true),
+        (LocationInCockpitImage,        SideTopRight,       Point(-180, 185), Point(-180,  -15), .5, 8, true),
         // LocationOnMapImage: "current location" in map mode
-        (LocationOnMapImage,            SideTopRight,       Point(-180, 185), Point(-180,  -15), .5, 0x10002, true),
+        //(LocationOnMapImage,            SideTopRight,       Point(-180, -15), Point(-180,  -15), .5, 0x10002, true),
 		// LocationInHangarImage: "current location" in hangar (SectorName is not set correctly, so it has to be retrieved via GetSectorName(MyStation, OnEveryFrame))
         (LocationInHangarImage,         SideTopRight,       Point(-180, 185), Point(-180,  -15), .5, 0x00001, true),
-        // LookingAtImage: "currently viewing" in map mode
+        // LookingAtImage: "currently viewing" in map mode when in base
         (LookingAtImage,                SideTopRight,       Point(-180, 185), Point(-180,  -15), .5,      4, true),
   
         // TurretOfImage: who's turret I'm in, for launch anim, map (both), hangar, cockpit, chase
