@@ -647,7 +647,13 @@ GHPiloting =
 	);
 	
 GHEye = 
-	SwitchImage(GHHidden,ImportImage3D("gh_eye", GHSideColor,true),[(1, emptyImage)]);	
+	SwitchImage(GHHidden,ImportImage3D("gh_eye", hudColor,true),[(1, emptyImage)]);	
+	
+GHEyeBig = 
+	BlendImage(
+		SwitchImage(GHHidden,ImportImage3D("gh_eye_big", hudColor,true),[(1, emptyImage)]),
+		hudBlendMode
+	);	
 
 GHCloakOn = 
 	SwitchImage(IsCloaked(Me, OnEveryFrame),ImportImage3D("gh_cloakon", GHSideColor,true),[(0, emptyImage)]);	
@@ -678,7 +684,6 @@ GHGaugeLabels =
 	JustifyCenter
 	);
 
-	
 GHInRange =
 	SwitchImage(
 		TargetInRangeFlag,
@@ -687,8 +692,14 @@ GHInRange =
 			1, 
 			JustifyImage(
 				BlendImage(
-					ImportImage3D("gh_inrange", targetHudColor,true),
-					BlendModeAdd
+					SwitchImage(
+						GHHidden,
+						ImportImage3D("gh_inrange", GHSideColor,true),
+							[
+								(1, ImportImage3D("gh_inrange_uneyed", GHSideColor,true))
+							]
+						),
+					hudBlendMode
 				),
 				JustifyCenter
 			)
@@ -963,13 +974,14 @@ GHCenterHudOn =
 	GroupImage ([
 		TranslateImage(GHGauges, Point(0,0)),
 		TranslateImage(GHStrings, Point(0,0)),
+		TranslateImage(GHEyeBig, Point(0,0)),
 		TranslateImage(GHInRange, Point(320,240)),
 		TranslateImage(GHPiloting, Point(177,245)),
 		TranslateImage(GHCloakOn, Point(426,245)),
 		TranslateImage(GHCloakDrained, Point(416,270)),
 		TranslateImage(GHSmallTargetBackgroundDetected, Point(270,15)),
 		TranslateImage(GHSmallTargetImage, Point(265,10)),
-		TranslateImage(GHGaugeLabels, Point(320,240)),
+		//TranslateImage(GHGaugeLabels, Point(320,240)),
 		emptyImage
 	]);
 
@@ -2026,7 +2038,7 @@ GHEjectPodDisplayOn =
 					180,
 					Win32Font("Verdana", 14, true, 0),
 					hudColor,
-					"you bring shame on us all."
+					"You have Ejected."
 				),
 			Point(-10,79)
 			), 
