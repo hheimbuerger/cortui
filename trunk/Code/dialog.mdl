@@ -958,7 +958,7 @@ GHSmallTargetShield =
 		GaugeImageRect(         
 				JustifyBottom,
 				GHSmallTargetGaugeSource,
-				Rect(0,0,80,68),
+				Rect(0,54,160,88),
 				true,			
 				GetPercentShields(Target, OnEveryFrame)
 		),
@@ -969,7 +969,7 @@ GHSmallTargetHull =
 		GaugeImageRect(         
 				JustifyBottom,
 				GHSmallTargetGaugeSource,
-				Rect(80,0,160,68),
+				Rect(0,12,160,46),
 				true,			
 				GetPercentHitPoints(Target, OnEveryFrame)
 		),
@@ -992,8 +992,8 @@ GHSmallTargetImage =
 	VisibleImage(
 		GroupImage([
 			TranslateImage(GHSmallTargetGEO, Point(0,0)),
-			TranslateImage(GHSmallTargetShield, Point(-25,21)),
-			TranslateImage(GHSmallTargetHull, Point(55,21)),
+			TranslateImage(GHSmallTargetShield, Point(-25,57)),
+			TranslateImage(GHSmallTargetHull, Point(-25,18)),
 			emptyImage
 			]),
 		IsNotNull(Target, OnEveryFrame)
