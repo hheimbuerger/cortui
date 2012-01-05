@@ -640,30 +640,37 @@ GHGauges =
 ///Stationary Images	
 	
 GHPiloting = 
-	SwitchImage(
-		AutopilotOn,
-		SwitchImage(GetVectorLock(Me, OnEveryFrame),ImportImage3D("gh_vectorlock", GHSideColor,true),[(0, emptyImage)]),
-		[(1,ImportImage3D("gh_autopilot", GHSideColor,true))]
+	BlendImage(
+		SwitchImage(
+			AutopilotOn,
+			SwitchImage(GetVectorLock(Me, OnEveryFrame),ImportImage3D("gh_vectorlock", GHSideColor,true),[(0, emptyImage)]),
+			[(1,ImportImage3D("gh_autopilot", GHSideColor,true))]
+		),
+	hudBlendMode
 	);
 	
 GHEye = 
-	SwitchImage(GHHidden,ImportImage3D("gh_eye", hudColor,true),[(1, emptyImage)]);	
-	
-GHEyeBig = 
 	BlendImage(
-		SwitchImage(GHHidden,ImportImage3D("gh_eye_big", hudColor,true),[(1, emptyImage)]),
+		SwitchImage(GHHidden,ImportImage3D("gh_eye", hudColor,true),[(1, emptyImage)]),
+
 		hudBlendMode
 	);	
 
 GHCloakOn = 
-	SwitchImage(IsCloaked(Me, OnEveryFrame),ImportImage3D("gh_cloakon", GHSideColor,true),[(0, emptyImage)]);	
+	BlendImage(
+		SwitchImage(IsCloaked(Me, OnEveryFrame),ImportImage3D("gh_cloakon", GHSideColor,true),[(0, emptyImage)]),
+		hudBlendMode
+	);
 	
 GHCloakDrained = 
-	SwitchImage(
-			Max(0.1,GetPercentEnergy(Me,OnEveryFrame)),
+	BlendImage(
+		SwitchImage(
+			Max(0.2,GetPercentEnergy(Me,OnEveryFrame)),
 			emptyImage, 
-			[(0.1,ImportImage3D("gh_cloakdrained", GHSideColor,true))]
-		);		
+			[(0.2,ImportImage3D("gh_cloakdrained", GHSideColor,true))]
+		),
+	hudBlendMode
+	);		
 
 // for use in cortcommand info		
 GHCommandModeIcons = 
