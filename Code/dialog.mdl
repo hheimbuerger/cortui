@@ -672,16 +672,6 @@ GHCloakDrained =
 	hudBlendMode
 	);		
 
-// for use in cortcommand info		
-GHCommandModeIcons = 
-	GroupImage([
-		TranslateImage(GHPiloting,Point(0,0)),
-		TranslateImage(GHEye,Point(40,0)),
-		TranslateImage(GHCloakOn,Point(80,0)),
-		TranslateImage(GHCloakDrained,Point(120,0))
-	]);		
-
-
 GHGaugeLabels =
 	JustifyImage(
 		BlendImage(
@@ -713,6 +703,11 @@ GHInRange =
 		)]
 	);
 
+GHEyeBig = 
+	BlendImage(
+		SwitchImage(GHHidden,ImportImage3D("gh_eye_big", hudColor,true),[(1, emptyImage)]),
+		hudBlendMode
+	);	
 // String section
 
 GHSpeednoTarget = 
@@ -907,6 +902,21 @@ GHStrings =
 		emptyImage
 	]);	
 
+GHMsgDetected = 
+	BlendImage(
+		SwitchImage(
+			GHHidden,
+			StringImage(
+				JustifyCenter, 
+				250,
+				Win32Font("Verdana", 14, true, 0),
+				GHSideColor,
+				"you have been detected."
+			),
+			[(1,emptyImage)]
+		),
+		hudBlendMode
+	);
 /// Smalltarget Section
 
 // graphics
@@ -964,7 +974,18 @@ GHSmallTargetHull =
 		),
 	hudBlendMode);	
 
-// strings
+
+// for use in cortcommand info		
+GHCommandModeIcons = 
+	BlendImage(
+		GroupImage([
+			TranslateImage(GHPiloting,Point(0,0)),
+			TranslateImage(GHEye,Point(40,0)),
+			TranslateImage(GHCloakOn,Point(80,0)),
+			TranslateImage(GHCloakDrained,Point(120,0))
+		]),
+		hudBlendMode
+	);	
 	
 GHSmallTargetImage = 
 	VisibleImage(
@@ -991,7 +1012,6 @@ GHCenterHudOn =
 		//TranslateImage(GHGaugeLabels, Point(320,240)),
 		emptyImage
 	]);
-
 ///////////////////////////////////////////////////////////
 //////////////
 ////////////// Glass HUD
@@ -5813,10 +5833,15 @@ dialogs =
 
         // TargetDisplay: the targeting system
         (TargetDisplayImage,            SideBottom,         Point(-320, -183), Point(-320,   12), .5,    48, true),
-		
-		// GLASSHUD TARGET DISPLAY
-		(GHLargeTargetView,            SideTopRight,         Point(-230, 50), Point(-230,-330), .75,   65590, true),
+		//GLASSHUD SECTION
+		// GlassHUD Large Target Display
+
+
+		(GHLargeTargetView,            SideTopRight,        Point(-230, 50), Point(-230,-330), .75,   65590, true),
        
+		//GlassHUD command mode eye indicator.
+	   (GHMsgDetected, SideCenter, 			Point(-125,300),  Point(-125,300),   .5,  2, true),
+	   
         // cortCommandModeInfo: the additional ship status information at the upper left corner of the map
         (cortCommandModeInfo,           SideTopLeft,        Point(  20,  185), Point(  20,  -105), .5,     2, true),
         (cortCommandModeInfoBase,       SideTopLeft,        Point(  20,  185), Point(  20,  -100), .5,     69, true), 
