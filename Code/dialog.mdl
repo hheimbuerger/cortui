@@ -655,6 +655,7 @@ GHEye =
 
 		hudBlendMode
 	);	
+	
 
 GHCloakOn = 
 	BlendImage(
@@ -1203,27 +1204,24 @@ GHLargeTargetDescription =
 		GHTextColor,
 		GetModelTypeDesc(Target, OnTargetChange)
 	);	
-
-GHLargeTargetRangeLabel = 	
-	SwitchImage(
-		GetPercentHitPoints(MyStation, OnEveryFrame),
-		StringImage(
-			JustifyLeft, 
-			100,
-			Win32Font("Verdana", 12, false, 0),
-			GHTextColor,
-			"from center"
-		),
-		[(0, 
-			StringImage(
-				JustifyLeft, 
-				100,
-				Win32Font("Verdana", 12, false, 0),
-				GHTextColor,
-				"distance"
-			)
-		)]
-	);
+GHLargeTargetRangeLabel = 		
+	StringImage(
+		JustifyLeft, 
+		100,
+		Win32Font("Verdana", 12, false, 0),
+		GHTextColor,
+		SwitchString(
+			GetPercentHitPoints(MyStation, OnEveryFrame),
+				"last seen in",
+				[(0, 
+					SwitchString(
+						GetRange(Target, OnEveryFrame),
+						"distance",
+						[(-1, "last seen in")]
+					) 
+				)]
+		) 
+	);		
 		
 GHLargeTargetRange = 	
 	StringImage(
@@ -1233,9 +1231,18 @@ GHLargeTargetRange =
 		GHTextColor,
 		ConcatinatedString(": ",	
 			SwitchString(
-				GetRange(Target, OnEveryFrame),
-				NumberString(GetRange(Target, OnEveryFrame)),
-				[(-1, GetSectorName(Target, OnEveryFrame))]
+				GetPercentHitPoints(MyStation, OnEveryFrame),
+					GetSectorName(Target, OnEveryFrame),
+					[(0, 
+						SwitchString(
+							GetRange(Target, OnEveryFrame),
+							ConcatinatedString(
+								NumberString(GetRange(Target, OnEveryFrame)),
+								"m"),
+							[(-1, GetSectorName(Target, OnEveryFrame))]
+						) 
+					
+					)]
 			) 
 		)
 	);	
