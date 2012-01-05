@@ -1660,7 +1660,7 @@ DefaultAcceptedOrderImage =
         BlendImage(        
             StringImage(
                 JustifyLeft,
-                160,
+                240,
                 promptFont,
                 yellowText,
                 AcceptedOrder
@@ -1678,7 +1678,7 @@ GHAcceptedOrderImage =
         BlendImage(        
             StringImage(
                 JustifyLeft,
-                160,
+                240,
                 Win32Font("Verdana", 14, true, 0),
                 hudColor,
                 AcceptedOrder
@@ -1703,7 +1703,7 @@ DefaultQueuedOrderImage =
         BlendImage(
             StringImage(
                 JustifyLeft,
-                160,
+                240,
                 medVerdana,
                 Color(1,0,0),
                 QueuedOrder
@@ -1721,7 +1721,7 @@ GHQueuedOrderImage =
         BlendImage(
             StringImage(
                 JustifyLeft,
-                160,
+                240,
                 Win32Font("Verdana", 14, true, 0),
                 hudColor,
                 QueuedOrder
