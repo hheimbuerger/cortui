@@ -936,12 +936,10 @@ GHSmallTargetGEO =
 	);
 
 GHSmallTargetBackground = 
-	JustifyImage(
 		BlendImage(
 			ImportImage3D("gh_targetbackground", targetHudColor, true),
 		hudBlendMode
-		),
-	JustifyCenter); 
+		); 
 	
 GHSmallTargetBackgroundDetected =
 	SwitchImage(
@@ -1004,9 +1002,9 @@ GHSmallTargetImage =
 	VisibleImage(
 		GroupImage([
 			TranslateImage(GHSmallTargetGEO, Point(0,0)),
-			TranslateImage(GHSmallTargetShield, Point(-25,60)),
-			TranslateImage(GHSmallTargetHull, Point(-25,18)),
-			TranslateImage(GHsmalltargetgaugesbackground, Point(-25,6)), 
+			TranslateImage(GHSmallTargetShield, Point(-25,58)),
+			TranslateImage(GHSmallTargetHull, Point(-25,16)),
+			TranslateImage(GHsmalltargetgaugesbackground, Point(-25,4)), 
 			emptyImage
 			]),
 		IsNotNull(Target, OnEveryFrame)
