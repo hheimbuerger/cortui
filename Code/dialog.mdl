@@ -2017,12 +2017,15 @@ InvBackgroundLines =
 	]);
 
 MergedInventoryPaneImage    = 
-	GroupImage([
-		TranslateImage(ShipNameImage,		Point(-5, Add(14,Subtract(ILH,PointY(ImageSize(InvBottomImage)))))),
-		TranslateImage(InventoryImage(),	Point(   0,  0)),
-		TranslateImage(InvBackgroundLines,  Point(   0, 0)),
-		TranslateImage(InventoryTabImage,	Point( -10,  4))
-	  ]);
+	JustifyImage(
+		GroupImage([
+			TranslateImage(ShipNameImage,		Point(-5, Add(14,Subtract(ILH,PointY(ImageSize(InvBottomImage)))))),
+			TranslateImage(InventoryImage(),	Point(   0,  0)),
+			TranslateImage(InvBackgroundLines,  Point(   0, 0)),
+			TranslateImage(InventoryTabImage,	Point( -10,  4))
+		  ]),
+		 JustifyRight
+	);
 	
 	
 ////////////////////////////////////////////////
@@ -5837,9 +5840,9 @@ dialogs =
         // **********************************
 
         //MergedInventoryImage: the inventory pane (normal mode)
-        (MergedInventoryPaneImage,      SideBottomRight,    Point( -245, -150), Point( -245,  40), .5, Add(Subtract(8192, Multiply(AlwaysShowLoadoutWindow, 8144)), 0x010000), true),
+        (MergedInventoryPaneImage,      SideBottomRight,    Point( -245, -150), Point( -36,  40), .5, Add(Subtract(8192, Multiply(AlwaysShowLoadoutWindow, 8144)), 0x010000), true),
         //MergedInventoryImage: the inventory pane (map during flight)
-        (MergedInventoryPaneImage,      SideBottomRight,    Point( -245, -150), Point( -245,  40), .5, 2, true),
+        (MergedInventoryPaneImage,      SideBottomRight,    Point( -245, -150), Point( -36,  40), .5, 2, true),
 
         // **********************************
         // * Level 5 (below everything else)
