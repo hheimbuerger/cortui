@@ -516,6 +516,8 @@ GHEnergy =
 		),
 		[(0,emptyImage)]
 	);	
+
+/// THE FUEL and THROTTLE gauges have been switched. I have not come around to fixing this in the naming. - BW
 	
 GHFuel = 
 	SwitchImage(
@@ -532,7 +534,7 @@ GHFuel =
 						GHGearSrc,
 						Rect(GHGTX,GHGTY,321,Add(GHGTY,GHGTH)),
 						true,			
-						GetFuel(Me, OnEveryFrame)
+						playerThrottle // GetFuel(Me, OnEveryFrame)
 					), 
 				Point(GHGTX,FuelY)
 				),
@@ -542,7 +544,7 @@ GHFuel =
 						GHGearSrc,
 						Rect(319,GHGTY,Add(GHGTX,GHGTW),Add(GHGTY,GHGTH)),
 						true,			
-						GetFuel(Me, OnEveryFrame)
+						playerThrottle // GetFuel(Me, OnEveryFrame)
 					), 
 				Point(Add(GHGTX,Multiply(0.5,GHGTW)),FuelY)
 				)
@@ -565,7 +567,7 @@ GHThrottle =
 						GHShieldSrc, //taken from the same part as ShieldTop
 						Rect(GHSTX,GHSTY,321,Add(GHSTY,GHSTH)), //left half
 						true,			
-						playerThrottle
+						GetFuel(Me, OnEveryFrame) //playerThrottle
 					), 
 				Point(GHSTX,ThrottleY)
 				),
@@ -575,7 +577,7 @@ GHThrottle =
 						GHShieldSrc, //taken from the same part as ShieldTop
 						Rect(319,GHSTY,Add(GHSTX,GHSTW),Add(GHSTY,GHSTH)), // right half
 						true,			
-						playerThrottle
+						GetFuel(Me, OnEveryFrame) //playerThrottle
 					), 
 				Point(Add(GHSTX,Multiply(0.5,GHSTW)),ThrottleY)
 				)
