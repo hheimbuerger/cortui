@@ -934,10 +934,12 @@ GHSmallTargetGEO =
 	);
 
 GHSmallTargetBackground = 
-	BlendImage(
-		ImportImage3D("gh_targetbackground", targetHudColor, true),
-	hudBlendMode
-	); 
+	JustifyImage(
+		BlendImage(
+			ImportImage3D("gh_targetbackground", targetHudColor, true),
+		hudBlendMode
+		),
+	JustifyCenter); 
 	
 GHSmallTargetBackgroundDetected =
 	SwitchImage(
@@ -952,39 +954,47 @@ GHSmallTargetGaugeSource =
 		ImportImageFromFile("mods/CortUI/media/GlassHUD/gh_targetgauge_hidden.png", true),
 		[(0, ImportImageFromFile("mods/CortUI/media/GlassHUD/gh_targetgauge_detected.png", true))]
 	);
-	
-GHSmallTargetShield = 	
-	BlendImage(   
-		GaugeImageRect(         
-				JustifyBottom,
-				GHSmallTargetGaugeSource,
-				Rect(0,54,160,88),
-				true,			
-				GetPercentShields(Target, OnEveryFrame)
-		),
-	hudBlendMode);
-	
-GHSmallTargetHull = 	
-	BlendImage(   
-		GaugeImageRect(         
-				JustifyBottom,
-				GHSmallTargetGaugeSource,
-				Rect(0,12,160,46),
-				true,			
-				GetPercentHitPoints(Target, OnEveryFrame)
-		),
-	hudBlendMode);	
 
-
-// for use in cortcommand info		
-GHCommandModeIcons = 
+GHtargetgaugebackgroundwsh = 
+	SwitchImage(
+		Max(0,GetPercentShields(Target, OnEveryFrame)),
+		BlendImage(
+			ImportImage3D("gh_targetgaugebackgroundwsh", hudColor, true),
+			BlendModeAdd
+		),
+		[(0, emptyImage)]
+	);	
+	
+GHsmalltargetgaugesbackground = 
+	GroupImage([
+		BlendImage(
+			ImportImage3D("gh_targetgaugebackground", hudColor, true),
+			BlendModeAdd
+		),
+		GHtargetgaugebackgroundwsh
+	]);
+		
+GHSmallTargetShield = 
 	BlendImage(
-		GroupImage([
-			TranslateImage(GHPiloting,Point(0,0)),
-			TranslateImage(GHEye,Point(40,0)),
-			TranslateImage(GHCloakOn,Point(80,0)),
-			TranslateImage(GHCloakDrained,Point(120,0))
-		]),
+		GaugeImageRect(         
+			JustifyBottom,
+			GHSmallTargetGaugeSource,
+			Rect(0,54,160,88),
+			true,			
+			GetPercentShields(Target, OnEveryFrame)
+		),
+		hudBlendMode
+	);
+	
+GHSmallTargetHull = 
+	BlendImage(   
+		GaugeImageRect(         
+			JustifyBottom,
+			GHSmallTargetGaugeSource,
+			Rect(0,12,160,46),
+			true,			
+			GetPercentHitPoints(Target, OnEveryFrame)
+		),
 		hudBlendMode
 	);	
 	
@@ -992,13 +1002,14 @@ GHSmallTargetImage =
 	VisibleImage(
 		GroupImage([
 			TranslateImage(GHSmallTargetGEO, Point(0,0)),
-			TranslateImage(GHSmallTargetShield, Point(-25,57)),
+			TranslateImage(GHSmallTargetShield, Point(-25,60)),
 			TranslateImage(GHSmallTargetHull, Point(-25,18)),
+			TranslateImage(GHsmalltargetgaugesbackground, Point(-25,6)), 
 			emptyImage
 			]),
 		IsNotNull(Target, OnEveryFrame)
 	);
-	
+
 GHCenterHudOn = 
 	GroupImage ([
 		TranslateImage(GHGauges, Point(0,0)),
@@ -1013,6 +1024,18 @@ GHCenterHudOn =
 		//TranslateImage(GHGaugeLabels, Point(320,240)),
 		emptyImage
 	]);
+
+// for use in cortcommand info		
+GHCommandModeIcons = 
+	BlendImage(
+		GroupImage([
+			TranslateImage(GHPiloting,Point(0,0)),
+			TranslateImage(GHEye,Point(40,0)),
+			TranslateImage(GHCloakOn,Point(80,0)),
+			TranslateImage(GHCloakDrained,Point(120,0))
+		]),
+		hudBlendMode
+	);		
 ///////////////////////////////////////////////////////////
 //////////////
 ////////////// Glass HUD
