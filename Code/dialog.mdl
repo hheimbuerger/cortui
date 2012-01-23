@@ -63,7 +63,7 @@ hoverString =
 hoverImage = StringImage(JustifyCenter, 126, promptFont, yellowText, hoverString);
 hoverPane  = AnimatedImagePaneRect(hoverImage, Rect(0, -13, 126, 0));
 
-CommandPane = 
+Classic_CommandPane = 
     ImagePane(
         ImportImageFromFile("mods/CortUI/media/cortui_core_commandbkgnd.png", false),
         [
@@ -2030,7 +2030,24 @@ MergedInventoryPaneImage    =
 		 JustifyRight
 	);
 	
+////////////////////////////////////////////////
+//
+//          CommandPane Pane
+//
+///////////////////////////////////////////////
+
 	
+GH_CommandPane = ImagePane(emptyImage,[]); //nobody uses that thing.
+
+CommandPane = 
+		SwitchPane(
+			GHStyleSwitchSource,
+		   [
+			   (Classic_CommandPane, 0),
+			   (GH_CommandPane, 1),
+			   (GH_CommandPane, 2),
+			   (GH_CommandPane, GHHudSlot)
+		   ]);
 ////////////////////////////////////////////////
 //
 //          Investments Pane
