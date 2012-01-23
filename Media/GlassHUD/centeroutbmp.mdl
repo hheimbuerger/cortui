@@ -1,0 +1,3 @@
+use "model";
+centeroutbmp = 
+	ImportImageFromFile("mods/CortUI/media/GlassHUD/gh_centerout.png", true);
