@@ -967,9 +967,14 @@ GHtargetgaugebackgroundwsh =
 	
 GHsmalltargetgaugesbackground = 
 	GroupImage([
-		BlendImage(
-			ImportImage3D("gh_targetgaugebackground", hudColor, true),
-			BlendModeAdd
+
+		SwitchImage(
+			Max(0,GetPercentHitPoints(Target, OnEveryFrame)),
+			BlendImage(
+				ImportImage3D("gh_targetgaugebackground", hudColor, true),
+				BlendModeAdd
+			),
+			[(0, emptyImage)]
 		),
 		GHtargetgaugebackgroundwsh
 	]);
