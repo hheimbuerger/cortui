@@ -5476,7 +5476,7 @@ cortCommandModeInfo =
 	
 cortCommandModeInfoBase = 
 	GroupImage([
-		TranslateImage(cortStationName,							  Point(0,-50)),	
+		TranslateImage(cortStationName,							  Point(0,-45)),	
 		TranslateImage(cortStationShieldsLabel,					  Point(0,-62)),
 		TranslateImage(cortStationShieldsGauge,					  Point(100,-70)),
 		TranslateImage(cortStationHullLabel,					  Point(0,-74)),
@@ -5850,9 +5850,9 @@ dialogs =
         // * Level 3
         // **********************************
 
-        //SectorImage: the minimap (flight mode)
+        // SectorImage: the minimap (flight mode)
         (SectorImage,                   SideBottomLeft,     Point(   0, -187), Point(  36,   28), .5, 65584, false),        //== 65536 + 32 + 16
-        //SectorImage: the minimap (in base)
+        // SectorImage: the minimap (in base)
         (SectorImage,                   SideBottomLeft,     Point(   0, -187),  Point(  10,  -2), .5, Add(263, Multiply(ShowMinimapAtLoadoutScreen, 64)) , false),       //== 256 + 4 + 2 + 1
 
         // **********************************
@@ -5888,30 +5888,28 @@ dialogs =
 
         // TargetDisplay: the targeting system
         (TargetDisplayImage,            SideBottom,         Point(-320, -183), Point(-320,   12), .5,    48, true),
-		//GLASSHUD SECTION
-		// GlassHUD Large Target Display
 
+		// GHLargeTargetView: GlassHUD large target display
+		(GHLargeTargetView,             SideTopRight,       Point(-230, 50),   Point(-230, -330), .75,   65590, true),
 
-		(GHLargeTargetView,            SideTopRight,        Point(-230, 50), Point(-230,-330), .75,   65590, true),
-       
-		//GlassHUD command mode eye indicator.
-	   (GHMsgDetected, SideCenter, 			Point(-125,300),  Point(-125,300),   .5,  2, true),
-	   
+		// GHMsgDetected: GlassHUD command mode eye indicator
+        (GHMsgDetected,                 SideCenter,         Point(-125, 300),  Point(-125, 300),   .5,  2, true),
+
         // cortCommandModeInfo: the additional ship status information at the upper left corner of the map
-        (cortCommandModeInfo,           SideTopLeft,        Point(  20,  185), Point(  20,  -105), .5,     2, true),
-        (cortCommandModeInfoBase,       SideTopLeft,        Point(  20,  185), Point(  20,  -100), .5,     69, true), 
+        (cortCommandModeInfo,           SideTopLeft,        Point(  20,  185), Point(  36,  -105), .5,     2, true),
+        (cortCommandModeInfoBase,       SideTopLeft,        Point(  20,  185), Point(  36,  -100), .5,     69, true), 
 
         // CommandPane: the command bar at the F3-map
         (CommandPaneImage,              SideBottom,         Point(-135, -190), Point(-135,   40), .5,     6, false),
 
         // LocationInCockpitImage: "current location" in cockpit mode
-        (LocationInCockpitImage,        SideTopRight,       Point(-180, 185), Point(-180,  -15), .5, 8, true),
+        (LocationInCockpitImage,        SideTopRight,       Point(-180, 185),  Point(-180,  -15), .5, 8, true),
         // LocationOnMapImage: "current location" in map mode
         //(LocationOnMapImage,            SideTopRight,       Point(-180, -15), Point(-180,  -15), .5, 0x10002, true),
 		// LocationInHangarImage: "current location" in hangar (SectorName is not set correctly, so it has to be retrieved via GetSectorName(MyStation, OnEveryFrame))
-        (LocationInHangarImage,         SideTopRight,       Point(-180, 185), Point(-180,  -15), .5, 0x00001, true),
+        (LocationInHangarImage,         SideTopRight,       Point(-180, 185),  Point(-180,  -15), .5, 0x00001, true),
         // LookingAtImage: "currently viewing" in map mode when in base
-        (LookingAtImage,                SideTopRight,       Point(-180, 185), Point(-180,  -15), .5,      4, true),
+        (LookingAtImage,                SideTopRight,       Point(-180, 185),  Point(-180,  -15), .5,      4, true),
   
         // TurretOfImage: who's turret I'm in, for launch anim, map (both), hangar, cockpit, chase
         (TurretOfImage,                 SideTopRight,       Point(-180,  185), Point(-180,  -50),  .5, 0x10037, true),
