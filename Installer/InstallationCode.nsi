@@ -41,7 +41,7 @@
 		StrCpy $OUTDIR "$OUTDIR\mods\CortUI"
 		File "# Release Notes.txt"            ; is going to $INSTDIR\mods\CortUI
 		StrCpy $OUTDIR "$OUTDIR\media"
-		File /r /x .svn Media\*                          ; is going to $INSTDIR\mods\CortUI\media
+		File /r /x .git Media\*                          ; is going to $INSTDIR\mods\CortUI\media
 		Pop $OUTDIR
 		File Code\*.mdl
 
