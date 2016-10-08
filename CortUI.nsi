@@ -31,9 +31,9 @@
 		SetCompressor zlib
 	!endif
 
-	!define REGKEY_ALLEG				"SOFTWARE\Microsoft\Microsoft Games\Allegiance\1.0\"
+	!define REGKEY_ALLEG				"SOFTWARE\Microsoft\Microsoft Games\Allegiance\1.2\"
 	!define REGNAME_ALLEG_ARTWORK		"ArtPath"
-	!define REGNAME_ALLEG_EXEPATH		"EXE Path"
+	!define REGNAME_ALLEG_LOBBYPATH		"Lobby Path"
 	!define REGKEY_CORTUI				"SOFTWARE\CortUI"
 	!define REGNAME_CORTUI_VERSION		"version"
 	!define REGNAME_CORTUI_INSTALLDIR	"installDir"

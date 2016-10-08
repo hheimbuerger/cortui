@@ -45,7 +45,7 @@
 ; Finish page
 
 	!define MUI_FINISHPAGE_RUN_TEXT "Run Allegiance"
-	!define MUI_FINISHPAGE_RUN "$allegiancePath\ASGSClient.exe"
+	!define MUI_FINISHPAGE_RUN "$allegiancePath\Launcher.exe"
 	!define MUI_FINISHPAGE_RUN_NOTCHECKED
 	!define MUI_FINISHPAGE_SHOWREADME_TEXT "Show Release Notes"
 	!define MUI_FINISHPAGE_SHOWREADME "$INSTDIR\mods\CortUI\# Release Notes.txt"
