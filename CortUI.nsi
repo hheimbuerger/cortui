@@ -1,6 +1,6 @@
 ; CortUI Installer script
 ;
-; Latest NSIS tested with: 2.46 (http://nsis.sourceforge.net/). Modern UI 2 and InstallOptions 2 are required.
+; Latest NSIS tested with: 2.51 (http://nsis.sourceforge.net/). Modern UI 2 and InstallOptions 2 are required.
 ;
 ; This installer requires the FindProc plugin. Copy FindProc/FindProcDLL.dll to your /Program Files/NSIS/Plugins/ directory and you're set.
 
@@ -9,10 +9,10 @@
 ;--------------------------------
 ; Constants
 
-	!define VER_MAJOR					"1"
-	!define VER_MINOR					"8"
-	!define VER_BUGFIX					"0"
-	!define INSTALLER_BUILD				"0029"
+	!define VER_MAJOR					"2"
+	!define VER_MINOR					"0"
+	!define VER_BUGFIX					"alpha1"
+	!define INSTALLER_BUILD				"0030"
 	!define VERSION_NUMBER				"${VER_MAJOR}.${VER_MINOR}${VER_BUGFIX}"
 	!define LATEST_ALLEG_INSTALLER_VER	"build 258"
 
