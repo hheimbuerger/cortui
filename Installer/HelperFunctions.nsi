@@ -51,7 +51,6 @@ Function backupCoreFiles
   CopyFiles /silent "$INSTDIR\dialog.mdl" $8
   CopyFiles /silent "$INSTDIR\hangar.mdl" $8
   CopyFiles /silent "$INSTDIR\loadoutpane.mdl" $8
-  CopyFiles /silent "$INSTDIR\missionbrief.mdl" $8
   CopyFiles /silent "$INSTDIR\partinfo.mdl" $8
   CopyFiles /silent "$INSTDIR\teamscreen.mdl" $8
   CopyFiles /silent "$INSTDIR\armingbarbkgndbmp.mdl" $8

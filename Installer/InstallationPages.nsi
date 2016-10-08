@@ -18,7 +18,7 @@
 
 	# Check whether Allegiance is currently running
 	!define MUI_PAGE_CUSTOMFUNCTION_LEAVE checkForAllegProcess
-	
+
 	# Show the components page
 	!insertmacro MUI_PAGE_COMPONENTS
 

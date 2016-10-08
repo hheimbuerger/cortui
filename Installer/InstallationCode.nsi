@@ -23,7 +23,7 @@
 
 		# Trigger a backup of the files we're going to overwrite
 		Call backupCoreFiles
-		
+
 		# Determine the Allegiance directory so we can offer the user to start Allegiance automatically at the end of the installation
 		ReadRegStr $allegiancePath HKLM "${REGKEY_ALLEG}" "${REGNAME_ALLEG_LOBBYPATH}"
 	SectionEnd
@@ -43,7 +43,7 @@
 		StrCpy $OUTDIR "$OUTDIR\media"
 		File /r /x .git Media\*                          ; is going to $INSTDIR\mods\CortUI\media
 		Pop $OUTDIR
-		File Code\*.mdl
+		File /x teamscreen.mdl /x hangar.mdl Code\*.mdl
 
 		# Read the options the user selected on the Configuration page
 		!insertmacro INSTALLOPTIONS_READ $isLobbyScreenSelected ${INSTALLOPTIONS_TEMP_FILE} "${FIELD_INSTALLLOBBY}" "State"
@@ -97,12 +97,10 @@
 		StrCpy $settingsNumChatLinesLobby "6"
 		StrCmp $isLobbyScreenSelected "0" dontInstallLobbyScreen 0
 		File Code\teamscreen.mdl
-		File Code\missionbrief.mdl
 		StrCpy $settingsNumChatLinesLobby "10"
 		Goto endInstallLobbyScreen
 		dontInstallLobbyScreen:
 		File unCode\teamscreen.mdl
-		File unCode\missionbrief.mdl
 		endInstallLobbyScreen:
 
 		# Install the hangar modification if it was requested
