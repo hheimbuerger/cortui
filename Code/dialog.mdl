@@ -199,6 +199,19 @@ cortCommPaneLoadout =
         ]
     );
 
+
+///////////////////////////////////////////////////////////
+////////////// HUD slots
+////////////////////////////////////////////////////////////
+
+ClassicHUDSlot = 0;
+RaveenHUDSlot = 1;
+LessHUDSlot = 2;
+GlassHUDSlot = 3;
+ParciHUDSlot = 4;
+JelloHUDSlot = 5;   // not yet available in the Alleg client
+
+
 ///////////////////////////////////////////////////////////
 //////////////
 ////////////// Glass HUD
@@ -208,14 +221,6 @@ cortCommPaneLoadout =
 GHSideColor = GetSideColor(Me, OnMeChange);
 GHTargetSideColor = GetSideColor(Target, OnTargetChange);
 GHTextColor	= Color(0.7,0.7,0.7);
-
-/*
-There are different ways to switch Huds. One is using the ingame menu, the other is CortUI's settings. 
-These variables accomodate that; one is set to the Switch source, (CortUI or StyleHUD) the other is the slot where GlassHUD fits in their respective 
-*/
-GHStyleSwitchSource = NormalHUDMode; //if using cortUI_settings.
-// GHStyleSwitchSource = StyleHUD; // this would be more elegant if Alleg saved the last used hudmode somewhere.
-GHHudSlot = 3;  // if not CortUI, change to appropriate number
 
 // since 'Detected' = 0 when eyed: 
 GHHidden = Detected;
@@ -1437,9 +1442,9 @@ GHLargeTargetViewGroup =
 
 GHLargeTargetView = 
 	SwitchImage(
-		GHStyleSwitchSource,
+		StyleHUD,
 		emptyImage,
-		[(GHHudSlot,GHLargeTargetViewGroup)]
+		[(GlassHUDSlot,GHLargeTargetViewGroup)]
 	);	
 	
 //////////////////////////////////////////////////////////////
@@ -1471,9 +1476,9 @@ GHSectorNameImage =
 SectorNameImage = 
 	BlendImage(
 		SwitchImage(
-			GHStyleSwitchSource,
+			StyleHUD,
 			DefaultSectorNameImage,
-			[(GHHudSlot,GHSectorNameImage)]
+			[(GlassHUDSlot,GHSectorNameImage)]
 		),
 	hudBlendMode);		
 
@@ -1501,9 +1506,9 @@ GHSectorNameInHangarImage =
 SectorNameInHangarImage = 
 	BlendImage(
 		SwitchImage(
-			GHStyleSwitchSource,
+			StyleHUD,
 			DefaultSectorNameInHangarImage,
-			[(GHHudSlot,GHSectorNameInHangarImage)]
+			[(GlassHUDSlot,GHSectorNameInHangarImage)]
 		),
 	hudBlendMode);	
   
@@ -1537,9 +1542,9 @@ GHLookingAtImage =
 
 LookingAtImage = 
 	SwitchImage(
-		GHStyleSwitchSource,
+		StyleHUD,
 		DefaultLookingAtImage,
-		[(GHHudSlot,GHLookingAtImage)]
+		[(GlassHUDSlot,GHLookingAtImage)]
 	);	
 
 DefaultLocationInHangarImage =
@@ -1572,9 +1577,9 @@ GHLocationInHangarImage =
 
 LocationInHangarImage = 
 	SwitchImage(
-		GHStyleSwitchSource,
+		StyleHUD,
 		DefaultLocationInHangarImage,
-		[(GHHudSlot,GHLocationInHangarImage)]
+		[(GlassHUDSlot,GHLocationInHangarImage)]
 	);	
 
 //// In Flight
@@ -1609,9 +1614,9 @@ GHLocationInCockpitImage =
 	
 LocationInCockpitImage =
 	SwitchImage(
-		GHStyleSwitchSource,
+		StyleHUD,
 		DefaultLocationInCockpitImage,
-		[(GHHudSlot,TranslateImage(GHLocationInCockpitImage, Point(-30, 0)))]
+		[(GlassHUDSlot,TranslateImage(GHLocationInCockpitImage, Point(-30, 0)))]
 	);	
 
 LocationOnMapImage = LocationInCockpitImage;
@@ -1627,7 +1632,7 @@ LocationOnMapImage = LocationInCockpitImage;
 PilotNameImage = 
     BlendImage(
 		SwitchImage(
-			GHStyleSwitchSource,
+			StyleHUD,
 			StringImage(
 				JustifyCenter,
 				160,
@@ -1636,7 +1641,7 @@ PilotNameImage =
 				GetName(Me, OnEveryFrame)
 			),
 			[(
-				GHHudSlot,
+				GlassHUDSlot,
 				TranslateImage(
 					StringImage(
 						JustifyCenter,
@@ -1654,7 +1659,7 @@ PilotNameImage =
 
 TurretHeader = 
 	SwitchImage(
-		GHStyleSwitchSource,
+		StyleHUD,
 		StringImage(
                 JustifyCenter,
                 160,
@@ -1663,7 +1668,7 @@ TurretHeader =
                 "Turret of:"
             ),
 		[(
-			GHHudSlot,
+			GlassHUDSlot,
 			TranslateImage(
 				StringImage(
 					JustifyCenter,
@@ -1750,9 +1755,9 @@ GHAcceptedOrderImage =
 
 AcceptedOrderImage =
 	SwitchImage(
-		GHStyleSwitchSource,
+		StyleHUD,
 		DefaultAcceptedOrderImage,
-		[(GHHudSlot,GHAcceptedOrderImage)]
+		[(GlassHUDSlot,GHAcceptedOrderImage)]
 	);		
 	
 DefaultQueuedOrderImage = 
@@ -1793,9 +1798,9 @@ GHQueuedOrderImage =
 
 QueuedOrderImage  =
 	SwitchImage(
-		GHStyleSwitchSource,
+		StyleHUD,
 		DefaultQueuedOrderImage,
-		[(GHHudSlot,GHQueuedOrderImage)]
+		[(GlassHUDSlot,GHQueuedOrderImage)]
 	);		
 
 //////////////////////////////////
@@ -1834,7 +1839,7 @@ SectorImageWidth =
 
 SectorMapBG =	
 	SwitchImage(
-			NormalHUDMode,
+			StyleHUD,
 			ImportImageFromFile("mods/CortUI/media/classic/sectormapbg.png", false),
 			[
 			(1, ImportImageFromFile("mods/CortUI/media/greytones/sectormapbg.png", false)),
@@ -1845,7 +1850,7 @@ SectorMapBG =
 
 minimapexpandbtn = 
 	SwitchImage(
-			NormalHUDMode,
+			StyleHUD,
 			ImportImageFromFile("mods/CortUI/media/classic/minimapexpandbtn.png", false),
 			[
 			(1, ImportImageFromFile("mods/CortUI/media/greytones/minimapexpandbtn.png", false)),
@@ -1858,7 +1863,7 @@ MinimapPanelCollapsed =
 	GroupImage([
 		TranslateImage(minimapexpandbtn, Point(110,120)),
 		SwitchImage(
-				NormalHUDMode,
+				StyleHUD,
 				ImportImageFromFile("mods/CortUI/media/classic/minimappanel.png", false),
 				[
 				(1, ImportImageFromFile("mods/CortUI/media/greytones/minimappanel.png", false)),
@@ -1872,7 +1877,7 @@ MinimapPanelExpanded =
 	GroupImage([
 		TranslateImage(minimapexpandbtn, Point(170,120)),
 		SwitchImage(
-			NormalHUDMode,
+			StyleHUD,
 			ImportImageFromFile("mods/CortUI/media/classic/minimappanelexpanded.png", false),
 			[
 			(1, ImportImageFromFile("mods/CortUI/media/greytones/minimappanelexpanded.png", false)),
@@ -1906,7 +1911,7 @@ SectorImage =
 
 InvTopImage = 
 	SwitchImage(
-		NormalHUDMode,
+		StyleHUD,
 		ImportImageFromFile("mods/CortUI/media/classic/inventorytop.png", false),
 		[
 		(1, ImportImageFromFile("mods/CortUI/media/greytones/inventorytop.png", false)),
@@ -1917,7 +1922,7 @@ InvTopImage =
 	
 InvLineImage = 
 	SwitchImage(
-		NormalHUDMode,
+		StyleHUD,
 		ImportImageFromFile("mods/CortUI/media/classic/inventorylinebkgnd.png", false),
 		[
 		(1, ImportImageFromFile("mods/CortUI/media/greytones/inventorylinebkgnd.png", false)),
@@ -1928,7 +1933,7 @@ InvLineImage =
 
 InvBottomImage = 
 	SwitchImage(
-		NormalHUDMode,
+		StyleHUD,
 		ImportImageFromFile("mods/CortUI/media/classic/inventorybottom.png", false),
 		[
 		(1, ImportImageFromFile("mods/CortUI/media/greytones/inventorybottom.png", false)),
@@ -1939,7 +1944,7 @@ InvBottomImage =
 	
 InventoryTabImage = 	
 	SwitchImage(
-		NormalHUDMode,
+		StyleHUD,
 		ImportImageFromFile("mods/CortUI/media/classic/inventorytab.png", false),
 		[
 		(1, ImportImageFromFile("mods/CortUI/media/greytones/inventorytab.png", false)),
@@ -2041,12 +2046,12 @@ GH_CommandPane = ImagePane(emptyImage,[]); //nobody uses that thing.
 
 CommandPane = 
 		SwitchPane(
-			GHStyleSwitchSource,
+			StyleHUD,
 		   [
 			   (Classic_CommandPane, 0),
 			   (GH_CommandPane, 1),
 			   (GH_CommandPane, 2),
-			   (GH_CommandPane, GHHudSlot)
+			   (GH_CommandPane, GlassHUDSlot)
 		   ]);
 ////////////////////////////////////////////////
 //
@@ -2163,9 +2168,9 @@ EjectPodImage  =
 		emptyImage,
 		[(1, 
 			SwitchImage(
-				GHStyleSwitchSource,
+				StyleHUD,
 				DefaultEjectPodDisplayOn,
-				[(GHHudSlot, GHEjectPodDisplayOn)]
+				[(GlassHUDSlot, GHEjectPodDisplayOn)]
 			)
 		)]
 	);
@@ -3720,24 +3725,6 @@ fp2CenterHudOn = GroupImage([
 ]);
 
 
-/////////////////////////////////////////////////////////////
-//
-//  NORMAL CENTER HUD STYLE SWITCH IMAGE
-//
-////////////////////////////////////////////////////////////
-
-CenterHudOn = SwitchImage(
-	NormalHUDMode,
-	emptyImage,
-	[
-		(0, DefaultCenterHudOn), // Default Normal HUD
-		(1, fpCenterHudOn), // lessHUD
-		(2, fp2CenterHudOn), // JelloShot
-		(GHHudSlot, GHCenterHudOn) //GlassHUD
-	]
-);
-
-
 //////////////////////////////////////////////////////////////////
 ///
 ///  SOFTWARE HUD
@@ -4232,39 +4219,23 @@ ModifiedCenterHudParciStyle =
 ///
 //////////////////////////////////////////////////////////////////
 
-CenterHudDisplay = 
-    SwitchImage(
-        StyleHUD,
-        emptyImage,
-        [   
-            (0, CenterHudOn)
-        ]
-    );
-
-cortCenterHudSoftwareSwitch = 
-    SwitchImage(
-        SoftwareHUDMode,
-        CenterHudSoftware,
-        [
-            (3, emptyImage)         // Parci's mod is directly linked from the dialogs-variable
-        ]
-    );
+CenterHudDisplay = SwitchImage(
+	StyleHUD,
+	emptyImage,
+	[
+		(ClassicHUDSlot, DefaultCenterHudOn),   // Default Normal HUD
+		(LessHUDSlot, fpCenterHudOn),           // lessHUD
+		(JelloHUDSlot, fp2CenterHudOn),         // JelloShot
+		(GlassHUDSlot, GHCenterHudOn)           // GlassHUD
+	]
+);
 
 softCenterHudDisplay =
     SwitchImage(
         StyleHUD,
         emptyImage,
         [   
-            (1, cortCenterHudSoftwareSwitch)
-        ]
-    );
-
-softCenterHudDisplayParciStyle2 =
-    SwitchImage(
-        SoftwareHUDMode,
-        emptyImage,
-        [
-            (3, ModifiedCenterHudParciStyle)
+            (RaveenHUDSlot, CenterHudSoftware)
         ]
     );
 
@@ -4273,7 +4244,7 @@ softCenterHudDisplayParciStyle =
         StyleHUD,
         emptyImage,
         [   
-            (1, softCenterHudDisplayParciStyle2)
+            (ParciHUDSlot, ModifiedCenterHudParciStyle)
         ]
     );
 
@@ -4756,7 +4727,7 @@ softTargetInRange =
         ]
     );
 
-DefaultSoftwareTargetDisplay = 
+commandTargetDisplay =
     VisibleImage(
         TranslateImage(
             GroupImage(
@@ -4787,43 +4758,7 @@ DefaultSoftwareTargetDisplay =
 //
 ////////////////////////////////////////////////////////////
 
-SoftwareTargetDisplayWithTargetingView = 
-    VisibleImage(
-        TranslateImage(
-            GroupImage(
-                [
-                TranslateImage(softTargetExperience, Point(-19, 29)),
-                TranslateImage(softTargetTeamColor, Point(6, 6)),
-                TranslateImage(softTargetShield, Point(54, 26)),
-                TranslateImage(softTargetHull, Point(54, 8)),
-                TranslateImage(softTargetName, Point(115, 38)),
-                TranslateImage(softTargetDesc, Point(115, 22)),
-                TranslateImage(softTargetLocationImage, Point(246, 24)),
-                TranslateImage(softTargetRange, Point(279, 38)),
-                TranslateImage(softTargetSpeed, Point(279, 22)),
-                TranslateImage(softTargetInRange, Point(-24, 25)),
-                TranslateImage(
-                    GeoImage(
-                        targetGeo,
-                        Rect(0, 0, 96, 96),
-                        targetCamera,
-                        true
-                    ), 
-                    Point(146, 44)
-                ),
-                TranslateImage(cortTargetOvalWord1, Point(67, 34)),
-                TranslateImage(cortTargetOvalWord2, Point(194, 34)),
-                TranslateImage(TargetOval, Point(66, -46)),
-                TranslateImage(cortTargetOvalColor, Point(130, 27)),
-                ImportImage("softtargetbgbmp", true)
-                ]
-            ),
-            Point(125, 30)
-        ),
-        IsNotNull(Target, OnEveryFrame)
-    );
-
-ModifiedSoftwareTargetDisplayRaveenStyle = 
+RaveenTargetDisplay = 
     VisibleImage(
         TranslateImage(
             GroupImage(
@@ -4858,61 +4793,25 @@ ModifiedSoftwareTargetDisplayRaveenStyle =
     );
 
 
-
-/////////////////////////////////////////////////////////////
-//
-//  SOFTWARE HUD STYLE SWITCH IMAGE
-//
-////////////////////////////////////////////////////////////
-
-SoftwareTargetDisplay = 
-    SwitchImage(
-        SoftwareHUDMode,
-        DefaultSoftwareTargetDisplay,
-        [
-            (0, DefaultSoftwareTargetDisplay),
-            (1, SoftwareTargetDisplayWithTargetingView),
-            (2, ModifiedSoftwareTargetDisplayRaveenStyle),
-            (3, ModifiedSoftwareTargetDisplayRaveenStyle)           // Parci is using Raveen-style targetting
-        ]
-    );
-
-
-/////////////////////////////////////////////////////////////
-//
-//  NORMAL TARGET HUD STYLE SWITCH IMAGE
-//
-////////////////////////////////////////////////////////////
-
-DefaultTargetDisplay = SwitchImage(
-	NormalHUDMode,
-	emptyImage,
-	[
-		(0, DefaultNormalTargetDisplay), // Default Normal HUD
-		(1, fpTargetDisplay), // lessHUD
-		(2, emptyImage) // JelloShot, doesn't use lower pane
-	]
-);
-
-
 /////////////////////////////////////////////////////////////
 //
 //  TARGET HUD STYLE SWITCH IMAGE
 //
 ////////////////////////////////////////////////////////////
 
-TargetDisplay = 
+TargetDisplay =
     SwitchImage(
         StyleHUD,
-        DefaultTargetDisplay,
+        DefaultNormalTargetDisplay,
         [
-            (0, DefaultTargetDisplay),
-            (1, SoftwareTargetDisplay)
+            (ClassicHUDSlot, DefaultNormalTargetDisplay),   // Classic targeting
+            (RaveenHUDSlot, RaveenTargetDisplay),           // Raveen-style modified targeting
+            (LessHUDSlot, fpTargetDisplay),                 // lessHUD targeting
+            (GlassHUDSlot, DefaultNormalTargetDisplay),     // GlassHUD is using the default targeting
+            (ParciHUDSlot, RaveenTargetDisplay),            // ParciHUD is using Raveen-style targeting
+            (JelloHUDSlot, RaveenTargetDisplay)             // JelloHUD is using Raveen-style targeting
         ]
     );
-
-commandTargetDisplay = SoftwareTargetDisplay;
-
 
 
 //////////////////////////////////////////////////////////////////////////////
@@ -4952,15 +4851,31 @@ cortWeaponRangeIndicator =
 */
 
 
-
 //////////////////////////////////////////////////////////////////////////////
 //
 // CORTUI VERSION INFORMATION
 //
-// Cortex 2005#05#05:
-// + added CortUI version information at the lower right corner of the maps
-//
 //////////////////////////////////////////////////////////////////////////////
+
+cortHudInformation =
+    StringImage(
+        JustifyRight,
+        400,
+        medVerdana,
+        Color(0.586, 0.578, 0.680),
+        ConcatinatedString("HUD: ", SwitchString(
+            StyleHUD,
+            "unknown",
+            [
+                (ClassicHUDSlot, "CortUI Classic"),
+                (RaveenHUDSlot, "Raveen's Software HUD"),
+                (LessHUDSlot, "lessHUD"),
+                (GlassHUDSlot, "GlassHUD"),
+                (ParciHUDSlot, "Parci's Software HUD"),
+                (JelloHUDSlot, "Jello Shot")
+            ]
+        ))
+    );
 
 cortVersionInformation =
     StringImage(
@@ -4970,7 +4885,6 @@ cortVersionInformation =
         Color(0.586, 0.578, 0.680),
         cortUIVersionString
 	);
-
 
 
 //////////////////////////////////////////////////////////////////////////////
@@ -5111,7 +5025,7 @@ cortTargetGroup =
 	VisibleImage(
 		GroupImage(
 			[
-			TranslateImage(cortTargetName,  Point(0, 22)),
+			TranslateImage(cortTargetName,  Point(0, 26)),
 			TranslateImage(cortTargetShieldsLabel, Point(0,  11)),
 			TranslateImage(cortTargetShieldsGauge, Point(80, 3)),
 			TranslateImage(cortTargetHullLabel,    Point(0,  0)),
@@ -5127,9 +5041,9 @@ cortTargetGroup =
 	
 CommandModeTargetGroup = 
 	SwitchImage(
-		GHStyleSwitchSource,
+		StyleHUD,
 		cortTargetGroup,
-		[(GHHudSlot, emptyImage)]
+		[(GlassHUDSlot, emptyImage)]
 	);	
 	
 cortShipLabel =
@@ -5402,9 +5316,9 @@ cortCommandModeIcons =
 
 CommandModeIcons = 
 	SwitchImage(
-		GHStyleSwitchSource,
+		StyleHUD,
 		cortCommandModeIcons,
-		[(GHHudSlot, GHCommandModeIcons)]
+		[(GlassHUDSlot, GHCommandModeIcons)]
 	);
 	
 cortStationShieldsLabel =
@@ -5659,35 +5573,20 @@ RipcordCountdownImage =
 //////////////////////////////////////////////////////////////
 
 // General remarks:
-// 	  * StyleHUD==1 ==> software / StyleHUD==0 ==> normal
 //    * height(softcenterhud) = 29
 //    * height(criticaltipimage) = 56
 
 // Position calculations:
-// 	  * SoftCenterHudDisplayOffset = -35 * 12*NumChatLinesGlobal			// if software HUD (normal HUD: unused)
-//    * CriticalTipImageYOffset    = -50 * 12*NumChatLinesGlobal			// if normal HUD
-//			 						 -80 * 12*NumChatLinesGlobal			// if software HUD
-//    * VoteTextImageYOffset       = -85 * 12*NumChatLinesGlobal			// if normal HUD
-//							  	   = -95 * 12*NumChatLinesGlobal			// if software HUD
+// 	  * SoftCenterHudDisplayOffset = -35 * 12*NumChatLinesGlobal
+//    * CriticalTipImageYOffset    = -80 * 12*NumChatLinesGlobal
+//    * VoteTextImageYOffset       = -95 * 12*NumChatLinesGlobal
 
-SoftCenterHudDisplayYOffset				= Subtract(-35, Multiply(12, NumChatLinesGlobal));
-CriticalTipImageYOffset_NormalHud		= Subtract(-50, Multiply(12, NumChatLinesGlobal));
-CriticalTipImageYOffset_SoftwareHud		= Subtract(-80, Multiply(12, NumChatLinesGlobal));
-VoteTextImageYOffset_NormalHud			= Subtract(-85, Multiply(12, NumChatLinesGlobal));
-VoteTextImageYOffset_SoftwareHud		= Subtract(-95, Multiply(12, NumChatLinesGlobal));
+SoftCenterHudDisplayYOffset	= Subtract(-35, Multiply(12, NumChatLinesGlobal));
+CriticalTipImageYOffset     = Subtract(-80, Multiply(12, NumChatLinesGlobal));
+VoteTextImageYOffset        = Subtract(-95, Multiply(12, NumChatLinesGlobal));
 
-CriticalTipImage_Adjusted = SwitchImage(
-								StyleHUD,
-								emptyImage,
-								[(0, TranslateImage(CriticalTipImage, Point(   0, CriticalTipImageYOffset_NormalHud))),
-								 (1, TranslateImage(CriticalTipImage, Point(   0, CriticalTipImageYOffset_SoftwareHud)))]
-							);
-VoteTextImage_Adjusted = SwitchImage(
-								StyleHUD,
-								emptyImage,
-								[(0, TranslateImage(VoteTextImage, Point(   0, VoteTextImageYOffset_NormalHud))),
-								 (1, TranslateImage(VoteTextImage, Point(   0, VoteTextImageYOffset_SoftwareHud)))]
-						 );
+CriticalTipImage_Adjusted = TranslateImage(CriticalTipImage, Point(0, CriticalTipImageYOffset));
+VoteTextImage_Adjusted = TranslateImage(VoteTextImage, Point(0, VoteTextImageYOffset));
 
 CommandPaneImage			      = PaneImage(CommandPane, false, true);
 TeamPaneImage				      = PaneImage(TeamPanePane, false, true);
@@ -5708,7 +5607,7 @@ cortCommPaneLoadoutImage	      = PaneImage(cortCommPaneLoadout, false, true);
 DeathBannerPaneImage		      = PaneImage(DeathBannerPane, false, true);
 CenterHudDisplayImage		      = VisibleImage(CenterHudDisplay, ShowCenterHUD);
 SoftCenterHudDisplayImage	      = VisibleImage(softCenterHudDisplay, ShowCenterHUD);
-SoftCenterHudDisplayImageParciStyle = VisibleImage(softCenterHudDisplayParciStyle, ShowCenterHUD);
+SoftCenterHudDisplayParciStyleImage = VisibleImage(softCenterHudDisplayParciStyle, ShowCenterHUD);
 TargetDisplayImage			      = VisibleImage(TargetDisplay, ShowTargetHUD);
 MergedInvestmentsPaneImage  = GroupImage([
 									TranslateImage(MoneyPaneImage,				Point(  33, 0)),
@@ -5884,7 +5783,7 @@ dialogs =
         // (soft)CenterHudDisplay: the HUD (either normal or software)
         (CenterHudDisplayImage,               SideCenter,     Point( -320, 1000), Point( -320, -240), .5, 48, true),
         (SoftCenterHudDisplayImage,           SideTop,        Point( -320, 1000), Point( -232, SoftCenterHudDisplayYOffset), .5, 48, true ),
-        (SoftCenterHudDisplayImageParciStyle, SideBottomLeft, Point(    0, -187),  Point(  36,   180), .5, 48, true),
+        (SoftCenterHudDisplayParciStyleImage, SideBottomLeft, Point(    0, -187),  Point(  36,   180), .5, 48, true),
 
         // TargetDisplay: the targeting system
         (TargetDisplayImage,            SideBottom,         Point(-320, -183), Point(-320,   12), .5,    48, true),
@@ -5940,7 +5839,8 @@ dialogs =
         (LastOrderImage,                SideTopLeft,        Point(  50,  -7), Point(   50,  -37), .5, 55, true),
 
         // cortVersionInformation: the current version display of CortUI in the map-mode
-        (cortVersionInformation,        SideBottomRight,    Point( -400, 12),    Point( -400,   12), 0, 6, true)
+        (cortHudInformation,            SideBottomRight,    Point( -400, 24),   Point( -400,   24), 0, 65663, true),
+        (cortVersionInformation,        SideBottomRight,    Point( -400, 12),   Point( -400,   12), 0, 65663, true)
 
 //      //backButtonPane: the back button, that allows to switch from map to hangar when in base        
 //        (PaneImage(BlackPane(backButtonPane), false, true), SideBottomLeft, Point( -200,   17), Point(  20,   0), .5,     6, false)
