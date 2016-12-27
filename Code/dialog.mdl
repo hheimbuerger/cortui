@@ -160,42 +160,15 @@ ChatCompositionImage = PaneImage(ComposingPane, false, true);
 //
 //          Chat History Pane
 //
-// Ksero 15:28 2005-03-04
-// was ChatListPane(Point(370, 68));
-// the second parameter to Point is the height of the chat area.
-// Should be 8 + 12 * ( number of chat lines)
-//
-// Cortex 2005-03-20
-// * increased ChatListPane-size
-// * changed background graphic to my modified one
-// * changed point(0,0) to point(0,20) (whatever that means)
-//
-// Ksero 2005-04-17
-// * restructured to use NumChatLines
-//
-// Cortex 2005#05#05:
-// + added changable ChatList for the loadout screen
-// * resized ChatListPanes so that scrollbar can be seen
-//
 //////////////////////////////////////////////////////
 
 chatListPane = ChatListPane(Point(355, Add(8,Multiply(12,NumChatLinesGlobal)) ) );
-
-cortChatListPaneLoadout = ChatListPane(Point(340, Add(8,Multiply(12,NumChatLinesLoadout)) ) );			//370
 
 CommPane =
     ImagePane(
         ImportImageFromFile("mods/CortUI/media/cortui_core_concommdisplay.png", false),
         [
             (chatListPane, Point(0,0))
-        ]
-    );
-
-cortCommPaneLoadout =
-    ImagePane(
-        ImportImageFromFile("mods/CortUI/media/cortui_core_concommdisplay.png", false),
-        [
-            (cortChatListPaneLoadout, Point(0,0))
         ]
     );
 
@@ -5590,7 +5563,6 @@ cortCommPaneImage			      = SwitchImage(
 								       cortCommPaneImageWithoutScrollbar,
 								       [(1, cortCommPaneImageWithScrollbar)]
 							        );
-cortCommPaneLoadoutImage	      = PaneImage(cortCommPaneLoadout, false, true);
 DeathBannerPaneImage		      = PaneImage(DeathBannerPane, false, true);
 CenterHudDisplayImage		      = VisibleImage(CenterHudDisplay, ShowCenterHUD);
 SoftCenterHudDisplayImage	      = VisibleImage(softCenterHudDisplay, ShowCenterHUD);
@@ -5764,8 +5736,7 @@ dialogs =
 //        (StringImage(JustifyRight, 75, medVerdana, cortText, NumberString(VoteTextImageYOffset)), SideCenter, Point(    0,    0), Point(   0,  -100), .5,    48, true),
 
         // CommPane: the chat display
-        (cortCommPaneImage,             SideTop,            Point(-160, -126), Point(-160, -126), 0, 63, true),
-        (cortCommPaneLoadoutImage,      SideTop,            Point(-160, -126), Point(-160, -126), 0, 64, true),
+        (cortCommPaneImage,             SideTop,            Point(-160, -126), Point(-160, -126), 0, 0x7F, true),
 
         // (soft)CenterHudDisplay: the HUD (either normal or software)
         (CenterHudDisplayImage,               SideCenter,     Point( -320, 1000), Point( -320, -240), .5, 48, true),
