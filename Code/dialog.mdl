@@ -1719,9 +1719,9 @@ SectorMapBG =
 			StyleHUD,
 			ImportImageFromFile("mods/CortUI/media/classic/sectormapbg.png", false),
 			[
-			(1, ImportImageFromFile("mods/CortUI/media/greytones/sectormapbg.png", false)),
-			(2, ImportImageFromFile("mods/CortUI/media/greytones/sectormapbg.png", false)),
-			(3, ImportImageFromFile("mods/CortUI/media/GlassHUD/sectormapbg.png", false))		
+			(LessHUDSlot, ImportImageFromFile("mods/CortUI/media/greytones/sectormapbg.png", false)),
+			(JelloHUDSlot, ImportImageFromFile("mods/CortUI/media/greytones/sectormapbg.png", false)),
+			(GlassHUDSlot, ImportImageFromFile("mods/CortUI/media/GlassHUD/sectormapbg.png", false))		
 			]
 		);
 
@@ -1730,9 +1730,9 @@ minimapexpandbtn =
 			StyleHUD,
 			ImportImageFromFile("mods/CortUI/media/classic/minimapexpandbtn.png", false),
 			[
-			(1, ImportImageFromFile("mods/CortUI/media/greytones/minimapexpandbtn.png", false)),
-			(2, ImportImageFromFile("mods/CortUI/media/greytones/minimapexpandbtn.png", false)),
-			(3, ImportImageFromFile("mods/CortUI/media/GlassHUD/minimapexpandbtn.png", false))		
+			(LessHUDSlot, ImportImageFromFile("mods/CortUI/media/greytones/minimapexpandbtn.png", false)),
+			(JelloHUDSlot, ImportImageFromFile("mods/CortUI/media/greytones/minimapexpandbtn.png", false)),
+			(GlassHUDSlot, ImportImageFromFile("mods/CortUI/media/GlassHUD/minimapexpandbtn.png", false))		
 			]
 		);
 		
@@ -1743,9 +1743,9 @@ MinimapPanelCollapsed =
 				StyleHUD,
 				ImportImageFromFile("mods/CortUI/media/classic/minimappanel.png", false),
 				[
-				(1, ImportImageFromFile("mods/CortUI/media/greytones/minimappanel.png", false)),
-				(2, ImportImageFromFile("mods/CortUI/media/greytones/minimappanel.png", false)),
-				(3, ImportImageFromFile("mods/CortUI/media/GlassHUD/minimappanel.png", false))		
+				(LessHUDSlot, ImportImageFromFile("mods/CortUI/media/greytones/minimappanel.png", false)),
+				(JelloHUDSlot, ImportImageFromFile("mods/CortUI/media/greytones/minimappanel.png", false)),
+				(GlassHUDSlot, ImportImageFromFile("mods/CortUI/media/GlassHUD/minimappanel.png", false))		
 				]
 		)
 	]);
@@ -1757,9 +1757,9 @@ MinimapPanelExpanded =
 			StyleHUD,
 			ImportImageFromFile("mods/CortUI/media/classic/minimappanelexpanded.png", false),
 			[
-			(1, ImportImageFromFile("mods/CortUI/media/greytones/minimappanelexpanded.png", false)),
-			(2, ImportImageFromFile("mods/CortUI/media/greytones/minimappanelexpanded.png", false)),
-			(3, ImportImageFromFile("mods/CortUI/media/GlassHUD/minimappanelexpanded.png", false))		
+			(LessHUDSlot, ImportImageFromFile("mods/CortUI/media/greytones/minimappanelexpanded.png", false)),
+			(JelloHUDSlot, ImportImageFromFile("mods/CortUI/media/greytones/minimappanelexpanded.png", false)),
+			(GlassHUDSlot, ImportImageFromFile("mods/CortUI/media/GlassHUD/minimappanelexpanded.png", false))		
 			]
 		)
 	]);
@@ -1791,9 +1791,9 @@ InvTopImage =
 		StyleHUD,
 		ImportImageFromFile("mods/CortUI/media/classic/inventorytop.png", false),
 		[
-		(1, ImportImageFromFile("mods/CortUI/media/greytones/inventorytop.png", false)),
-		(2, ImportImageFromFile("mods/CortUI/media/greytones/inventorytop.png", false)),
-		(3, ImportImageFromFile("mods/CortUI/media/GlassHUD/inventorytop.png", false))		
+		(LessHUDSlot, ImportImageFromFile("mods/CortUI/media/greytones/inventorytop.png", false)),
+		(JelloHUDSlot, ImportImageFromFile("mods/CortUI/media/greytones/inventorytop.png", false)),
+		(GlassHUDSlot, ImportImageFromFile("mods/CortUI/media/GlassHUD/inventorytop.png", false))		
 		]
 	);
 	
@@ -1802,9 +1802,9 @@ InvLineImage =
 		StyleHUD,
 		ImportImageFromFile("mods/CortUI/media/classic/inventorylinebkgnd.png", false),
 		[
-		(1, ImportImageFromFile("mods/CortUI/media/greytones/inventorylinebkgnd.png", false)),
-		(2, ImportImageFromFile("mods/CortUI/media/greytones/inventorylinebkgnd.png", false)),
-		(3, ImportImageFromFile("mods/CortUI/media/GlassHUD/inventorylinebkgnd.png", false))		
+		(LessHUDSlot, ImportImageFromFile("mods/CortUI/media/greytones/inventorylinebkgnd.png", false)),
+		(JelloHUDSlot, ImportImageFromFile("mods/CortUI/media/greytones/inventorylinebkgnd.png", false)),
+		(GlassHUDSlot, ImportImageFromFile("mods/CortUI/media/GlassHUD/inventorylinebkgnd.png", false))		
 		]
 	);
 
@@ -1813,9 +1813,9 @@ InvBottomImage =
 		StyleHUD,
 		ImportImageFromFile("mods/CortUI/media/classic/inventorybottom.png", false),
 		[
-		(1, ImportImageFromFile("mods/CortUI/media/greytones/inventorybottom.png", false)),
-		(2, ImportImageFromFile("mods/CortUI/media/greytones/inventorybottom.png", false)),
-		(3, ImportImageFromFile("mods/CortUI/media/GlassHUD/inventorybottom.png", false))		
+		(LessHUDSlot, ImportImageFromFile("mods/CortUI/media/greytones/inventorybottom.png", false)),
+		(JelloHUDSlot, ImportImageFromFile("mods/CortUI/media/greytones/inventorybottom.png", false)),
+		(GlassHUDSlot, ImportImageFromFile("mods/CortUI/media/GlassHUD/inventorybottom.png", false))		
 		]
 	);
 	
@@ -1824,9 +1824,9 @@ InventoryTabImage =
 		StyleHUD,
 		ImportImageFromFile("mods/CortUI/media/classic/inventorytab.png", false),
 		[
-		(1, ImportImageFromFile("mods/CortUI/media/greytones/inventorytab.png", false)),
-		(2, ImportImageFromFile("mods/CortUI/media/greytones/inventorytab.png", false)),
-		(3, ImportImageFromFile("mods/CortUI/media/GlassHUD/inventorytab.png", false))		
+		(LessHUDSlot, ImportImageFromFile("mods/CortUI/media/greytones/inventorytab.png", false)),
+		(JelloHUDSlot, ImportImageFromFile("mods/CortUI/media/greytones/inventorytab.png", false)),
+		(GlassHUDSlot, ImportImageFromFile("mods/CortUI/media/GlassHUD/inventorytab.png", false))		
 		]
 	);
 
@@ -5610,10 +5610,8 @@ dialogs =
         // * Level 3
         // **********************************
 
-        // SectorImage: the minimap (flight mode)
-        (SectorImage,                   SideBottomLeft,     Point(   0, -187), Point(  36,   28), .5, 65584, false),        //== 65536 + 32 + 16
-        // SectorImage: the minimap (in base)
-        (SectorImage,                   SideBottomLeft,     Point(   0, -187),  Point(  10,  -2), .5, Add(263, Multiply(ShowMinimapAtLoadoutScreen, 64)) , false),       //== 256 + 4 + 2 + 1
+        // SectorImage: the minimap
+        (SectorImage,                   SideBottomLeft,     Point(   0, -187), Point(  36,   28), 0, Add(65584, Add(263, Multiply(ShowMinimapAtLoadoutScreen, 64))), false),        //== 65536 + 32 + 16
 
         // **********************************
         // * Level 4
