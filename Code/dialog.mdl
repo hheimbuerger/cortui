@@ -7,6 +7,7 @@ use "cortui_settings";
 White = Color(1, 1, 1);
 fp2DarkGrey = Color(.4, .4, .4);
 TextColor = Color(0, 0, 0.0625);
+cortText = Color(0.586, 0.578, 0.680);
 
 mySideColor = GetSideColor(Me, OnEveryFrame);
 yellowText = Color(0.878, 0.573, 0);
@@ -1423,69 +1424,40 @@ GHLargeTargetView =
 //////////////////////////////////////////////////////////////
 //
 //  Current sector
-// (with GlassHUD Switches)
+//
 //////////////////////////////////////////////////////////////	
-	
-// SectorName when in Flight
-	
-DefaultSectorNameImage = 
+
+// when watching a sector on the map while in a station, SectorName will contain the name of the currently viewed sector
+CurrentViewSectorNameImage =
 	StringImage(
 		JustifyCenter,
 		160,
 		medVerdana,
-		Color(1,0,0),
+		Color(1, 0, 0),
 		SectorName
 	);
 
-GHSectorNameImage = 
+// when in flight, SectorName will contain the name of the sector the ship is currently in
+CurrentShipSectorNameImage =
 	StringImage(
 		JustifyCenter,
 		160,
 		medVerdana,
-		GHTextColor,
+		cortText,
 		SectorName
 	);
-	
-SectorNameImage = 
-	BlendImage(
-		SwitchImage(
-			StyleHUD,
-			DefaultSectorNameImage,
-			[(GlassHUDSlot,GHSectorNameImage)]
-		),
-	hudBlendMode);		
 
-// SectorName when in Base
-// (uses MyStation)
-	
-DefaultSectorNameInHangarImage = 
+// when in base, GetSectorName(MyStation, ...) can be used to look up which sector we're currently teleported to
+CurrentStationSectorNameImage =
 	StringImage(
 		JustifyCenter,
 		160,
 		medVerdana,
-		Color(1, 1, 1),
+		cortText,
 		GetSectorName(MyStation, OnEveryFrame)
 	);
 
-GHSectorNameInHangarImage = 
-	StringImage(
-		JustifyCenter,
-		160,
-		medVerdana,
-		GHTextColor,
-		GetSectorName(MyStation, OnEveryFrame)
-	);
-	
-SectorNameInHangarImage = 
-	BlendImage(
-		SwitchImage(
-			StyleHUD,
-			DefaultSectorNameInHangarImage,
-			[(GlassHUDSlot,GHSectorNameInHangarImage)]
-		),
-	hudBlendMode);	
-  
-DefaultLookingAtImage =
+LookingAtImage =
     GroupImage([
         BlendImage(
             StringImage(
@@ -1496,104 +1468,36 @@ DefaultLookingAtImage =
                 "Currently viewing:"
             ),
             hudBlendMode),
-        TranslateImage(SectorNameImage, Point(0, -14))
-    ]);
-	
-GHLookingAtImage =
-	GroupImage([
-        BlendImage(
-            StringImage(
-                JustifyCenter,
-                160,
-                promptFont,
-                mySideColor,
-                "Currently viewing:"
-            ),
-            hudBlendMode),
-        TranslateImage(SectorNameImage, Point(0, -14))
+        TranslateImage(CurrentViewSectorNameImage, Point(0, -14))
     ]);
 
-LookingAtImage = 
-	SwitchImage(
-		StyleHUD,
-		DefaultLookingAtImage,
-		[(GlassHUDSlot,GHLookingAtImage)]
-	);	
-
-DefaultLocationInHangarImage =
-    GroupImage([
-        BlendImage(
-            StringImage(
-                JustifyCenter,
-                160,
-                promptFont,
-                yellowText,
-                "Current location:"
-            ),
-            hudBlendMode),
-        TranslateImage(SectorNameInHangarImage, Point(0, -14))
-    ]);
-
-GHLocationInHangarImage =
-    GroupImage([
-        BlendImage(
-            StringImage(
-                JustifyCenter,
-                160,
-                promptFont,
-                mySideColor,
-                "Current location:"
-            ),
-            hudBlendMode),
-        TranslateImage(SectorNameInHangarImage, Point(0, -14))
-    ]);
-
-LocationInHangarImage = 
-	SwitchImage(
-		StyleHUD,
-		DefaultLocationInHangarImage,
-		[(GlassHUDSlot,GHLocationInHangarImage)]
-	);	
-
-//// In Flight
-	
-DefaultLocationInCockpitImage =
-    GroupImage([
-        BlendImage(
-            StringImage(
-                JustifyCenter,
-                160,
-                promptFont,
-                yellowText,
-                "Current location:"
-            ),
-            hudBlendMode),
-        TranslateImage(SectorNameImage, Point(0, -14))
-    ]);
-
-GHLocationInCockpitImage =
-    GroupImage([
-        BlendImage(
-            StringImage(
-                JustifyCenter,
-                160,
-                promptFont,
-                hudColor,
-                "Current location:"
-            ),
-            hudBlendMode),
-        TranslateImage(SectorNameImage, Point(0, -14))
-    ]);	
-	
 LocationInCockpitImage =
-	SwitchImage(
-		StyleHUD,
-		DefaultLocationInCockpitImage,
-		[(GlassHUDSlot,TranslateImage(GHLocationInCockpitImage, Point(-30, 0)))]
-	);	
+    GroupImage([
+        BlendImage(
+            StringImage(
+                JustifyCenter,
+                160,
+                promptFont,
+                yellowText,
+                "Current location:"
+            ),
+            hudBlendMode),
+        TranslateImage(CurrentShipSectorNameImage, Point(0, -14))
+    ]);
 
-LocationOnMapImage = LocationInCockpitImage;
-
+LocationInHangarImage =
+    GroupImage([
+        BlendImage(
+            StringImage(
+                JustifyCenter,
+                160,
+                promptFont,
+                yellowText,
+                "Current location:"
+            ),
+            hudBlendMode),
+        TranslateImage(CurrentStationSectorNameImage, Point(0, -14))
+    ]);
 
 
 /////////////////////////////////
@@ -4865,8 +4769,6 @@ cortVersionInformation =
 //
 //////////////////////////////////////////////////////////////////////////////
 
-cortText = Color(0.586, 0.578, 0.680);
-
 cortTargetExperienceOff =
     StringImage(
         JustifyLeft, 
@@ -5760,13 +5662,11 @@ dialogs =
         (CommandPaneImage,              SideBottom,         Point(-135, -190), Point(-135,   40), .5,     6, false),
 
         // LocationInCockpitImage: "current location" in cockpit mode
-        (LocationInCockpitImage,        SideTopRight,       Point(-180, 185),  Point(-180,  -15), .5, 8, true),
-        // LocationOnMapImage: "current location" in map mode
-        //(LocationOnMapImage,            SideTopRight,       Point(-180, -15), Point(-180,  -15), .5, 0x10002, true),
+        (LocationInCockpitImage,        SideTopRight,       Point(-180, 185),  Point(-180,  -15), 0, 8, true),
 		// LocationInHangarImage: "current location" in hangar (SectorName is not set correctly, so it has to be retrieved via GetSectorName(MyStation, OnEveryFrame))
-        (LocationInHangarImage,         SideTopRight,       Point(-180, 185),  Point(-180,  -15), .5, 0x00001, true),
+        (LocationInHangarImage,         SideTopRight,       Point(-180, 185),  Point(-180,  -15), 0, 0x00041, true),
         // LookingAtImage: "currently viewing" in map mode when in base
-        (LookingAtImage,                SideTopRight,       Point(-180, 185),  Point(-180,  -15), .5,      4, true),
+        (LookingAtImage,                SideTopRight,       Point(-180, 185),  Point(-180,  -15), 0,      4, true),
   
         // TurretOfImage: who's turret I'm in, for launch anim, map (both), hangar, cockpit, chase
         (TurretOfImage,                 SideTopRight,       Point(-180,  185), Point(-180,  -50),  .5, 0x10037, true),
