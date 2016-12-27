@@ -22,9 +22,10 @@ ShowLastOrders = ?;
 // Parameter: 1 if the in-game chat display shall have a scrollbar, 0 if not
 ShowScrollbarOnCockpitChat = ?;
 
-// Parameter: 0 if classic CortUI normal HUD is used, 1 for lessHUD by FlingPu, 2 for JelloShot by FlingPu, 3 for GlassHUD by Bunnywabbit
-NormalHUDMode = ?;
-
-// Parameter: 0 if the default software HUD is used, 1 for the software HUD with targeting view,
-// 2 for the modified software HUD 'Raveen-style', 3 for the modified software HUD 'Parci-style'
-SoftwareHUDMode = ?;
+// HUD slots
+ClassicHUDSlot = 0;
+RaveenHUDSlot = 1;
+LessHUDSlot = 2;
+GlassHUDSlot = 3;
+ParciHUDSlot = 4;
+JelloHUDSlot = 5;   // not yet available in the Alleg client
