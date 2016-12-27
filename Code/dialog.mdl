@@ -63,7 +63,7 @@ hoverString =
 hoverImage = StringImage(JustifyCenter, 126, promptFont, yellowText, hoverString);
 hoverPane  = AnimatedImagePaneRect(hoverImage, Rect(0, -13, 126, 0));
 
-Classic_CommandPane = 
+CommandPane =
     ImagePane(
         ImportImageFromFile("mods/CortUI/media/cortui_core_commandbkgnd.png", false),
         [
@@ -2035,24 +2035,7 @@ MergedInventoryPaneImage    =
 		 JustifyRight
 	);
 	
-////////////////////////////////////////////////
-//
-//          CommandPane Pane
-//
-///////////////////////////////////////////////
 
-	
-GH_CommandPane = ImagePane(emptyImage,[]); //nobody uses that thing.
-
-CommandPane = 
-		SwitchPane(
-			StyleHUD,
-		   [
-			   (Classic_CommandPane, 0),
-			   (GH_CommandPane, 1),
-			   (GH_CommandPane, 2),
-			   (GH_CommandPane, GlassHUDSlot)
-		   ]);
 ////////////////////////////////////////////////
 //
 //          Investments Pane
@@ -5588,7 +5571,11 @@ VoteTextImageYOffset        = Subtract(-95, Multiply(12, NumChatLinesGlobal));
 CriticalTipImage_Adjusted = TranslateImage(CriticalTipImage, Point(0, CriticalTipImageYOffset));
 VoteTextImage_Adjusted = TranslateImage(VoteTextImage, Point(0, VoteTextImageYOffset));
 
-CommandPaneImage			      = PaneImage(CommandPane, false, true);
+CommandPaneImage			      = SwitchImage(
+                                        StyleHUD,
+                                        PaneImage(CommandPane, false, true),
+                                        [(GlassHUDSlot, emptyImage)]            // Bunny is convinced nobody is using this command pane and has decided to hide it on GlassHUD
+                                    );
 TeamPaneImage				      = PaneImage(TeamPanePane, false, true);
 TeleportPaneImage			      = PaneImage(TeleportPane, false, true);
 MoneyPaneImage				      = PaneImage(moneyPane, false, true);
