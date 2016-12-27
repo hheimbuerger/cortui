@@ -5690,7 +5690,7 @@ dialogs =
         (CountdownImage,                SideTopLeft,        Point(  45, -137), Point(   40, -137), .5, 48, true),
 
         // LastOrderImage: the last two commands you received
-        (LastOrderImage,                SideTopLeft,        Point(  50,  -7), Point(   50,  -37), .5, 55, true),
+        (LastOrderImage,                SideTopLeft,        Point(  50,  -7), Point(   50,  -37), .5, 0x00077, true),
 
         // cortVersionInformation: the current version display of CortUI in the map-mode
         (cortHudInformation,            SideBottomRight,    Point( -400, 24),   Point( -400,   24), 0, 65663, true),
