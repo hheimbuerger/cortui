@@ -29,12 +29,14 @@ GaugePaneGlassHUD =
 	
 MountingBarGaugePane = 
 	SwitchPane(
-		NormalHUDMode,
+		StyleHUD,
 		[
-		(GaugePaneClassic, 0),
-		(GaugePaneGreytones, 1),
-		(GaugePaneGreytones, 2),
-		(GaugePaneGlassHUD, 3)	
+		(GaugePaneClassic, ClassicHUDSlot),
+		(GaugePaneClassic, RaveenHUDSlot),
+		(GaugePaneClassic, ParciHUDSlot),
+		(GaugePaneGreytones, LessHUDSlot),
+		(GaugePaneGreytones, JelloHUDSlot),
+		(GaugePaneGlassHUD, GlassHUDSlot)
 		]
 	);
 	

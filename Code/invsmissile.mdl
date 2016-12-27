@@ -46,12 +46,14 @@ GaugePaneGlassHUD =
 	
 MountingBarGaugePane = 
 	SwitchPane(
-		NormalHUDMode,
+		StyleHUD,
 		[
-		(GaugePaneClassic, 0),
-		(GaugePaneGreytones, 1),
-		(GaugePaneGreytones, 2),
-		(GaugePaneGlassHUD, 3)	
+		(GaugePaneClassic, ClassicHUDSlot),
+		(GaugePaneClassic, RaveenHUDSlot),
+		(GaugePaneClassic, ParciHUDSlot),
+		(GaugePaneGreytones, LessHUDSlot),
+		(GaugePaneGreytones, JelloHUDSlot),
+		(GaugePaneGlassHUD, GlassHUDSlot)
 		]
 	);
 	
@@ -91,12 +93,14 @@ ArmingGaugePaneGlassHUD =
 
 ArmingGaugePane = 
 	SwitchPane(
-		NormalHUDMode,
+		StyleHUD,
 		[
-		(ArmingGaugePaneClassic, 0),
-		(ArmingGaugePaneGreytones, 1),
-		(ArmingGaugePaneGreytones, 2),
-		(ArmingGaugePaneGlassHUD, 3)	
+		(ArmingGaugePaneClassic, ClassicHUDSlot),
+		(ArmingGaugePaneClassic, RaveenHUDSlot),
+		(ArmingGaugePaneClassic, ParciHUDSlot),
+		(ArmingGaugePaneGreytones, LessHUDSlot),
+		(ArmingGaugePaneGreytones, JelloHUDSlot),
+		(ArmingGaugePaneGlassHUD, GlassHUDSlot)
 		]
 	);
 	
