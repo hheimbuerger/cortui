@@ -123,3 +123,11 @@ Function un.RemoveBackupDirectories
 	done:
 
 FunctionEnd
+
+
+
+Function PageFinishRun
+    SetOutPath "$allegiancePath"
+    ExecShell "" "$allegiancePath\Launcher.exe"
+    SetOutPath $instdir
+FunctionEnd

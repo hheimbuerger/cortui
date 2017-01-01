@@ -75,6 +75,9 @@
 	Name "${NAME}"
 	OutFile "${FILENAME}"
 
+	# Basic configuration
+    RequestExecutionLevel user
+
 	# Default installation folder
 	InstallDir ""
 
