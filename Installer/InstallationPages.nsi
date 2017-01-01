@@ -3,7 +3,7 @@
 
 	!define MUI_WELCOMEPAGE_TEXT "You're using this installer at your own risk. You might want to backup your complete 'artwork\' directory before using it. \
 								 $\r$\n$\r$\n \
-								 The uninstaller will remove the CortUI files and restore the replaced UI files as of ${LATEST_ALLEG_INSTALLER_VER} of the Allegiance installer. \
+								 The uninstaller will remove the CortUI files and restore the replaced UI files from a recent version of the Allegiance installer. \
 								 It will *not* restore any files you edited before installing CortUI. But it will backup all replaced files before installing and before \
 								 uninstalling (in the directory 'artwork\mods\CortUI\backup *\'). \
 								 $\r$\n$\r$\n \

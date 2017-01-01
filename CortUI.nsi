@@ -11,8 +11,8 @@
 
 	!define VER_MAJOR					"2"
 	!define VER_MINOR					"0"
-	!define VER_BUGFIX					"alpha1"
-	!define INSTALLER_BUILD				"0030"
+	!define VER_BUGFIX					"beta1"
+	!define INSTALLER_BUILD				"0031"
 	!define VERSION_NUMBER				"${VER_MAJOR}.${VER_MINOR}${VER_BUGFIX}"
 	!define LATEST_ALLEG_INSTALLER_VER	"build 258"
 
