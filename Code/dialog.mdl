@@ -4616,14 +4616,7 @@ cortHudInformation =
         ConcatinatedString("HUD: ", SwitchString(
             StyleHUD,
             "unknown",
-            [
-                (ClassicHUDSlot, "CortUI Classic"),
-                (RaveenHUDSlot, "Raveen's Software HUD"),
-                (LessHUDSlot, "lessHUD"),
-                (GlassHUDSlot, "GlassHUD"),
-                (ParciHUDSlot, "Parci's Software HUD"),
-                (JelloHUDSlot, "Jello Shot")
-            ]
+            HUDs
         ))
     );
 
