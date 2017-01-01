@@ -6,7 +6,6 @@ use "cortui_settings";
 
 White = Color(1, 1, 1);
 fp2DarkGrey = Color(.4, .4, .4);
-TextColor = Color(0, 0, 0.0625);
 cortText = Color(0.586, 0.578, 0.680);
 
 mySideColor = GetSideColor(Me, OnEveryFrame);
@@ -16,8 +15,6 @@ fp2FontKillBonus = Win32Font("Verdana", 18, true, 0);
 fp2FontTargetName = Win32Font("Verdana", 18, true, 0);
 fp2FontTargetDesc = Win32Font("Verdana", 15, false, 0);
 fp2FontNormal = Win32Font("Verdana", 16, true, 0);
-
-myStationColor = GetSideColor(MyStation, OnEveryFrame);
 
 hudBlendMode = BlendModeAdd;
 
@@ -401,8 +398,6 @@ GHGTH = 21;
 ThrottleY = 150;
 FuelY = 130;
 
-
-
 GHGearSrc = 		
 	SwitchImage(
 		Flash,
@@ -413,7 +408,6 @@ GHGearSrc =
 		),
 		[(1,ImportImageFromFile("mods/CortUI/media/GlassHUD/gh_gear_flash.png", true))]);
 
-		
 GHAmmo = 
 	SwitchImage(
 		Multiply(IsNotEjected,Max(0,GetAmmo(Me,OnEveryFrame))),
@@ -641,15 +635,6 @@ GHCloakDrained =
 		),
 	hudBlendMode
 	);		
-
-GHGaugeLabels =
-	JustifyImage(
-		BlendImage(
-			ImportImage3D("gh_gaugelabels", GHSideColor, true),
-			BlendModeAdd
-			),
-	JustifyCenter
-	);
 
 GHInRange =
 	SwitchImage(
@@ -1835,16 +1820,6 @@ InventoryHeight =
 		)
 	);
 
-//debugging
-InventoryHeightStringImage = 
-	StringImage(
-		JustifyLeft,
-		80,
-		Win32Font("Verdana", 12, true, 0),
-		white,
-		NumberString(InventoryHeight)
-	);
-	
 ILH = 18; //the height of each line - must be same as image.
 IL = Divide(Subtract(InventoryHeight,Multiply(ILH,2)),ILH); //the number of lines.
 
@@ -2556,18 +2531,13 @@ GroupImage(
     ]
 );
 
-RadOff = 
-    ImagePane(ImportImage("radoffbmp", false), []);
-
 RadOn = 
     ImagePane(ImportImage("radonbmp", false), []);
-
 
 RadarDetectPane = 
     SwitchPane(
                 Detected,
                 [
-
                     (RadOn, 0)
                 ]
                );
@@ -2627,28 +2597,6 @@ CaptureFlag =
         emptyImage,
         [
             (1, CaptureFlagImage)
-        ]
-    );
-
-VectorLockNormal = ImportImage("convectorlockbmp", true);
-
-VectorLockOn = 
-    SwitchImage(
-        GetVectorLock(Me, OnEveryFrame),
-        emptyImage,
-        [
-            (1, VectorLockNormal)
-        ]
-    );
-
-AutopilotNormal = ImportImage("conautopilotbmp", true);
-
-AutopilotOnImage =
-    SwitchImage(
-        AutopilotOn,
-        emptyImage, 
-        [
-            (1, AutopilotNormal)
         ]
     );
 
@@ -4510,17 +4458,6 @@ softTargetName =
             GetName(Target, OnEveryFrame)
         );
 
-SectorPatchImage = ImportImage("sectorpatchbmp", false);
-
-softTargetLocationImage = 
-    SwitchImage(
-        GetRange(Target, OnEveryFrame),
-        emptyImage,
-        [
-            (-1, SectorPatchImage)
-        ]
-    );
-
 softTargetRangeString = 
     SwitchString(
         GetRange(Target, OnEveryFrame),
@@ -4562,41 +4499,6 @@ softTargetShield =
 
 softTargetHull =
     GaugeImage(JustifyLeft, ImportImage("softgaugebmp", true), GetPercentHitPoints(Target, OnEveryFrame));
-
-softTargetInRangeImage = 
-        ImportImage("softturretrangebmp", true);
-
-softTargetInRange =     
-    SwitchImage(
-        TargetInRangeFlag,
-        emptyImage,
-        [
-            (1, softTargetInRangeImage)
-        ]
-    );
-
-commandTargetDisplay =
-    VisibleImage(
-        TranslateImage(
-            GroupImage(
-                [
-                TranslateImage(softTargetExperience, Point(-19, 29)),
-                TranslateImage(softTargetTeamColor, Point(6, 6)),
-                TranslateImage(softTargetShield, Point(54, 26)),
-                TranslateImage(softTargetHull, Point(54, 8)),
-                TranslateImage(softTargetName, Point(115, 38)),
-                TranslateImage(softTargetDesc, Point(115, 22)),
-                TranslateImage(softTargetLocationImage, Point(246, 24)),
-                TranslateImage(softTargetRange, Point(279, 38)),
-                TranslateImage(softTargetSpeed, Point(279, 22)),
-                TranslateImage(softTargetInRange, Point(-24, 25)),
-                ImportImage("softtargetbgbmp", true)
-                ]
-            ),
-            Point(125, 30)
-        ),
-        IsNotNull(Target, OnEveryFrame)
-    );
 
 
 
