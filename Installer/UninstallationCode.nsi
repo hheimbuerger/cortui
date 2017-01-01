@@ -15,6 +15,7 @@ SectionEnd
 
 Section /o "${SECTIONTITLE_UN_CORTUI}" UN_SECIDX_CORTUI
   	File unCode\*
+  	Delete "$INSTDIR\gh_*.mdl"
     Delete "$INSTDIR\cortui_settings.mdl"
     RMDir /r "$INSTDIR\mods\CortUI\media"
     Delete "$INSTDIR\mods\CortUI\# Release Notes.txt"
