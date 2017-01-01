@@ -24,12 +24,6 @@
 
 
 ;--------------------------------
-; Configuration page
-
-	Page custom openConfigurationScreen
-
-
-;--------------------------------
 ; Directory page
 
 	!insertmacro MUI_PAGE_DIRECTORY

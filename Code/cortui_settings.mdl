@@ -1,20 +1,11 @@
 // Version information
 cortUIVersionString = "?";
 
-// Parameter: Number of chat lines in the lobby. Keep between 1 and 10.
-NumChatLinesLobby = ?;
-
 // Parameter: Number of chat lines. Keep between 1 and 10.
 NumChatLinesGlobal = ?;
 
-// Parameter: Number of chat lines. Keep between 1 and 10. Six is optimum.
-NumChatLinesLoadout = ?;
-
-// Parameter: 1 if the loadout window should always be shown in cockpit (non-removable), 0 if it should be toggled (off by default)
-AlwaysShowLoadoutWindow = ?;
-
-// Parameter: 1 if the minimap should always be shown at the loadout screen (non-removable), 0 if it should be never shown
-ShowMinimapAtLoadoutScreen = ?;
+// Parameter: Number of chat lines in the lobby. Keep between 1 and 10.
+NumChatLinesLobby = ?;
 
 // Parameter: 1 if the last accepted and last queued order should be shown, 0 if not
 ShowLastOrders = ?;

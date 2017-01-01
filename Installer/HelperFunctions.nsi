@@ -49,10 +49,9 @@ Function backupCoreFiles
   StrCpy $8 "$INSTDIR\mods\CortUI\Backup $7\"
   CreateDirectory $8
   CopyFiles /silent "$INSTDIR\dialog.mdl" $8
-  CopyFiles /silent "$INSTDIR\hangar.mdl" $8
   CopyFiles /silent "$INSTDIR\loadoutpane.mdl" $8
   CopyFiles /silent "$INSTDIR\partinfo.mdl" $8
-  CopyFiles /silent "$INSTDIR\teamscreen.mdl" $8
+#  CopyFiles /silent "$INSTDIR\teamscreen.mdl" $8
   CopyFiles /silent "$INSTDIR\armingbarbkgndbmp.mdl" $8
   CopyFiles /silent "$INSTDIR\armingbarbmp.mdl" $8
   CopyFiles /silent "$INSTDIR\conesectorinfobmp.mdl" $8
@@ -81,46 +80,24 @@ Function setSettings
 	loop:
 	   FileRead $3 $5
 	   IfErrors done
-#MessageBox MB_ICONEXCLAMATION|MB_OK "|$5|"
 	   StrCmp $5 "cortUIVersionString = $\"?$\";$\r$\n" 0 +3
 	      FileWrite $4 "cortUIVersionString = $\"CortUI v${VERSION}$\";$\r$\n"
-	      Goto loop
-	   StrCmp $5 "NumChatLinesLobby = ?;$\r$\n" 0 +3
-	      FileWrite $4 "NumChatLinesLobby = $settingsNumChatLinesLobby;$\r$\n"
 	      Goto loop
 	   StrCmp $5 "NumChatLinesGlobal = ?;$\r$\n" 0 +3
 	      FileWrite $4 "NumChatLinesGlobal = $settingsNumChatLinesGlobal;$\r$\n"
 	      Goto loop
-	   StrCmp $5 "NumChatLinesLoadout = ?;$\r$\n" 0 +3
-	      FileWrite $4 "NumChatLinesLoadout = $settingsNumChatLinesLoadout;$\r$\n"
-	      Goto loop
-	   StrCmp $5 "AlwaysShowLoadoutWindow = ?;$\r$\n" 0 +3
-#MessageBox MB_ICONEXCLAMATION|MB_OK "settingsAlwaysShowLoadoutWindow"
-	      FileWrite $4 "AlwaysShowLoadoutWindow = $settingsAlwaysShowLoadoutWindow;$\r$\n"
-	      Goto loop
-	   StrCmp $5 "ShowMinimapAtLoadoutScreen = ?;$\r$\n" 0 +3
-#MessageBox MB_ICONEXCLAMATION|MB_OK "settingsShowMinimapAtLoadoutScreen"
-	      FileWrite $4 "ShowMinimapAtLoadoutScreen = $settingsShowMinimapAtLoadoutScreen;$\r$\n"
+	   StrCmp $5 "NumChatLinesLobby = ?;$\r$\n" 0 +3
+	      FileWrite $4 "NumChatLinesLobby = $settingsNumChatLinesLobby;$\r$\n"
 	      Goto loop
 	   StrCmp $5 "ShowLastOrders = ?;$\r$\n" 0 +3
-#MessageBox MB_ICONEXCLAMATION|MB_OK "settingsShowLastOrders"
 	      FileWrite $4 "ShowLastOrders = $settingsShowLastOrders;$\r$\n"
 	      Goto loop
 	   StrCmp $5 "ShowScrollbarOnCockpitChat = ?;$\r$\n" 0 +3
-#MessageBox MB_ICONEXCLAMATION|MB_OK "settingsShowScrollbar"
 	      FileWrite $4 "ShowScrollbarOnCockpitChat = $settingsShowScrollbar;$\r$\n"
-	      Goto loop
-	   StrCmp $5 "SoftwareHUDMode = ?;$\r$\n" 0 +3
-#MessageBox MB_ICONEXCLAMATION|MB_OK "settingsSoftwareHUDMode"
-	      FileWrite $4 "SoftwareHUDMode = $settingsSoftwareHUDMode;$\r$\n"
-	      Goto loop
-	   StrCmp $5 "NormalHUDMode = ?;$\r$\n" 0 +3
-#MessageBox MB_ICONEXCLAMATION|MB_OK "settingsNormalHUDMode"
-	      FileWrite $4 "NormalHUDMode = $settingsNormalHUDMode;$\r$\n"
 	      Goto loop
 	   FileWrite $4 $5
 	   Goto loop
-	
+
 	done:
 	   FileClose $3
 	   FileClose $4

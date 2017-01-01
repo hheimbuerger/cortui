@@ -52,14 +52,6 @@
 
 	!define FIELD_INSTALLLOBBY			"Field 1"
 	!define FIELD_INSTALLHANGAR			"Field 2"
-	!define FIELD_CHATLINESGLOBAL		"Field 5"
-	!define FIELD_CHATLINESLOADOUT		"Field 7"
-	!define FIELD_SHOWLOADOUT			"Field 8"
-	!define FIELD_SHOWMINIMAP			"Field 9"
-	!define FIELD_SHOWORDERS			"Field 10"
-	!define FIELD_SHOWSCROLLBAR			"Field 11"
-	!define FIELD_NORMALHUDMODE   	    "Field 13"
-	!define FIELD_SOFTWAREHUDMODE   	"Field 15"
 
 	!define INSTALLOPTIONS_TEMP_FILE	"CortUIConfig.ini"       # the name of the configuration .ini file in the temp directory at installation-time
 
@@ -67,20 +59,12 @@
 ;--------------------------------
 ; Variables
 
-	Var isLobbyScreenSelected
-	Var isHangarScreenSelected
+#	Var isLobbyScreenSelected
 	Var settingsFilename
 	Var settingsNumChatLinesLobby
 	Var settingsNumChatLinesGlobal
-	Var settingsNumChatLinesLoadout
-	Var settingsAlwaysShowLoadoutWindow
-	Var settingsShowMinimapAtLoadoutScreen
 	Var settingsShowLastOrders
 	Var settingsShowScrollbar
-	Var settingsSoftwareHUDModeText
-	Var settingsSoftwareHUDMode
-	Var settingsNormalHUDModeText
-	Var settingsNormalHUDMode
 	Var allegiancePath
 
 
@@ -109,7 +93,6 @@
 	!include "Installer\Interface.nsi"										# defines general UI options (header, icon, etc.)
 	!include "Installer\GetLocalTime.nsi"									# used for creating the backup directories with a timestamp
 	!include "Installer\HelperFunctions.nsi"								# various helpers (checking for Alleg process, writing cortui_settings.mdl, backup)
-	!define INSTALLOPTIONS_INI_FILE "Installer\ConfigurationScreen.ini"		# defines the configuration screen UI
 	!include "Installer\InstallationPages.nsi"								# the pages shown during installation
 	!include "Installer\UninstallationPages.nsi"							# the code used during installation
 	!include "Installer\InstallationCode.nsi"								# the pages shown during uninstallation
