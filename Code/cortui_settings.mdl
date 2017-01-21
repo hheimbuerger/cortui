@@ -22,9 +22,9 @@ ParciHUDSlot = 4;
 JelloHUDSlot = 5;   // not yet available in the Alleg client
 HUDs = [
     (ClassicHUDSlot, "CortUI Classic"),
-    (RaveenHUDSlot, "Raveen's Software HUD"),
+    (RaveenHUDSlot, "Raveen's HUD"),
     (LessHUDSlot, "lessHUD"),
     (GlassHUDSlot, "GlassHUD"),
-    (ParciHUDSlot, "Parci's Software HUD"),
+    (ParciHUDSlot, "Parci's HUD"),
     (JelloHUDSlot, "Jello Shot")
 ];
