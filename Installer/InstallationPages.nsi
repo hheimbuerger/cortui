@@ -1,15 +1,7 @@
 ;--------------------------------
 ; Welcome page
 
-	!define MUI_WELCOMEPAGE_TEXT "You're using this installer at your own risk. You might want to backup your complete 'artwork\' directory before using it. \
-								 $\r$\n$\r$\n \
-								 The uninstaller will remove the CortUI files and restore the replaced UI files from a recent version of the Allegiance installer. \
-								 It will *not* restore any files you edited before installing CortUI. But it will backup all replaced files before installing and before \
-								 uninstalling (in the directory 'artwork\mods\CortUI\backup *\'). \
-								 $\r$\n$\r$\n \
-								 Please visit http://cortui.rtsquad.org/ for updates, to report problems or to suggest improvements. \
-								 $\r$\n$\r$\n \
-								 [Installer build: ${INSTALLER_BUILD}]"
+	!define MUI_WELCOMEPAGE_TEXT "CortUI is a UI modification for Allegiance that aims to improve your access to information in the heat of the battle. It comes with multiple alternative HUDs, which can be switched mid-flight in the 'Graphics' -> 'Style' menu.$\r$\n$\r$\nPlease close Allegiance before installing. When asked for a destination folder, select Allegiance's artwork folder (the production folder is automatically detected and recommended).$\r$\n$\r$\nVisit http://cortui.rtsquad.org/ for updates, to report problems or to suggest improvements.$\r$\n$\r$\n[Installer build: ${INSTALLER_BUILD}]"
 	!insertmacro MUI_PAGE_WELCOME
 
 
@@ -20,7 +12,7 @@
 	!define MUI_PAGE_CUSTOMFUNCTION_LEAVE checkForAllegProcess
 
 	# Show the components page
-	!insertmacro MUI_PAGE_COMPONENTS
+	# !insertmacro MUI_PAGE_COMPONENTS
 
 
 ;--------------------------------
